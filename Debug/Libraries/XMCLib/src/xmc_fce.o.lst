@@ -1,0 +1,2300 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_fce.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.XMC_FCE_Init,"ax",%progbits
+  20              	 .align 2
+  21              	 .global XMC_FCE_Init
+  22              	 .thumb
+  23              	 .thumb_func
+  25              	XMC_FCE_Init:
+  26              	.LFB193:
+  27              	 .file 1 "../Libraries/XMCLib/src/xmc_fce.c"
+   1:../Libraries/XMCLib/src/xmc_fce.c **** /**
+   2:../Libraries/XMCLib/src/xmc_fce.c ****  * @file xmc_fce.c
+   3:../Libraries/XMCLib/src/xmc_fce.c ****  * @date 2019-03-30
+   4:../Libraries/XMCLib/src/xmc_fce.c ****  *
+   5:../Libraries/XMCLib/src/xmc_fce.c ****  * @cond
+   6:../Libraries/XMCLib/src/xmc_fce.c ****  **************************************************************************************************
+   7:../Libraries/XMCLib/src/xmc_fce.c ****  * XMClib v2.1.22 - XMC Peripheral Driver Library 
+   8:../Libraries/XMCLib/src/xmc_fce.c ****  *
+   9:../Libraries/XMCLib/src/xmc_fce.c ****  * Copyright (c) 2015-2019, Infineon Technologies AG
+  10:../Libraries/XMCLib/src/xmc_fce.c ****  * All rights reserved.                        
+  11:../Libraries/XMCLib/src/xmc_fce.c ****  *                                             
+  12:../Libraries/XMCLib/src/xmc_fce.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:../Libraries/XMCLib/src/xmc_fce.c ****  * following conditions are met:   
+  14:../Libraries/XMCLib/src/xmc_fce.c ****  *                                                                              
+  15:../Libraries/XMCLib/src/xmc_fce.c ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:../Libraries/XMCLib/src/xmc_fce.c ****  * disclaimer.                        
+  17:../Libraries/XMCLib/src/xmc_fce.c ****  * 
+  18:../Libraries/XMCLib/src/xmc_fce.c ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:../Libraries/XMCLib/src/xmc_fce.c ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:../Libraries/XMCLib/src/xmc_fce.c ****  * 
+  21:../Libraries/XMCLib/src/xmc_fce.c ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:../Libraries/XMCLib/src/xmc_fce.c ****  * products derived from this software without specific prior written permission.                  
+  23:../Libraries/XMCLib/src/xmc_fce.c ****  *                                                                              
+  24:../Libraries/XMCLib/src/xmc_fce.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:../Libraries/XMCLib/src/xmc_fce.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:../Libraries/XMCLib/src/xmc_fce.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:../Libraries/XMCLib/src/xmc_fce.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:../Libraries/XMCLib/src/xmc_fce.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:../Libraries/XMCLib/src/xmc_fce.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:../Libraries/XMCLib/src/xmc_fce.c ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:../Libraries/XMCLib/src/xmc_fce.c ****  *                                                                              
+  32:../Libraries/XMCLib/src/xmc_fce.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:../Libraries/XMCLib/src/xmc_fce.c ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:../Libraries/XMCLib/src/xmc_fce.c ****  **************************************************************************************************
+  35:../Libraries/XMCLib/src/xmc_fce.c ****  *
+  36:../Libraries/XMCLib/src/xmc_fce.c ****  * Change History
+  37:../Libraries/XMCLib/src/xmc_fce.c ****  * --------------
+  38:../Libraries/XMCLib/src/xmc_fce.c ****  *
+  39:../Libraries/XMCLib/src/xmc_fce.c ****  * 2015-02-20:
+  40:../Libraries/XMCLib/src/xmc_fce.c ****  *     - Initial <br>
+  41:../Libraries/XMCLib/src/xmc_fce.c ****  *      
+  42:../Libraries/XMCLib/src/xmc_fce.c ****  * 2015-06-20:
+  43:../Libraries/XMCLib/src/xmc_fce.c ****  *     - Removed GetDriverVersion API
+  44:../Libraries/XMCLib/src/xmc_fce.c ****  *
+  45:../Libraries/XMCLib/src/xmc_fce.c ****  * 2017-12-14:
+  46:../Libraries/XMCLib/src/xmc_fce.c ****  *     - XMC_FCE_CalculateCRC8()
+  47:../Libraries/XMCLib/src/xmc_fce.c ****  *       Ensure 32bit access to IR register
+  48:../Libraries/XMCLib/src/xmc_fce.c ****  *     - XMC_FCE_CalculateCRC16()
+  49:../Libraries/XMCLib/src/xmc_fce.c ****  *       Ensure 32bit access to IR register
+  50:../Libraries/XMCLib/src/xmc_fce.c ****  *       Remove restriction on data source allignment
+  51:../Libraries/XMCLib/src/xmc_fce.c ****  *     - XMC_FCE_CalculateCRC32()
+  52:../Libraries/XMCLib/src/xmc_fce.c ****  *       Ensure 32bit access to IR register
+  53:../Libraries/XMCLib/src/xmc_fce.c ****  *       Remove restriction on data source allignment
+  54:../Libraries/XMCLib/src/xmc_fce.c ****  *
+  55:../Libraries/XMCLib/src/xmc_fce.c ****  * 2019-03-30:
+  56:../Libraries/XMCLib/src/xmc_fce.c ****  *     - Added XMC_FCE_CalculateCRC16Ex() and XMC_FCE_CalculateCRC32Ex()
+  57:../Libraries/XMCLib/src/xmc_fce.c ****  * 
+  58:../Libraries/XMCLib/src/xmc_fce.c ****  * @endcond 
+  59:../Libraries/XMCLib/src/xmc_fce.c ****  *
+  60:../Libraries/XMCLib/src/xmc_fce.c ****  */
+  61:../Libraries/XMCLib/src/xmc_fce.c **** 
+  62:../Libraries/XMCLib/src/xmc_fce.c **** /**************************************************************************************************
+  63:../Libraries/XMCLib/src/xmc_fce.c ****  * HEADER FILES
+  64:../Libraries/XMCLib/src/xmc_fce.c ****  **************************************************************************************************
+  65:../Libraries/XMCLib/src/xmc_fce.c **** #include <xmc_fce.h>
+  66:../Libraries/XMCLib/src/xmc_fce.c **** 
+  67:../Libraries/XMCLib/src/xmc_fce.c **** #if defined (FCE)
+  68:../Libraries/XMCLib/src/xmc_fce.c **** #include <xmc_scu.h>
+  69:../Libraries/XMCLib/src/xmc_fce.c **** 
+  70:../Libraries/XMCLib/src/xmc_fce.c **** /*******************************************************************************
+  71:../Libraries/XMCLib/src/xmc_fce.c ****  * API IMPLEMENTATION
+  72:../Libraries/XMCLib/src/xmc_fce.c ****  **************************************************************************************************
+  73:../Libraries/XMCLib/src/xmc_fce.c **** 
+  74:../Libraries/XMCLib/src/xmc_fce.c **** /*
+  75:../Libraries/XMCLib/src/xmc_fce.c ****  * Initialize the FCE peripheral:
+  76:../Libraries/XMCLib/src/xmc_fce.c ****  * Update FCE configuration and initialize seed value
+  77:../Libraries/XMCLib/src/xmc_fce.c ****  */
+  78:../Libraries/XMCLib/src/xmc_fce.c **** XMC_FCE_STATUS_t XMC_FCE_Init(const XMC_FCE_t *const engine)
+  79:../Libraries/XMCLib/src/xmc_fce.c **** {
+  28              	 .loc 1 79 0
+  29              	 .cfi_startproc
+  30              	 
+  31              	 
+  32              	 
+  33 0000 80B4     	 push {r7}
+  34              	.LCFI0:
+  35              	 .cfi_def_cfa_offset 4
+  36              	 .cfi_offset 7,-4
+  37 0002 83B0     	 sub sp,sp,#12
+  38              	.LCFI1:
+  39              	 .cfi_def_cfa_offset 16
+  40 0004 00AF     	 add r7,sp,#0
+  41              	.LCFI2:
+  42              	 .cfi_def_cfa_register 7
+  43 0006 7860     	 str r0,[r7,#4]
+  80:../Libraries/XMCLib/src/xmc_fce.c ****   engine->kernel_ptr->CFG = engine->fce_cfg_update.regval;
+  44              	 .loc 1 80 0
+  45 0008 7B68     	 ldr r3,[r7,#4]
+  46 000a 1B68     	 ldr r3,[r3]
+  47 000c 7A68     	 ldr r2,[r7,#4]
+  48 000e 5268     	 ldr r2,[r2,#4]
+  49 0010 9A60     	 str r2,[r3,#8]
+  81:../Libraries/XMCLib/src/xmc_fce.c ****   engine->kernel_ptr->CRC = engine->seedvalue;
+  50              	 .loc 1 81 0
+  51 0012 7B68     	 ldr r3,[r7,#4]
+  52 0014 1B68     	 ldr r3,[r3]
+  53 0016 7A68     	 ldr r2,[r7,#4]
+  54 0018 9268     	 ldr r2,[r2,#8]
+  55 001a 9A61     	 str r2,[r3,#24]
+  82:../Libraries/XMCLib/src/xmc_fce.c ****   
+  83:../Libraries/XMCLib/src/xmc_fce.c ****   return XMC_FCE_STATUS_OK;
+  56              	 .loc 1 83 0
+  57 001c 0023     	 movs r3,#0
+  84:../Libraries/XMCLib/src/xmc_fce.c **** }
+  58              	 .loc 1 84 0
+  59 001e 1846     	 mov r0,r3
+  60 0020 0C37     	 adds r7,r7,#12
+  61              	.LCFI3:
+  62              	 .cfi_def_cfa_offset 4
+  63 0022 BD46     	 mov sp,r7
+  64              	.LCFI4:
+  65              	 .cfi_def_cfa_register 13
+  66              	 
+  67 0024 5DF8047B 	 ldr r7,[sp],#4
+  68              	.LCFI5:
+  69              	 .cfi_restore 7
+  70              	 .cfi_def_cfa_offset 0
+  71 0028 7047     	 bx lr
+  72              	 .cfi_endproc
+  73              	.LFE193:
+  75 002a 00BF     	 .section .text.XMC_FCE_Disable,"ax",%progbits
+  76              	 .align 2
+  77              	 .global XMC_FCE_Disable
+  78              	 .thumb
+  79              	 .thumb_func
+  81              	XMC_FCE_Disable:
+  82              	.LFB194:
+  85:../Libraries/XMCLib/src/xmc_fce.c **** 
+  86:../Libraries/XMCLib/src/xmc_fce.c **** /* Disable FCE */
+  87:../Libraries/XMCLib/src/xmc_fce.c **** void XMC_FCE_Disable(void)
+  88:../Libraries/XMCLib/src/xmc_fce.c **** {
+  83              	 .loc 1 88 0
+  84              	 .cfi_startproc
+  85              	 
+  86              	 
+  87 0000 80B5     	 push {r7,lr}
+  88              	.LCFI6:
+  89              	 .cfi_def_cfa_offset 8
+  90              	 .cfi_offset 7,-8
+  91              	 .cfi_offset 14,-4
+  92 0002 00AF     	 add r7,sp,#0
+  93              	.LCFI7:
+  94              	 .cfi_def_cfa_register 7
+  89:../Libraries/XMCLib/src/xmc_fce.c ****   FCE->CLC |= (uint32_t)FCE_CLC_DISR_Msk;
+  95              	 .loc 1 89 0
+  96 0004 064A     	 ldr r2,.L4
+  97 0006 064B     	 ldr r3,.L4
+  98 0008 1B68     	 ldr r3,[r3]
+  99 000a 43F00103 	 orr r3,r3,#1
+ 100 000e 1360     	 str r3,[r2]
+  90:../Libraries/XMCLib/src/xmc_fce.c ****   
+  91:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_SCU_RESET_AssertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_FCE);
+ 101              	 .loc 1 91 0
+ 102 0010 0448     	 ldr r0,.L4+4
+ 103 0012 FFF7FEFF 	 bl XMC_SCU_RESET_AssertPeripheralReset
+  92:../Libraries/XMCLib/src/xmc_fce.c **** 
+  93:../Libraries/XMCLib/src/xmc_fce.c **** #if defined(CLOCK_GATING_SUPPORTED)
+  94:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_SCU_CLOCK_GatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_FCE);
+ 104              	 .loc 1 94 0
+ 105 0016 0348     	 ldr r0,.L4+4
+ 106 0018 FFF7FEFF 	 bl XMC_SCU_CLOCK_GatePeripheralClock
+  95:../Libraries/XMCLib/src/xmc_fce.c **** #endif
+  96:../Libraries/XMCLib/src/xmc_fce.c **** 
+  97:../Libraries/XMCLib/src/xmc_fce.c **** }
+ 107              	 .loc 1 97 0
+ 108 001c 80BD     	 pop {r7,pc}
+ 109              	.L5:
+ 110 001e 00BF     	 .align 2
+ 111              	.L4:
+ 112 0020 00000250 	 .word 1342308352
+ 113 0024 40000020 	 .word 536870976
+ 114              	 .cfi_endproc
+ 115              	.LFE194:
+ 117              	 .section .text.XMC_FCE_Enable,"ax",%progbits
+ 118              	 .align 2
+ 119              	 .global XMC_FCE_Enable
+ 120              	 .thumb
+ 121              	 .thumb_func
+ 123              	XMC_FCE_Enable:
+ 124              	.LFB195:
+  98:../Libraries/XMCLib/src/xmc_fce.c **** 
+  99:../Libraries/XMCLib/src/xmc_fce.c **** /* Enable FCE */
+ 100:../Libraries/XMCLib/src/xmc_fce.c **** void XMC_FCE_Enable(void)
+ 101:../Libraries/XMCLib/src/xmc_fce.c **** {
+ 125              	 .loc 1 101 0
+ 126              	 .cfi_startproc
+ 127              	 
+ 128              	 
+ 129 0000 80B5     	 push {r7,lr}
+ 130              	.LCFI8:
+ 131              	 .cfi_def_cfa_offset 8
+ 132              	 .cfi_offset 7,-8
+ 133              	 .cfi_offset 14,-4
+ 134 0002 00AF     	 add r7,sp,#0
+ 135              	.LCFI9:
+ 136              	 .cfi_def_cfa_register 7
+ 102:../Libraries/XMCLib/src/xmc_fce.c **** #if defined(CLOCK_GATING_SUPPORTED)
+ 103:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_FCE);
+ 137              	 .loc 1 103 0
+ 138 0004 0648     	 ldr r0,.L7
+ 139 0006 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+ 104:../Libraries/XMCLib/src/xmc_fce.c **** #endif
+ 105:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 106:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_SCU_RESET_DeassertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_FCE);
+ 140              	 .loc 1 106 0
+ 141 000a 0548     	 ldr r0,.L7
+ 142 000c FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+ 107:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 108:../Libraries/XMCLib/src/xmc_fce.c ****   FCE->CLC &= (uint32_t)~FCE_CLC_DISR_Msk;
+ 143              	 .loc 1 108 0
+ 144 0010 044A     	 ldr r2,.L7+4
+ 145 0012 044B     	 ldr r3,.L7+4
+ 146 0014 1B68     	 ldr r3,[r3]
+ 147 0016 23F00103 	 bic r3,r3,#1
+ 148 001a 1360     	 str r3,[r2]
+ 109:../Libraries/XMCLib/src/xmc_fce.c **** }
+ 149              	 .loc 1 109 0
+ 150 001c 80BD     	 pop {r7,pc}
+ 151              	.L8:
+ 152 001e 00BF     	 .align 2
+ 153              	.L7:
+ 154 0020 40000020 	 .word 536870976
+ 155 0024 00000250 	 .word 1342308352
+ 156              	 .cfi_endproc
+ 157              	.LFE195:
+ 159              	 .section .text.XMC_FCE_CalculateCRC8,"ax",%progbits
+ 160              	 .align 2
+ 161              	 .global XMC_FCE_CalculateCRC8
+ 162              	 .thumb
+ 163              	 .thumb_func
+ 165              	XMC_FCE_CalculateCRC8:
+ 166              	.LFB196:
+ 110:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 111:../Libraries/XMCLib/src/xmc_fce.c **** /* Calculate and return the SAE J1850 CRC8 checksum */
+ 112:../Libraries/XMCLib/src/xmc_fce.c **** XMC_FCE_STATUS_t XMC_FCE_CalculateCRC8(const XMC_FCE_t *const engine,
+ 113:../Libraries/XMCLib/src/xmc_fce.c ****                                        const uint8_t *data,
+ 114:../Libraries/XMCLib/src/xmc_fce.c **** 									   uint32_t length,
+ 115:../Libraries/XMCLib/src/xmc_fce.c **** 									   uint8_t *result)
+ 116:../Libraries/XMCLib/src/xmc_fce.c **** {
+ 167              	 .loc 1 116 0
+ 168              	 .cfi_startproc
+ 169              	 
+ 170              	 
+ 171              	 
+ 172 0000 80B4     	 push {r7}
+ 173              	.LCFI10:
+ 174              	 .cfi_def_cfa_offset 4
+ 175              	 .cfi_offset 7,-4
+ 176 0002 87B0     	 sub sp,sp,#28
+ 177              	.LCFI11:
+ 178              	 .cfi_def_cfa_offset 32
+ 179 0004 00AF     	 add r7,sp,#0
+ 180              	.LCFI12:
+ 181              	 .cfi_def_cfa_register 7
+ 182 0006 F860     	 str r0,[r7,#12]
+ 183 0008 B960     	 str r1,[r7,#8]
+ 184 000a 7A60     	 str r2,[r7,#4]
+ 185 000c 3B60     	 str r3,[r7]
+ 117:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_FCE_STATUS_t status = XMC_FCE_STATUS_OK;
+ 186              	 .loc 1 117 0
+ 187 000e 0023     	 movs r3,#0
+ 188 0010 FB75     	 strb r3,[r7,#23]
+ 118:../Libraries/XMCLib/src/xmc_fce.c **** 	
+ 119:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC8: Wrong FCE kernel used", (engine -> kernel_ptr == XMC_FCE_CRC8)
+ 120:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 121:../Libraries/XMCLib/src/xmc_fce.c ****   if (length == 0UL)
+ 189              	 .loc 1 121 0
+ 190 0012 7B68     	 ldr r3,[r7,#4]
+ 191 0014 002B     	 cmp r3,#0
+ 192 0016 02D1     	 bne .L10
+ 122:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 123:../Libraries/XMCLib/src/xmc_fce.c ****     status = XMC_FCE_STATUS_ERROR;
+ 193              	 .loc 1 123 0
+ 194 0018 0223     	 movs r3,#2
+ 195 001a FB75     	 strb r3,[r7,#23]
+ 196 001c 14E0     	 b .L11
+ 197              	.L10:
+ 124:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 125:../Libraries/XMCLib/src/xmc_fce.c ****   else
+ 126:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 127:../Libraries/XMCLib/src/xmc_fce.c ****     while (0UL != length)
+ 198              	 .loc 1 127 0
+ 199 001e 0AE0     	 b .L12
+ 200              	.L13:
+ 128:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 129:../Libraries/XMCLib/src/xmc_fce.c ****       engine->kernel_ptr->IR = (uint32_t)*data;
+ 201              	 .loc 1 129 0
+ 202 0020 FB68     	 ldr r3,[r7,#12]
+ 203 0022 1B68     	 ldr r3,[r3]
+ 204 0024 BA68     	 ldr r2,[r7,#8]
+ 205 0026 1278     	 ldrb r2,[r2]
+ 206 0028 1A60     	 str r2,[r3]
+ 130:../Libraries/XMCLib/src/xmc_fce.c ****       data++;
+ 207              	 .loc 1 130 0
+ 208 002a BB68     	 ldr r3,[r7,#8]
+ 209 002c 0133     	 adds r3,r3,#1
+ 210 002e BB60     	 str r3,[r7,#8]
+ 131:../Libraries/XMCLib/src/xmc_fce.c ****       length -= 1U;
+ 211              	 .loc 1 131 0
+ 212 0030 7B68     	 ldr r3,[r7,#4]
+ 213 0032 013B     	 subs r3,r3,#1
+ 214 0034 7B60     	 str r3,[r7,#4]
+ 215              	.L12:
+ 127:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 216              	 .loc 1 127 0
+ 217 0036 7B68     	 ldr r3,[r7,#4]
+ 218 0038 002B     	 cmp r3,#0
+ 219 003a F1D1     	 bne .L13
+ 132:../Libraries/XMCLib/src/xmc_fce.c ****     }
+ 133:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 134:../Libraries/XMCLib/src/xmc_fce.c ****     *result = (uint8_t)engine->kernel_ptr->CRC;
+ 220              	 .loc 1 134 0
+ 221 003c FB68     	 ldr r3,[r7,#12]
+ 222 003e 1B68     	 ldr r3,[r3]
+ 223 0040 9B69     	 ldr r3,[r3,#24]
+ 224 0042 DAB2     	 uxtb r2,r3
+ 225 0044 3B68     	 ldr r3,[r7]
+ 226 0046 1A70     	 strb r2,[r3]
+ 227              	.L11:
+ 135:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 136:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 137:../Libraries/XMCLib/src/xmc_fce.c ****   return status;
+ 228              	 .loc 1 137 0
+ 229 0048 FB7D     	 ldrb r3,[r7,#23]
+ 138:../Libraries/XMCLib/src/xmc_fce.c **** }
+ 230              	 .loc 1 138 0
+ 231 004a 1846     	 mov r0,r3
+ 232 004c 1C37     	 adds r7,r7,#28
+ 233              	.LCFI13:
+ 234              	 .cfi_def_cfa_offset 4
+ 235 004e BD46     	 mov sp,r7
+ 236              	.LCFI14:
+ 237              	 .cfi_def_cfa_register 13
+ 238              	 
+ 239 0050 5DF8047B 	 ldr r7,[sp],#4
+ 240              	.LCFI15:
+ 241              	 .cfi_restore 7
+ 242              	 .cfi_def_cfa_offset 0
+ 243 0054 7047     	 bx lr
+ 244              	 .cfi_endproc
+ 245              	.LFE196:
+ 247 0056 00BF     	 .section .text.XMC_FCE_CalculateCRC16,"ax",%progbits
+ 248              	 .align 2
+ 249              	 .global XMC_FCE_CalculateCRC16
+ 250              	 .thumb
+ 251              	 .thumb_func
+ 253              	XMC_FCE_CalculateCRC16:
+ 254              	.LFB197:
+ 139:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 140:../Libraries/XMCLib/src/xmc_fce.c **** /* Calculate and return calculated CCITT CRC16 checksum */
+ 141:../Libraries/XMCLib/src/xmc_fce.c **** XMC_FCE_STATUS_t XMC_FCE_CalculateCRC16(const XMC_FCE_t *const engine,
+ 142:../Libraries/XMCLib/src/xmc_fce.c ****                                         const uint16_t *data,
+ 143:../Libraries/XMCLib/src/xmc_fce.c **** 										uint32_t length,
+ 144:../Libraries/XMCLib/src/xmc_fce.c **** 										uint16_t *result)
+ 145:../Libraries/XMCLib/src/xmc_fce.c **** {
+ 255              	 .loc 1 145 0
+ 256              	 .cfi_startproc
+ 257              	 
+ 258              	 
+ 259              	 
+ 260 0000 80B4     	 push {r7}
+ 261              	.LCFI16:
+ 262              	 .cfi_def_cfa_offset 4
+ 263              	 .cfi_offset 7,-4
+ 264 0002 87B0     	 sub sp,sp,#28
+ 265              	.LCFI17:
+ 266              	 .cfi_def_cfa_offset 32
+ 267 0004 00AF     	 add r7,sp,#0
+ 268              	.LCFI18:
+ 269              	 .cfi_def_cfa_register 7
+ 270 0006 F860     	 str r0,[r7,#12]
+ 271 0008 B960     	 str r1,[r7,#8]
+ 272 000a 7A60     	 str r2,[r7,#4]
+ 273 000c 3B60     	 str r3,[r7]
+ 146:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_FCE_STATUS_t status = XMC_FCE_STATUS_OK;
+ 274              	 .loc 1 146 0
+ 275 000e 0023     	 movs r3,#0
+ 276 0010 FB75     	 strb r3,[r7,#23]
+ 147:../Libraries/XMCLib/src/xmc_fce.c **** 	
+ 148:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC16: Wrong FCE kernel used", (engine -> kernel_ptr == XMC_FCE_CRC1
+ 149:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC16: Length field is empty", (length != 0));
+ 150:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC16: Length is not aligned", ((length & 0x1U) == 0));
+ 151:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 152:../Libraries/XMCLib/src/xmc_fce.c ****   /* Check length is a multiple of 2 */
+ 153:../Libraries/XMCLib/src/xmc_fce.c ****   if ((length == 0) || ((length & 0x1U) != 0U))
+ 277              	 .loc 1 153 0
+ 278 0012 7B68     	 ldr r3,[r7,#4]
+ 279 0014 002B     	 cmp r3,#0
+ 280 0016 04D0     	 beq .L16
+ 281              	 .loc 1 153 0 is_stmt 0 discriminator 1
+ 282 0018 7B68     	 ldr r3,[r7,#4]
+ 283 001a 03F00103 	 and r3,r3,#1
+ 284 001e 002B     	 cmp r3,#0
+ 285 0020 02D0     	 beq .L17
+ 286              	.L16:
+ 154:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 155:../Libraries/XMCLib/src/xmc_fce.c ****     status = XMC_FCE_STATUS_ERROR;
+ 287              	 .loc 1 155 0 is_stmt 1
+ 288 0022 0223     	 movs r3,#2
+ 289 0024 FB75     	 strb r3,[r7,#23]
+ 290 0026 14E0     	 b .L18
+ 291              	.L17:
+ 156:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 157:../Libraries/XMCLib/src/xmc_fce.c ****   else
+ 158:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 159:../Libraries/XMCLib/src/xmc_fce.c ****     while (0UL != length)
+ 292              	 .loc 1 159 0
+ 293 0028 0AE0     	 b .L19
+ 294              	.L20:
+ 160:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 161:../Libraries/XMCLib/src/xmc_fce.c ****       engine->kernel_ptr->IR = (uint32_t)*data;
+ 295              	 .loc 1 161 0
+ 296 002a FB68     	 ldr r3,[r7,#12]
+ 297 002c 1B68     	 ldr r3,[r3]
+ 298 002e BA68     	 ldr r2,[r7,#8]
+ 299 0030 1288     	 ldrh r2,[r2]
+ 300 0032 1A60     	 str r2,[r3]
+ 162:../Libraries/XMCLib/src/xmc_fce.c ****       data++;
+ 301              	 .loc 1 162 0
+ 302 0034 BB68     	 ldr r3,[r7,#8]
+ 303 0036 0233     	 adds r3,r3,#2
+ 304 0038 BB60     	 str r3,[r7,#8]
+ 163:../Libraries/XMCLib/src/xmc_fce.c ****       length -= 2U;
+ 305              	 .loc 1 163 0
+ 306 003a 7B68     	 ldr r3,[r7,#4]
+ 307 003c 023B     	 subs r3,r3,#2
+ 308 003e 7B60     	 str r3,[r7,#4]
+ 309              	.L19:
+ 159:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 310              	 .loc 1 159 0
+ 311 0040 7B68     	 ldr r3,[r7,#4]
+ 312 0042 002B     	 cmp r3,#0
+ 313 0044 F1D1     	 bne .L20
+ 164:../Libraries/XMCLib/src/xmc_fce.c ****     }
+ 165:../Libraries/XMCLib/src/xmc_fce.c **** 	
+ 166:../Libraries/XMCLib/src/xmc_fce.c ****     *result = (uint16_t)engine->kernel_ptr->CRC;
+ 314              	 .loc 1 166 0
+ 315 0046 FB68     	 ldr r3,[r7,#12]
+ 316 0048 1B68     	 ldr r3,[r3]
+ 317 004a 9B69     	 ldr r3,[r3,#24]
+ 318 004c 9AB2     	 uxth r2,r3
+ 319 004e 3B68     	 ldr r3,[r7]
+ 320 0050 1A80     	 strh r2,[r3]
+ 321              	.L18:
+ 167:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 168:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 169:../Libraries/XMCLib/src/xmc_fce.c ****   return status;
+ 322              	 .loc 1 169 0
+ 323 0052 FB7D     	 ldrb r3,[r7,#23]
+ 170:../Libraries/XMCLib/src/xmc_fce.c **** }
+ 324              	 .loc 1 170 0
+ 325 0054 1846     	 mov r0,r3
+ 326 0056 1C37     	 adds r7,r7,#28
+ 327              	.LCFI19:
+ 328              	 .cfi_def_cfa_offset 4
+ 329 0058 BD46     	 mov sp,r7
+ 330              	.LCFI20:
+ 331              	 .cfi_def_cfa_register 13
+ 332              	 
+ 333 005a 5DF8047B 	 ldr r7,[sp],#4
+ 334              	.LCFI21:
+ 335              	 .cfi_restore 7
+ 336              	 .cfi_def_cfa_offset 0
+ 337 005e 7047     	 bx lr
+ 338              	 .cfi_endproc
+ 339              	.LFE197:
+ 341              	 .section .text.XMC_FCE_CalculateCRC16Ex,"ax",%progbits
+ 342              	 .align 2
+ 343              	 .global XMC_FCE_CalculateCRC16Ex
+ 344              	 .thumb
+ 345              	 .thumb_func
+ 347              	XMC_FCE_CalculateCRC16Ex:
+ 348              	.LFB198:
+ 171:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 172:../Libraries/XMCLib/src/xmc_fce.c **** XMC_FCE_STATUS_t XMC_FCE_CalculateCRC16Ex(const XMC_FCE_t *const engine,
+ 173:../Libraries/XMCLib/src/xmc_fce.c ****                                           const uint8_t *data,
+ 174:../Libraries/XMCLib/src/xmc_fce.c **** 										                      uint32_t length,
+ 175:../Libraries/XMCLib/src/xmc_fce.c **** 										                      uint16_t *const result)
+ 176:../Libraries/XMCLib/src/xmc_fce.c **** {
+ 349              	 .loc 1 176 0
+ 350              	 .cfi_startproc
+ 351              	 
+ 352              	 
+ 353              	 
+ 354 0000 80B4     	 push {r7}
+ 355              	.LCFI22:
+ 356              	 .cfi_def_cfa_offset 4
+ 357              	 .cfi_offset 7,-4
+ 358 0002 89B0     	 sub sp,sp,#36
+ 359              	.LCFI23:
+ 360              	 .cfi_def_cfa_offset 40
+ 361 0004 00AF     	 add r7,sp,#0
+ 362              	.LCFI24:
+ 363              	 .cfi_def_cfa_register 7
+ 364 0006 F860     	 str r0,[r7,#12]
+ 365 0008 B960     	 str r1,[r7,#8]
+ 366 000a 7A60     	 str r2,[r7,#4]
+ 367 000c 3B60     	 str r3,[r7]
+ 177:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_FCE_STATUS_t status = XMC_FCE_STATUS_OK;
+ 368              	 .loc 1 177 0
+ 369 000e 0023     	 movs r3,#0
+ 370 0010 FB77     	 strb r3,[r7,#31]
+ 178:../Libraries/XMCLib/src/xmc_fce.c **** 	
+ 179:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC16: Wrong FCE kernel used", (engine -> kernel_ptr == XMC_FCE_CRC1
+ 180:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC16: Length field is empty", (length != 0));
+ 181:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC16: Length is not aligned", ((length & 0x1U) == 0));
+ 182:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 183:../Libraries/XMCLib/src/xmc_fce.c ****   /* Check length is a multiple of 2 */
+ 184:../Libraries/XMCLib/src/xmc_fce.c ****   if ((length == 0) || ((length & 0x1U) != 0U))
+ 371              	 .loc 1 184 0
+ 372 0012 7B68     	 ldr r3,[r7,#4]
+ 373 0014 002B     	 cmp r3,#0
+ 374 0016 04D0     	 beq .L23
+ 375              	 .loc 1 184 0 is_stmt 0 discriminator 1
+ 376 0018 7B68     	 ldr r3,[r7,#4]
+ 377 001a 03F00103 	 and r3,r3,#1
+ 378 001e 002B     	 cmp r3,#0
+ 379 0020 02D0     	 beq .L24
+ 380              	.L23:
+ 185:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 186:../Libraries/XMCLib/src/xmc_fce.c ****     status = XMC_FCE_STATUS_ERROR;
+ 381              	 .loc 1 186 0 is_stmt 1
+ 382 0022 0223     	 movs r3,#2
+ 383 0024 FB77     	 strb r3,[r7,#31]
+ 384 0026 1BE0     	 b .L25
+ 385              	.L24:
+ 386              	.LBB8:
+ 187:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 188:../Libraries/XMCLib/src/xmc_fce.c ****   else
+ 189:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 190:../Libraries/XMCLib/src/xmc_fce.c ****     const uint16_t *p = (const uint16_t *)data;
+ 387              	 .loc 1 190 0
+ 388 0028 BB68     	 ldr r3,[r7,#8]
+ 389 002a BB61     	 str r3,[r7,#24]
+ 191:../Libraries/XMCLib/src/xmc_fce.c ****     while (0UL != length)
+ 390              	 .loc 1 191 0
+ 391 002c 0FE0     	 b .L26
+ 392              	.L28:
+ 192:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 193:../Libraries/XMCLib/src/xmc_fce.c ****       engine->kernel_ptr->IR = __REV16(*p);
+ 393              	 .loc 1 193 0
+ 394 002e FB68     	 ldr r3,[r7,#12]
+ 395 0030 1B68     	 ldr r3,[r3]
+ 396 0032 BA69     	 ldr r2,[r7,#24]
+ 397 0034 1288     	 ldrh r2,[r2]
+ 398 0036 7A61     	 str r2,[r7,#20]
+ 399              	.LBB9:
+ 400              	.LBB10:
+ 401              	 .file 2 "C:/CODE/Licenta/Libraries/CMSIS/Include/cmsis_gcc.h"
+   1:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**************************************************************************//**
+   2:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
+   4:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @version  V5.1.0
+   5:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @date     20. December 2018
+   6:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  ******************************************************************************/
+   7:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /*
+   8:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
+   9:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  10:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
+  11:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  12:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
+  13:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * not use this file except in compliance with the License.
+  14:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * You may obtain a copy of the License at
+  15:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  16:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
+  17:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  18:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
+  19:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  20:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  21:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * See the License for the specific language governing permissions and
+  22:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * limitations under the License.
+  23:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+  24:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  25:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  26:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_H
+  27:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  28:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ignore some GCC warnings */
+  29:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic push
+  30:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  31:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  32:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  33:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  34:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Fallback for __has_builtin */
+  35:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __has_builtin
+  36:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __has_builtin(x) (0)
+  37:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  38:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  39:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* CMSIS compiler specific defines */
+  40:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ASM
+  41:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ASM                                  __asm
+  42:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  43:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __INLINE
+  44:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __INLINE                               inline
+  45:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  46:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_INLINE
+  47:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
+  48:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  49:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
+  50:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
+  51:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif                                           
+  52:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __NO_RETURN
+  53:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
+  54:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  55:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __USED
+  56:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
+  57:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  58:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __WEAK
+  59:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
+  60:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  61:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED
+  62:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
+  63:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  64:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
+  65:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
+  66:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  67:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_UNION
+  68:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
+  69:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  70:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
+  71:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  72:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  73:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  74:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
+  75:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  76:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+  77:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  78:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
+  79:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  80:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  81:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  82:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+  83:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  84:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
+  85:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  86:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
+  87:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  88:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  89:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  90:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+  91:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  92:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
+  93:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  94:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
+  95:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  96:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  97:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  98:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+  99:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 100:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
+ 101:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 102:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
+ 103:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+ 104:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+ 105:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+ 106:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+ 107:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 108:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
+ 109:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 110:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ALIGNED
+ 111:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
+ 112:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 113:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __RESTRICT
+ 114:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __RESTRICT                             __restrict
+ 115:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 116:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 117:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 118:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+ 119:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+ 120:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+ 121:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
+ 122:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 123:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 124:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 125:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+ 126:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+ 127:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 128:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 129:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
+ 130:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 131:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+ 132:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 133:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 134:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 135:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 136:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+ 137:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+ 138:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 139:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 140:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
+ 141:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 142:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+ 143:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 144:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 145:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 146:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 147:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Control Register
+ 148:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the Control Register.
+ 149:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Control Register value
+ 150:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 151:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_CONTROL(void)
+ 152:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 153:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 154:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 155:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, control" : "=r" (result) );
+ 156:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 157:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 158:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 159:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 160:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 161:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 162:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Control Register (non-secure)
+ 163:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the non-secure Control Register when in secure mode.
+ 164:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               non-secure Control Register value
+ 165:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 166:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_CONTROL_NS(void)
+ 167:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 168:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 169:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 170:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, control_ns" : "=r" (result) );
+ 171:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 172:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 173:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 174:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 175:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 176:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 177:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Control Register
+ 178:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Writes the given value to the Control Register.
+ 179:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    control  Control Register value to set
+ 180:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 181:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_CONTROL(uint32_t control)
+ 182:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 183:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR control, %0" : : "r" (control) : "memory");
+ 184:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 185:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 186:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 187:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 188:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 189:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Control Register (non-secure)
+ 190:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Writes the given value to the non-secure Control Register when in secure state.
+ 191:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    control  Control Register value to set
+ 192:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 193:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_CONTROL_NS(uint32_t control)
+ 194:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 195:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR control_ns, %0" : : "r" (control) : "memory");
+ 196:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 197:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 198:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 199:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 200:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 201:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get IPSR Register
+ 202:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the IPSR Register.
+ 203:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               IPSR Register value
+ 204:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 205:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_IPSR(void)
+ 206:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 207:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 208:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 209:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
+ 210:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 211:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 212:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 213:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 214:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 215:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get APSR Register
+ 216:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the APSR Register.
+ 217:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               APSR Register value
+ 218:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 219:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_APSR(void)
+ 220:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 221:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 222:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 223:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, apsr" : "=r" (result) );
+ 224:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 225:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 226:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 227:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 228:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 229:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get xPSR Register
+ 230:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the xPSR Register.
+ 231:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               xPSR Register value
+ 232:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 233:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_xPSR(void)
+ 234:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 235:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 236:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 237:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, xpsr" : "=r" (result) );
+ 238:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 239:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 240:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 241:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 242:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 243:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer
+ 244:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Process Stack Pointer (PSP).
+ 245:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSP Register value
+ 246:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 247:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_PSP(void)
+ 248:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 249:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 250:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 251:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psp"  : "=r" (result) );
+ 252:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 253:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 254:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 255:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 256:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 257:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 258:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer (non-secure)
+ 259:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Process Stack Pointer (PSP) when in secure s
+ 260:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSP Register value
+ 261:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 262:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_PSP_NS(void)
+ 263:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 264:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 265:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 266:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psp_ns"  : "=r" (result) );
+ 267:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 268:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 269:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 270:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 271:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 272:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 273:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer
+ 274:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Process Stack Pointer (PSP).
+ 275:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfProcStack  Process Stack Pointer value to set
+ 276:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 277:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PSP(uint32_t topOfProcStack)
+ 278:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 279:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psp, %0" : : "r" (topOfProcStack) : );
+ 280:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 281:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 282:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 283:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 284:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 285:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer (non-secure)
+ 286:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Process Stack Pointer (PSP) when in secure sta
+ 287:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfProcStack  Process Stack Pointer value to set
+ 288:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 289:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_PSP_NS(uint32_t topOfProcStack)
+ 290:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 291:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psp_ns, %0" : : "r" (topOfProcStack) : );
+ 292:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 293:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 294:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 295:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 296:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 297:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer
+ 298:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer (MSP).
+ 299:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSP Register value
+ 300:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 301:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_MSP(void)
+ 302:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 303:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 304:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 305:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msp" : "=r" (result) );
+ 306:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 307:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 308:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 309:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 310:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 311:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 312:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer (non-secure)
+ 313:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Main Stack Pointer (MSP) when in secure stat
+ 314:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSP Register value
+ 315:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 316:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_MSP_NS(void)
+ 317:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 318:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 319:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 320:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msp_ns" : "=r" (result) );
+ 321:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 322:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 323:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 324:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 325:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 326:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 327:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer
+ 328:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Main Stack Pointer (MSP).
+ 329:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfMainStack  Main Stack Pointer value to set
+ 330:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 331:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_MSP(uint32_t topOfMainStack)
+ 332:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 333:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msp, %0" : : "r" (topOfMainStack) : );
+ 334:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 335:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 336:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 337:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 338:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 339:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer (non-secure)
+ 340:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Main Stack Pointer (MSP) when in secure state.
+ 341:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfMainStack  Main Stack Pointer value to set
+ 342:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 343:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_MSP_NS(uint32_t topOfMainStack)
+ 344:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 345:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msp_ns, %0" : : "r" (topOfMainStack) : );
+ 346:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 347:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 348:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 349:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 350:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 351:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 352:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Stack Pointer (non-secure)
+ 353:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Stack Pointer (SP) when in secure state.
+ 354:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               SP Register value
+ 355:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 356:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_SP_NS(void)
+ 357:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 358:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 359:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 360:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, sp_ns" : "=r" (result) );
+ 361:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 362:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 363:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 364:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 365:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 366:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Stack Pointer (non-secure)
+ 367:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Stack Pointer (SP) when in secure state.
+ 368:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfStack  Stack Pointer value to set
+ 369:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 370:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_SP_NS(uint32_t topOfStack)
+ 371:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 372:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR sp_ns, %0" : : "r" (topOfStack) : );
+ 373:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 374:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 375:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 376:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 377:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 378:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Priority Mask
+ 379:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current state of the priority mask bit from the Priority Mask Register.
+ 380:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Priority Mask value
+ 381:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 382:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_PRIMASK(void)
+ 383:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 384:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 385:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 386:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, primask" : "=r" (result) :: "memory");
+ 387:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 388:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 389:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 390:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 391:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 392:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 393:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Priority Mask (non-secure)
+ 394:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current state of the non-secure priority mask bit from the Priority Mask Reg
+ 395:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Priority Mask value
+ 396:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 397:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_PRIMASK_NS(void)
+ 398:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 399:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 400:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 401:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, primask_ns" : "=r" (result) :: "memory");
+ 402:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 403:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 404:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 405:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 406:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 407:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 408:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Priority Mask
+ 409:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Priority Mask Register.
+ 410:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    priMask  Priority Mask
+ 411:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 412:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PRIMASK(uint32_t priMask)
+ 413:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 414:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR primask, %0" : : "r" (priMask) : "memory");
+ 415:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 416:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 417:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 418:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 419:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 420:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Priority Mask (non-secure)
+ 421:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Priority Mask Register when in secure state.
+ 422:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    priMask  Priority Mask
+ 423:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 424:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_PRIMASK_NS(uint32_t priMask)
+ 425:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 426:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR primask_ns, %0" : : "r" (priMask) : "memory");
+ 427:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 428:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 429:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 430:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 431:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__ARM_ARCH_7M__      ) && (__ARM_ARCH_7M__      == 1)) || \
+ 432:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__ARM_ARCH_7EM__     ) && (__ARM_ARCH_7EM__     == 1)) || \
+ 433:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1))    )
+ 434:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 435:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable FIQ
+ 436:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables FIQ interrupts by clearing the F-bit in the CPSR.
+ 437:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 438:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 439:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_fault_irq(void)
+ 440:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 441:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie f" : : : "memory");
+ 442:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 443:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 444:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 445:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 446:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable FIQ
+ 447:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables FIQ interrupts by setting the F-bit in the CPSR.
+ 448:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 449:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 450:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_fault_irq(void)
+ 451:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 452:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid f" : : : "memory");
+ 453:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 454:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 455:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 456:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 457:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Base Priority
+ 458:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Base Priority register.
+ 459:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Base Priority register value
+ 460:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 461:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_BASEPRI(void)
+ 462:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 463:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 464:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 465:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, basepri" : "=r" (result) );
+ 466:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 467:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 468:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 469:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 470:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 471:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 472:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Base Priority (non-secure)
+ 473:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Base Priority register when in secure state.
+ 474:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Base Priority register value
+ 475:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 476:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_BASEPRI_NS(void)
+ 477:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 478:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 479:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 480:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, basepri_ns" : "=r" (result) );
+ 481:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 482:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 483:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 484:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 485:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 486:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 487:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority
+ 488:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register.
+ 489:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 490:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 491:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_BASEPRI(uint32_t basePri)
+ 492:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 493:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri, %0" : : "r" (basePri) : "memory");
+ 494:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 495:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 496:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 497:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 498:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 499:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority (non-secure)
+ 500:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Base Priority register when in secure state.
+ 501:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 502:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 503:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_BASEPRI_NS(uint32_t basePri)
+ 504:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 505:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri_ns, %0" : : "r" (basePri) : "memory");
+ 506:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 507:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 508:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 509:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 510:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 511:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority with condition
+ 512:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register only if BASEPRI masking is disable
+ 513:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            or the new value increases the BASEPRI priority level.
+ 514:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 515:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 516:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_BASEPRI_MAX(uint32_t basePri)
+ 517:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 518:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri_max, %0" : : "r" (basePri) : "memory");
+ 519:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 520:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 521:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 522:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 523:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Fault Mask
+ 524:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Fault Mask register.
+ 525:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Fault Mask register value
+ 526:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 527:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_FAULTMASK(void)
+ 528:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 529:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 530:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 531:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, faultmask" : "=r" (result) );
+ 532:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 533:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 534:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 535:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 536:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 537:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 538:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Fault Mask (non-secure)
+ 539:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Fault Mask register when in secure state.
+ 540:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Fault Mask register value
+ 541:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 542:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_FAULTMASK_NS(void)
+ 543:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 544:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 545:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 546:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, faultmask_ns" : "=r" (result) );
+ 547:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 548:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 549:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 550:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 551:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 552:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 553:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Fault Mask
+ 554:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Fault Mask register.
+ 555:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    faultMask  Fault Mask value to set
+ 556:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 557:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_FAULTMASK(uint32_t faultMask)
+ 558:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 559:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR faultmask, %0" : : "r" (faultMask) : "memory");
+ 560:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 561:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 562:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 563:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 564:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 565:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Fault Mask (non-secure)
+ 566:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Fault Mask register when in secure state.
+ 567:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    faultMask  Fault Mask value to set
+ 568:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 569:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_FAULTMASK_NS(uint32_t faultMask)
+ 570:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 571:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR faultmask_ns, %0" : : "r" (faultMask) : "memory");
+ 572:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 573:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 574:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 575:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif /* ((defined (__ARM_ARCH_7M__      ) && (__ARM_ARCH_7M__      == 1)) || \
+ 576:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            (defined (__ARM_ARCH_7EM__     ) && (__ARM_ARCH_7EM__     == 1)) || \
+ 577:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            (defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1))    ) */
+ 578:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 579:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 580:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) || \
+ 581:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__ARM_ARCH_8M_BASE__ ) && (__ARM_ARCH_8M_BASE__ == 1))    )
+ 582:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 583:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 584:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer Limit
+ 585:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 586:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always in non-secure
+ 587:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
+ 588:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   
+ 589:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Process Stack Pointer Limit (PSPLIM).
+ 590:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSPLIM Register value
+ 591:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 592:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_PSPLIM(void)
+ 593:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 594:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
+ 595:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
+ 596:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     // without main extensions, the non-secure PSPLIM is RAZ/WI
+ 597:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
+ 598:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 599:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 600:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psplim"  : "=r" (result) );
+ 601:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
+ 602:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 603:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 604:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 605:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3))
+ 606:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 607:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer Limit (non-secure)
+ 608:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 609:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always.
+ 610:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 611:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Process Stack Pointer Limit (PSPLIM) when in
+ 612:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSPLIM Register value
+ 613:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 614:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_PSPLIM_NS(void)
+ 615:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 616:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
+ 617:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure PSPLIM is RAZ/WI
+ 618:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
+ 619:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 620:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 621:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psplim_ns"  : "=r" (result) );
+ 622:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
+ 623:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 624:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 625:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 626:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 627:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 628:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 629:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer Limit
+ 630:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 631:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored in non-secure
+ 632:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
+ 633:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   
+ 634:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Process Stack Pointer Limit (PSPLIM).
+ 635:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    ProcStackPtrLimit  Process Stack Pointer Limit value to set
+ 636:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 637:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PSPLIM(uint32_t ProcStackPtrLimit)
+ 638:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 639:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
+ 640:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
+ 641:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure PSPLIM is RAZ/WI
+ 642:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)ProcStackPtrLimit;
+ 643:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 644:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psplim, %0" : : "r" (ProcStackPtrLimit));
+ 645:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 646:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 647:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 648:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 649:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE  ) && (__ARM_FEATURE_CMSE   == 3))
+ 650:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 651:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer (non-secure)
+ 652:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 653:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored.
+ 654:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 655:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Process Stack Pointer Limit (PSPLIM) when in s
+ 656:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    ProcStackPtrLimit  Process Stack Pointer Limit value to set
+ 657:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 658:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_PSPLIM_NS(uint32_t ProcStackPtrLimit)
+ 659:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 660:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
+ 661:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure PSPLIM is RAZ/WI
+ 662:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)ProcStackPtrLimit;
+ 663:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 664:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psplim_ns, %0\n" : : "r" (ProcStackPtrLimit));
+ 665:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 666:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 667:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 668:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 669:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 670:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 671:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer Limit
+ 672:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 673:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always in non-secure
+ 674:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
+ 675:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 676:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer Limit (MSPLIM).
+ 677:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSPLIM Register value
+ 678:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 679:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_MSPLIM(void)
+ 680:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 681:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
+ 682:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
+ 683:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
+ 684:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
+ 685:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 686:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 687:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msplim" : "=r" (result) );
+ 688:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
+ 689:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 690:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 691:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 692:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 693:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE  ) && (__ARM_FEATURE_CMSE   == 3))
+ 694:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 695:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer Limit (non-secure)
+ 696:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 697:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always.
+ 698:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 699:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Main Stack Pointer Limit(MSPLIM) when in sec
+ 700:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSPLIM Register value
+ 701:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 702:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_MSPLIM_NS(void)
+ 703:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 704:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
+ 705:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
+ 706:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
+ 707:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 708:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 709:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msplim_ns" : "=r" (result) );
+ 710:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
+ 711:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 712:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 713:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 714:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 715:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 716:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 717:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer Limit
+ 718:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 719:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored in non-secure
+ 720:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
+ 721:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 722:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Main Stack Pointer Limit (MSPLIM).
+ 723:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    MainStackPtrLimit  Main Stack Pointer Limit value to set
+ 724:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 725:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_MSPLIM(uint32_t MainStackPtrLimit)
+ 726:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 727:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
+ 728:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
+ 729:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
+ 730:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)MainStackPtrLimit;
+ 731:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 732:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msplim, %0" : : "r" (MainStackPtrLimit));
+ 733:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 734:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 735:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 736:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 737:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE  ) && (__ARM_FEATURE_CMSE   == 3))
+ 738:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 739:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer Limit (non-secure)
+ 740:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 741:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored.
+ 742:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 743:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Main Stack Pointer Limit (MSPLIM) when in secu
+ 744:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    MainStackPtrLimit  Main Stack Pointer value to set
+ 745:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 746:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_MSPLIM_NS(uint32_t MainStackPtrLimit)
+ 747:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 748:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
+ 749:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
+ 750:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)MainStackPtrLimit;
+ 751:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 752:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msplim_ns, %0" : : "r" (MainStackPtrLimit));
+ 753:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 754:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 755:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 756:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 757:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif /* ((defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) || \
+ 758:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            (defined (__ARM_ARCH_8M_BASE__ ) && (__ARM_ARCH_8M_BASE__ == 1))    ) */
+ 759:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 760:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 761:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 762:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get FPSCR
+ 763:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Floating Point Status/Control register.
+ 764:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Floating Point Status/Control register value
+ 765:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 766:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_FPSCR(void)
+ 767:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 768:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
+ 769:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__FPU_USED   ) && (__FPU_USED    == 1U))     )
+ 770:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if __has_builtin(__builtin_arm_get_fpscr) 
+ 771:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** // Re-enable using built-in when GCC has been fixed
+ 772:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** // || (__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 2)
+ 773:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   /* see https://gcc.gnu.org/ml/gcc-patches/2017-04/msg00443.html */
+ 774:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return __builtin_arm_get_fpscr();
+ 775:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 776:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 777:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 778:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("VMRS %0, fpscr" : "=r" (result) );
+ 779:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 780:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 781:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 782:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(0U);
+ 783:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 784:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 785:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 786:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 787:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 788:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set FPSCR
+ 789:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Floating Point Status/Control register.
+ 790:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    fpscr  Floating Point Status/Control value to set
+ 791:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 792:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_FPSCR(uint32_t fpscr)
+ 793:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 794:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
+ 795:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__FPU_USED   ) && (__FPU_USED    == 1U))     )
+ 796:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if __has_builtin(__builtin_arm_set_fpscr)
+ 797:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** // Re-enable using built-in when GCC has been fixed
+ 798:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** // || (__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 2)
+ 799:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   /* see https://gcc.gnu.org/ml/gcc-patches/2017-04/msg00443.html */
+ 800:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __builtin_arm_set_fpscr(fpscr);
+ 801:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 802:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("VMSR fpscr, %0" : : "r" (fpscr) : "vfpcc", "memory");
+ 803:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 804:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 805:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)fpscr;
+ 806:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 807:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 808:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 809:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 810:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /*@} end of CMSIS_Core_RegAccFunctions */
+ 811:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 812:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 813:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ##########################  Core Instruction Access  ######################### */
+ 814:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \defgroup CMSIS_Core_InstructionInterface CMSIS Core Instruction Interface
+ 815:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Access to dedicated instructions
+ 816:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
+ 817:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** */
+ 818:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 819:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Define macros for porting to both thumb1 and thumb2.
+ 820:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * For thumb1, use low register (r0-r7), specified by constraint "l"
+ 821:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Otherwise, use general registers, specified by constraint "r" */
+ 822:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if defined (__thumb__) && !defined (__thumb2__)
+ 823:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=l" (r)
+ 824:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_RW_REG(r) "+l" (r)
+ 825:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "l" (r)
+ 826:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 827:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=r" (r)
+ 828:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_RW_REG(r) "+r" (r)
+ 829:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "r" (r)
+ 830:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 831:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 832:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 833:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   No Operation
+ 834:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details No Operation does nothing. This instruction can be used for code alignment purposes.
+ 835:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 836:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __NOP()                             __ASM volatile ("nop")
+ 837:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 838:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 839:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Wait For Interrupt
+ 840:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Wait For Interrupt is a hint instruction that suspends execution until one of a number o
+ 841:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 842:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __WFI()                             __ASM volatile ("wfi")
+ 843:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 844:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 845:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 846:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Wait For Event
+ 847:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Wait For Event is a hint instruction that permits the processor to enter
+ 848:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            a low-power state until one of a number of events occurs.
+ 849:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 850:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __WFE()                             __ASM volatile ("wfe")
+ 851:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 852:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 853:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 854:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Send Event
+ 855:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Send Event is a hint instruction. It causes an event to be signaled to the CPU.
+ 856:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 857:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __SEV()                             __ASM volatile ("sev")
+ 858:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 859:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 860:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 861:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Instruction Synchronization Barrier
+ 862:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Instruction Synchronization Barrier flushes the pipeline in the processor,
+ 863:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            so that all instructions following the ISB are fetched from cache or memory,
+ 864:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            after the instruction has been completed.
+ 865:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 866:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __ISB(void)
+ 867:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 868:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("isb 0xF":::"memory");
+ 869:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 870:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 871:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 872:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 873:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Data Synchronization Barrier
+ 874:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Acts as a special kind of Data Memory Barrier.
+ 875:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            It completes when all explicit memory accesses before this instruction complete.
+ 876:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 877:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __DSB(void)
+ 878:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 879:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("dsb 0xF":::"memory");
+ 880:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 881:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 882:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 883:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 884:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Data Memory Barrier
+ 885:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Ensures the apparent order of the explicit memory operations before
+ 886:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            and after the instruction, without ensuring their completion.
+ 887:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 888:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __DMB(void)
+ 889:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 890:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("dmb 0xF":::"memory");
+ 891:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 892:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 893:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 894:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 895:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Reverse byte order (32 bit)
+ 896:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Reverses the byte order in unsigned integer value. For example, 0x12345678 becomes 0x785
+ 897:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    value  Value to reverse
+ 898:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Reversed value
+ 899:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 900:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __REV(uint32_t value)
+ 901:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 902:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)
+ 903:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return __builtin_bswap32(value);
+ 904:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 905:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 906:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 907:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("rev %0, %1" : __CMSIS_GCC_OUT_REG (result) : __CMSIS_GCC_USE_REG (value) );
+ 908:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
+ 909:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 910:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 911:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 912:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 913:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 914:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Reverse byte order (16 bit)
+ 915:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Reverses the byte order within each halfword of a word. For example, 0x12345678 becomes 
+ 916:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    value  Value to reverse
+ 917:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Reversed value
+ 918:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 919:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __REV16(uint32_t value)
+ 920:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 921:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 922:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 923:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("rev16 %0, %1" : __CMSIS_GCC_OUT_REG (result) : __CMSIS_GCC_USE_REG (value) );
+ 402              	 .loc 2 923 0
+ 403 0038 7A69     	 ldr r2,[r7,#20]
+ 404              	
+ 405 003a 52BA     	 rev16 r2,r2
+ 406              	
+ 407              	 .thumb
+ 408 003c 3A61     	 str r2,[r7,#16]
+ 924:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
+ 409              	 .loc 2 924 0
+ 410 003e 3A69     	 ldr r2,[r7,#16]
+ 411              	.LBE10:
+ 412              	.LBE9:
+ 413              	 .loc 1 193 0
+ 414 0040 1A60     	 str r2,[r3]
+ 194:../Libraries/XMCLib/src/xmc_fce.c ****       ++p;
+ 415              	 .loc 1 194 0
+ 416 0042 BB69     	 ldr r3,[r7,#24]
+ 417 0044 0233     	 adds r3,r3,#2
+ 418 0046 BB61     	 str r3,[r7,#24]
+ 195:../Libraries/XMCLib/src/xmc_fce.c ****       length -= 2U;
+ 419              	 .loc 1 195 0
+ 420 0048 7B68     	 ldr r3,[r7,#4]
+ 421 004a 023B     	 subs r3,r3,#2
+ 422 004c 7B60     	 str r3,[r7,#4]
+ 423              	.L26:
+ 191:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 424              	 .loc 1 191 0
+ 425 004e 7B68     	 ldr r3,[r7,#4]
+ 426 0050 002B     	 cmp r3,#0
+ 427 0052 ECD1     	 bne .L28
+ 196:../Libraries/XMCLib/src/xmc_fce.c ****     }
+ 197:../Libraries/XMCLib/src/xmc_fce.c **** 	
+ 198:../Libraries/XMCLib/src/xmc_fce.c ****     *result = (uint16_t)engine->kernel_ptr->CRC;
+ 428              	 .loc 1 198 0
+ 429 0054 FB68     	 ldr r3,[r7,#12]
+ 430 0056 1B68     	 ldr r3,[r3]
+ 431 0058 9B69     	 ldr r3,[r3,#24]
+ 432 005a 9AB2     	 uxth r2,r3
+ 433 005c 3B68     	 ldr r3,[r7]
+ 434 005e 1A80     	 strh r2,[r3]
+ 435              	.L25:
+ 436              	.LBE8:
+ 199:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 200:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 201:../Libraries/XMCLib/src/xmc_fce.c ****   return status;
+ 437              	 .loc 1 201 0
+ 438 0060 FB7F     	 ldrb r3,[r7,#31]
+ 202:../Libraries/XMCLib/src/xmc_fce.c **** }
+ 439              	 .loc 1 202 0
+ 440 0062 1846     	 mov r0,r3
+ 441 0064 2437     	 adds r7,r7,#36
+ 442              	.LCFI25:
+ 443              	 .cfi_def_cfa_offset 4
+ 444 0066 BD46     	 mov sp,r7
+ 445              	.LCFI26:
+ 446              	 .cfi_def_cfa_register 13
+ 447              	 
+ 448 0068 5DF8047B 	 ldr r7,[sp],#4
+ 449              	.LCFI27:
+ 450              	 .cfi_restore 7
+ 451              	 .cfi_def_cfa_offset 0
+ 452 006c 7047     	 bx lr
+ 453              	 .cfi_endproc
+ 454              	.LFE198:
+ 456 006e 00BF     	 .section .text.XMC_FCE_CalculateCRC32,"ax",%progbits
+ 457              	 .align 2
+ 458              	 .global XMC_FCE_CalculateCRC32
+ 459              	 .thumb
+ 460              	 .thumb_func
+ 462              	XMC_FCE_CalculateCRC32:
+ 463              	.LFB199:
+ 203:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 204:../Libraries/XMCLib/src/xmc_fce.c **** /* Calculate and return the IEEE 802.3 Ethernet CRC32 checksum */
+ 205:../Libraries/XMCLib/src/xmc_fce.c **** XMC_FCE_STATUS_t XMC_FCE_CalculateCRC32(const XMC_FCE_t *const engine,
+ 206:../Libraries/XMCLib/src/xmc_fce.c ****                                         const uint32_t *data,
+ 207:../Libraries/XMCLib/src/xmc_fce.c **** 										uint32_t length,
+ 208:../Libraries/XMCLib/src/xmc_fce.c **** 										uint32_t *result)
+ 209:../Libraries/XMCLib/src/xmc_fce.c **** {
+ 464              	 .loc 1 209 0
+ 465              	 .cfi_startproc
+ 466              	 
+ 467              	 
+ 468              	 
+ 469 0000 80B4     	 push {r7}
+ 470              	.LCFI28:
+ 471              	 .cfi_def_cfa_offset 4
+ 472              	 .cfi_offset 7,-4
+ 473 0002 87B0     	 sub sp,sp,#28
+ 474              	.LCFI29:
+ 475              	 .cfi_def_cfa_offset 32
+ 476 0004 00AF     	 add r7,sp,#0
+ 477              	.LCFI30:
+ 478              	 .cfi_def_cfa_register 7
+ 479 0006 F860     	 str r0,[r7,#12]
+ 480 0008 B960     	 str r1,[r7,#8]
+ 481 000a 7A60     	 str r2,[r7,#4]
+ 482 000c 3B60     	 str r3,[r7]
+ 210:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_FCE_STATUS_t status = XMC_FCE_STATUS_OK;
+ 483              	 .loc 1 210 0
+ 484 000e 0023     	 movs r3,#0
+ 485 0010 FB75     	 strb r3,[r7,#23]
+ 211:../Libraries/XMCLib/src/xmc_fce.c **** 	
+ 212:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC32: Wrong FCE kernel used", ((engine->kernel_ptr == XMC_FCE_CRC32
+ 213:../Libraries/XMCLib/src/xmc_fce.c ****                                                                (engine->kernel_ptr == XMC_FCE_CRC32
+ 214:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC32: Length field is empty", (length != 0));
+ 215:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC32: Length is not aligned", ((length & 0x3U) == 0));
+ 216:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 217:../Libraries/XMCLib/src/xmc_fce.c ****   /* Check length is a multiple of 4 */
+ 218:../Libraries/XMCLib/src/xmc_fce.c ****   if ((length == 0) || ((length & 0x3U) != 0U))
+ 486              	 .loc 1 218 0
+ 487 0012 7B68     	 ldr r3,[r7,#4]
+ 488 0014 002B     	 cmp r3,#0
+ 489 0016 04D0     	 beq .L31
+ 490              	 .loc 1 218 0 is_stmt 0 discriminator 1
+ 491 0018 7B68     	 ldr r3,[r7,#4]
+ 492 001a 03F00303 	 and r3,r3,#3
+ 493 001e 002B     	 cmp r3,#0
+ 494 0020 02D0     	 beq .L32
+ 495              	.L31:
+ 219:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 220:../Libraries/XMCLib/src/xmc_fce.c ****     status = XMC_FCE_STATUS_ERROR;
+ 496              	 .loc 1 220 0 is_stmt 1
+ 497 0022 0223     	 movs r3,#2
+ 498 0024 FB75     	 strb r3,[r7,#23]
+ 499 0026 13E0     	 b .L33
+ 500              	.L32:
+ 221:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 222:../Libraries/XMCLib/src/xmc_fce.c ****   else
+ 223:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 224:../Libraries/XMCLib/src/xmc_fce.c ****     while (0UL != length)
+ 501              	 .loc 1 224 0
+ 502 0028 0AE0     	 b .L34
+ 503              	.L35:
+ 225:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 226:../Libraries/XMCLib/src/xmc_fce.c ****       engine->kernel_ptr->IR = *data;
+ 504              	 .loc 1 226 0
+ 505 002a FB68     	 ldr r3,[r7,#12]
+ 506 002c 1B68     	 ldr r3,[r3]
+ 507 002e BA68     	 ldr r2,[r7,#8]
+ 508 0030 1268     	 ldr r2,[r2]
+ 509 0032 1A60     	 str r2,[r3]
+ 227:../Libraries/XMCLib/src/xmc_fce.c ****       data++;
+ 510              	 .loc 1 227 0
+ 511 0034 BB68     	 ldr r3,[r7,#8]
+ 512 0036 0433     	 adds r3,r3,#4
+ 513 0038 BB60     	 str r3,[r7,#8]
+ 228:../Libraries/XMCLib/src/xmc_fce.c ****       length -= 4U;
+ 514              	 .loc 1 228 0
+ 515 003a 7B68     	 ldr r3,[r7,#4]
+ 516 003c 043B     	 subs r3,r3,#4
+ 517 003e 7B60     	 str r3,[r7,#4]
+ 518              	.L34:
+ 224:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 519              	 .loc 1 224 0
+ 520 0040 7B68     	 ldr r3,[r7,#4]
+ 521 0042 002B     	 cmp r3,#0
+ 522 0044 F1D1     	 bne .L35
+ 229:../Libraries/XMCLib/src/xmc_fce.c ****     }
+ 230:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 231:../Libraries/XMCLib/src/xmc_fce.c ****     *result = engine->kernel_ptr->CRC;
+ 523              	 .loc 1 231 0
+ 524 0046 FB68     	 ldr r3,[r7,#12]
+ 525 0048 1B68     	 ldr r3,[r3]
+ 526 004a 9A69     	 ldr r2,[r3,#24]
+ 527 004c 3B68     	 ldr r3,[r7]
+ 528 004e 1A60     	 str r2,[r3]
+ 529              	.L33:
+ 232:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 233:../Libraries/XMCLib/src/xmc_fce.c ****   
+ 234:../Libraries/XMCLib/src/xmc_fce.c ****   return status;
+ 530              	 .loc 1 234 0
+ 531 0050 FB7D     	 ldrb r3,[r7,#23]
+ 235:../Libraries/XMCLib/src/xmc_fce.c **** }
+ 532              	 .loc 1 235 0
+ 533 0052 1846     	 mov r0,r3
+ 534 0054 1C37     	 adds r7,r7,#28
+ 535              	.LCFI31:
+ 536              	 .cfi_def_cfa_offset 4
+ 537 0056 BD46     	 mov sp,r7
+ 538              	.LCFI32:
+ 539              	 .cfi_def_cfa_register 13
+ 540              	 
+ 541 0058 5DF8047B 	 ldr r7,[sp],#4
+ 542              	.LCFI33:
+ 543              	 .cfi_restore 7
+ 544              	 .cfi_def_cfa_offset 0
+ 545 005c 7047     	 bx lr
+ 546              	 .cfi_endproc
+ 547              	.LFE199:
+ 549 005e 00BF     	 .section .text.XMC_FCE_CalculateCRC32Ex,"ax",%progbits
+ 550              	 .align 2
+ 551              	 .global XMC_FCE_CalculateCRC32Ex
+ 552              	 .thumb
+ 553              	 .thumb_func
+ 555              	XMC_FCE_CalculateCRC32Ex:
+ 556              	.LFB200:
+ 236:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 237:../Libraries/XMCLib/src/xmc_fce.c **** /* Calculate and return the IEEE 802.3 Ethernet CRC32 checksum */
+ 238:../Libraries/XMCLib/src/xmc_fce.c **** XMC_FCE_STATUS_t XMC_FCE_CalculateCRC32Ex(const XMC_FCE_t *const engine,
+ 239:../Libraries/XMCLib/src/xmc_fce.c ****                                           const uint8_t *data,
+ 240:../Libraries/XMCLib/src/xmc_fce.c **** 										                      uint32_t length,
+ 241:../Libraries/XMCLib/src/xmc_fce.c **** 										                      uint32_t *const result)
+ 242:../Libraries/XMCLib/src/xmc_fce.c **** {
+ 557              	 .loc 1 242 0
+ 558              	 .cfi_startproc
+ 559              	 
+ 560              	 
+ 561              	 
+ 562 0000 80B4     	 push {r7}
+ 563              	.LCFI34:
+ 564              	 .cfi_def_cfa_offset 4
+ 565              	 .cfi_offset 7,-4
+ 566 0002 89B0     	 sub sp,sp,#36
+ 567              	.LCFI35:
+ 568              	 .cfi_def_cfa_offset 40
+ 569 0004 00AF     	 add r7,sp,#0
+ 570              	.LCFI36:
+ 571              	 .cfi_def_cfa_register 7
+ 572 0006 F860     	 str r0,[r7,#12]
+ 573 0008 B960     	 str r1,[r7,#8]
+ 574 000a 7A60     	 str r2,[r7,#4]
+ 575 000c 3B60     	 str r3,[r7]
+ 243:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_FCE_STATUS_t status = XMC_FCE_STATUS_OK;
+ 576              	 .loc 1 243 0
+ 577 000e 0023     	 movs r3,#0
+ 578 0010 FB77     	 strb r3,[r7,#31]
+ 244:../Libraries/XMCLib/src/xmc_fce.c **** 	
+ 245:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC32: Wrong FCE kernel used", ((engine->kernel_ptr == XMC_FCE_CRC32
+ 246:../Libraries/XMCLib/src/xmc_fce.c ****                                                                (engine->kernel_ptr == XMC_FCE_CRC32
+ 247:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC32: Length field is empty", (length != 0));
+ 248:../Libraries/XMCLib/src/xmc_fce.c ****   XMC_ASSERT("XMC_FCE_CalculateCRC32: Length is not aligned", ((length & 0x3U) == 0));
+ 249:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 250:../Libraries/XMCLib/src/xmc_fce.c ****   /* Check length is a multiple of 4 */
+ 251:../Libraries/XMCLib/src/xmc_fce.c ****   if ((length == 0) || ((length & 0x3U) != 0U))
+ 579              	 .loc 1 251 0
+ 580 0012 7B68     	 ldr r3,[r7,#4]
+ 581 0014 002B     	 cmp r3,#0
+ 582 0016 04D0     	 beq .L38
+ 583              	 .loc 1 251 0 is_stmt 0 discriminator 1
+ 584 0018 7B68     	 ldr r3,[r7,#4]
+ 585 001a 03F00303 	 and r3,r3,#3
+ 586 001e 002B     	 cmp r3,#0
+ 587 0020 02D0     	 beq .L39
+ 588              	.L38:
+ 252:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 253:../Libraries/XMCLib/src/xmc_fce.c ****     status = XMC_FCE_STATUS_ERROR;
+ 589              	 .loc 1 253 0 is_stmt 1
+ 590 0022 0223     	 movs r3,#2
+ 591 0024 FB77     	 strb r3,[r7,#31]
+ 592 0026 18E0     	 b .L40
+ 593              	.L39:
+ 594              	.LBB11:
+ 254:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 255:../Libraries/XMCLib/src/xmc_fce.c ****   else
+ 256:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 257:../Libraries/XMCLib/src/xmc_fce.c ****     const uint32_t *p = (const uint32_t *)data;
+ 595              	 .loc 1 257 0
+ 596 0028 BB68     	 ldr r3,[r7,#8]
+ 597 002a BB61     	 str r3,[r7,#24]
+ 258:../Libraries/XMCLib/src/xmc_fce.c ****     while (0UL != length)
+ 598              	 .loc 1 258 0
+ 599 002c 0DE0     	 b .L41
+ 600              	.L43:
+ 259:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 260:../Libraries/XMCLib/src/xmc_fce.c ****       engine->kernel_ptr->IR = __REV(*p);
+ 601              	 .loc 1 260 0
+ 602 002e FB68     	 ldr r3,[r7,#12]
+ 603 0030 1B68     	 ldr r3,[r3]
+ 604 0032 BA69     	 ldr r2,[r7,#24]
+ 605 0034 1268     	 ldr r2,[r2]
+ 606 0036 7A61     	 str r2,[r7,#20]
+ 607              	.LBB12:
+ 608              	.LBB13:
+ 903:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 609              	 .loc 2 903 0
+ 610 0038 7A69     	 ldr r2,[r7,#20]
+ 611 003a 12BA     	 rev r2,r2
+ 612              	.LBE13:
+ 613              	.LBE12:
+ 614              	 .loc 1 260 0
+ 615 003c 1A60     	 str r2,[r3]
+ 261:../Libraries/XMCLib/src/xmc_fce.c ****       ++p;
+ 616              	 .loc 1 261 0
+ 617 003e BB69     	 ldr r3,[r7,#24]
+ 618 0040 0433     	 adds r3,r3,#4
+ 619 0042 BB61     	 str r3,[r7,#24]
+ 262:../Libraries/XMCLib/src/xmc_fce.c ****       length -= 4U;
+ 620              	 .loc 1 262 0
+ 621 0044 7B68     	 ldr r3,[r7,#4]
+ 622 0046 043B     	 subs r3,r3,#4
+ 623 0048 7B60     	 str r3,[r7,#4]
+ 624              	.L41:
+ 258:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 625              	 .loc 1 258 0
+ 626 004a 7B68     	 ldr r3,[r7,#4]
+ 627 004c 002B     	 cmp r3,#0
+ 628 004e EED1     	 bne .L43
+ 263:../Libraries/XMCLib/src/xmc_fce.c ****     }
+ 264:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 265:../Libraries/XMCLib/src/xmc_fce.c ****     *result = engine->kernel_ptr->CRC;
+ 629              	 .loc 1 265 0
+ 630 0050 FB68     	 ldr r3,[r7,#12]
+ 631 0052 1B68     	 ldr r3,[r3]
+ 632 0054 9A69     	 ldr r2,[r3,#24]
+ 633 0056 3B68     	 ldr r3,[r7]
+ 634 0058 1A60     	 str r2,[r3]
+ 635              	.L40:
+ 636              	.LBE11:
+ 266:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 267:../Libraries/XMCLib/src/xmc_fce.c ****   
+ 268:../Libraries/XMCLib/src/xmc_fce.c ****   return status;
+ 637              	 .loc 1 268 0
+ 638 005a FB7F     	 ldrb r3,[r7,#31]
+ 269:../Libraries/XMCLib/src/xmc_fce.c **** }
+ 639              	 .loc 1 269 0
+ 640 005c 1846     	 mov r0,r3
+ 641 005e 2437     	 adds r7,r7,#36
+ 642              	.LCFI37:
+ 643              	 .cfi_def_cfa_offset 4
+ 644 0060 BD46     	 mov sp,r7
+ 645              	.LCFI38:
+ 646              	 .cfi_def_cfa_register 13
+ 647              	 
+ 648 0062 5DF8047B 	 ldr r7,[sp],#4
+ 649              	.LCFI39:
+ 650              	 .cfi_restore 7
+ 651              	 .cfi_def_cfa_offset 0
+ 652 0066 7047     	 bx lr
+ 653              	 .cfi_endproc
+ 654              	.LFE200:
+ 656              	 .section .text.XMC_FCE_TriggerMismatch,"ax",%progbits
+ 657              	 .align 2
+ 658              	 .global XMC_FCE_TriggerMismatch
+ 659              	 .thumb
+ 660              	 .thumb_func
+ 662              	XMC_FCE_TriggerMismatch:
+ 663              	.LFB201:
+ 270:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 271:../Libraries/XMCLib/src/xmc_fce.c **** /* Trigger mismatch in the CRC registers */
+ 272:../Libraries/XMCLib/src/xmc_fce.c **** void XMC_FCE_TriggerMismatch(const XMC_FCE_t *const engine, XMC_FCE_CTR_TEST_t test)
+ 273:../Libraries/XMCLib/src/xmc_fce.c **** {
+ 664              	 .loc 1 273 0
+ 665              	 .cfi_startproc
+ 666              	 
+ 667              	 
+ 668              	 
+ 669 0000 80B4     	 push {r7}
+ 670              	.LCFI40:
+ 671              	 .cfi_def_cfa_offset 4
+ 672              	 .cfi_offset 7,-4
+ 673 0002 83B0     	 sub sp,sp,#12
+ 674              	.LCFI41:
+ 675              	 .cfi_def_cfa_offset 16
+ 676 0004 00AF     	 add r7,sp,#0
+ 677              	.LCFI42:
+ 678              	 .cfi_def_cfa_register 7
+ 679 0006 7860     	 str r0,[r7,#4]
+ 680 0008 0B46     	 mov r3,r1
+ 681 000a FB70     	 strb r3,[r7,#3]
+ 274:../Libraries/XMCLib/src/xmc_fce.c ****   /* Create a 0 to 1 transition and clear to 0 once it is done */
+ 275:../Libraries/XMCLib/src/xmc_fce.c ****   engine->kernel_ptr->CTR &= ~((uint32_t)test);
+ 682              	 .loc 1 275 0
+ 683 000c 7B68     	 ldr r3,[r7,#4]
+ 684 000e 1B68     	 ldr r3,[r3]
+ 685 0010 7A68     	 ldr r2,[r7,#4]
+ 686 0012 1268     	 ldr r2,[r2]
+ 687 0014 D169     	 ldr r1,[r2,#28]
+ 688 0016 FA78     	 ldrb r2,[r7,#3]
+ 689 0018 D243     	 mvns r2,r2
+ 690 001a 0A40     	 ands r2,r2,r1
+ 691 001c DA61     	 str r2,[r3,#28]
+ 276:../Libraries/XMCLib/src/xmc_fce.c ****   engine->kernel_ptr->CTR |= (uint32_t)test;
+ 692              	 .loc 1 276 0
+ 693 001e 7B68     	 ldr r3,[r7,#4]
+ 694 0020 1B68     	 ldr r3,[r3]
+ 695 0022 7A68     	 ldr r2,[r7,#4]
+ 696 0024 1268     	 ldr r2,[r2]
+ 697 0026 D169     	 ldr r1,[r2,#28]
+ 698 0028 FA78     	 ldrb r2,[r7,#3]
+ 699 002a 0A43     	 orrs r2,r2,r1
+ 700 002c DA61     	 str r2,[r3,#28]
+ 277:../Libraries/XMCLib/src/xmc_fce.c ****   engine->kernel_ptr->CTR &= ~((uint32_t)test);
+ 701              	 .loc 1 277 0
+ 702 002e 7B68     	 ldr r3,[r7,#4]
+ 703 0030 1B68     	 ldr r3,[r3]
+ 704 0032 7A68     	 ldr r2,[r7,#4]
+ 705 0034 1268     	 ldr r2,[r2]
+ 706 0036 D169     	 ldr r1,[r2,#28]
+ 707 0038 FA78     	 ldrb r2,[r7,#3]
+ 708 003a D243     	 mvns r2,r2
+ 709 003c 0A40     	 ands r2,r2,r1
+ 710 003e DA61     	 str r2,[r3,#28]
+ 278:../Libraries/XMCLib/src/xmc_fce.c **** }
+ 711              	 .loc 1 278 0
+ 712 0040 0C37     	 adds r7,r7,#12
+ 713              	.LCFI43:
+ 714              	 .cfi_def_cfa_offset 4
+ 715 0042 BD46     	 mov sp,r7
+ 716              	.LCFI44:
+ 717              	 .cfi_def_cfa_register 13
+ 718              	 
+ 719 0044 5DF8047B 	 ldr r7,[sp],#4
+ 720              	.LCFI45:
+ 721              	 .cfi_restore 7
+ 722              	 .cfi_def_cfa_offset 0
+ 723 0048 7047     	 bx lr
+ 724              	 .cfi_endproc
+ 725              	.LFE201:
+ 727 004a 00BF     	 .section .text.XMC_FCE_LittleEndian16bit,"ax",%progbits
+ 728              	 .align 2
+ 729              	 .global XMC_FCE_LittleEndian16bit
+ 730              	 .thumb
+ 731              	 .thumb_func
+ 733              	XMC_FCE_LittleEndian16bit:
+ 734              	.LFB202:
+ 279:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 280:../Libraries/XMCLib/src/xmc_fce.c **** /* Change endianness of 16-bit input buffer */
+ 281:../Libraries/XMCLib/src/xmc_fce.c **** void XMC_FCE_LittleEndian16bit(uint8_t* inbuffer, uint16_t* outbuffer, uint16_t length)
+ 282:../Libraries/XMCLib/src/xmc_fce.c **** {
+ 735              	 .loc 1 282 0
+ 736              	 .cfi_startproc
+ 737              	 
+ 738              	 
+ 739              	 
+ 740 0000 80B4     	 push {r7}
+ 741              	.LCFI46:
+ 742              	 .cfi_def_cfa_offset 4
+ 743              	 .cfi_offset 7,-4
+ 744 0002 87B0     	 sub sp,sp,#28
+ 745              	.LCFI47:
+ 746              	 .cfi_def_cfa_offset 32
+ 747 0004 00AF     	 add r7,sp,#0
+ 748              	.LCFI48:
+ 749              	 .cfi_def_cfa_register 7
+ 750 0006 F860     	 str r0,[r7,#12]
+ 751 0008 B960     	 str r1,[r7,#8]
+ 752 000a 1346     	 mov r3,r2
+ 753 000c FB80     	 strh r3,[r7,#6]
+ 283:../Libraries/XMCLib/src/xmc_fce.c ****   uint16_t counter = 0U;
+ 754              	 .loc 1 283 0
+ 755 000e 0023     	 movs r3,#0
+ 756 0010 FB82     	 strh r3,[r7,#22]
+ 284:../Libraries/XMCLib/src/xmc_fce.c ****   uint16_t bytecounter = 0U;
+ 757              	 .loc 1 284 0
+ 758 0012 0023     	 movs r3,#0
+ 759 0014 BB82     	 strh r3,[r7,#20]
+ 285:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 286:../Libraries/XMCLib/src/xmc_fce.c ****   if ((length & 0x01U)  == 0)
+ 760              	 .loc 1 286 0
+ 761 0016 FB88     	 ldrh r3,[r7,#6]
+ 762 0018 03F00103 	 and r3,r3,#1
+ 763 001c 002B     	 cmp r3,#0
+ 764 001e 3AD1     	 bne .L46
+ 287:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 288:../Libraries/XMCLib/src/xmc_fce.c ****     for (counter = 0U; counter < (length >> 1); counter++)
+ 765              	 .loc 1 288 0
+ 766 0020 0023     	 movs r3,#0
+ 767 0022 FB82     	 strh r3,[r7,#22]
+ 768 0024 08E0     	 b .L48
+ 769              	.L49:
+ 289:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 290:../Libraries/XMCLib/src/xmc_fce.c ****       outbuffer[counter] = 0U;
+ 770              	 .loc 1 290 0 discriminator 3
+ 771 0026 FB8A     	 ldrh r3,[r7,#22]
+ 772 0028 5B00     	 lsls r3,r3,#1
+ 773 002a BA68     	 ldr r2,[r7,#8]
+ 774 002c 1344     	 add r3,r3,r2
+ 775 002e 0022     	 movs r2,#0
+ 776 0030 1A80     	 strh r2,[r3]
+ 288:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 777              	 .loc 1 288 0 discriminator 3
+ 778 0032 FB8A     	 ldrh r3,[r7,#22]
+ 779 0034 0133     	 adds r3,r3,#1
+ 780 0036 FB82     	 strh r3,[r7,#22]
+ 781              	.L48:
+ 288:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 782              	 .loc 1 288 0 is_stmt 0 discriminator 1
+ 783 0038 FB88     	 ldrh r3,[r7,#6]
+ 784 003a 5B08     	 lsrs r3,r3,#1
+ 785 003c 9BB2     	 uxth r3,r3
+ 786 003e FA8A     	 ldrh r2,[r7,#22]
+ 787 0040 9A42     	 cmp r2,r3
+ 788 0042 F0D3     	 bcc .L49
+ 291:../Libraries/XMCLib/src/xmc_fce.c ****     }
+ 292:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 293:../Libraries/XMCLib/src/xmc_fce.c ****     outbuffer[counter] = 0U;
+ 789              	 .loc 1 293 0 is_stmt 1
+ 790 0044 FB8A     	 ldrh r3,[r7,#22]
+ 791 0046 5B00     	 lsls r3,r3,#1
+ 792 0048 BA68     	 ldr r2,[r7,#8]
+ 793 004a 1344     	 add r3,r3,r2
+ 794 004c 0022     	 movs r2,#0
+ 795 004e 1A80     	 strh r2,[r3]
+ 294:../Libraries/XMCLib/src/xmc_fce.c ****     counter = 0U;
+ 796              	 .loc 1 294 0
+ 797 0050 0023     	 movs r3,#0
+ 798 0052 FB82     	 strh r3,[r7,#22]
+ 295:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 296:../Libraries/XMCLib/src/xmc_fce.c ****     while (length)
+ 799              	 .loc 1 296 0
+ 800 0054 1CE0     	 b .L50
+ 801              	.L51:
+ 297:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 298:../Libraries/XMCLib/src/xmc_fce.c ****       outbuffer[counter] = ((uint16_t)((uint16_t)inbuffer[bytecounter] << 8U) |
+ 802              	 .loc 1 298 0
+ 803 0056 FB8A     	 ldrh r3,[r7,#22]
+ 804 0058 5B00     	 lsls r3,r3,#1
+ 805 005a BA68     	 ldr r2,[r7,#8]
+ 806 005c 1344     	 add r3,r3,r2
+ 807 005e BA8A     	 ldrh r2,[r7,#20]
+ 808 0060 F968     	 ldr r1,[r7,#12]
+ 809 0062 0A44     	 add r2,r2,r1
+ 810 0064 1278     	 ldrb r2,[r2]
+ 811 0066 92B2     	 uxth r2,r2
+ 812 0068 1202     	 lsls r2,r2,#8
+ 813 006a 91B2     	 uxth r1,r2
+ 299:../Libraries/XMCLib/src/xmc_fce.c ****                             (inbuffer[bytecounter + 1U]));
+ 814              	 .loc 1 299 0
+ 815 006c BA8A     	 ldrh r2,[r7,#20]
+ 816 006e 0132     	 adds r2,r2,#1
+ 817 0070 F868     	 ldr r0,[r7,#12]
+ 818 0072 0244     	 add r2,r2,r0
+ 819 0074 1278     	 ldrb r2,[r2]
+ 298:../Libraries/XMCLib/src/xmc_fce.c ****                             (inbuffer[bytecounter + 1U]));
+ 820              	 .loc 1 298 0
+ 821 0076 92B2     	 uxth r2,r2
+ 822 0078 0A43     	 orrs r2,r2,r1
+ 823 007a 92B2     	 uxth r2,r2
+ 824 007c 1A80     	 strh r2,[r3]
+ 300:../Libraries/XMCLib/src/xmc_fce.c ****       counter += 1U;
+ 825              	 .loc 1 300 0
+ 826 007e FB8A     	 ldrh r3,[r7,#22]
+ 827 0080 0133     	 adds r3,r3,#1
+ 828 0082 FB82     	 strh r3,[r7,#22]
+ 301:../Libraries/XMCLib/src/xmc_fce.c ****       bytecounter += 2U;
+ 829              	 .loc 1 301 0
+ 830 0084 BB8A     	 ldrh r3,[r7,#20]
+ 831 0086 0233     	 adds r3,r3,#2
+ 832 0088 BB82     	 strh r3,[r7,#20]
+ 302:../Libraries/XMCLib/src/xmc_fce.c ****       length -= 2U;
+ 833              	 .loc 1 302 0
+ 834 008a FB88     	 ldrh r3,[r7,#6]
+ 835 008c 023B     	 subs r3,r3,#2
+ 836 008e FB80     	 strh r3,[r7,#6]
+ 837              	.L50:
+ 296:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 838              	 .loc 1 296 0
+ 839 0090 FB88     	 ldrh r3,[r7,#6]
+ 840 0092 002B     	 cmp r3,#0
+ 841 0094 DFD1     	 bne .L51
+ 842              	.L46:
+ 303:../Libraries/XMCLib/src/xmc_fce.c ****     }
+ 304:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 305:../Libraries/XMCLib/src/xmc_fce.c **** }
+ 843              	 .loc 1 305 0
+ 844 0096 1C37     	 adds r7,r7,#28
+ 845              	.LCFI49:
+ 846              	 .cfi_def_cfa_offset 4
+ 847 0098 BD46     	 mov sp,r7
+ 848              	.LCFI50:
+ 849              	 .cfi_def_cfa_register 13
+ 850              	 
+ 851 009a 5DF8047B 	 ldr r7,[sp],#4
+ 852              	.LCFI51:
+ 853              	 .cfi_restore 7
+ 854              	 .cfi_def_cfa_offset 0
+ 855 009e 7047     	 bx lr
+ 856              	 .cfi_endproc
+ 857              	.LFE202:
+ 859              	 .section .text.XMC_FCE_LittleEndian32bit,"ax",%progbits
+ 860              	 .align 2
+ 861              	 .global XMC_FCE_LittleEndian32bit
+ 862              	 .thumb
+ 863              	 .thumb_func
+ 865              	XMC_FCE_LittleEndian32bit:
+ 866              	.LFB203:
+ 306:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 307:../Libraries/XMCLib/src/xmc_fce.c **** /* Change endianness of 32-bit input buffer */
+ 308:../Libraries/XMCLib/src/xmc_fce.c **** void XMC_FCE_LittleEndian32bit(uint8_t* inbuffer, uint32_t* outbuffer, uint16_t length)
+ 309:../Libraries/XMCLib/src/xmc_fce.c **** {
+ 867              	 .loc 1 309 0
+ 868              	 .cfi_startproc
+ 869              	 
+ 870              	 
+ 871              	 
+ 872 0000 80B4     	 push {r7}
+ 873              	.LCFI52:
+ 874              	 .cfi_def_cfa_offset 4
+ 875              	 .cfi_offset 7,-4
+ 876 0002 87B0     	 sub sp,sp,#28
+ 877              	.LCFI53:
+ 878              	 .cfi_def_cfa_offset 32
+ 879 0004 00AF     	 add r7,sp,#0
+ 880              	.LCFI54:
+ 881              	 .cfi_def_cfa_register 7
+ 882 0006 F860     	 str r0,[r7,#12]
+ 883 0008 B960     	 str r1,[r7,#8]
+ 884 000a 1346     	 mov r3,r2
+ 885 000c FB80     	 strh r3,[r7,#6]
+ 310:../Libraries/XMCLib/src/xmc_fce.c ****   uint16_t counter = 0U;
+ 886              	 .loc 1 310 0
+ 887 000e 0023     	 movs r3,#0
+ 888 0010 FB82     	 strh r3,[r7,#22]
+ 311:../Libraries/XMCLib/src/xmc_fce.c ****   uint16_t bytecounter = 0U;
+ 889              	 .loc 1 311 0
+ 890 0012 0023     	 movs r3,#0
+ 891 0014 BB82     	 strh r3,[r7,#20]
+ 312:../Libraries/XMCLib/src/xmc_fce.c ****  
+ 313:../Libraries/XMCLib/src/xmc_fce.c ****   if ((length & 0x03U) == 0)
+ 892              	 .loc 1 313 0
+ 893 0016 FB88     	 ldrh r3,[r7,#6]
+ 894 0018 03F00303 	 and r3,r3,#3
+ 895 001c 002B     	 cmp r3,#0
+ 896 001e 44D1     	 bne .L52
+ 314:../Libraries/XMCLib/src/xmc_fce.c ****   {
+ 315:../Libraries/XMCLib/src/xmc_fce.c ****     for (counter = 0U; counter < (length >> 2U); counter++)
+ 897              	 .loc 1 315 0
+ 898 0020 0023     	 movs r3,#0
+ 899 0022 FB82     	 strh r3,[r7,#22]
+ 900 0024 08E0     	 b .L54
+ 901              	.L55:
+ 316:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 317:../Libraries/XMCLib/src/xmc_fce.c ****       outbuffer[counter] = 0U;
+ 902              	 .loc 1 317 0 discriminator 3
+ 903 0026 FB8A     	 ldrh r3,[r7,#22]
+ 904 0028 9B00     	 lsls r3,r3,#2
+ 905 002a BA68     	 ldr r2,[r7,#8]
+ 906 002c 1344     	 add r3,r3,r2
+ 907 002e 0022     	 movs r2,#0
+ 908 0030 1A60     	 str r2,[r3]
+ 315:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 909              	 .loc 1 315 0 discriminator 3
+ 910 0032 FB8A     	 ldrh r3,[r7,#22]
+ 911 0034 0133     	 adds r3,r3,#1
+ 912 0036 FB82     	 strh r3,[r7,#22]
+ 913              	.L54:
+ 315:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 914              	 .loc 1 315 0 is_stmt 0 discriminator 1
+ 915 0038 FB88     	 ldrh r3,[r7,#6]
+ 916 003a 9B08     	 lsrs r3,r3,#2
+ 917 003c 9BB2     	 uxth r3,r3
+ 918 003e FA8A     	 ldrh r2,[r7,#22]
+ 919 0040 9A42     	 cmp r2,r3
+ 920 0042 F0D3     	 bcc .L55
+ 318:../Libraries/XMCLib/src/xmc_fce.c ****     }
+ 319:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 320:../Libraries/XMCLib/src/xmc_fce.c ****     outbuffer[counter] = 0U;
+ 921              	 .loc 1 320 0 is_stmt 1
+ 922 0044 FB8A     	 ldrh r3,[r7,#22]
+ 923 0046 9B00     	 lsls r3,r3,#2
+ 924 0048 BA68     	 ldr r2,[r7,#8]
+ 925 004a 1344     	 add r3,r3,r2
+ 926 004c 0022     	 movs r2,#0
+ 927 004e 1A60     	 str r2,[r3]
+ 321:../Libraries/XMCLib/src/xmc_fce.c ****     counter = 0U;
+ 928              	 .loc 1 321 0
+ 929 0050 0023     	 movs r3,#0
+ 930 0052 FB82     	 strh r3,[r7,#22]
+ 322:../Libraries/XMCLib/src/xmc_fce.c **** 
+ 323:../Libraries/XMCLib/src/xmc_fce.c ****     while (length)
+ 931              	 .loc 1 323 0
+ 932 0054 26E0     	 b .L56
+ 933              	.L57:
+ 324:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 325:../Libraries/XMCLib/src/xmc_fce.c ****       outbuffer[counter] = ((uint32_t)inbuffer[bytecounter]      << 24U) |
+ 934              	 .loc 1 325 0
+ 935 0056 FB8A     	 ldrh r3,[r7,#22]
+ 936 0058 9B00     	 lsls r3,r3,#2
+ 937 005a BA68     	 ldr r2,[r7,#8]
+ 938 005c 1344     	 add r3,r3,r2
+ 939 005e BA8A     	 ldrh r2,[r7,#20]
+ 940 0060 F968     	 ldr r1,[r7,#12]
+ 941 0062 0A44     	 add r2,r2,r1
+ 942 0064 1278     	 ldrb r2,[r2]
+ 943 0066 1106     	 lsls r1,r2,#24
+ 326:../Libraries/XMCLib/src/xmc_fce.c ****                            ((uint32_t)inbuffer[bytecounter + 1U] << 16U) |
+ 944              	 .loc 1 326 0
+ 945 0068 BA8A     	 ldrh r2,[r7,#20]
+ 946 006a 0132     	 adds r2,r2,#1
+ 947 006c F868     	 ldr r0,[r7,#12]
+ 948 006e 0244     	 add r2,r2,r0
+ 949 0070 1278     	 ldrb r2,[r2]
+ 950 0072 1204     	 lsls r2,r2,#16
+ 325:../Libraries/XMCLib/src/xmc_fce.c ****                            ((uint32_t)inbuffer[bytecounter + 1U] << 16U) |
+ 951              	 .loc 1 325 0
+ 952 0074 1143     	 orrs r1,r1,r2
+ 327:../Libraries/XMCLib/src/xmc_fce.c ****                            ((uint32_t)inbuffer[bytecounter + 2U] <<  8U) |
+ 953              	 .loc 1 327 0
+ 954 0076 BA8A     	 ldrh r2,[r7,#20]
+ 955 0078 0232     	 adds r2,r2,#2
+ 956 007a F868     	 ldr r0,[r7,#12]
+ 957 007c 0244     	 add r2,r2,r0
+ 958 007e 1278     	 ldrb r2,[r2]
+ 959 0080 1202     	 lsls r2,r2,#8
+ 326:../Libraries/XMCLib/src/xmc_fce.c ****                            ((uint32_t)inbuffer[bytecounter + 1U] << 16U) |
+ 960              	 .loc 1 326 0
+ 961 0082 0A43     	 orrs r2,r2,r1
+ 328:../Libraries/XMCLib/src/xmc_fce.c ****                            (inbuffer[bytecounter + 3U]);
+ 962              	 .loc 1 328 0
+ 963 0084 B98A     	 ldrh r1,[r7,#20]
+ 964 0086 0331     	 adds r1,r1,#3
+ 965 0088 F868     	 ldr r0,[r7,#12]
+ 966 008a 0144     	 add r1,r1,r0
+ 967 008c 0978     	 ldrb r1,[r1]
+ 327:../Libraries/XMCLib/src/xmc_fce.c ****                            ((uint32_t)inbuffer[bytecounter + 2U] <<  8U) |
+ 968              	 .loc 1 327 0
+ 969 008e 0A43     	 orrs r2,r2,r1
+ 325:../Libraries/XMCLib/src/xmc_fce.c ****                            ((uint32_t)inbuffer[bytecounter + 1U] << 16U) |
+ 970              	 .loc 1 325 0
+ 971 0090 1A60     	 str r2,[r3]
+ 329:../Libraries/XMCLib/src/xmc_fce.c ****       counter += 1U;
+ 972              	 .loc 1 329 0
+ 973 0092 FB8A     	 ldrh r3,[r7,#22]
+ 974 0094 0133     	 adds r3,r3,#1
+ 975 0096 FB82     	 strh r3,[r7,#22]
+ 330:../Libraries/XMCLib/src/xmc_fce.c ****       bytecounter += 4U;
+ 976              	 .loc 1 330 0
+ 977 0098 BB8A     	 ldrh r3,[r7,#20]
+ 978 009a 0433     	 adds r3,r3,#4
+ 979 009c BB82     	 strh r3,[r7,#20]
+ 331:../Libraries/XMCLib/src/xmc_fce.c ****       length -= 4U;
+ 980              	 .loc 1 331 0
+ 981 009e FB88     	 ldrh r3,[r7,#6]
+ 982 00a0 043B     	 subs r3,r3,#4
+ 983 00a2 FB80     	 strh r3,[r7,#6]
+ 984              	.L56:
+ 323:../Libraries/XMCLib/src/xmc_fce.c ****     {
+ 985              	 .loc 1 323 0
+ 986 00a4 FB88     	 ldrh r3,[r7,#6]
+ 987 00a6 002B     	 cmp r3,#0
+ 988 00a8 D5D1     	 bne .L57
+ 989              	.L52:
+ 332:../Libraries/XMCLib/src/xmc_fce.c ****     }
+ 333:../Libraries/XMCLib/src/xmc_fce.c ****   }
+ 334:../Libraries/XMCLib/src/xmc_fce.c **** }
+ 990              	 .loc 1 334 0
+ 991 00aa 1C37     	 adds r7,r7,#28
+ 992              	.LCFI55:
+ 993              	 .cfi_def_cfa_offset 4
+ 994 00ac BD46     	 mov sp,r7
+ 995              	.LCFI56:
+ 996              	 .cfi_def_cfa_register 13
+ 997              	 
+ 998 00ae 5DF8047B 	 ldr r7,[sp],#4
+ 999              	.LCFI57:
+ 1000              	 .cfi_restore 7
+ 1001              	 .cfi_def_cfa_offset 0
+ 1002 00b2 7047     	 bx lr
+ 1003              	 .cfi_endproc
+ 1004              	.LFE203:
+ 1006              	 .text
+ 1007              	.Letext0:
+ 1008              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1009              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 1010              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 1011              	 .file 6 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_fce.h"
+ 1012              	 .file 7 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_scu.h"
+ 1013              	 .file 8 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 1014              	 .file 9 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_fce.c
+    {standard input}:20     .text.XMC_FCE_Init:00000000 $t
+    {standard input}:25     .text.XMC_FCE_Init:00000000 XMC_FCE_Init
+    {standard input}:76     .text.XMC_FCE_Disable:00000000 $t
+    {standard input}:81     .text.XMC_FCE_Disable:00000000 XMC_FCE_Disable
+    {standard input}:112    .text.XMC_FCE_Disable:00000020 $d
+    {standard input}:118    .text.XMC_FCE_Enable:00000000 $t
+    {standard input}:123    .text.XMC_FCE_Enable:00000000 XMC_FCE_Enable
+    {standard input}:154    .text.XMC_FCE_Enable:00000020 $d
+    {standard input}:160    .text.XMC_FCE_CalculateCRC8:00000000 $t
+    {standard input}:165    .text.XMC_FCE_CalculateCRC8:00000000 XMC_FCE_CalculateCRC8
+    {standard input}:248    .text.XMC_FCE_CalculateCRC16:00000000 $t
+    {standard input}:253    .text.XMC_FCE_CalculateCRC16:00000000 XMC_FCE_CalculateCRC16
+    {standard input}:342    .text.XMC_FCE_CalculateCRC16Ex:00000000 $t
+    {standard input}:347    .text.XMC_FCE_CalculateCRC16Ex:00000000 XMC_FCE_CalculateCRC16Ex
+    {standard input}:457    .text.XMC_FCE_CalculateCRC32:00000000 $t
+    {standard input}:462    .text.XMC_FCE_CalculateCRC32:00000000 XMC_FCE_CalculateCRC32
+    {standard input}:550    .text.XMC_FCE_CalculateCRC32Ex:00000000 $t
+    {standard input}:555    .text.XMC_FCE_CalculateCRC32Ex:00000000 XMC_FCE_CalculateCRC32Ex
+    {standard input}:657    .text.XMC_FCE_TriggerMismatch:00000000 $t
+    {standard input}:662    .text.XMC_FCE_TriggerMismatch:00000000 XMC_FCE_TriggerMismatch
+    {standard input}:728    .text.XMC_FCE_LittleEndian16bit:00000000 $t
+    {standard input}:733    .text.XMC_FCE_LittleEndian16bit:00000000 XMC_FCE_LittleEndian16bit
+    {standard input}:860    .text.XMC_FCE_LittleEndian32bit:00000000 $t
+    {standard input}:865    .text.XMC_FCE_LittleEndian32bit:00000000 XMC_FCE_LittleEndian32bit
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+XMC_SCU_RESET_AssertPeripheralReset
+XMC_SCU_CLOCK_GatePeripheralClock
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_SCU_RESET_DeassertPeripheralReset

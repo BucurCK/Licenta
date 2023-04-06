@@ -1,0 +1,278 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "timer.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .comm CCU8_CC8_CR1_CR1_Value,4,4
+  20              	 .section .text.delay_t,"ax",%progbits
+  21              	 .align 2
+  22              	 .global delay_t
+  23              	 .thumb
+  24              	 .thumb_func
+  26              	delay_t:
+  27              	.LFB196:
+  28              	 .file 1 "../timer.c"
+   1:../timer.c    **** /*
+   2:../timer.c    ****  * timer.c
+   3:../timer.c    ****  *
+   4:../timer.c    ****  *  Created on: 13 Dec 2022
+   5:../timer.c    ****  *      Author: xraid
+   6:../timer.c    ****  */
+   7:../timer.c    **** #include "timer.h"
+   8:../timer.c    **** #include "main.h"
+   9:../timer.c    **** #include "driver_adc.h"
+  10:../timer.c    **** 
+  11:../timer.c    **** /*
+  12:../timer.c    ****  * Wait for time*50us
+  13:../timer.c    ****  */
+  14:../timer.c    **** void delay_t (uint32_t time)
+  15:../timer.c    **** {
+  29              	 .loc 1 15 0
+  30              	 .cfi_startproc
+  31              	 
+  32              	 
+  33              	 
+  34 0000 80B4     	 push {r7}
+  35              	.LCFI0:
+  36              	 .cfi_def_cfa_offset 4
+  37              	 .cfi_offset 7,-4
+  38 0002 83B0     	 sub sp,sp,#12
+  39              	.LCFI1:
+  40              	 .cfi_def_cfa_offset 16
+  41 0004 00AF     	 add r7,sp,#0
+  42              	.LCFI2:
+  43              	 .cfi_def_cfa_register 7
+  44 0006 7860     	 str r0,[r7,#4]
+  45              	.LBB6:
+  46              	.LBB7:
+  47              	 .file 2 "C:/CODE/Licenta/Libraries/CMSIS/Include/cmsis_gcc.h"
+   1:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**************************************************************************//**
+   2:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
+   4:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @version  V5.1.0
+   5:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @date     20. December 2018
+   6:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  ******************************************************************************/
+   7:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /*
+   8:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
+   9:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  10:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
+  11:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  12:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
+  13:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * not use this file except in compliance with the License.
+  14:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * You may obtain a copy of the License at
+  15:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  16:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
+  17:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  18:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
+  19:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  20:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  21:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * See the License for the specific language governing permissions and
+  22:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * limitations under the License.
+  23:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+  24:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  25:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  26:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_H
+  27:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  28:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ignore some GCC warnings */
+  29:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic push
+  30:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  31:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  32:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  33:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  34:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Fallback for __has_builtin */
+  35:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __has_builtin
+  36:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __has_builtin(x) (0)
+  37:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  38:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  39:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* CMSIS compiler specific defines */
+  40:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ASM
+  41:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ASM                                  __asm
+  42:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  43:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __INLINE
+  44:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __INLINE                               inline
+  45:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  46:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_INLINE
+  47:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
+  48:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  49:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
+  50:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
+  51:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif                                           
+  52:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __NO_RETURN
+  53:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
+  54:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  55:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __USED
+  56:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
+  57:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  58:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __WEAK
+  59:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
+  60:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  61:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED
+  62:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
+  63:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  64:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
+  65:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
+  66:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  67:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_UNION
+  68:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
+  69:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  70:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
+  71:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  72:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  73:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  74:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
+  75:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  76:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+  77:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  78:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
+  79:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  80:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  81:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  82:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+  83:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  84:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
+  85:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  86:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
+  87:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  88:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  89:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  90:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+  91:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  92:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
+  93:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  94:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
+  95:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  96:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  97:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  98:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+  99:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 100:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
+ 101:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 102:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
+ 103:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+ 104:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+ 105:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+ 106:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+ 107:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 108:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
+ 109:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 110:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ALIGNED
+ 111:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
+ 112:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 113:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __RESTRICT
+ 114:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __RESTRICT                             __restrict
+ 115:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 116:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 117:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 118:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+ 119:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+ 120:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+ 121:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
+ 122:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 123:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 124:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 125:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+ 126:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+ 127:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 128:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 129:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
+ 130:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 131:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+ 132:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 133:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 134:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 135:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 136:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+ 137:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+ 138:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 139:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 140:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
+ 141:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 142:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+  48              	 .loc 2 142 0
+  49              	
+  50 0008 72B6     	 cpsid i
+  51              	
+  52              	 .thumb
+  53              	.LBE7:
+  54              	.LBE6:
+  16:../timer.c    **** 	__disable_irq();
+  17:../timer.c    **** 	interrupt_counter_timer = 0;
+  55              	 .loc 1 17 0
+  56 000a 084B     	 ldr r3,.L3
+  57 000c 0022     	 movs r2,#0
+  58 000e 1A80     	 strh r2,[r3]
+  59              	.LBB8:
+  60              	.LBB9:
+ 131:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+  61              	 .loc 2 131 0
+  62              	
+  63 0010 62B6     	 cpsie i
+  64              	
+  65              	 .thumb
+  66              	.LBE9:
+  67              	.LBE8:
+  18:../timer.c    **** 	__enable_irq();
+  19:../timer.c    **** 	while (interrupt_counter_timer < time)
+  68              	 .loc 1 19 0
+  69 0012 00BF     	 nop
+  70              	.L2:
+  71              	 .loc 1 19 0 is_stmt 0 discriminator 1
+  72 0014 054B     	 ldr r3,.L3
+  73 0016 1B88     	 ldrh r3,[r3]
+  74 0018 1A46     	 mov r2,r3
+  75 001a 7B68     	 ldr r3,[r7,#4]
+  76 001c 9A42     	 cmp r2,r3
+  77 001e F9D3     	 bcc .L2
+  20:../timer.c    **** 	{
+  21:../timer.c    **** 		// NO_ACTION
+  22:../timer.c    **** 	};
+  23:../timer.c    **** }
+  78              	 .loc 1 23 0 is_stmt 1
+  79 0020 0C37     	 adds r7,r7,#12
+  80              	.LCFI3:
+  81              	 .cfi_def_cfa_offset 4
+  82 0022 BD46     	 mov sp,r7
+  83              	.LCFI4:
+  84              	 .cfi_def_cfa_register 13
+  85              	 
+  86 0024 5DF8047B 	 ldr r7,[sp],#4
+  87              	.LCFI5:
+  88              	 .cfi_restore 7
+  89              	 .cfi_def_cfa_offset 0
+  90 0028 7047     	 bx lr
+  91              	.L4:
+  92 002a 00BF     	 .align 2
+  93              	.L3:
+  94 002c 00000000 	 .word interrupt_counter_timer
+  95              	 .cfi_endproc
+  96              	.LFE196:
+  98              	 .text
+  99              	.Letext0:
+ 100              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 101              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 102              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 103              	 .file 6 "../main.h"
+ 104              	 .file 7 "../driver_adc.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 timer.c
+                            *COM*:00000004 CCU8_CC8_CR1_CR1_Value
+    {standard input}:21     .text.delay_t:00000000 $t
+    {standard input}:26     .text.delay_t:00000000 delay_t
+    {standard input}:94     .text.delay_t:0000002c $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+interrupt_counter_timer

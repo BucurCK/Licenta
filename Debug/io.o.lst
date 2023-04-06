@@ -1,0 +1,660 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "io.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .comm CCU8_CC8_CR1_CR1_Value,4,4
+  20              	 .comm status_buton_1,4,4
+  21              	 .comm status_buton_2,4,4
+  22              	 .comm status_led_1,4,4
+  23              	 .comm status_led_2,4,4
+  24              	 .global status_blink_1
+  25              	 .section .bss.status_blink_1,"aw",%nobits
+  26              	 .align 2
+  29              	status_blink_1:
+  30 0000 00000000 	 .space 4
+  31              	 .global status_blink_2
+  32              	 .section .bss.status_blink_2,"aw",%nobits
+  33              	 .align 2
+  36              	status_blink_2:
+  37 0000 00000000 	 .space 4
+  38              	 .comm status_buton_1_old,4,4
+  39              	 .comm status_buton_2_old,4,4
+  40              	 .global max_value_f
+  41              	 .section .data.max_value_f,"aw",%progbits
+  42              	 .align 2
+  45              	max_value_f:
+  46 0000 10270000 	 .word 10000
+  47              	 .global wait_1_s_value
+  48              	 .section .data.wait_1_s_value,"aw",%progbits
+  49              	 .align 2
+  52              	wait_1_s_value:
+  53 0000 10270000 	 .word 10000
+  54              	 .global value_f
+  55              	 .section .bss.value_f,"aw",%nobits
+  56              	 .align 2
+  59              	value_f:
+  60 0000 00000000 	 .space 4
+  61              	 .global wait_1_s
+  62              	 .section .bss.wait_1_s,"aw",%nobits
+  63              	 .align 2
+  66              	wait_1_s:
+  67 0000 00000000 	 .space 4
+  68              	 .global cond
+  69              	 .section .bss.cond,"aw",%nobits
+  70              	 .align 2
+  73              	cond:
+  74 0000 00000000 	 .space 4
+  75              	 .global timer_mode
+  76              	 .section .bss.timer_mode,"aw",%nobits
+  77              	 .align 2
+  80              	timer_mode:
+  81 0000 00000000 	 .space 4
+  82              	 .section .text.init_io,"ax",%progbits
+  83              	 .align 2
+  84              	 .global init_io
+  85              	 .thumb
+  86              	 .thumb_func
+  88              	init_io:
+  89              	.LFB196:
+  90              	 .file 1 "../io.c"
+   1:../io.c       **** /*
+   2:../io.c       ****  * io.c
+   3:../io.c       ****  *
+   4:../io.c       ****  *  Created on: 8 Dec 2022
+   5:../io.c       ****  *      Author: xraid
+   6:../io.c       ****  */
+   7:../io.c       **** #include "io.h"
+   8:../io.c       **** #include "main.h"
+   9:../io.c       **** #include "timer.h"
+  10:../io.c       **** 
+  11:../io.c       **** int status_buton_1;
+  12:../io.c       **** int status_buton_2;
+  13:../io.c       **** int status_led_1;
+  14:../io.c       **** int status_led_2;
+  15:../io.c       **** int status_blink_1 = 0;
+  16:../io.c       **** int status_blink_2 = 0;
+  17:../io.c       **** int status_buton_1_old;
+  18:../io.c       **** int status_buton_2_old;
+  19:../io.c       **** uint32_t max_value_f = 10000;
+  20:../io.c       **** uint32_t wait_1_s_value = 10000;
+  21:../io.c       **** uint32_t value_f = 0;
+  22:../io.c       **** uint32_t wait_1_s = 0;
+  23:../io.c       **** int cond = 0;
+  24:../io.c       **** 
+  25:../io.c       **** //PWM STUFF START
+  26:../io.c       **** int timer_mode = 0;
+  27:../io.c       **** 
+  28:../io.c       **** void init_io (void)
+  29:../io.c       **** {
+  91              	 .loc 1 29 0
+  92              	 .cfi_startproc
+  93              	 
+  94              	 
+  95              	 
+  96 0000 80B4     	 push {r7}
+  97              	.LCFI0:
+  98              	 .cfi_def_cfa_offset 4
+  99              	 .cfi_offset 7,-4
+ 100 0002 00AF     	 add r7,sp,#0
+ 101              	.LCFI1:
+ 102              	 .cfi_def_cfa_register 7
+  30:../io.c       **** 	PORT15->PDISC &= ~DIGITAL_I_12_MSK; 					//enable digital input 12
+ 103              	 .loc 1 30 0
+ 104 0004 2F4A     	 ldr r2,.L2
+ 105 0006 2F4B     	 ldr r3,.L2
+ 106 0008 1B6E     	 ldr r3,[r3,#96]
+ 107 000a 23F48053 	 bic r3,r3,#4096
+ 108 000e 1366     	 str r3,[r2,#96]
+  31:../io.c       **** 	PORT15->PDISC &= ~DIGITAL_I_13_MSK; 					//enable digital input 13
+ 109              	 .loc 1 31 0
+ 110 0010 2C4A     	 ldr r2,.L2
+ 111 0012 2C4B     	 ldr r3,.L2
+ 112 0014 1B6E     	 ldr r3,[r3,#96]
+ 113 0016 23F40053 	 bic r3,r3,#8192
+ 114 001a 1366     	 str r3,[r2,#96]
+  32:../io.c       **** 	PORT15->IOCR12 &= ~NO_INT_PUL_12_MSK; 					// set input 12
+ 115              	 .loc 1 32 0
+ 116 001c 294A     	 ldr r2,.L2
+ 117 001e 294B     	 ldr r3,.L2
+ 118 0020 DB69     	 ldr r3,[r3,#28]
+ 119 0022 23F03803 	 bic r3,r3,#56
+ 120 0026 D361     	 str r3,[r2,#28]
+  33:../io.c       **** 	PORT15->IOCR12 &= ~NO_INT_PUL_13_MSK; 					// set input 13
+ 121              	 .loc 1 33 0
+ 122 0028 264A     	 ldr r2,.L2
+ 123 002a 264B     	 ldr r3,.L2
+ 124 002c DB69     	 ldr r3,[r3,#28]
+ 125 002e 23F46053 	 bic r3,r3,#14336
+ 126 0032 D361     	 str r3,[r2,#28]
+  34:../io.c       **** 
+  35:../io.c       **** 	PORT5->IOCR8 &= ~GENERAL_PURPOSE_OUT_9_MSK; 			// set Output P5.9
+ 127              	 .loc 1 35 0
+ 128 0034 244A     	 ldr r2,.L2+4
+ 129 0036 244B     	 ldr r3,.L2+4
+ 130 0038 9B69     	 ldr r3,[r3,#24]
+ 131 003a 23F4F043 	 bic r3,r3,#30720
+ 132 003e 9361     	 str r3,[r2,#24]
+  36:../io.c       **** 	PORT5->IOCR8 |= GENERAL_PURPOSE_OUT_ENABLE_9_MSK;
+ 133              	 .loc 1 36 0
+ 134 0040 214A     	 ldr r2,.L2+4
+ 135 0042 214B     	 ldr r3,.L2+4
+ 136 0044 9B69     	 ldr r3,[r3,#24]
+ 137 0046 43F40043 	 orr r3,r3,#32768
+ 138 004a 9361     	 str r3,[r2,#24]
+  37:../io.c       **** 	PORT5->IOCR8 |= GPIO_OUTPUT_PUSH_PULL << PORT5_IOCR8_PC9_Pos;
+ 139              	 .loc 1 37 0
+ 140 004c 1E4A     	 ldr r2,.L2+4
+ 141 004e 1E4B     	 ldr r3,.L2+4
+ 142 0050 9B69     	 ldr r3,[r3,#24]
+ 143 0052 43F40043 	 orr r3,r3,#32768
+ 144 0056 9361     	 str r3,[r2,#24]
+  38:../io.c       **** 	PORT5->IOCR8 &= ~GENERAL_PURPOSE_OUT_8_MSK; 			// set output P5.8
+ 145              	 .loc 1 38 0
+ 146 0058 1B4A     	 ldr r2,.L2+4
+ 147 005a 1B4B     	 ldr r3,.L2+4
+ 148 005c 9B69     	 ldr r3,[r3,#24]
+ 149 005e 23F07803 	 bic r3,r3,#120
+ 150 0062 9361     	 str r3,[r2,#24]
+  39:../io.c       **** 	PORT5->IOCR8 |= GENERAL_PURPOSE_OUT_ENABLE_8_MSK;
+ 151              	 .loc 1 39 0
+ 152 0064 184A     	 ldr r2,.L2+4
+ 153 0066 184B     	 ldr r3,.L2+4
+ 154 0068 9B69     	 ldr r3,[r3,#24]
+ 155 006a 43F08003 	 orr r3,r3,#128
+ 156 006e 9361     	 str r3,[r2,#24]
+  40:../io.c       **** 	PORT5->IOCR8 |= GPIO_OUTPUT_PUSH_PULL << PORT5_IOCR8_PC8_Pos;
+ 157              	 .loc 1 40 0
+ 158 0070 154A     	 ldr r2,.L2+4
+ 159 0072 154B     	 ldr r3,.L2+4
+ 160 0074 9B69     	 ldr r3,[r3,#24]
+ 161 0076 43F08003 	 orr r3,r3,#128
+ 162 007a 9361     	 str r3,[r2,#24]
+  41:../io.c       **** 
+  42:../io.c       **** //	PORT1->IOCR0 |= (GPIO_OUTPUT_PUSH_PULL << PORT1_IOCR0_PC2_Pos);	//P1.2 as output for LED1_ETHERC
+  43:../io.c       **** //	PORT5->IOCR0 |= (GPIO_OUTPUT_PUSH_PULL << PORT5_IOCR0_PC3_Pos);	//P5.3 as output for LED1_ETHERC
+  44:../io.c       **** 
+  45:../io.c       **** 	status_buton_1_old = BUTTON_1_MODE;
+ 163              	 .loc 1 45 0
+ 164 007c 114B     	 ldr r3,.L2
+ 165 007e 5B6A     	 ldr r3,[r3,#36]
+ 166 0080 03F40053 	 and r3,r3,#8192
+ 167 0084 5B0B     	 lsrs r3,r3,#13
+ 168 0086 1A46     	 mov r2,r3
+ 169 0088 104B     	 ldr r3,.L2+8
+ 170 008a 1A60     	 str r2,[r3]
+  46:../io.c       **** 	status_buton_2_old = BUTTON_2_MODE;
+ 171              	 .loc 1 46 0
+ 172 008c 0D4B     	 ldr r3,.L2
+ 173 008e 5B6A     	 ldr r3,[r3,#36]
+ 174 0090 03F48053 	 and r3,r3,#4096
+ 175 0094 1B0B     	 lsrs r3,r3,#12
+ 176 0096 1A46     	 mov r2,r3
+ 177 0098 0D4B     	 ldr r3,.L2+12
+ 178 009a 1A60     	 str r2,[r3]
+  47:../io.c       **** 
+  48:../io.c       **** 	status_buton_1 = BUTTON_1_MODE;
+ 179              	 .loc 1 48 0
+ 180 009c 094B     	 ldr r3,.L2
+ 181 009e 5B6A     	 ldr r3,[r3,#36]
+ 182 00a0 03F40053 	 and r3,r3,#8192
+ 183 00a4 5B0B     	 lsrs r3,r3,#13
+ 184 00a6 1A46     	 mov r2,r3
+ 185 00a8 0A4B     	 ldr r3,.L2+16
+ 186 00aa 1A60     	 str r2,[r3]
+  49:../io.c       **** 	status_buton_2 = BUTTON_2_MODE;
+ 187              	 .loc 1 49 0
+ 188 00ac 054B     	 ldr r3,.L2
+ 189 00ae 5B6A     	 ldr r3,[r3,#36]
+ 190 00b0 03F48053 	 and r3,r3,#4096
+ 191 00b4 1B0B     	 lsrs r3,r3,#12
+ 192 00b6 1A46     	 mov r2,r3
+ 193 00b8 074B     	 ldr r3,.L2+20
+ 194 00ba 1A60     	 str r2,[r3]
+  50:../io.c       **** 
+  51:../io.c       **** }
+ 195              	 .loc 1 51 0
+ 196 00bc BD46     	 mov sp,r7
+ 197              	.LCFI2:
+ 198              	 .cfi_def_cfa_register 13
+ 199              	 
+ 200 00be 5DF8047B 	 ldr r7,[sp],#4
+ 201              	.LCFI3:
+ 202              	 .cfi_restore 7
+ 203              	 .cfi_def_cfa_offset 0
+ 204 00c2 7047     	 bx lr
+ 205              	.L3:
+ 206              	 .align 2
+ 207              	.L2:
+ 208 00c4 008F0248 	 .word 1208127232
+ 209 00c8 00850248 	 .word 1208124672
+ 210 00cc 00000000 	 .word status_buton_1_old
+ 211 00d0 00000000 	 .word status_buton_2_old
+ 212 00d4 00000000 	 .word status_buton_1
+ 213 00d8 00000000 	 .word status_buton_2
+ 214              	 .cfi_endproc
+ 215              	.LFE196:
+ 217              	 .section .text.read_input_1,"ax",%progbits
+ 218              	 .align 2
+ 219              	 .global read_input_1
+ 220              	 .thumb
+ 221              	 .thumb_func
+ 223              	read_input_1:
+ 224              	.LFB197:
+  52:../io.c       **** 
+  53:../io.c       **** void read_input_1 (void)
+  54:../io.c       **** {
+ 225              	 .loc 1 54 0
+ 226              	 .cfi_startproc
+ 227              	 
+ 228              	 
+ 229              	 
+ 230 0000 80B4     	 push {r7}
+ 231              	.LCFI4:
+ 232              	 .cfi_def_cfa_offset 4
+ 233              	 .cfi_offset 7,-4
+ 234 0002 00AF     	 add r7,sp,#0
+ 235              	.LCFI5:
+ 236              	 .cfi_def_cfa_register 7
+  55:../io.c       **** 	status_buton_1 = BUTTON_1_MODE;
+ 237              	 .loc 1 55 0
+ 238 0004 054B     	 ldr r3,.L5
+ 239 0006 5B6A     	 ldr r3,[r3,#36]
+ 240 0008 03F40053 	 and r3,r3,#8192
+ 241 000c 5B0B     	 lsrs r3,r3,#13
+ 242 000e 1A46     	 mov r2,r3
+ 243 0010 034B     	 ldr r3,.L5+4
+ 244 0012 1A60     	 str r2,[r3]
+  56:../io.c       **** }
+ 245              	 .loc 1 56 0
+ 246 0014 BD46     	 mov sp,r7
+ 247              	.LCFI6:
+ 248              	 .cfi_def_cfa_register 13
+ 249              	 
+ 250 0016 5DF8047B 	 ldr r7,[sp],#4
+ 251              	.LCFI7:
+ 252              	 .cfi_restore 7
+ 253              	 .cfi_def_cfa_offset 0
+ 254 001a 7047     	 bx lr
+ 255              	.L6:
+ 256              	 .align 2
+ 257              	.L5:
+ 258 001c 008F0248 	 .word 1208127232
+ 259 0020 00000000 	 .word status_buton_1
+ 260              	 .cfi_endproc
+ 261              	.LFE197:
+ 263              	 .section .text.read_input_2,"ax",%progbits
+ 264              	 .align 2
+ 265              	 .global read_input_2
+ 266              	 .thumb
+ 267              	 .thumb_func
+ 269              	read_input_2:
+ 270              	.LFB198:
+  57:../io.c       **** 
+  58:../io.c       **** void read_input_2 (void)
+  59:../io.c       **** {
+ 271              	 .loc 1 59 0
+ 272              	 .cfi_startproc
+ 273              	 
+ 274              	 
+ 275              	 
+ 276 0000 80B4     	 push {r7}
+ 277              	.LCFI8:
+ 278              	 .cfi_def_cfa_offset 4
+ 279              	 .cfi_offset 7,-4
+ 280 0002 00AF     	 add r7,sp,#0
+ 281              	.LCFI9:
+ 282              	 .cfi_def_cfa_register 7
+  60:../io.c       **** 	status_buton_2 = BUTTON_2_MODE;
+ 283              	 .loc 1 60 0
+ 284 0004 054B     	 ldr r3,.L8
+ 285 0006 5B6A     	 ldr r3,[r3,#36]
+ 286 0008 03F48053 	 and r3,r3,#4096
+ 287 000c 1B0B     	 lsrs r3,r3,#12
+ 288 000e 1A46     	 mov r2,r3
+ 289 0010 034B     	 ldr r3,.L8+4
+ 290 0012 1A60     	 str r2,[r3]
+  61:../io.c       **** }
+ 291              	 .loc 1 61 0
+ 292 0014 BD46     	 mov sp,r7
+ 293              	.LCFI10:
+ 294              	 .cfi_def_cfa_register 13
+ 295              	 
+ 296 0016 5DF8047B 	 ldr r7,[sp],#4
+ 297              	.LCFI11:
+ 298              	 .cfi_restore 7
+ 299              	 .cfi_def_cfa_offset 0
+ 300 001a 7047     	 bx lr
+ 301              	.L9:
+ 302              	 .align 2
+ 303              	.L8:
+ 304 001c 008F0248 	 .word 1208127232
+ 305 0020 00000000 	 .word status_buton_2
+ 306              	 .cfi_endproc
+ 307              	.LFE198:
+ 309              	 .section .text.set_output_blink_1,"ax",%progbits
+ 310              	 .align 2
+ 311              	 .global set_output_blink_1
+ 312              	 .thumb
+ 313              	 .thumb_func
+ 315              	set_output_blink_1:
+ 316              	.LFB199:
+  62:../io.c       **** 
+  63:../io.c       **** void set_output_blink_1 (void)
+  64:../io.c       **** {
+ 317              	 .loc 1 64 0
+ 318              	 .cfi_startproc
+ 319              	 
+ 320              	 
+ 321              	 
+ 322 0000 80B4     	 push {r7}
+ 323              	.LCFI12:
+ 324              	 .cfi_def_cfa_offset 4
+ 325              	 .cfi_offset 7,-4
+ 326 0002 00AF     	 add r7,sp,#0
+ 327              	.LCFI13:
+ 328              	 .cfi_def_cfa_register 7
+  65:../io.c       **** //	PORT1->OMR |= LED_5_ETHERCAT_TOGGLE_OMR;
+  66:../io.c       **** 	PORT5->OMR |= LED_1_TOGGLE;
+ 329              	 .loc 1 66 0
+ 330 0004 044A     	 ldr r2,.L11
+ 331 0006 044B     	 ldr r3,.L11
+ 332 0008 5B68     	 ldr r3,[r3,#4]
+ 333 000a 43F00223 	 orr r3,r3,#33554944
+ 334 000e 5360     	 str r3,[r2,#4]
+  67:../io.c       **** 
+  68:../io.c       **** }
+ 335              	 .loc 1 68 0
+ 336 0010 BD46     	 mov sp,r7
+ 337              	.LCFI14:
+ 338              	 .cfi_def_cfa_register 13
+ 339              	 
+ 340 0012 5DF8047B 	 ldr r7,[sp],#4
+ 341              	.LCFI15:
+ 342              	 .cfi_restore 7
+ 343              	 .cfi_def_cfa_offset 0
+ 344 0016 7047     	 bx lr
+ 345              	.L12:
+ 346              	 .align 2
+ 347              	.L11:
+ 348 0018 00850248 	 .word 1208124672
+ 349              	 .cfi_endproc
+ 350              	.LFE199:
+ 352              	 .section .text.set_output_blink_2,"ax",%progbits
+ 353              	 .align 2
+ 354              	 .global set_output_blink_2
+ 355              	 .thumb
+ 356              	 .thumb_func
+ 358              	set_output_blink_2:
+ 359              	.LFB200:
+  69:../io.c       **** 
+  70:../io.c       **** void set_output_blink_2 (void)
+  71:../io.c       **** {
+ 360              	 .loc 1 71 0
+ 361              	 .cfi_startproc
+ 362              	 
+ 363              	 
+ 364              	 
+ 365 0000 80B4     	 push {r7}
+ 366              	.LCFI16:
+ 367              	 .cfi_def_cfa_offset 4
+ 368              	 .cfi_offset 7,-4
+ 369 0002 00AF     	 add r7,sp,#0
+ 370              	.LCFI17:
+ 371              	 .cfi_def_cfa_register 7
+  72:../io.c       **** //	PORT5->OMR |= LED_7_ETHERCAT_TOGGLE_OMR;
+  73:../io.c       **** 	PORT5->OMR |= LED_2_TOGGLE;
+ 372              	 .loc 1 73 0
+ 373 0004 044A     	 ldr r2,.L14
+ 374 0006 044B     	 ldr r3,.L14
+ 375 0008 5B68     	 ldr r3,[r3,#4]
+ 376 000a 43F00123 	 orr r3,r3,#16777472
+ 377 000e 5360     	 str r3,[r2,#4]
+  74:../io.c       **** 
+  75:../io.c       **** }
+ 378              	 .loc 1 75 0
+ 379 0010 BD46     	 mov sp,r7
+ 380              	.LCFI18:
+ 381              	 .cfi_def_cfa_register 13
+ 382              	 
+ 383 0012 5DF8047B 	 ldr r7,[sp],#4
+ 384              	.LCFI19:
+ 385              	 .cfi_restore 7
+ 386              	 .cfi_def_cfa_offset 0
+ 387 0016 7047     	 bx lr
+ 388              	.L15:
+ 389              	 .align 2
+ 390              	.L14:
+ 391 0018 00850248 	 .word 1208124672
+ 392              	 .cfi_endproc
+ 393              	.LFE200:
+ 395              	 .section .text.set_output_on_1,"ax",%progbits
+ 396              	 .align 2
+ 397              	 .global set_output_on_1
+ 398              	 .thumb
+ 399              	 .thumb_func
+ 401              	set_output_on_1:
+ 402              	.LFB201:
+  76:../io.c       **** 
+  77:../io.c       **** void set_output_on_1 (void)
+  78:../io.c       **** {
+ 403              	 .loc 1 78 0
+ 404              	 .cfi_startproc
+ 405              	 
+ 406              	 
+ 407              	 
+ 408 0000 80B4     	 push {r7}
+ 409              	.LCFI20:
+ 410              	 .cfi_def_cfa_offset 4
+ 411              	 .cfi_offset 7,-4
+ 412 0002 00AF     	 add r7,sp,#0
+ 413              	.LCFI21:
+ 414              	 .cfi_def_cfa_register 7
+  79:../io.c       **** //	PORT1->OMR |= LED_5_ETHERCAT_ON_OMR;
+  80:../io.c       **** 	PORT5->OMR |= LED_1_ON;
+ 415              	 .loc 1 80 0
+ 416 0004 044A     	 ldr r2,.L17
+ 417 0006 044B     	 ldr r3,.L17
+ 418 0008 5B68     	 ldr r3,[r3,#4]
+ 419 000a 43F40073 	 orr r3,r3,#512
+ 420 000e 5360     	 str r3,[r2,#4]
+  81:../io.c       **** }
+ 421              	 .loc 1 81 0
+ 422 0010 BD46     	 mov sp,r7
+ 423              	.LCFI22:
+ 424              	 .cfi_def_cfa_register 13
+ 425              	 
+ 426 0012 5DF8047B 	 ldr r7,[sp],#4
+ 427              	.LCFI23:
+ 428              	 .cfi_restore 7
+ 429              	 .cfi_def_cfa_offset 0
+ 430 0016 7047     	 bx lr
+ 431              	.L18:
+ 432              	 .align 2
+ 433              	.L17:
+ 434 0018 00850248 	 .word 1208124672
+ 435              	 .cfi_endproc
+ 436              	.LFE201:
+ 438              	 .section .text.set_output_on_2,"ax",%progbits
+ 439              	 .align 2
+ 440              	 .global set_output_on_2
+ 441              	 .thumb
+ 442              	 .thumb_func
+ 444              	set_output_on_2:
+ 445              	.LFB202:
+  82:../io.c       **** 
+  83:../io.c       **** void set_output_on_2 (void)
+  84:../io.c       **** {
+ 446              	 .loc 1 84 0
+ 447              	 .cfi_startproc
+ 448              	 
+ 449              	 
+ 450              	 
+ 451 0000 80B4     	 push {r7}
+ 452              	.LCFI24:
+ 453              	 .cfi_def_cfa_offset 4
+ 454              	 .cfi_offset 7,-4
+ 455 0002 00AF     	 add r7,sp,#0
+ 456              	.LCFI25:
+ 457              	 .cfi_def_cfa_register 7
+  85:../io.c       **** //	PORT5->OMR |= LED_7_ETHERCAT_ON_OMR;
+  86:../io.c       **** 	PORT5->OMR |= LED_2_ON;
+ 458              	 .loc 1 86 0
+ 459 0004 044A     	 ldr r2,.L20
+ 460 0006 044B     	 ldr r3,.L20
+ 461 0008 5B68     	 ldr r3,[r3,#4]
+ 462 000a 43F48073 	 orr r3,r3,#256
+ 463 000e 5360     	 str r3,[r2,#4]
+  87:../io.c       **** }
+ 464              	 .loc 1 87 0
+ 465 0010 BD46     	 mov sp,r7
+ 466              	.LCFI26:
+ 467              	 .cfi_def_cfa_register 13
+ 468              	 
+ 469 0012 5DF8047B 	 ldr r7,[sp],#4
+ 470              	.LCFI27:
+ 471              	 .cfi_restore 7
+ 472              	 .cfi_def_cfa_offset 0
+ 473 0016 7047     	 bx lr
+ 474              	.L21:
+ 475              	 .align 2
+ 476              	.L20:
+ 477 0018 00850248 	 .word 1208124672
+ 478              	 .cfi_endproc
+ 479              	.LFE202:
+ 481              	 .section .text.set_OFF,"ax",%progbits
+ 482              	 .align 2
+ 483              	 .global set_OFF
+ 484              	 .thumb
+ 485              	 .thumb_func
+ 487              	set_OFF:
+ 488              	.LFB203:
+  88:../io.c       **** 
+  89:../io.c       **** //void read_output_1 (void)
+  90:../io.c       **** //{
+  91:../io.c       **** //	status_led_1 = LED_1_MODE;
+  92:../io.c       **** //}
+  93:../io.c       **** //
+  94:../io.c       **** //void read_output_2 (void)
+  95:../io.c       **** //{
+  96:../io.c       **** //	status_led_2 = LED_2_MODE;
+  97:../io.c       **** //}
+  98:../io.c       **** 
+  99:../io.c       **** void set_OFF (void)
+ 100:../io.c       **** {
+ 489              	 .loc 1 100 0
+ 490              	 .cfi_startproc
+ 491              	 
+ 492              	 
+ 493              	 
+ 494 0000 80B4     	 push {r7}
+ 495              	.LCFI28:
+ 496              	 .cfi_def_cfa_offset 4
+ 497              	 .cfi_offset 7,-4
+ 498 0002 00AF     	 add r7,sp,#0
+ 499              	.LCFI29:
+ 500              	 .cfi_def_cfa_register 7
+ 101:../io.c       **** 	PORT1->OMR |= LED_5_ETHERCAT_OFF_OMR;
+ 501              	 .loc 1 101 0
+ 502 0004 074A     	 ldr r2,.L23
+ 503 0006 074B     	 ldr r3,.L23
+ 504 0008 5B68     	 ldr r3,[r3,#4]
+ 505 000a 43F48023 	 orr r3,r3,#262144
+ 506 000e 5360     	 str r3,[r2,#4]
+ 102:../io.c       **** 	PORT5->OMR |= LED_7_ETHERCAT_OFF_OMR;
+ 507              	 .loc 1 102 0
+ 508 0010 054A     	 ldr r2,.L23+4
+ 509 0012 054B     	 ldr r3,.L23+4
+ 510 0014 5B68     	 ldr r3,[r3,#4]
+ 511 0016 43F40023 	 orr r3,r3,#524288
+ 512 001a 5360     	 str r3,[r2,#4]
+ 103:../io.c       **** }
+ 513              	 .loc 1 103 0
+ 514 001c BD46     	 mov sp,r7
+ 515              	.LCFI30:
+ 516              	 .cfi_def_cfa_register 13
+ 517              	 
+ 518 001e 5DF8047B 	 ldr r7,[sp],#4
+ 519              	.LCFI31:
+ 520              	 .cfi_restore 7
+ 521              	 .cfi_def_cfa_offset 0
+ 522 0022 7047     	 bx lr
+ 523              	.L24:
+ 524              	 .align 2
+ 525              	.L23:
+ 526 0024 00810248 	 .word 1208123648
+ 527 0028 00850248 	 .word 1208124672
+ 528              	 .cfi_endproc
+ 529              	.LFE203:
+ 531              	 .text
+ 532              	.Letext0:
+ 533              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 534              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 535              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 536              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 537              	 .file 6 "../main.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 io.c
+                            *COM*:00000004 CCU8_CC8_CR1_CR1_Value
+                            *COM*:00000004 status_buton_1
+                            *COM*:00000004 status_buton_2
+                            *COM*:00000004 status_led_1
+                            *COM*:00000004 status_led_2
+    {standard input}:29     .bss.status_blink_1:00000000 status_blink_1
+    {standard input}:26     .bss.status_blink_1:00000000 $d
+    {standard input}:36     .bss.status_blink_2:00000000 status_blink_2
+    {standard input}:33     .bss.status_blink_2:00000000 $d
+                            *COM*:00000004 status_buton_1_old
+                            *COM*:00000004 status_buton_2_old
+    {standard input}:45     .data.max_value_f:00000000 max_value_f
+    {standard input}:42     .data.max_value_f:00000000 $d
+    {standard input}:52     .data.wait_1_s_value:00000000 wait_1_s_value
+    {standard input}:49     .data.wait_1_s_value:00000000 $d
+    {standard input}:59     .bss.value_f:00000000 value_f
+    {standard input}:56     .bss.value_f:00000000 $d
+    {standard input}:66     .bss.wait_1_s:00000000 wait_1_s
+    {standard input}:63     .bss.wait_1_s:00000000 $d
+    {standard input}:73     .bss.cond:00000000 cond
+    {standard input}:70     .bss.cond:00000000 $d
+    {standard input}:80     .bss.timer_mode:00000000 timer_mode
+    {standard input}:77     .bss.timer_mode:00000000 $d
+    {standard input}:83     .text.init_io:00000000 $t
+    {standard input}:88     .text.init_io:00000000 init_io
+    {standard input}:208    .text.init_io:000000c4 $d
+    {standard input}:218    .text.read_input_1:00000000 $t
+    {standard input}:223    .text.read_input_1:00000000 read_input_1
+    {standard input}:258    .text.read_input_1:0000001c $d
+    {standard input}:264    .text.read_input_2:00000000 $t
+    {standard input}:269    .text.read_input_2:00000000 read_input_2
+    {standard input}:304    .text.read_input_2:0000001c $d
+    {standard input}:310    .text.set_output_blink_1:00000000 $t
+    {standard input}:315    .text.set_output_blink_1:00000000 set_output_blink_1
+    {standard input}:348    .text.set_output_blink_1:00000018 $d
+    {standard input}:353    .text.set_output_blink_2:00000000 $t
+    {standard input}:358    .text.set_output_blink_2:00000000 set_output_blink_2
+    {standard input}:391    .text.set_output_blink_2:00000018 $d
+    {standard input}:396    .text.set_output_on_1:00000000 $t
+    {standard input}:401    .text.set_output_on_1:00000000 set_output_on_1
+    {standard input}:434    .text.set_output_on_1:00000018 $d
+    {standard input}:439    .text.set_output_on_2:00000000 $t
+    {standard input}:444    .text.set_output_on_2:00000000 set_output_on_2
+    {standard input}:477    .text.set_output_on_2:00000018 $d
+    {standard input}:482    .text.set_OFF:00000000 $t
+    {standard input}:487    .text.set_OFF:00000000 set_OFF
+    {standard input}:526    .text.set_OFF:00000024 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

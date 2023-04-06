@@ -1,0 +1,46 @@
+/*
+ * state_machine.h
+ *
+ *  Created on: 24 Mar 2023
+ *      Author: xraid
+ */
+
+#ifndef STATE_MACHINE_H_
+#define STATE_MACHINE_H_
+
+extern uint16_t drive_status;
+extern uint16_t drive_command;
+extern uint16_t drive_command_old;
+extern uint8_t loop_control;
+
+extern void drive_disabled(void);
+extern void drive_on(void);
+extern void operation_enabled(void);
+
+extern void state_machine();
+
+#define LOOP_CONTROL_ON					(1U)
+#define LOOP_CONTROL_OFF				(0U)
+#define STATE_0_DRIVE_DISABLED			(0x0U)
+#define STATE_1_DRIVE_ON				(0x1U)
+#define STATE_2_OPERATION_ENABLED		(0x2U)
+
+
+
+#define DRIVE_COMMAND_STATE_MSK			(drive_command & 0xF)
+#define DRIVE_COMMAND_OLD_STATE_MSK		(drive_command_old & 0xF)
+#define DRIVE_COMMAND_UPDATE_MSK		(drive_command & 0xF0)
+#define DRIVE_COMMAND_UPDATE_OLD_MSK	(drive_command_old & 0xF0)
+#define UPDATE_MSK						(0x10U)
+#define ON								(0x1U)
+#define OFF								(0x0U)
+#define DRIVE_COMMAND_REF_MSK			(drive_command & 0xF00)
+#define REF_POS_MSK						(0x100U)
+#define REF_SPD_MSK						(0x200U)
+#define REF_I_MSK						(0x400U)
+#define DRIVE_COMMAND_TEST_MSK			(drive_command & 0xF000)
+#define TUNE_TEST						(0x8000U)
+
+
+
+#endif /* STATE_MACHINE_H_ */
