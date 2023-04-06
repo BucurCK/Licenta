@@ -11,7 +11,7 @@
 #include "main.h"
 #include <math.h> //TODO
 
-extern float i_q_ref, i_d_ref, pos_ref, spd_ref;
+extern float i_q_ref, i_d_ref, pos_ref, spd_ref, u_q_ref, u_d_ref;
 
 void pi_regulator_i_d(void);
 void pi_regulator_i_q(void);

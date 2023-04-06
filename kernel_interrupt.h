@@ -1,14 +1,10 @@
-//#include <stdint.h>
-//#include <stdbool.h>
-//#include <xmc_common.h>   // includes stdint stdbool stdef stdstring
-//#include "driver_pwm.h"
-//#include "main.h"
-//#include "motor_data_update.h"
-//#include "driver_adc.h"
-//
-//
-//extern uint16_t main_interrupt_counter;
-//extern uint8_t blink_1_status;
-//extern uint8_t blink_2_status;
-//
-//extern void interrupt_init(void);
+#include "main.h"
+#ifndef KERNEL_INTERRUPT_H
+#define KERNEL_INTERRUPT_H
+
+extern uint16_t interrupt_counter_timer;
+
+#define TIME_100_us     (2U)
+#define TIME_1_ms       (20U)   
+
+#endif

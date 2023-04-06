@@ -2,8 +2,7 @@
 #include "main.h"
 
 int16_t pwm_value = 3600;			//PWM max Value
-int16_t sat_pwm_max = 30000;		//Saturation Value for PWM
-int16_t sat_pwm_min = -30000;		//Saturation Value for PWM
+int16_t sat_pwm = 30000;		//Saturation Value for PWM
 
 void pwm_init (void)
 {
@@ -151,31 +150,31 @@ void pwm_update (int16_t uaref,int16_t ubref,int16_t ucref)
 	 * Keeps the voltage values between a range of max/min saturation
 	 * We don't want the resulted PWM to be 0 or MAX
 	 */
-	if (uaref > sat_pwm_max)
+	if (uaref > sat_pwm)
 	{
-		uaref = sat_pwm_max;
+		uaref = sat_pwm;
 	}
-	else if (uaref < sat_pwm_min)
+	else if (uaref < -sat_pwm)
 	{
-		uaref = sat_pwm_min;
-	}
-
-	if (ubref > sat_pwm_max)
-	{
-		ubref = sat_pwm_max;
-	}
-	else if (ubref < sat_pwm_min)
-	{
-		ubref = sat_pwm_min;
+		uaref = -sat_pwm;
 	}
 
-	if (ucref > sat_pwm_max)
+	if (ubref > sat_pwm)
 	{
-		ucref = sat_pwm_max;
+		ubref = sat_pwm;
 	}
-	else if (ucref < sat_pwm_min)
+	else if (ubref < -sat_pwm)
 	{
-		ucref = sat_pwm_min;
+		ubref = -sat_pwm;
+	}
+
+	if (ucref > sat_pwm)
+	{
+		ucref = sat_pwm;
+	}
+	else if (ucref < -sat_pwm)
+	{
+		ucref = -sat_pwm;
 	}
 
 	//New compare value

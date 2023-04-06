@@ -16,22 +16,12 @@ extern void compute_u_log(void);
 extern void compute_currents(void);
 extern void current_offset(void);
 
-extern int u_mot_dig, u_log_dig;
-extern float u_mot, u_log;
-extern uint16_t interrupt_counter;
-extern uint16_t interrupt_counter_timer;
-extern uint16_t interrupt_counter_rpm;
-extern uint32_t interrupt_counter_ref_gen;
-extern int32_t offset_ia;
-extern int32_t offset_ib;
-extern int32_t offset_ic;
 extern int16_t ia, ib, ic;
-extern float ia_a, ib_a, ic_a;
-extern int32_t motor_spd;
-extern int32_t	mechanical_position_old;
 
-extern int16_t ia_test, ib_test;
-extern float signal_ia_test, signal_ib_test, sin_increment_2_pi, cos_increment_2_pi;
+//extern float ia_a, ib_a, ic_a;
+
+//extern int16_t ia_test, ib_test; //testing
+//extern float signal_ia_test, signal_ib_test, sin_increment_2_pi, cos_increment_2_pi; //For testing
 
 
 #define PORT14_IOCR0_PC0_POS			(3UL)

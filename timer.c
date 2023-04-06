@@ -6,7 +6,7 @@
  */
 #include "timer.h"
 #include "main.h"
-#include "driver_adc.h"
+#include "kernel_interrupt.h"
 
 /*
  * Wait for time*50us

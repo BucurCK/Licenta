@@ -7,19 +7,16 @@
 #include "transform.h"
 
 //For reference
+uint32_t interrupt_counter_ref_gen = 0;
 status_ref_gen ref_gen_status = 0;					//0 - disabled, 1 - rise, 2 - high, 3 - fall, 4 - low
 int32_t high_level = 2000;							//final reference
 int32_t high_level_time = 1000;					//time to hold final reference
 
 int32_t rise_time = 2000;							//time to get to final reference
-//int32_t rise_steps = 200;							//reference increment
 int32_t rise_increment;
-//int32_t rise_delay;
 
 int32_t fall_time = 2000;							//time to get to initial reference
-//int32_t fall_steps = 200;							//reference decrement
 int32_t fall_decrement;
-//int32_t fall_delay;
 
 int32_t low_level = 0;								//initial reference = 0
 int32_t low_level_time = 1000;						//time to hold initial reference
@@ -27,7 +24,7 @@ int32_t low_level_time = 1000;						//time to hold initial reference
 uint8_t repeat_motion = 1;							// 0 = NO | 1 = YES
 
 float reference = 0;
-float position_old = 0;
+float reference_old = 0;
 
 ref_type ref_type_select = 0;
 
@@ -36,9 +33,6 @@ void reference_generator_compute (void)
 {
 	rise_increment = high_level/rise_time;
 	fall_decrement = high_level/fall_time;
-//	rise_delay = rise_time/rise_steps;
-//	fall_delay = fall_time/fall_steps;
-	//reference = 0;
 	//************************************* Move it to drive_commands
 	__disable_irq();
 	interrupt_counter_ref_gen = 0;
@@ -102,8 +96,8 @@ void reference_generator (void)
 			pos_ref = reference;
 			break;
 	case(REF_SPD):
-			spd_ref = reference - position_old;
-			position_old = reference;
+			spd_ref = reference - reference_old;
+			reference_old = reference;
 			break;
 	case(REF_I):
 			i_q_ref = reference;

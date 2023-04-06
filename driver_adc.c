@@ -16,117 +16,16 @@
 #include "reference_generator.h"
 #include "current_protection.h"
 
-int u_mot_dig, u_log_dig;					// saves the 12bit value read from VADC
-float u_mot, u_log;							// The 12bit value converted into Volts
-uint16_t interrupt_counter_slow_loop = 0;
-uint16_t interrupt_counter_fast_loop = 0;				// counts how many times the interrupt has happened
-uint16_t interrupt_counter_timer = 0;		// used for timer
-uint32_t interrupt_counter_ref_gen = 0;
-int32_t	motor_spd = 0;
-int32_t	mechanical_position_old = 0;
-uint16_t wait_100_us = 2; 					// 50us * wait | 2 = 100us | 1000 = 50ms
-uint16_t wait_1_ms = 20;
-int32_t offset_ia = 0;
-int32_t offset_ib = 0;
-int32_t offset_ic = 0;
-int16_t ia, ib, ic;
-float ia_a, ib_a, ic_a, iq_a;
-uint16_t interrupt_counter_rpm = 0;
-int32_t ia_32, ib_32, ic_32;
-
-float signal_ia_test = 0, signal_ib_test = 0, signal_ic_test = 0;
-float increment_2_pi = 0;
-float sin_increment_2_pi, cos_increment_2_pi;
-float sin_plus_cos;
+int u_mot_dig, u_log_dig;								// saves the 12bit value read from VADC
+float u_mot, u_log;										// The 12bit value converted into Volts
+int32_t offset_ia, offset_ib, offset_ic;				// Current offsets for every phase
+int16_t ia, ib, ic;										// Currents read from ADC in 16bit
+float ia_a, ib_a, ic_a, iq_a;							// Float values for Micrium
+// int32_t ia_32, ib_32, ic_32;							// Int32 values for Micrium(int16 is prone to error for osciloscope)
 
 /*
  * Main VADC interrupts
  */
-void test_ia_id_iq_id (void)
-{
-	increment_2_pi += 0.01;
-	if(increment_2_pi >= 2*M_PI)
-	{
-		increment_2_pi = 0;
-	}
-
-	signal_ia_test = sin(increment_2_pi - M_PI/2.) * 5000;
-	signal_ib_test = sin(increment_2_pi + (120. * M_PI / 180.) - M_PI/2.) * 5000;
-	signal_ic_test = sin(increment_2_pi + (240. * M_PI / 180.) - M_PI/2.) * 5000;
-	sincosf(increment_2_pi, &sin_increment_2_pi, &cos_increment_2_pi);
-	sin_plus_cos = sin_increment_2_pi*sin_increment_2_pi + cos_increment_2_pi*cos_increment_2_pi;
-
-}
-void VADC0_G0_2_IRQHandler (void)
-{
-	interrupt_counter_slow_loop++;
-	interrupt_counter_fast_loop++;
-	interrupt_counter_timer++;
-/*
- * Fast compute "loop"
- * Every 100us compute speed,mechanical/electrical position, field, dq_abc transformation
- */
-	if (interrupt_counter_fast_loop == wait_100_us)
-	{
-
-//		test_ia_id_iq_id();	//TEST
-		read_currents();
-		compute_currents();
-		compute_u_mot();
-		compute_u_log();
-
-		if (drive_status == STATE_2_OPERATION_ENABLED)
-		{
-		compute_fast_speed();
-		compute_fast_mechanical_position();
-		compute_fast_electrical_position();
-//		if ()
-//		{
-			compute_fast_field();
-//		}
-		abc_dq();
-		current_protection();
-//		abc_dq_test();	//TEST
-
-		if (loop_control == LOOP_CONTROL_ON)
-		{
-			pi_regulator_i_d();
-			pi_regulator_i_q();
-		}
-
-		dq_abc();
-		pwm_update(u_a_ref, u_b_ref, u_c_ref);
-
-		ProbeScope_Sampling();
-
-		}
-
-		interrupt_counter_fast_loop = 0;
-	}
-/*
- * Slow compute loop
- * Every 1ms compute speed
- */
-	if (interrupt_counter_slow_loop == wait_1_ms)
-	{
-		if (ref_gen_status != STATUS_0_DISABLED)
-		{
-		interrupt_counter_ref_gen++;
-		reference_generator();
-		}
-		if((loop_control == LOOP_CONTROL_ON) && (drive_status == STATE_2_OPERATION_ENABLED))
-		{
-			pi_regulator_pos();
-			pi_regulator_speed();
-		}
-		if (drive_status == STATE_2_OPERATION_ENABLED)
-		{
-			motor_spd = mechanical_position_fast - mechanical_position_old;
-			mechanical_position_old = mechanical_position_fast;
-		}
-		interrupt_counter_slow_loop = 0;
-	}
-}
 void adc_init (void)
 {
 	/*Pin setup - P14.0 P14.3 P14.4*/
@@ -382,52 +281,27 @@ void interrupt_vadc_init(void)
 
 void read_currents (void)
 {
-	ia = ((VADC_G0->RES[1] & 0xFFFF) * 16 - offset_ia);		//16 bit value
+	ia = (VADC_G0->RES[1] & 0xFFFF) * 16 - offset_ia;		//16 bit value -- INVERSED 
 	ib = (VADC_G1->RES[1] & 0xFFFF) * 16 - offset_ib;		//16 bit value
 	ic = (VADC_G2->RES[1] & 0xFFFF) * 16 - offset_ic;		//16 bit value
-	ia = (-ib-ic);
-
-	ia_32 = ia;
-	ib_32 = ib;
-	ic_32 = ic;
+	ia = (-ib-ic);											//TOO NOISY
 
 	u_mot_dig = (VADC_G2->RES[14] & 0xFFFF);	//12 bit value
 	u_log_dig = (VADC_G1->RES[14] & 0xFFFF);	//12 bit value
-}
 
-/*
- * Compute the 12bit value of u_mot into volts
- * u_mot_max = 100V
- */
-void compute_u_mot (void)
-{
-	u_mot = u_mot_dig * 0.0245;
+	// ia_32 = ia;
+	// ib_32 = ib;
+	// ic_32 = ic;
 }
-/*
- * Compute the 12bit value of u_log into volts
- * u_log_max = 50V
+/**
+ * Compute the current offset for every phase
  */
-void compute_u_log (void)
-{
-	u_log = u_log_dig * 0.01327;
-}
-/*
- * I_pos = 40A | I_neg = -40A
- */
-void compute_currents (void)
-{
-	ia_a = (float)(ia+32768)/65535.0 * 80.0 - 40.0;
-	ib_a = (float)(ib+32768)/65535.0 * 80.0 - 40.0;
-	ic_a = (float)(ic+32768)/65535.0 * 80.0 - 40.0;
-	iq_a = (float)(i_q+32768)/65535.0 * 80.0 - 40.0;
-
-}
-
 void current_offset (void)
 {
 	offset_ia = 0;
 	offset_ib = 0;
 	offset_ic = 0;
+
 	for(int i = 0; i < 16; ++i){
 		delay_t(3);
 		offset_ia += ((VADC_G0->RES[1] & 0xFFFF) * 16);
@@ -439,6 +313,39 @@ void current_offset (void)
 	offset_ia = offset_ia/16;
 	offset_ib = offset_ib/16;
 	offset_ic = offset_ic/16;
+
+}
+
+/*
+ * Just for Micrium read
+ * Compute the 12bit value of u_mot into volts
+ * u_mot_max = 100V
+ */
+void compute_u_mot (void)
+{
+	u_mot = u_mot_dig * 0.0245;
+}
+
+/*
+ * Just for Micrium read
+ * Compute the 12bit value of u_log into volts
+ * u_log_max = 50V
+ */
+void compute_u_log (void)
+{
+	u_log = u_log_dig * 0.01327;
+}
+
+/*
+ * Just for Micrium read
+ * I_pos = 40A | I_neg = -40A
+ */
+void compute_currents (void)
+{
+	ia_a = (float)(ia+32768)/65535.0 * 80.0 - 40.0;
+	ib_a = (float)(ib+32768)/65535.0 * 80.0 - 40.0;
+	ic_a = (float)(ic+32768)/65535.0 * 80.0 - 40.0;
+	iq_a = (float)(i_q+32768)/65535.0 * 80.0 - 40.0;
 
 }
 

@@ -6,13 +6,15 @@
 
 float k_p = 2, k_i = 0;
 float error_i_q = 0, error_i_d = 0, error_spd = 0, error_pos = 0;
-float i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0;
+float i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref;
 float p_part_i_q = 0, p_part_i_d = 0, p_part_spd = 0, p_part_pos = 0;
 float i_part_i_q = 0, i_part_i_d = 0, i_part_spd = 0, i_part_pos = 0;
 
 int32_t sat_out_currents = 4000;					//-40[A] & 40[A]
 int32_t sat_out_spd = 3000;							//-983010[rpm] & 983010[rpm]
-int32_t sat_out_pos = 1000;						//-32bit[iu]	+32bit[iu]
+int32_t sat_out_pos = 1000;							//-32bit[iu]	+32bit[iu]
+
+//10% from sat_out
 int32_t sat_i_part_currents;
 int32_t sat_i_part_spd;
 int32_t sat_i_part_pos;
@@ -45,15 +47,15 @@ void pi_regulator_i_q (void)						//i_q -> u_q_ref
 	}
 
 	//Output
-	u_q = p_part_i_q + i_part_i_q;
+	u_q_ref = p_part_i_q + i_part_i_q;
 
-	if (u_q > sat_out_currents)
+	if (u_q_ref > sat_out_currents)
 	{
-		u_q = sat_out_currents;
+		u_q_ref = sat_out_currents;
 	}
-	else if(u_q < -sat_out_currents)
+	else if(u_q_ref < -sat_out_currents)
 	{
-		u_q = -sat_out_currents;
+		u_q_ref = -sat_out_currents;
 	}
 
 }
@@ -86,15 +88,15 @@ void pi_regulator_i_d (void)					//i_d -> u_d_ref
 	}
 
 	//Output
-	u_d = p_part_i_d + i_part_i_d;
+	u_d_ref = p_part_i_d + i_part_i_d;
 
-	if (u_d > sat_out_currents)
+	if (u_d_ref > sat_out_currents)
 	{
-		u_d = sat_out_currents;
+		u_d_ref = sat_out_currents;
 	}
-	else if(u_d < -sat_out_currents)
+	else if(u_d_ref < -sat_out_currents)
 	{
-		u_d = -sat_out_currents;
+		u_d_ref = -sat_out_currents;
 	}
 
 }
@@ -133,7 +135,7 @@ void pi_regulator_speed (void)			//motor_spd -> i_q_ref
 	{
 		i_q_ref = sat_out_spd;
 	}
-	else if(u_q < -sat_out_spd)
+	else if(u_q_ref < -sat_out_spd)
 	{
 		i_q_ref = -sat_out_spd;
 	}

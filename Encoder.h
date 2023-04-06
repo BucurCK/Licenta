@@ -74,17 +74,9 @@
 #define ERU0_EXICON_OCS_OGU2_MSK	(0x20UL)
 
 
-
 extern void encoder_init (void);
 extern void encoder_interrupt_init (void);
 extern void encoder_interrupt_loop (void);
-
-
-//extern int32_t timer_value;
-//extern int32_t timer_value_old;
-//extern int32_t speed_value;
-//extern int16_t timer_value_old;
-
 
 
 #endif /* ENCODER_H_ */

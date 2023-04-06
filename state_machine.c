@@ -74,7 +74,7 @@ void state_machine (void)
 				ref_type_select = REF_I;
 				if(DRIVE_COMMAND_TEST_MSK & TUNE_TEST)
 				{
-					theta_fast = 0;
+					//theta_fast = 0; 		SET THETA TO 0 
 					//disable theta computation
 				}
 			}
