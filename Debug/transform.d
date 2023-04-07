@@ -12,7 +12,8 @@ transform.o transform.d transform.o: ../transform.c \
  C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_ccu8.h \
  C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_common.h \
  C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_ccu8_map.h \
- ../motor_data_update.h ../transform.h ../Encoder.h ../driver_adc.h
+ ../motor_data_update.h ../transform.h ../Encoder.h ../driver_adc.h \
+ ../pi_regulator.h
 
 C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_common.h:
 
@@ -49,3 +50,5 @@ C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_ccu8_map.h:
 ../Encoder.h:
 
 ../driver_adc.h:
+
+../pi_regulator.h:

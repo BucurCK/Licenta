@@ -24,8 +24,8 @@
 /*Interrupt function for Eru0 used with ENCZ component of encoder*/
 void ERU0_0_IRQHandler(void)
 {
-	set_output_blink_1();						//TOGGLE LED1
-	ERU0->EXICON[2] &= ~ERU0_EXICON0_FL_MSK;	//Reset Status Flag for ETLx
+//	set_output_blink_1();						//TOGGLE LED1
+//	ERU0->EXICON[2] &= ~ERU0_EXICON0_FL_MSK;	//Reset Status Flag for ETLx
 }
 
 void encoder_init (void)

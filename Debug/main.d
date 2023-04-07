@@ -18,9 +18,10 @@ main.o main.d main.o: ../main.c \
  C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_vadc_map.h \
  C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_ccu4.h \
  C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_ccu4_map.h \
- C:/CODE/Licenta/kernel_interrupt.h ../io.h ../timer.h ../Encoder.h \
- C:/CODE/Licenta/probe_scope.h ../driver_adc.h ../transform.h \
- ../motor_data_update.h ../state_machine.h ../current_protection.h
+ C:/CODE/Licenta/kernel_interrupt.h C:/CODE/Licenta/main.h ../io.h \
+ ../timer.h ../Encoder.h C:/CODE/Licenta/probe_scope.h ../driver_adc.h \
+ ../transform.h ../motor_data_update.h ../state_machine.h \
+ ../current_protection.h
 
 C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_common.h:
 
@@ -63,6 +64,8 @@ C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_ccu4.h:
 C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_ccu4_map.h:
 
 C:/CODE/Licenta/kernel_interrupt.h:
+
+C:/CODE/Licenta/main.h:
 
 ../io.h:
 

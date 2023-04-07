@@ -33,7 +33,7 @@
    6:../timer.c    ****  */
    7:../timer.c    **** #include "timer.h"
    8:../timer.c    **** #include "main.h"
-   9:../timer.c    **** #include "driver_adc.h"
+   9:../timer.c    **** #include "kernel_interrupt.h"
   10:../timer.c    **** 
   11:../timer.c    **** /*
   12:../timer.c    ****  * Wait for time*50us
@@ -265,7 +265,7 @@
  101              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
  102              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
  103              	 .file 6 "../main.h"
- 104              	 .file 7 "../driver_adc.h"
+ 104              	 .file 7 "../kernel_interrupt.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 timer.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value

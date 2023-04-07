@@ -11,6 +11,9 @@ extern void compute_fast_field (void);
 extern int32_t mechanical_position_fast;
 extern float u_a_ref,u_b_ref,u_c_ref;
 extern float i_d,i_q;
+extern float i_alpha, i_beta;
+extern int16_t timer_value_old_fast;
+float theta_fast;
 
 
 extern void abc_dq_test(void);

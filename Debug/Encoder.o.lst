@@ -2019,14 +2019,15 @@
  207              	 .cfi_endproc
  208              	.LFE112:
  210              	 .comm CCU8_CC8_CR1_CR1_Value,4,4
- 211              	 .section .text.ERU0_0_IRQHandler,"ax",%progbits
- 212              	 .align 2
- 213              	 .global ERU0_0_IRQHandler
- 214              	 .thumb
- 215              	 .thumb_func
- 217              	ERU0_0_IRQHandler:
- 218              	.LFB196:
- 219              	 .file 2 "../Encoder.c"
+ 211              	 .comm theta_fast,4,4
+ 212              	 .section .text.ERU0_0_IRQHandler,"ax",%progbits
+ 213              	 .align 2
+ 214              	 .global ERU0_0_IRQHandler
+ 215              	 .thumb
+ 216              	 .thumb_func
+ 218              	ERU0_0_IRQHandler:
+ 219              	.LFB196:
+ 220              	 .file 2 "../Encoder.c"
    1:../Encoder.c  **** /*
    2:../Encoder.c  ****  * driver_pwm.c
    3:../Encoder.c  ****  *
@@ -2053,495 +2054,491 @@
   24:../Encoder.c  **** /*Interrupt function for Eru0 used with ENCZ component of encoder*/
   25:../Encoder.c  **** void ERU0_0_IRQHandler(void)
   26:../Encoder.c  **** {
- 220              	 .loc 2 26 0
- 221              	 .cfi_startproc
- 222              	 
+ 221              	 .loc 2 26 0
+ 222              	 .cfi_startproc
  223              	 
- 224 0000 80B5     	 push {r7,lr}
- 225              	.LCFI18:
- 226              	 .cfi_def_cfa_offset 8
- 227              	 .cfi_offset 7,-8
- 228              	 .cfi_offset 14,-4
- 229 0002 00AF     	 add r7,sp,#0
- 230              	.LCFI19:
- 231              	 .cfi_def_cfa_register 7
-  27:../Encoder.c  **** 	set_output_blink_1();						//TOGGLE LED1
- 232              	 .loc 2 27 0
- 233 0004 FFF7FEFF 	 bl set_output_blink_1
-  28:../Encoder.c  **** 	ERU0->EXICON[2] &= ~ERU0_EXICON0_FL_MSK;	//Reset Status Flag for ETLx
- 234              	 .loc 2 28 0
- 235 0008 034A     	 ldr r2,.L15
- 236 000a 034B     	 ldr r3,.L15
- 237 000c 9B69     	 ldr r3,[r3,#24]
- 238 000e 23F08003 	 bic r3,r3,#128
- 239 0012 9361     	 str r3,[r2,#24]
+ 224              	 
+ 225              	 
+ 226 0000 80B4     	 push {r7}
+ 227              	.LCFI18:
+ 228              	 .cfi_def_cfa_offset 4
+ 229              	 .cfi_offset 7,-4
+ 230 0002 00AF     	 add r7,sp,#0
+ 231              	.LCFI19:
+ 232              	 .cfi_def_cfa_register 7
+  27:../Encoder.c  **** //	set_output_blink_1();						//TOGGLE LED1
+  28:../Encoder.c  **** //	ERU0->EXICON[2] &= ~ERU0_EXICON0_FL_MSK;	//Reset Status Flag for ETLx
   29:../Encoder.c  **** }
- 240              	 .loc 2 29 0
- 241 0014 80BD     	 pop {r7,pc}
- 242              	.L16:
- 243 0016 00BF     	 .align 2
- 244              	.L15:
- 245 0018 00480050 	 .word 1342195712
- 246              	 .cfi_endproc
- 247              	.LFE196:
- 249              	 .section .text.encoder_init,"ax",%progbits
- 250              	 .align 2
- 251              	 .global encoder_init
- 252              	 .thumb
- 253              	 .thumb_func
- 255              	encoder_init:
- 256              	.LFB197:
+ 233              	 .loc 2 29 0
+ 234 0004 BD46     	 mov sp,r7
+ 235              	.LCFI20:
+ 236              	 .cfi_def_cfa_register 13
+ 237              	 
+ 238 0006 5DF8047B 	 ldr r7,[sp],#4
+ 239              	.LCFI21:
+ 240              	 .cfi_restore 7
+ 241              	 .cfi_def_cfa_offset 0
+ 242 000a 7047     	 bx lr
+ 243              	 .cfi_endproc
+ 244              	.LFE196:
+ 246              	 .section .text.encoder_init,"ax",%progbits
+ 247              	 .align 2
+ 248              	 .global encoder_init
+ 249              	 .thumb
+ 250              	 .thumb_func
+ 252              	encoder_init:
+ 253              	.LFB197:
   30:../Encoder.c  **** 
   31:../Encoder.c  **** void encoder_init (void)
   32:../Encoder.c  **** {
- 257              	 .loc 2 32 0
- 258              	 .cfi_startproc
- 259              	 
- 260              	 
- 261              	 
- 262 0000 80B4     	 push {r7}
- 263              	.LCFI20:
- 264              	 .cfi_def_cfa_offset 4
- 265              	 .cfi_offset 7,-4
- 266 0002 00AF     	 add r7,sp,#0
- 267              	.LCFI21:
- 268              	 .cfi_def_cfa_register 7
+ 254              	 .loc 2 32 0
+ 255              	 .cfi_startproc
+ 256              	 
+ 257              	 
+ 258              	 
+ 259 0000 80B4     	 push {r7}
+ 260              	.LCFI22:
+ 261              	 .cfi_def_cfa_offset 4
+ 262              	 .cfi_offset 7,-4
+ 263 0002 00AF     	 add r7,sp,#0
+ 264              	.LCFI23:
+ 265              	 .cfi_def_cfa_register 7
   33:../Encoder.c  **** /*
   34:../Encoder.c  ****  * Pin set up
   35:../Encoder.c  ****  */
   36:../Encoder.c  **** 	/*Digital Pad activated*/
   37:../Encoder.c  **** 	PORT14->PDISC &= ~(PORTS_PDISC_5_MSK);
- 269              	 .loc 2 37 0
- 270 0004 6B4A     	 ldr r2,.L18
- 271 0006 6B4B     	 ldr r3,.L18
- 272 0008 1B6E     	 ldr r3,[r3,#96]
- 273 000a 23F02003 	 bic r3,r3,#32
- 274 000e 1366     	 str r3,[r2,#96]
+ 266              	 .loc 2 37 0
+ 267 0004 6B4A     	 ldr r2,.L16
+ 268 0006 6B4B     	 ldr r3,.L16
+ 269 0008 1B6E     	 ldr r3,[r3,#96]
+ 270 000a 23F02003 	 bic r3,r3,#32
+ 271 000e 1366     	 str r3,[r2,#96]
   38:../Encoder.c  **** 	PORT14->PDISC &= ~(PORTS_PDISC_6_MSK);
- 275              	 .loc 2 38 0
- 276 0010 684A     	 ldr r2,.L18
- 277 0012 684B     	 ldr r3,.L18
- 278 0014 1B6E     	 ldr r3,[r3,#96]
- 279 0016 23F04003 	 bic r3,r3,#64
- 280 001a 1366     	 str r3,[r2,#96]
+ 272              	 .loc 2 38 0
+ 273 0010 684A     	 ldr r2,.L16
+ 274 0012 684B     	 ldr r3,.L16
+ 275 0014 1B6E     	 ldr r3,[r3,#96]
+ 276 0016 23F04003 	 bic r3,r3,#64
+ 277 001a 1366     	 str r3,[r2,#96]
   39:../Encoder.c  **** 	PORT14->PDISC &= ~(PORTS_PDISC_7_MSK);
- 281              	 .loc 2 39 0
- 282 001c 654A     	 ldr r2,.L18
- 283 001e 654B     	 ldr r3,.L18
- 284 0020 1B6E     	 ldr r3,[r3,#96]
- 285 0022 23F08003 	 bic r3,r3,#128
- 286 0026 1366     	 str r3,[r2,#96]
+ 278              	 .loc 2 39 0
+ 279 001c 654A     	 ldr r2,.L16
+ 280 001e 654B     	 ldr r3,.L16
+ 281 0020 1B6E     	 ldr r3,[r3,#96]
+ 282 0022 23F08003 	 bic r3,r3,#128
+ 283 0026 1366     	 str r3,[r2,#96]
   40:../Encoder.c  **** 
   41:../Encoder.c  **** 	/*POSIF Pins*/
   42:../Encoder.c  **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC5_POS);	//P14.5 ENCZ
- 287              	 .loc 2 42 0
- 288 0028 624A     	 ldr r2,.L18
- 289 002a 624B     	 ldr r3,.L18
- 290 002c 5B69     	 ldr r3,[r3,#20]
- 291 002e 43F48053 	 orr r3,r3,#4096
- 292 0032 5361     	 str r3,[r2,#20]
+ 284              	 .loc 2 42 0
+ 285 0028 624A     	 ldr r2,.L16
+ 286 002a 624B     	 ldr r3,.L16
+ 287 002c 5B69     	 ldr r3,[r3,#20]
+ 288 002e 43F48053 	 orr r3,r3,#4096
+ 289 0032 5361     	 str r3,[r2,#20]
   43:../Encoder.c  **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC6_POS);	//P14.6	ENCB
- 293              	 .loc 2 43 0
- 294 0034 5F4A     	 ldr r2,.L18
- 295 0036 5F4B     	 ldr r3,.L18
- 296 0038 5B69     	 ldr r3,[r3,#20]
- 297 003a 43F48013 	 orr r3,r3,#1048576
- 298 003e 5361     	 str r3,[r2,#20]
+ 290              	 .loc 2 43 0
+ 291 0034 5F4A     	 ldr r2,.L16
+ 292 0036 5F4B     	 ldr r3,.L16
+ 293 0038 5B69     	 ldr r3,[r3,#20]
+ 294 003a 43F48013 	 orr r3,r3,#1048576
+ 295 003e 5361     	 str r3,[r2,#20]
   44:../Encoder.c  **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC7_POS);	//P14.7	ENCA
- 299              	 .loc 2 44 0
- 300 0040 5C4A     	 ldr r2,.L18
- 301 0042 5C4B     	 ldr r3,.L18
- 302 0044 5B69     	 ldr r3,[r3,#20]
- 303 0046 43F08053 	 orr r3,r3,#268435456
- 304 004a 5361     	 str r3,[r2,#20]
+ 296              	 .loc 2 44 0
+ 297 0040 5C4A     	 ldr r2,.L16
+ 298 0042 5C4B     	 ldr r3,.L16
+ 299 0044 5B69     	 ldr r3,[r3,#20]
+ 300 0046 43F08053 	 orr r3,r3,#268435456
+ 301 004a 5361     	 str r3,[r2,#20]
   45:../Encoder.c  **** 
   46:../Encoder.c  **** /*
   47:../Encoder.c  ****  * Configure CCU40
   48:../Encoder.c  ****  */
   49:../Encoder.c  **** 	/* Reset CCU40*/
   50:../Encoder.c  **** 	SCU_RESET->PRSET0 |= (SCU_PRESET0_CCU40RS_MSK);
- 305              	 .loc 2 50 0
- 306 004c 5A4A     	 ldr r2,.L18+4
- 307 004e 5A4B     	 ldr r3,.L18+4
- 308 0050 1B69     	 ldr r3,[r3,#16]
- 309 0052 43F00403 	 orr r3,r3,#4
- 310 0056 1361     	 str r3,[r2,#16]
+ 302              	 .loc 2 50 0
+ 303 004c 5A4A     	 ldr r2,.L16+4
+ 304 004e 5A4B     	 ldr r3,.L16+4
+ 305 0050 1B69     	 ldr r3,[r3,#16]
+ 306 0052 43F00403 	 orr r3,r3,#4
+ 307 0056 1361     	 str r3,[r2,#16]
   51:../Encoder.c  **** 
   52:../Encoder.c  **** 	/* Clear reset of CCU40 */
   53:../Encoder.c  **** 	SCU_RESET->PRCLR0 |= (SCU_PRCLR0_CCU40RS_MSK);
- 311              	 .loc 2 53 0
- 312 0058 574A     	 ldr r2,.L18+4
- 313 005a 574B     	 ldr r3,.L18+4
- 314 005c 5B69     	 ldr r3,[r3,#20]
- 315 005e 43F00403 	 orr r3,r3,#4
- 316 0062 5361     	 str r3,[r2,#20]
+ 308              	 .loc 2 53 0
+ 309 0058 574A     	 ldr r2,.L16+4
+ 310 005a 574B     	 ldr r3,.L16+4
+ 311 005c 5B69     	 ldr r3,[r3,#20]
+ 312 005e 43F00403 	 orr r3,r3,#4
+ 313 0062 5361     	 str r3,[r2,#20]
   54:../Encoder.c  **** 
   55:../Encoder.c  **** 	/* Enable CCU4 via clkset */
   56:../Encoder.c  **** 	SCU_CLK->CLKSET |= SCU_CLKSET_CCUCEN_MSK;
- 317              	 .loc 2 56 0
- 318 0064 554A     	 ldr r2,.L18+8
- 319 0066 554B     	 ldr r3,.L18+8
- 320 0068 5B68     	 ldr r3,[r3,#4]
- 321 006a 43F01003 	 orr r3,r3,#16
- 322 006e 5360     	 str r3,[r2,#4]
+ 314              	 .loc 2 56 0
+ 315 0064 554A     	 ldr r2,.L16+8
+ 316 0066 554B     	 ldr r3,.L16+8
+ 317 0068 5B68     	 ldr r3,[r3,#4]
+ 318 006a 43F01003 	 orr r3,r3,#16
+ 319 006e 5360     	 str r3,[r2,#4]
   57:../Encoder.c  **** 
   58:../Encoder.c  **** 	/* Enable prescaler */
   59:../Encoder.c  **** 	CCU40->GIDLC |= CCU4_GIDLC_SPRB_MSK;
- 323              	 .loc 2 59 0
- 324 0070 534A     	 ldr r2,.L18+12
- 325 0072 534B     	 ldr r3,.L18+12
- 326 0074 DB68     	 ldr r3,[r3,#12]
- 327 0076 43F48073 	 orr r3,r3,#256
- 328 007a D360     	 str r3,[r2,#12]
+ 320              	 .loc 2 59 0
+ 321 0070 534A     	 ldr r2,.L16+12
+ 322 0072 534B     	 ldr r3,.L16+12
+ 323 0074 DB68     	 ldr r3,[r3,#12]
+ 324 0076 43F48073 	 orr r3,r3,#256
+ 325 007a D360     	 str r3,[r2,#12]
   60:../Encoder.c  **** 
   61:../Encoder.c  **** 	/*Set clock as Module Clock*/
   62:../Encoder.c  **** 	CCU40->GCTRL &= ~(CCU4_GCTRL_PCIS_MOD_CLK_MSK << CCU4_GCTRL_PCIS_POS);
- 329              	 .loc 2 62 0
- 330 007c 504A     	 ldr r2,.L18+12
- 331 007e 504B     	 ldr r3,.L18+12
- 332 0080 1B68     	 ldr r3,[r3]
- 333 0082 23F03003 	 bic r3,r3,#48
- 334 0086 1360     	 str r3,[r2]
+ 326              	 .loc 2 62 0
+ 327 007c 504A     	 ldr r2,.L16+12
+ 328 007e 504B     	 ldr r3,.L16+12
+ 329 0080 1B68     	 ldr r3,[r3]
+ 330 0082 23F03003 	 bic r3,r3,#48
+ 331 0086 1360     	 str r3,[r2]
   63:../Encoder.c  **** 
   64:../Encoder.c  **** 	/*Set Counting Mode - Edge Aligned*/
   65:../Encoder.c  **** 	CCU40_CC40->TC &= ~(CCU4_TC_TCM_EDGE_MSK);
- 335              	 .loc 2 65 0
- 336 0088 4E4A     	 ldr r2,.L18+16
- 337 008a 4E4B     	 ldr r3,.L18+16
- 338 008c 5B69     	 ldr r3,[r3,#20]
- 339 008e 23F00103 	 bic r3,r3,#1
- 340 0092 5361     	 str r3,[r2,#20]
+ 332              	 .loc 2 65 0
+ 333 0088 4E4A     	 ldr r2,.L16+16
+ 334 008a 4E4B     	 ldr r3,.L16+16
+ 335 008c 5B69     	 ldr r3,[r3,#20]
+ 336 008e 23F00103 	 bic r3,r3,#1
+ 337 0092 5361     	 str r3,[r2,#20]
   66:../Encoder.c  **** 
   67:../Encoder.c  **** 	/*Period Value*/
   68:../Encoder.c  **** 	CCU40_CC40->PRS |= (CCU4_CC4_PRS_VALUE);
- 341              	 .loc 2 68 0
- 342 0094 4B4A     	 ldr r2,.L18+16
- 343 0096 4B4B     	 ldr r3,.L18+16
- 344 0098 5B6B     	 ldr r3,[r3,#52]
- 345 009a 6FEA1343 	 mvn r3,r3,lsr#16
- 346 009e 6FEA0343 	 mvn r3,r3,lsl#16
- 347 00a2 5363     	 str r3,[r2,#52]
+ 338              	 .loc 2 68 0
+ 339 0094 4B4A     	 ldr r2,.L16+16
+ 340 0096 4B4B     	 ldr r3,.L16+16
+ 341 0098 5B6B     	 ldr r3,[r3,#52]
+ 342 009a 6FEA1343 	 mvn r3,r3,lsr#16
+ 343 009e 6FEA0343 	 mvn r3,r3,lsl#16
+ 344 00a2 5363     	 str r3,[r2,#52]
   69:../Encoder.c  **** 
   70:../Encoder.c  **** 	/*Shadow transfer for PR*/
   71:../Encoder.c  **** 	CCU40->GCSS |= (CCU4_GCSS_S0SE_MSK);
- 348              	 .loc 2 71 0
- 349 00a4 464A     	 ldr r2,.L18+12
- 350 00a6 464B     	 ldr r3,.L18+12
- 351 00a8 1B69     	 ldr r3,[r3,#16]
- 352 00aa 43F00103 	 orr r3,r3,#1
- 353 00ae 1361     	 str r3,[r2,#16]
+ 345              	 .loc 2 71 0
+ 346 00a4 464A     	 ldr r2,.L16+12
+ 347 00a6 464B     	 ldr r3,.L16+12
+ 348 00a8 1B69     	 ldr r3,[r3,#16]
+ 349 00aa 43F00103 	 orr r3,r3,#1
+ 350 00ae 1361     	 str r3,[r2,#16]
   72:../Encoder.c  **** 
   73:../Encoder.c  **** /*
   74:../Encoder.c  ****  * Configure POSIF0
   75:../Encoder.c  ****  */
   76:../Encoder.c  **** 	/* Reset POSIF0*/
   77:../Encoder.c  **** 	SCU_RESET->PRSET0 |= (SCU_PRESET0_POSIF0RS_MSK);
- 354              	 .loc 2 77 0
- 355 00b0 414A     	 ldr r2,.L18+4
- 356 00b2 414B     	 ldr r3,.L18+4
- 357 00b4 1B69     	 ldr r3,[r3,#16]
- 358 00b6 43F40073 	 orr r3,r3,#512
- 359 00ba 1361     	 str r3,[r2,#16]
+ 351              	 .loc 2 77 0
+ 352 00b0 414A     	 ldr r2,.L16+4
+ 353 00b2 414B     	 ldr r3,.L16+4
+ 354 00b4 1B69     	 ldr r3,[r3,#16]
+ 355 00b6 43F40073 	 orr r3,r3,#512
+ 356 00ba 1361     	 str r3,[r2,#16]
   78:../Encoder.c  **** 
   79:../Encoder.c  **** 	/* Clear reset of POSIF0*/
   80:../Encoder.c  **** 	SCU_RESET->PRCLR0 |= (SCU_PRCLR0_POSIF0RS_MSK);
- 360              	 .loc 2 80 0
- 361 00bc 3E4A     	 ldr r2,.L18+4
- 362 00be 3E4B     	 ldr r3,.L18+4
- 363 00c0 5B69     	 ldr r3,[r3,#20]
- 364 00c2 43F40073 	 orr r3,r3,#512
- 365 00c6 5361     	 str r3,[r2,#20]
+ 357              	 .loc 2 80 0
+ 358 00bc 3E4A     	 ldr r2,.L16+4
+ 359 00be 3E4B     	 ldr r3,.L16+4
+ 360 00c0 5B69     	 ldr r3,[r3,#20]
+ 361 00c2 43F40073 	 orr r3,r3,#512
+ 362 00c6 5361     	 str r3,[r2,#20]
   81:../Encoder.c  **** 
   82:../Encoder.c  **** 	/*Quadrature Decoder Mode enabled*/
   83:../Encoder.c  **** 	POSIF0->PCONF |= POSIF_PCONF_FSEL_QUAD_MSK;
- 366              	 .loc 2 83 0
- 367 00c8 3F4A     	 ldr r2,.L18+20
- 368 00ca 3F4B     	 ldr r3,.L18+20
- 369 00cc 1B68     	 ldr r3,[r3]
- 370 00ce 43F00103 	 orr r3,r3,#1
- 371 00d2 1360     	 str r3,[r2]
+ 363              	 .loc 2 83 0
+ 364 00c8 3F4A     	 ldr r2,.L16+20
+ 365 00ca 3F4B     	 ldr r3,.L16+20
+ 366 00cc 1B68     	 ldr r3,[r3]
+ 367 00ce 43F00103 	 orr r3,r3,#1
+ 368 00d2 1360     	 str r3,[r2]
   84:../Encoder.c  **** 
   85:../Encoder.c  **** 	/*Phase/Hal selector as INxB for the used pins*/
   86:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL0_POS);
- 372              	 .loc 2 86 0
- 373 00d4 3C4A     	 ldr r2,.L18+20
- 374 00d6 3C4B     	 ldr r3,.L18+20
- 375 00d8 1B68     	 ldr r3,[r3]
- 376 00da 43F48073 	 orr r3,r3,#256
- 377 00de 1360     	 str r3,[r2]
+ 369              	 .loc 2 86 0
+ 370 00d4 3C4A     	 ldr r2,.L16+20
+ 371 00d6 3C4B     	 ldr r3,.L16+20
+ 372 00d8 1B68     	 ldr r3,[r3]
+ 373 00da 43F48073 	 orr r3,r3,#256
+ 374 00de 1360     	 str r3,[r2]
   87:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL1_POS);
- 378              	 .loc 2 87 0
- 379 00e0 394A     	 ldr r2,.L18+20
- 380 00e2 394B     	 ldr r3,.L18+20
- 381 00e4 1B68     	 ldr r3,[r3]
- 382 00e6 43F48063 	 orr r3,r3,#1024
- 383 00ea 1360     	 str r3,[r2]
+ 375              	 .loc 2 87 0
+ 376 00e0 394A     	 ldr r2,.L16+20
+ 377 00e2 394B     	 ldr r3,.L16+20
+ 378 00e4 1B68     	 ldr r3,[r3]
+ 379 00e6 43F48063 	 orr r3,r3,#1024
+ 380 00ea 1360     	 str r3,[r2]
   88:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL2_POS);
- 384              	 .loc 2 88 0
- 385 00ec 364A     	 ldr r2,.L18+20
- 386 00ee 364B     	 ldr r3,.L18+20
- 387 00f0 1B68     	 ldr r3,[r3]
- 388 00f2 43F48053 	 orr r3,r3,#4096
- 389 00f6 1360     	 str r3,[r2]
+ 381              	 .loc 2 88 0
+ 382 00ec 364A     	 ldr r2,.L16+20
+ 383 00ee 364B     	 ldr r3,.L16+20
+ 384 00f0 1B68     	 ldr r3,[r3]
+ 385 00f2 43F48053 	 orr r3,r3,#4096
+ 386 00f6 1360     	 str r3,[r2]
   89:../Encoder.c  **** 
   90:../Encoder.c  **** 	/*Low Pass filter configuration - 4 clock cycles*/
   91:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_LOW_PASS_4 << POSIF_PCONF_LPC_POS);
- 390              	 .loc 2 91 0
- 391 00f8 334A     	 ldr r2,.L18+20
- 392 00fa 334B     	 ldr r3,.L18+20
- 393 00fc 1B68     	 ldr r3,[r3]
- 394 00fe 43F04053 	 orr r3,r3,#805306368
- 395 0102 1360     	 str r3,[r2]
+ 387              	 .loc 2 91 0
+ 388 00f8 334A     	 ldr r2,.L16+20
+ 389 00fa 334B     	 ldr r3,.L16+20
+ 390 00fc 1B68     	 ldr r3,[r3]
+ 391 00fe 43F04053 	 orr r3,r3,#805306368
+ 392 0102 1360     	 str r3,[r2]
   92:../Encoder.c  **** 
   93:../Encoder.c  **** /*
   94:../Encoder.c  ****  * POSIF to CC40
   95:../Encoder.c  ****  */
   96:../Encoder.c  **** 	/*Input selector configuration*/
   97:../Encoder.c  **** 	CCU40_CC40->INS |= (CCU4_IN_E_MSK << CCU4_INS_EV0IS_POS);	//Event 0 for Out0 on rising edge
- 396              	 .loc 2 97 0
- 397 0104 2F4A     	 ldr r2,.L18+16
- 398 0106 2F4B     	 ldr r3,.L18+16
- 399 0108 1B68     	 ldr r3,[r3]
- 400 010a 43F00403 	 orr r3,r3,#4
- 401 010e 1360     	 str r3,[r2]
+ 393              	 .loc 2 97 0
+ 394 0104 2F4A     	 ldr r2,.L16+16
+ 395 0106 2F4B     	 ldr r3,.L16+16
+ 396 0108 1B68     	 ldr r3,[r3]
+ 397 010a 43F00403 	 orr r3,r3,#4
+ 398 010e 1360     	 str r3,[r2]
   98:../Encoder.c  **** 	CCU40_CC40->INS |= (RISING_EDGE_ENC << CCU4_INS_EV0EM_POS);
- 402              	 .loc 2 98 0
- 403 0110 2C4A     	 ldr r2,.L18+16
- 404 0112 2C4B     	 ldr r3,.L18+16
- 405 0114 1B68     	 ldr r3,[r3]
- 406 0116 43F48033 	 orr r3,r3,#65536
- 407 011a 1360     	 str r3,[r2]
+ 399              	 .loc 2 98 0
+ 400 0110 2C4A     	 ldr r2,.L16+16
+ 401 0112 2C4B     	 ldr r3,.L16+16
+ 402 0114 1B68     	 ldr r3,[r3]
+ 403 0116 43F48033 	 orr r3,r3,#65536
+ 404 011a 1360     	 str r3,[r2]
   99:../Encoder.c  **** 	CCU40_CC40->INS |= (CCU4_IN_F_MSK << CCU4_INS_EV1IS_POS);	//Event 1 for Out1 on rising edge
- 408              	 .loc 2 99 0
- 409 011c 294A     	 ldr r2,.L18+16
- 410 011e 294B     	 ldr r3,.L18+16
- 411 0120 1B68     	 ldr r3,[r3]
- 412 0122 43F05003 	 orr r3,r3,#80
- 413 0126 1360     	 str r3,[r2]
+ 405              	 .loc 2 99 0
+ 406 011c 294A     	 ldr r2,.L16+16
+ 407 011e 294B     	 ldr r3,.L16+16
+ 408 0120 1B68     	 ldr r3,[r3]
+ 409 0122 43F05003 	 orr r3,r3,#80
+ 410 0126 1360     	 str r3,[r2]
  100:../Encoder.c  **** 	CCU40_CC40->INS |= (RISING_EDGE_ENC << CCU4_INS_EV1EM_POS);
- 414              	 .loc 2 100 0
- 415 0128 264A     	 ldr r2,.L18+16
- 416 012a 264B     	 ldr r3,.L18+16
- 417 012c 1B68     	 ldr r3,[r3]
- 418 012e 43F48023 	 orr r3,r3,#262144
- 419 0132 1360     	 str r3,[r2]
+ 411              	 .loc 2 100 0
+ 412 0128 264A     	 ldr r2,.L16+16
+ 413 012a 264B     	 ldr r3,.L16+16
+ 414 012c 1B68     	 ldr r3,[r3]
+ 415 012e 43F48023 	 orr r3,r3,#262144
+ 416 0132 1360     	 str r3,[r2]
  101:../Encoder.c  **** 
  102:../Encoder.c  **** 	/*Connection Matrix Control*/
  103:../Encoder.c  **** 	CCU40_CC40->CMC |= (CCU4_EVENT_0_MSK << CCU4_CMC_CNTS_POS);	//Event0 set up for Counting
- 420              	 .loc 2 103 0
- 421 0134 234A     	 ldr r2,.L18+16
- 422 0136 234B     	 ldr r3,.L18+16
- 423 0138 5B68     	 ldr r3,[r3,#4]
- 424 013a 43F48043 	 orr r3,r3,#16384
- 425 013e 5360     	 str r3,[r2,#4]
+ 417              	 .loc 2 103 0
+ 418 0134 234A     	 ldr r2,.L16+16
+ 419 0136 234B     	 ldr r3,.L16+16
+ 420 0138 5B68     	 ldr r3,[r3,#4]
+ 421 013a 43F48043 	 orr r3,r3,#16384
+ 422 013e 5360     	 str r3,[r2,#4]
  104:../Encoder.c  **** 	CCU40_CC40->CMC |= (CCU4_EVENT_1_MSK << CCU4_CMC_UDS_POS);	//Event1 set up for Direction
- 426              	 .loc 2 104 0
- 427 0140 204A     	 ldr r2,.L18+16
- 428 0142 204B     	 ldr r3,.L18+16
- 429 0144 5B68     	 ldr r3,[r3,#4]
- 430 0146 43F40063 	 orr r3,r3,#2048
- 431 014a 5360     	 str r3,[r2,#4]
+ 423              	 .loc 2 104 0
+ 424 0140 204A     	 ldr r2,.L16+16
+ 425 0142 204B     	 ldr r3,.L16+16
+ 426 0144 5B68     	 ldr r3,[r3,#4]
+ 427 0146 43F40063 	 orr r3,r3,#2048
+ 428 014a 5360     	 str r3,[r2,#4]
  105:../Encoder.c  **** /*
  106:../Encoder.c  ****  * Stop and Start POSIF/CC40
  107:../Encoder.c  ****  */
  108:../Encoder.c  **** 	/*Stop and reset the state machine of the quadrature decoder and the current status of the Hall se
  109:../Encoder.c  **** 	POSIF0->PRUNC |= POSIF_PRUNC_CRB_MSK;	//Stops POSIF
- 432              	 .loc 2 109 0
- 433 014c 1E4A     	 ldr r2,.L18+20
- 434 014e 1E4B     	 ldr r3,.L18+20
- 435 0150 DB68     	 ldr r3,[r3,#12]
- 436 0152 43F00103 	 orr r3,r3,#1
- 437 0156 D360     	 str r3,[r2,#12]
+ 429              	 .loc 2 109 0
+ 430 014c 1E4A     	 ldr r2,.L16+20
+ 431 014e 1E4B     	 ldr r3,.L16+20
+ 432 0150 DB68     	 ldr r3,[r3,#12]
+ 433 0152 43F00103 	 orr r3,r3,#1
+ 434 0156 D360     	 str r3,[r2,#12]
  110:../Encoder.c  **** 	POSIF0->PRUNC |= POSIF_PRUNC_CSM_MSK;	//Resets POSIF
- 438              	 .loc 2 110 0
- 439 0158 1B4A     	 ldr r2,.L18+20
- 440 015a 1B4B     	 ldr r3,.L18+20
- 441 015c DB68     	 ldr r3,[r3,#12]
- 442 015e 43F00203 	 orr r3,r3,#2
- 443 0162 D360     	 str r3,[r2,#12]
+ 435              	 .loc 2 110 0
+ 436 0158 1B4A     	 ldr r2,.L16+20
+ 437 015a 1B4B     	 ldr r3,.L16+20
+ 438 015c DB68     	 ldr r3,[r3,#12]
+ 439 015e 43F00203 	 orr r3,r3,#2
+ 440 0162 D360     	 str r3,[r2,#12]
  111:../Encoder.c  **** 
  112:../Encoder.c  **** 	/*Exit Idle CC40*/
  113:../Encoder.c  **** 	CCU40->GIDLC |= (CCU4_GIDLC_CS0I_MSK);
- 444              	 .loc 2 113 0
- 445 0164 164A     	 ldr r2,.L18+12
- 446 0166 164B     	 ldr r3,.L18+12
- 447 0168 DB68     	 ldr r3,[r3,#12]
- 448 016a 43F00103 	 orr r3,r3,#1
- 449 016e D360     	 str r3,[r2,#12]
+ 441              	 .loc 2 113 0
+ 442 0164 164A     	 ldr r2,.L16+12
+ 443 0166 164B     	 ldr r3,.L16+12
+ 444 0168 DB68     	 ldr r3,[r3,#12]
+ 445 016a 43F00103 	 orr r3,r3,#1
+ 446 016e D360     	 str r3,[r2,#12]
  114:../Encoder.c  **** 
  115:../Encoder.c  **** 	/*Stop and clear timer*/
  116:../Encoder.c  **** 	CCU40_CC40->TCCLR |= (uint32_t)(CCU4_CC4_TCCLR_TRBC_Msk);
- 450              	 .loc 2 116 0
- 451 0170 144A     	 ldr r2,.L18+16
- 452 0172 144B     	 ldr r3,.L18+16
- 453 0174 1B69     	 ldr r3,[r3,#16]
- 454 0176 43F00103 	 orr r3,r3,#1
- 455 017a 1361     	 str r3,[r2,#16]
+ 447              	 .loc 2 116 0
+ 448 0170 144A     	 ldr r2,.L16+16
+ 449 0172 144B     	 ldr r3,.L16+16
+ 450 0174 1B69     	 ldr r3,[r3,#16]
+ 451 0176 43F00103 	 orr r3,r3,#1
+ 452 017a 1361     	 str r3,[r2,#16]
  117:../Encoder.c  **** 	CCU40_CC40->TCCLR |= (uint32_t)(CCU4_CC4_TCCLR_TCC_Msk);
- 456              	 .loc 2 117 0
- 457 017c 114A     	 ldr r2,.L18+16
- 458 017e 114B     	 ldr r3,.L18+16
- 459 0180 1B69     	 ldr r3,[r3,#16]
- 460 0182 43F00203 	 orr r3,r3,#2
- 461 0186 1361     	 str r3,[r2,#16]
+ 453              	 .loc 2 117 0
+ 454 017c 114A     	 ldr r2,.L16+16
+ 455 017e 114B     	 ldr r3,.L16+16
+ 456 0180 1B69     	 ldr r3,[r3,#16]
+ 457 0182 43F00203 	 orr r3,r3,#2
+ 458 0186 1361     	 str r3,[r2,#16]
  118:../Encoder.c  **** 
  119:../Encoder.c  **** 	/*Start CCU40*/
  120:../Encoder.c  **** 	CCU40_CC40->TCSET |= (CCU4_TCSET_TRBS_MSK);
- 462              	 .loc 2 120 0
- 463 0188 0E4A     	 ldr r2,.L18+16
- 464 018a 0E4B     	 ldr r3,.L18+16
- 465 018c DB68     	 ldr r3,[r3,#12]
- 466 018e 43F00103 	 orr r3,r3,#1
- 467 0192 D360     	 str r3,[r2,#12]
+ 459              	 .loc 2 120 0
+ 460 0188 0E4A     	 ldr r2,.L16+16
+ 461 018a 0E4B     	 ldr r3,.L16+16
+ 462 018c DB68     	 ldr r3,[r3,#12]
+ 463 018e 43F00103 	 orr r3,r3,#1
+ 464 0192 D360     	 str r3,[r2,#12]
  121:../Encoder.c  **** 
  122:../Encoder.c  **** 	/*Start POSIF0*/
  123:../Encoder.c  **** 	POSIF0->PRUNS |= (POSIF_PRUNS_SRB_MSK);
- 468              	 .loc 2 123 0
- 469 0194 0C4A     	 ldr r2,.L18+20
- 470 0196 0C4B     	 ldr r3,.L18+20
- 471 0198 9B68     	 ldr r3,[r3,#8]
- 472 019a 43F00103 	 orr r3,r3,#1
- 473 019e 9360     	 str r3,[r2,#8]
+ 465              	 .loc 2 123 0
+ 466 0194 0C4A     	 ldr r2,.L16+20
+ 467 0196 0C4B     	 ldr r3,.L16+20
+ 468 0198 9B68     	 ldr r3,[r3,#8]
+ 469 019a 43F00103 	 orr r3,r3,#1
+ 470 019e 9360     	 str r3,[r2,#8]
  124:../Encoder.c  **** 
  125:../Encoder.c  **** 	/*Saves the first value of the timer*/
  126:../Encoder.c  **** //	timer_value_old = CCU40_CC40->TIMER;
  127:../Encoder.c  **** 	timer_value_old_fast = CCU40_CC40->TIMER;
- 474              	 .loc 2 127 0
- 475 01a0 084B     	 ldr r3,.L18+16
- 476 01a2 1B6F     	 ldr r3,[r3,#112]
- 477 01a4 9AB2     	 uxth r2,r3
- 478 01a6 094B     	 ldr r3,.L18+24
- 479 01a8 1A80     	 strh r2,[r3]
+ 471              	 .loc 2 127 0
+ 472 01a0 084B     	 ldr r3,.L16+16
+ 473 01a2 1B6F     	 ldr r3,[r3,#112]
+ 474 01a4 9AB2     	 uxth r2,r3
+ 475 01a6 094B     	 ldr r3,.L16+24
+ 476 01a8 1A80     	 strh r2,[r3]
  128:../Encoder.c  **** 
  129:../Encoder.c  **** }
- 480              	 .loc 2 129 0
- 481 01aa BD46     	 mov sp,r7
- 482              	.LCFI22:
- 483              	 .cfi_def_cfa_register 13
- 484              	 
- 485 01ac 5DF8047B 	 ldr r7,[sp],#4
- 486              	.LCFI23:
- 487              	 .cfi_restore 7
- 488              	 .cfi_def_cfa_offset 0
- 489 01b0 7047     	 bx lr
- 490              	.L19:
- 491 01b2 00BF     	 .align 2
- 492              	.L18:
- 493 01b4 008E0248 	 .word 1208126976
- 494 01b8 00440050 	 .word 1342194688
- 495 01bc 00460050 	 .word 1342195200
- 496 01c0 00C00040 	 .word 1073790976
- 497 01c4 00C10040 	 .word 1073791232
- 498 01c8 00800240 	 .word 1073905664
- 499 01cc 00000000 	 .word timer_value_old_fast
- 500              	 .cfi_endproc
- 501              	.LFE197:
- 503              	 .section .text.encoder_interrupt_init,"ax",%progbits
- 504              	 .align 2
- 505              	 .global encoder_interrupt_init
- 506              	 .thumb
- 507              	 .thumb_func
- 509              	encoder_interrupt_init:
- 510              	.LFB198:
+ 477              	 .loc 2 129 0
+ 478 01aa BD46     	 mov sp,r7
+ 479              	.LCFI24:
+ 480              	 .cfi_def_cfa_register 13
+ 481              	 
+ 482 01ac 5DF8047B 	 ldr r7,[sp],#4
+ 483              	.LCFI25:
+ 484              	 .cfi_restore 7
+ 485              	 .cfi_def_cfa_offset 0
+ 486 01b0 7047     	 bx lr
+ 487              	.L17:
+ 488 01b2 00BF     	 .align 2
+ 489              	.L16:
+ 490 01b4 008E0248 	 .word 1208126976
+ 491 01b8 00440050 	 .word 1342194688
+ 492 01bc 00460050 	 .word 1342195200
+ 493 01c0 00C00040 	 .word 1073790976
+ 494 01c4 00C10040 	 .word 1073791232
+ 495 01c8 00800240 	 .word 1073905664
+ 496 01cc 00000000 	 .word timer_value_old_fast
+ 497              	 .cfi_endproc
+ 498              	.LFE197:
+ 500              	 .section .text.encoder_interrupt_init,"ax",%progbits
+ 501              	 .align 2
+ 502              	 .global encoder_interrupt_init
+ 503              	 .thumb
+ 504              	 .thumb_func
+ 506              	encoder_interrupt_init:
+ 507              	.LFB198:
  130:../Encoder.c  **** 
  131:../Encoder.c  **** void encoder_interrupt_init (void) {
- 511              	 .loc 2 131 0
- 512              	 .cfi_startproc
- 513              	 
- 514              	 
- 515 0000 80B5     	 push {r7,lr}
- 516              	.LCFI24:
- 517              	 .cfi_def_cfa_offset 8
- 518              	 .cfi_offset 7,-8
- 519              	 .cfi_offset 14,-4
- 520 0002 00AF     	 add r7,sp,#0
- 521              	.LCFI25:
- 522              	 .cfi_def_cfa_register 7
+ 508              	 .loc 2 131 0
+ 509              	 .cfi_startproc
+ 510              	 
+ 511              	 
+ 512 0000 80B5     	 push {r7,lr}
+ 513              	.LCFI26:
+ 514              	 .cfi_def_cfa_offset 8
+ 515              	 .cfi_offset 7,-8
+ 516              	 .cfi_offset 14,-4
+ 517 0002 00AF     	 add r7,sp,#0
+ 518              	.LCFI27:
+ 519              	 .cfi_def_cfa_register 7
  132:../Encoder.c  **** 
  133:../Encoder.c  **** 	/*Set P0.13 as input pin for ENC Z*/
  134:../Encoder.c  **** 	PORT0->IOCR12 |= (INPUT_PULL_UP_MSK << PORT0_IOCR12_PC13_POS);	//activate pull-up input on P0.13
- 523              	 .loc 2 134 0
- 524 0004 174A     	 ldr r2,.L21
- 525 0006 174B     	 ldr r3,.L21
- 526 0008 DB69     	 ldr r3,[r3,#28]
- 527 000a 43F48053 	 orr r3,r3,#4096
- 528 000e D361     	 str r3,[r2,#28]
+ 520              	 .loc 2 134 0
+ 521 0004 174A     	 ldr r2,.L19
+ 522 0006 174B     	 ldr r3,.L19
+ 523 0008 DB69     	 ldr r3,[r3,#28]
+ 524 000a 43F48053 	 orr r3,r3,#4096
+ 525 000e D361     	 str r3,[r2,#28]
  135:../Encoder.c  **** 
  136:../Encoder.c  **** 	/*Start/reset/clear is done by default for ERU0*/
  137:../Encoder.c  **** 
  138:../Encoder.c  **** 	/*Enable ERU0 2A2*/
  139:../Encoder.c  **** 	ERU0->EXISEL |= (ERU0_EXICEL_EXS2A_2A2_MSK << ERU0_EXICEL_EXS2A_2A2_POS);
- 529              	 .loc 2 139 0
- 530 0010 154A     	 ldr r2,.L21+4
- 531 0012 154B     	 ldr r3,.L21+4
- 532 0014 1B68     	 ldr r3,[r3]
- 533 0016 43F40073 	 orr r3,r3,#512
- 534 001a 1360     	 str r3,[r2]
+ 526              	 .loc 2 139 0
+ 527 0010 154A     	 ldr r2,.L19+4
+ 528 0012 154B     	 ldr r3,.L19+4
+ 529 0014 1B68     	 ldr r3,[r3]
+ 530 0016 43F40073 	 orr r3,r3,#512
+ 531 001a 1360     	 str r3,[r2]
  140:../Encoder.c  **** 
  141:../Encoder.c  **** 	/*Event input control for ERU0_2A2 we need to configure EXICON2*/
  142:../Encoder.c  **** 	ERU0->EXICON[2] |= ERU0_EXICON0_PE_MSK; 								//The trigger pulse generation is enabled
- 535              	 .loc 2 142 0
- 536 001c 124A     	 ldr r2,.L21+4
- 537 001e 124B     	 ldr r3,.L21+4
- 538 0020 9B69     	 ldr r3,[r3,#24]
- 539 0022 43F00103 	 orr r3,r3,#1
- 540 0026 9361     	 str r3,[r2,#24]
+ 532              	 .loc 2 142 0
+ 533 001c 124A     	 ldr r2,.L19+4
+ 534 001e 124B     	 ldr r3,.L19+4
+ 535 0020 9B69     	 ldr r3,[r3,#24]
+ 536 0022 43F00103 	 orr r3,r3,#1
+ 537 0026 9361     	 str r3,[r2,#24]
  143:../Encoder.c  **** 	ERU0->EXICON[2] |= ERU0_EXICON0_RE_MSK; 								//A rising edge is considered as edge even
- 541              	 .loc 2 143 0
- 542 0028 0F4A     	 ldr r2,.L21+4
- 543 002a 0F4B     	 ldr r3,.L21+4
- 544 002c 9B69     	 ldr r3,[r3,#24]
- 545 002e 43F00403 	 orr r3,r3,#4
- 546 0032 9361     	 str r3,[r2,#24]
+ 538              	 .loc 2 143 0
+ 539 0028 0F4A     	 ldr r2,.L19+4
+ 540 002a 0F4B     	 ldr r3,.L19+4
+ 541 002c 9B69     	 ldr r3,[r3,#24]
+ 542 002e 43F00403 	 orr r3,r3,#4
+ 543 0032 9361     	 str r3,[r2,#24]
  144:../Encoder.c  **** 	ERU0->EXICON[2] &= ~(ERU0_EXICON0_SS_A_MSK << ERU0_EXICON0_SS_POS);		//Input A without additional 
- 547              	 .loc 2 144 0
- 548 0034 0C4A     	 ldr r2,.L21+4
- 549 0036 0C4B     	 ldr r3,.L21+4
- 550 0038 9B69     	 ldr r3,[r3,#24]
- 551 003a 23F44073 	 bic r3,r3,#768
- 552 003e 9361     	 str r3,[r2,#24]
+ 544              	 .loc 2 144 0
+ 545 0034 0C4A     	 ldr r2,.L19+4
+ 546 0036 0C4B     	 ldr r3,.L19+4
+ 547 0038 9B69     	 ldr r3,[r3,#24]
+ 548 003a 23F44073 	 bic r3,r3,#768
+ 549 003e 9361     	 str r3,[r2,#24]
  145:../Encoder.c  **** 
  146:../Encoder.c  **** 	/*Event output control for OGU0 (default path for ERU0)*/
  147:../Encoder.c  **** 	ERU0->EXOCON[0] |= (ERU0_EXOCON0_GP_MSK << ERU0_EXOCON0_GP_POS);		//ERU_GOUTy is always enabled an
- 553              	 .loc 2 147 0
- 554 0040 094A     	 ldr r2,.L21+4
- 555 0042 094B     	 ldr r3,.L21+4
- 556 0044 1B6A     	 ldr r3,[r3,#32]
- 557 0046 43F01003 	 orr r3,r3,#16
- 558 004a 1362     	 str r3,[r2,#32]
+ 550              	 .loc 2 147 0
+ 551 0040 094A     	 ldr r2,.L19+4
+ 552 0042 094B     	 ldr r3,.L19+4
+ 553 0044 1B6A     	 ldr r3,[r3,#32]
+ 554 0046 43F01003 	 orr r3,r3,#16
+ 555 004a 1362     	 str r3,[r2,#32]
  148:../Encoder.c  **** 
  149:../Encoder.c  **** 	/*Interrupt enable*/
  150:../Encoder.c  **** 	NVIC_SetPriority(ERU0_0_IRQn, 2U);
- 559              	 .loc 2 150 0
- 560 004c 0120     	 movs r0,#1
- 561 004e 0221     	 movs r1,#2
- 562 0050 FFF7FEFF 	 bl __NVIC_SetPriority
+ 556              	 .loc 2 150 0
+ 557 004c 0120     	 movs r0,#1
+ 558 004e 0221     	 movs r1,#2
+ 559 0050 FFF7FEFF 	 bl __NVIC_SetPriority
  151:../Encoder.c  **** 	NVIC_ClearPendingIRQ(ERU0_0_IRQn);
- 563              	 .loc 2 151 0
- 564 0054 0120     	 movs r0,#1
- 565 0056 FFF7FEFF 	 bl __NVIC_ClearPendingIRQ
+ 560              	 .loc 2 151 0
+ 561 0054 0120     	 movs r0,#1
+ 562 0056 FFF7FEFF 	 bl __NVIC_ClearPendingIRQ
  152:../Encoder.c  **** 	NVIC_EnableIRQ(ERU0_0_IRQn);
- 566              	 .loc 2 152 0
- 567 005a 0120     	 movs r0,#1
- 568 005c FFF7FEFF 	 bl __NVIC_EnableIRQ
+ 563              	 .loc 2 152 0
+ 564 005a 0120     	 movs r0,#1
+ 565 005c FFF7FEFF 	 bl __NVIC_EnableIRQ
  153:../Encoder.c  **** 
  154:../Encoder.c  **** }
- 569              	 .loc 2 154 0
- 570 0060 80BD     	 pop {r7,pc}
- 571              	.L22:
- 572 0062 00BF     	 .align 2
- 573              	.L21:
- 574 0064 00800248 	 .word 1208123392
- 575 0068 00480050 	 .word 1342195712
- 576              	 .cfi_endproc
- 577              	.LFE198:
- 579              	 .text
- 580              	.Letext0:
- 581              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 582              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 583              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
- 584              	 .file 6 "../main.h"
- 585              	 .file 7 "../transform.h"
+ 566              	 .loc 2 154 0
+ 567 0060 80BD     	 pop {r7,pc}
+ 568              	.L20:
+ 569 0062 00BF     	 .align 2
+ 570              	.L19:
+ 571 0064 00800248 	 .word 1208123392
+ 572 0068 00480050 	 .word 1342195712
+ 573              	 .cfi_endproc
+ 574              	.LFE198:
+ 576              	 .text
+ 577              	.Letext0:
+ 578              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 579              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 580              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 581              	 .file 6 "../main.h"
+ 582              	 .file 7 "../transform.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 Encoder.c
     {standard input}:20     .text.__NVIC_EnableIRQ:00000000 $t
@@ -2554,17 +2551,16 @@ DEFINED SYMBOLS
     {standard input}:142    .text.__NVIC_SetPriority:00000000 __NVIC_SetPriority
     {standard input}:205    .text.__NVIC_SetPriority:0000004c $d
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
-    {standard input}:212    .text.ERU0_0_IRQHandler:00000000 $t
-    {standard input}:217    .text.ERU0_0_IRQHandler:00000000 ERU0_0_IRQHandler
-    {standard input}:245    .text.ERU0_0_IRQHandler:00000018 $d
-    {standard input}:250    .text.encoder_init:00000000 $t
-    {standard input}:255    .text.encoder_init:00000000 encoder_init
-    {standard input}:493    .text.encoder_init:000001b4 $d
-    {standard input}:504    .text.encoder_interrupt_init:00000000 $t
-    {standard input}:509    .text.encoder_interrupt_init:00000000 encoder_interrupt_init
-    {standard input}:574    .text.encoder_interrupt_init:00000064 $d
+                            *COM*:00000004 theta_fast
+    {standard input}:213    .text.ERU0_0_IRQHandler:00000000 $t
+    {standard input}:218    .text.ERU0_0_IRQHandler:00000000 ERU0_0_IRQHandler
+    {standard input}:247    .text.encoder_init:00000000 $t
+    {standard input}:252    .text.encoder_init:00000000 encoder_init
+    {standard input}:490    .text.encoder_init:000001b4 $d
+    {standard input}:501    .text.encoder_interrupt_init:00000000 $t
+    {standard input}:506    .text.encoder_interrupt_init:00000000 encoder_interrupt_init
+    {standard input}:571    .text.encoder_interrupt_init:00000064 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
-set_output_blink_1
 timer_value_old_fast

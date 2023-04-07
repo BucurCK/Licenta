@@ -103,7 +103,7 @@ void reference_generator (void)
 			i_q_ref = reference;
 			break;
 	case(REF_U):
-			u_q = reference;
+			u_q_ref = reference;
 			break;
 	default:
 		break;
