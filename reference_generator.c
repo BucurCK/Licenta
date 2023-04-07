@@ -6,16 +6,18 @@
 #include "state_machine.h"
 #include "transform.h"
 
-//For reference
+//For reference Time = [ms] | high_level = motor counts
 uint32_t interrupt_counter_ref_gen = 0;
-status_ref_gen ref_gen_status = 0;					//0 - disabled, 1 - rise, 2 - high, 3 - fall, 4 - low
-int32_t high_level = 2000;							//final reference
-int32_t high_level_time = 1000;					//time to hold final reference
 
-int32_t rise_time = 2000;							//time to get to final reference
+status_ref_gen ref_gen_status = 0;					//0 - disabled, 1 - rise, 2 - high, 3 - fall, 4 - low
+
+int32_t high_level = 3000;							//final reference
+int32_t high_level_time = 1000;						//time to hold final reference
+
+int32_t rise_time = 10;								//time to get to final reference
 int32_t rise_increment;
 
-int32_t fall_time = 2000;							//time to get to initial reference
+int32_t fall_time = 10;								//time to get to initial reference
 int32_t fall_decrement;
 
 int32_t low_level = 0;								//initial reference = 0
@@ -31,8 +33,11 @@ ref_type ref_type_select = 0;
 
 void reference_generator_compute (void)
 {
+
 	rise_increment = high_level/rise_time;
 	fall_decrement = high_level/fall_time;
+	reference = 0;
+	reference_old = 0;
 	//************************************* Move it to drive_commands
 	__disable_irq();
 	interrupt_counter_ref_gen = 0;

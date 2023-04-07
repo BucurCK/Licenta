@@ -1,5 +1,6 @@
 #include "driver_pwm.h"
 #include "main.h"
+#include "state_machine.h"
 
 int16_t pwm_value = 3600;			//PWM max Value
 int16_t sat_pwm = 30000;		//Saturation Value for PWM

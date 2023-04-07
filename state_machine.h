@@ -12,10 +12,13 @@ extern uint16_t drive_status;
 extern uint16_t drive_command;
 extern uint16_t drive_command_old;
 extern uint8_t loop_control;
+extern uint8_t tune_test_control;
+extern uint8_t motion_config;
 
 extern void drive_disabled(void);
 extern void drive_on(void);
 extern void operation_enabled(void);
+extern void compute_motion (void);
 
 extern void state_machine();
 
@@ -35,11 +38,14 @@ extern void state_machine();
 #define ON								(0x1U)
 #define OFF								(0x0U)
 #define DRIVE_COMMAND_REF_MSK			(drive_command & 0xF00)
-#define REF_POS_MSK						(0x100U)
+#define REF_POS_MSK						(0x400U)
 #define REF_SPD_MSK						(0x200U)
-#define REF_I_MSK						(0x400U)
+#define REF_I_MSK						(0x100U)
 #define DRIVE_COMMAND_TEST_MSK			(drive_command & 0xF000)
 #define TUNE_TEST						(0x8000U)
+#define DRIVE_STATUS_MSK				(drive_status & 0xFU)
+#define DRIVE_STATUS_CLEAR      		~(0xFU)
+#define TUNE_TEST_ENABLE				(drive_command & 0x8000)
 
 
 

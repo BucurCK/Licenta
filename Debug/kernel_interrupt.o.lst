@@ -92,27 +92,27 @@
   65              	 .cfi_def_cfa_register 7
   35:../kernel_interrupt.c **** 	interrupt_counter_slow_loop++;
   66              	 .loc 1 35 0
-  67 0006 434B     	 ldr r3,.L9
+  67 0006 4C4B     	 ldr r3,.L10
   68 0008 1B88     	 ldrh r3,[r3]
   69 000a 0133     	 adds r3,r3,#1
   70 000c 9AB2     	 uxth r2,r3
-  71 000e 414B     	 ldr r3,.L9
+  71 000e 4A4B     	 ldr r3,.L10
   72 0010 1A80     	 strh r2,[r3]
   36:../kernel_interrupt.c **** 	interrupt_counter_fast_loop++;
   73              	 .loc 1 36 0
-  74 0012 414B     	 ldr r3,.L9+4
+  74 0012 4A4B     	 ldr r3,.L10+4
   75 0014 1B88     	 ldrh r3,[r3]
   76 0016 0133     	 adds r3,r3,#1
   77 0018 9AB2     	 uxth r2,r3
-  78 001a 3F4B     	 ldr r3,.L9+4
+  78 001a 484B     	 ldr r3,.L10+4
   79 001c 1A80     	 strh r2,[r3]
   37:../kernel_interrupt.c **** 	interrupt_counter_timer++;
   80              	 .loc 1 37 0
-  81 001e 3F4B     	 ldr r3,.L9+8
+  81 001e 484B     	 ldr r3,.L10+8
   82 0020 1B88     	 ldrh r3,[r3]
   83 0022 0133     	 adds r3,r3,#1
   84 0024 9AB2     	 uxth r2,r3
-  85 0026 3D4B     	 ldr r3,.L9+8
+  85 0026 464B     	 ldr r3,.L10+8
   86 0028 1A80     	 strh r2,[r3]
   38:../kernel_interrupt.c **** /*
   39:../kernel_interrupt.c ****  * Fast compute "loop"
@@ -120,227 +120,254 @@
   41:../kernel_interrupt.c ****  */
   42:../kernel_interrupt.c **** 	if (interrupt_counter_fast_loop == TIME_100_us)
   87              	 .loc 1 42 0
-  88 002a 3B4B     	 ldr r3,.L9+4
+  88 002a 444B     	 ldr r3,.L10+4
   89 002c 1B88     	 ldrh r3,[r3]
   90 002e 022B     	 cmp r3,#2
-  91 0030 49D1     	 bne .L2
+  91 0030 4FD1     	 bne .L2
   43:../kernel_interrupt.c **** 	{
   44:../kernel_interrupt.c **** 
-  45:../kernel_interrupt.c **** //		test_ia_id_iq_id();	//TEST
-  46:../kernel_interrupt.c ****         //Read and compute into [SI] all currents
-  47:../kernel_interrupt.c **** 		read_currents();
-  92              	 .loc 1 47 0
+  45:../kernel_interrupt.c ****         //Read and compute into [SI] all currents
+  46:../kernel_interrupt.c **** 		read_currents();
+  92              	 .loc 1 46 0
   93 0032 FFF7FEFF 	 bl read_currents
-  48:../kernel_interrupt.c **** 		compute_currents();
-  94              	 .loc 1 48 0
+  47:../kernel_interrupt.c **** 		compute_currents();
+  94              	 .loc 1 47 0
   95 0036 FFF7FEFF 	 bl compute_currents
-  49:../kernel_interrupt.c **** 		compute_u_mot();
-  96              	 .loc 1 49 0
+  48:../kernel_interrupt.c **** 		compute_u_mot();
+  96              	 .loc 1 48 0
   97 003a FFF7FEFF 	 bl compute_u_mot
-  50:../kernel_interrupt.c **** 		compute_u_log();
-  98              	 .loc 1 50 0
+  49:../kernel_interrupt.c **** 		compute_u_log();
+  98              	 .loc 1 49 0
   99 003e FFF7FEFF 	 bl compute_u_log
-  51:../kernel_interrupt.c **** 
-  52:../kernel_interrupt.c ****         //Compute all data for motor movement in Operation Enable
-  53:../kernel_interrupt.c **** 		if (drive_status == STATE_2_OPERATION_ENABLED)
- 100              	 .loc 1 53 0
- 101 0042 374B     	 ldr r3,.L9+12
- 102 0044 1B88     	 ldrh r3,[r3]
- 103 0046 022B     	 cmp r3,#2
- 104 0048 3AD1     	 bne .L3
-  54:../kernel_interrupt.c **** 		{
-  55:../kernel_interrupt.c **** 
-  56:../kernel_interrupt.c **** 		compute_fast_speed();
- 105              	 .loc 1 56 0
+  50:../kernel_interrupt.c **** 
+  51:../kernel_interrupt.c ****         //Compute all data for motor movement in Operation Enable
+  52:../kernel_interrupt.c **** 		if (motion_config)
+ 100              	 .loc 1 52 0
+ 101 0042 404B     	 ldr r3,.L10+12
+ 102 0044 1B78     	 ldrb r3,[r3]
+ 103 0046 002B     	 cmp r3,#0
+ 104 0048 40D0     	 beq .L3
+  53:../kernel_interrupt.c **** 		{
+  54:../kernel_interrupt.c **** 		compute_fast_speed();
+ 105              	 .loc 1 54 0
  106 004a FFF7FEFF 	 bl compute_fast_speed
-  57:../kernel_interrupt.c **** 		compute_fast_mechanical_position();
- 107              	 .loc 1 57 0
+  55:../kernel_interrupt.c **** 		compute_fast_mechanical_position();
+ 107              	 .loc 1 55 0
  108 004e FFF7FEFF 	 bl compute_fast_mechanical_position
-  58:../kernel_interrupt.c **** 		compute_fast_electrical_position();
- 109              	 .loc 1 58 0
+  56:../kernel_interrupt.c **** 		compute_fast_electrical_position();
+ 109              	 .loc 1 56 0
  110 0052 FFF7FEFF 	 bl compute_fast_electrical_position
-  59:../kernel_interrupt.c **** 		compute_fast_field();
- 111              	 .loc 1 59 0
+  57:../kernel_interrupt.c **** 		compute_fast_field();
+ 111              	 .loc 1 57 0
  112 0056 FFF7FEFF 	 bl compute_fast_field
-  60:../kernel_interrupt.c **** 		abc_dq();
- 113              	 .loc 1 60 0
+  58:../kernel_interrupt.c **** 		abc_dq();
+ 113              	 .loc 1 58 0
  114 005a FFF7FEFF 	 bl abc_dq
-  61:../kernel_interrupt.c **** 		current_protection();
- 115              	 .loc 1 61 0
+  59:../kernel_interrupt.c **** 		current_protection();
+ 115              	 .loc 1 59 0
  116 005e FFF7FEFF 	 bl current_protection
-  62:../kernel_interrupt.c **** //		abc_dq_test();	//TEST
-  63:../kernel_interrupt.c **** 
-  64:../kernel_interrupt.c ****         //Add Fast Loop regulators
-  65:../kernel_interrupt.c **** 		if (loop_control == LOOP_CONTROL_ON)
- 117              	 .loc 1 65 0
- 118 0062 304B     	 ldr r3,.L9+16
+  60:../kernel_interrupt.c **** 
+  61:../kernel_interrupt.c ****         //Add Fast Loop regulators
+  62:../kernel_interrupt.c **** 		if (loop_control == LOOP_CONTROL_ON)
+ 117              	 .loc 1 62 0
+ 118 0062 394B     	 ldr r3,.L10+16
  119 0064 1B78     	 ldrb r3,[r3]
  120 0066 012B     	 cmp r3,#1
- 121 0068 03D1     	 bne .L4
-  66:../kernel_interrupt.c **** 		{
-  67:../kernel_interrupt.c **** 			pi_regulator_i_d();
- 122              	 .loc 1 67 0
- 123 006a FFF7FEFF 	 bl pi_regulator_i_d
-  68:../kernel_interrupt.c **** 			pi_regulator_i_q();
- 124              	 .loc 1 68 0
- 125 006e FFF7FEFF 	 bl pi_regulator_i_q
- 126              	.L4:
+ 121 0068 09D1     	 bne .L4
+  63:../kernel_interrupt.c **** 		{
+  64:../kernel_interrupt.c **** 			if(LOOP_I_ENABLE)
+ 122              	 .loc 1 64 0
+ 123 006a 384B     	 ldr r3,.L10+20
+ 124 006c 1B88     	 ldrh r3,[r3]
+ 125 006e 03F48073 	 and r3,r3,#256
+ 126 0072 002B     	 cmp r3,#0
+ 127 0074 03D0     	 beq .L4
+  65:../kernel_interrupt.c **** 			{
+  66:../kernel_interrupt.c **** 			pi_regulator_i_d();
+ 128              	 .loc 1 66 0
+ 129 0076 FFF7FEFF 	 bl pi_regulator_i_d
+  67:../kernel_interrupt.c **** 			pi_regulator_i_q();
+ 130              	 .loc 1 67 0
+ 131 007a FFF7FEFF 	 bl pi_regulator_i_q
+ 132              	.L4:
+  68:../kernel_interrupt.c **** 			}
   69:../kernel_interrupt.c **** 		}
   70:../kernel_interrupt.c **** 
   71:../kernel_interrupt.c **** 		dq_abc();
- 127              	 .loc 1 71 0
- 128 0072 FFF7FEFF 	 bl dq_abc
+ 133              	 .loc 1 71 0
+ 134 007e FFF7FEFF 	 bl dq_abc
   72:../kernel_interrupt.c **** 		pwm_update(u_a_ref, u_b_ref, u_c_ref);
- 129              	 .loc 1 72 0
- 130 0076 2C4B     	 ldr r3,.L9+20
- 131 0078 D3ED007A 	 flds s15,[r3]
- 132 007c FDEEE77A 	 ftosizs s15,s15
- 133 0080 C7ED017A 	 fsts s15,[r7,#4]
- 134 0084 BB88     	 ldrh r3,[r7,#4]
- 135 0086 99B2     	 uxth r1,r3
- 136 0088 284B     	 ldr r3,.L9+24
- 137 008a D3ED007A 	 flds s15,[r3]
- 138 008e FDEEE77A 	 ftosizs s15,s15
- 139 0092 C7ED017A 	 fsts s15,[r7,#4]
- 140 0096 BB88     	 ldrh r3,[r7,#4]
- 141 0098 9AB2     	 uxth r2,r3
- 142 009a 254B     	 ldr r3,.L9+28
- 143 009c D3ED007A 	 flds s15,[r3]
- 144 00a0 FDEEE77A 	 ftosizs s15,s15
- 145 00a4 C7ED017A 	 fsts s15,[r7,#4]
- 146 00a8 BB88     	 ldrh r3,[r7,#4]
- 147 00aa 9BB2     	 uxth r3,r3
- 148 00ac 09B2     	 sxth r1,r1
- 149 00ae 12B2     	 sxth r2,r2
- 150 00b0 1BB2     	 sxth r3,r3
- 151 00b2 0846     	 mov r0,r1
- 152 00b4 1146     	 mov r1,r2
- 153 00b6 1A46     	 mov r2,r3
- 154 00b8 FFF7FEFF 	 bl pwm_update
+ 135              	 .loc 1 72 0
+ 136 0082 334B     	 ldr r3,.L10+24
+ 137 0084 D3ED007A 	 flds s15,[r3]
+ 138 0088 FDEEE77A 	 ftosizs s15,s15
+ 139 008c C7ED017A 	 fsts s15,[r7,#4]
+ 140 0090 BB88     	 ldrh r3,[r7,#4]
+ 141 0092 99B2     	 uxth r1,r3
+ 142 0094 2F4B     	 ldr r3,.L10+28
+ 143 0096 D3ED007A 	 flds s15,[r3]
+ 144 009a FDEEE77A 	 ftosizs s15,s15
+ 145 009e C7ED017A 	 fsts s15,[r7,#4]
+ 146 00a2 BB88     	 ldrh r3,[r7,#4]
+ 147 00a4 9AB2     	 uxth r2,r3
+ 148 00a6 2C4B     	 ldr r3,.L10+32
+ 149 00a8 D3ED007A 	 flds s15,[r3]
+ 150 00ac FDEEE77A 	 ftosizs s15,s15
+ 151 00b0 C7ED017A 	 fsts s15,[r7,#4]
+ 152 00b4 BB88     	 ldrh r3,[r7,#4]
+ 153 00b6 9BB2     	 uxth r3,r3
+ 154 00b8 09B2     	 sxth r1,r1
+ 155 00ba 12B2     	 sxth r2,r2
+ 156 00bc 1BB2     	 sxth r3,r3
+ 157 00be 0846     	 mov r0,r1
+ 158 00c0 1146     	 mov r1,r2
+ 159 00c2 1A46     	 mov r2,r3
+ 160 00c4 FFF7FEFF 	 bl pwm_update
   73:../kernel_interrupt.c **** 
   74:../kernel_interrupt.c **** 		ProbeScope_Sampling();      //For Micrium Osciloscope
- 155              	 .loc 1 74 0
- 156 00bc FFF7FEFF 	 bl ProbeScope_Sampling
- 157              	.L3:
+ 161              	 .loc 1 74 0
+ 162 00c8 FFF7FEFF 	 bl ProbeScope_Sampling
+ 163              	.L3:
   75:../kernel_interrupt.c **** 
   76:../kernel_interrupt.c **** 		}
   77:../kernel_interrupt.c **** 
   78:../kernel_interrupt.c **** 		interrupt_counter_fast_loop = 0;
- 158              	 .loc 1 78 0
- 159 00c0 154B     	 ldr r3,.L9+4
- 160 00c2 0022     	 movs r2,#0
- 161 00c4 1A80     	 strh r2,[r3]
- 162              	.L2:
+ 164              	 .loc 1 78 0
+ 165 00cc 1B4B     	 ldr r3,.L10+4
+ 166 00ce 0022     	 movs r2,#0
+ 167 00d0 1A80     	 strh r2,[r3]
+ 168              	.L2:
   79:../kernel_interrupt.c **** 	}
   80:../kernel_interrupt.c **** /*
   81:../kernel_interrupt.c ****  * Slow compute loop
   82:../kernel_interrupt.c ****  * Every 1ms compute speed
   83:../kernel_interrupt.c ****  */
   84:../kernel_interrupt.c **** 	if (interrupt_counter_slow_loop == TIME_1_ms)
- 163              	 .loc 1 84 0
- 164 00c6 134B     	 ldr r3,.L9
- 165 00c8 1B88     	 ldrh r3,[r3]
- 166 00ca 142B     	 cmp r3,#20
- 167 00cc 1FD1     	 bne .L1
+ 169              	 .loc 1 84 0
+ 170 00d2 194B     	 ldr r3,.L10
+ 171 00d4 1B88     	 ldrh r3,[r3]
+ 172 00d6 142B     	 cmp r3,#20
+ 173 00d8 2BD1     	 bne .L1
   85:../kernel_interrupt.c **** 	{
   86:../kernel_interrupt.c ****         //Reference Generator function and timer
   87:../kernel_interrupt.c **** 		if (ref_gen_status != STATUS_0_DISABLED)
- 168              	 .loc 1 87 0
- 169 00ce 194B     	 ldr r3,.L9+32
- 170 00d0 1B78     	 ldrb r3,[r3]
- 171 00d2 002B     	 cmp r3,#0
- 172 00d4 06D0     	 beq .L6
+ 174              	 .loc 1 87 0
+ 175 00da 204B     	 ldr r3,.L10+36
+ 176 00dc 1B78     	 ldrb r3,[r3]
+ 177 00de 002B     	 cmp r3,#0
+ 178 00e0 06D0     	 beq .L6
   88:../kernel_interrupt.c **** 		{
   89:../kernel_interrupt.c **** 		interrupt_counter_ref_gen++;
- 173              	 .loc 1 89 0
- 174 00d6 184B     	 ldr r3,.L9+36
- 175 00d8 1B68     	 ldr r3,[r3]
- 176 00da 0133     	 adds r3,r3,#1
- 177 00dc 164A     	 ldr r2,.L9+36
- 178 00de 1360     	 str r3,[r2]
+ 179              	 .loc 1 89 0
+ 180 00e2 1F4B     	 ldr r3,.L10+40
+ 181 00e4 1B68     	 ldr r3,[r3]
+ 182 00e6 0133     	 adds r3,r3,#1
+ 183 00e8 1D4A     	 ldr r2,.L10+40
+ 184 00ea 1360     	 str r3,[r2]
   90:../kernel_interrupt.c **** 		reference_generator();
- 179              	 .loc 1 90 0
- 180 00e0 FFF7FEFF 	 bl reference_generator
- 181              	.L6:
+ 185              	 .loc 1 90 0
+ 186 00ec FFF7FEFF 	 bl reference_generator
+ 187              	.L6:
   91:../kernel_interrupt.c **** 		}
   92:../kernel_interrupt.c **** 
   93:../kernel_interrupt.c ****         //Slow loop regulators
-  94:../kernel_interrupt.c **** 		if((loop_control == LOOP_CONTROL_ON) && (drive_status == STATE_2_OPERATION_ENABLED))
- 182              	 .loc 1 94 0
- 183 00e4 0F4B     	 ldr r3,.L9+16
- 184 00e6 1B78     	 ldrb r3,[r3]
- 185 00e8 012B     	 cmp r3,#1
- 186 00ea 07D1     	 bne .L7
- 187              	 .loc 1 94 0 is_stmt 0 discriminator 1
- 188 00ec 0C4B     	 ldr r3,.L9+12
- 189 00ee 1B88     	 ldrh r3,[r3]
- 190 00f0 022B     	 cmp r3,#2
- 191 00f2 03D1     	 bne .L7
+  94:../kernel_interrupt.c **** 		if((loop_control == LOOP_CONTROL_ON) && motion_config)
+ 188              	 .loc 1 94 0
+ 189 00f0 154B     	 ldr r3,.L10+16
+ 190 00f2 1B78     	 ldrb r3,[r3]
+ 191 00f4 012B     	 cmp r3,#1
+ 192 00f6 13D1     	 bne .L7
+ 193              	 .loc 1 94 0 is_stmt 0 discriminator 1
+ 194 00f8 124B     	 ldr r3,.L10+12
+ 195 00fa 1B78     	 ldrb r3,[r3]
+ 196 00fc 002B     	 cmp r3,#0
+ 197 00fe 0FD0     	 beq .L7
   95:../kernel_interrupt.c **** 		{
-  96:../kernel_interrupt.c **** 			pi_regulator_pos();
- 192              	 .loc 1 96 0 is_stmt 1
- 193 00f4 FFF7FEFF 	 bl pi_regulator_pos
-  97:../kernel_interrupt.c **** 			pi_regulator_speed();
- 194              	 .loc 1 97 0
- 195 00f8 FFF7FEFF 	 bl pi_regulator_speed
- 196              	.L7:
-  98:../kernel_interrupt.c **** 		}
+  96:../kernel_interrupt.c **** 			if(LOOP_POS_ENABLE)
+ 198              	 .loc 1 96 0 is_stmt 1
+ 199 0100 124B     	 ldr r3,.L10+20
+ 200 0102 1B88     	 ldrh r3,[r3]
+ 201 0104 03F48063 	 and r3,r3,#1024
+ 202 0108 002B     	 cmp r3,#0
+ 203 010a 01D0     	 beq .L8
+  97:../kernel_interrupt.c **** 			{
+  98:../kernel_interrupt.c **** 				pi_regulator_pos();
+ 204              	 .loc 1 98 0
+ 205 010c FFF7FEFF 	 bl pi_regulator_pos
+ 206              	.L8:
   99:../kernel_interrupt.c **** 
- 100:../kernel_interrupt.c ****         //Compute motor speed
- 101:../kernel_interrupt.c **** 		if (drive_status == STATE_2_OPERATION_ENABLED)
- 197              	 .loc 1 101 0
- 198 00fc 084B     	 ldr r3,.L9+12
- 199 00fe 1B88     	 ldrh r3,[r3]
- 200 0100 022B     	 cmp r3,#2
- 201 0102 01D1     	 bne .L8
- 102:../kernel_interrupt.c **** 		{
- 103:../kernel_interrupt.c ****             compute_speed();
- 202              	 .loc 1 103 0
- 203 0104 FFF7FEFF 	 bl compute_speed
- 204              	.L8:
- 104:../kernel_interrupt.c **** 		}
- 105:../kernel_interrupt.c **** 
- 106:../kernel_interrupt.c **** 		interrupt_counter_slow_loop = 0;
- 205              	 .loc 1 106 0
- 206 0108 024B     	 ldr r3,.L9
- 207 010a 0022     	 movs r2,#0
- 208 010c 1A80     	 strh r2,[r3]
- 209              	.L1:
- 107:../kernel_interrupt.c **** 	}
- 108:../kernel_interrupt.c **** }
- 210              	 .loc 1 108 0
- 211 010e 0837     	 adds r7,r7,#8
- 212              	.LCFI3:
- 213              	 .cfi_def_cfa_offset 8
- 214 0110 BD46     	 mov sp,r7
- 215              	.LCFI4:
- 216              	 .cfi_def_cfa_register 13
- 217              	 
- 218 0112 80BD     	 pop {r7,pc}
- 219              	.L10:
- 220              	 .align 2
- 221              	.L9:
- 222 0114 00000000 	 .word interrupt_counter_slow_loop
- 223 0118 00000000 	 .word interrupt_counter_fast_loop
- 224 011c 00000000 	 .word interrupt_counter_timer
- 225 0120 00000000 	 .word drive_status
- 226 0124 00000000 	 .word loop_control
- 227 0128 00000000 	 .word u_a_ref
- 228 012c 00000000 	 .word u_b_ref
- 229 0130 00000000 	 .word u_c_ref
- 230 0134 00000000 	 .word ref_gen_status
- 231 0138 00000000 	 .word interrupt_counter_ref_gen
- 232              	 .cfi_endproc
- 233              	.LFE196:
- 235              	 .text
- 236              	.Letext0:
- 237              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 238              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 239              	 .file 4 "../reference_generator.h"
- 240              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 241              	 .file 6 "../main.h"
- 242              	 .file 7 "../transform.h"
- 243              	 .file 8 "../state_machine.h"
+ 100:../kernel_interrupt.c **** 			}
+ 101:../kernel_interrupt.c **** 			if(LOOP_SPD_ENABLE)
+ 207              	 .loc 1 101 0
+ 208 0110 0E4B     	 ldr r3,.L10+20
+ 209 0112 1B88     	 ldrh r3,[r3]
+ 210 0114 03F40073 	 and r3,r3,#512
+ 211 0118 002B     	 cmp r3,#0
+ 212 011a 01D0     	 beq .L7
+ 102:../kernel_interrupt.c **** 			{
+ 103:../kernel_interrupt.c **** 				pi_regulator_speed();
+ 213              	 .loc 1 103 0
+ 214 011c FFF7FEFF 	 bl pi_regulator_speed
+ 215              	.L7:
+ 104:../kernel_interrupt.c **** 			}
+ 105:../kernel_interrupt.c **** 		}
+ 106:../kernel_interrupt.c **** 
+ 107:../kernel_interrupt.c ****         //Compute motor speed
+ 108:../kernel_interrupt.c **** 		if (motion_config)
+ 216              	 .loc 1 108 0
+ 217 0120 084B     	 ldr r3,.L10+12
+ 218 0122 1B78     	 ldrb r3,[r3]
+ 219 0124 002B     	 cmp r3,#0
+ 220 0126 01D0     	 beq .L9
+ 109:../kernel_interrupt.c **** 		{
+ 110:../kernel_interrupt.c ****             compute_speed();
+ 221              	 .loc 1 110 0
+ 222 0128 FFF7FEFF 	 bl compute_speed
+ 223              	.L9:
+ 111:../kernel_interrupt.c **** 		}
+ 112:../kernel_interrupt.c **** 
+ 113:../kernel_interrupt.c **** 		interrupt_counter_slow_loop = 0;
+ 224              	 .loc 1 113 0
+ 225 012c 024B     	 ldr r3,.L10
+ 226 012e 0022     	 movs r2,#0
+ 227 0130 1A80     	 strh r2,[r3]
+ 228              	.L1:
+ 114:../kernel_interrupt.c **** 	}
+ 115:../kernel_interrupt.c **** }
+ 229              	 .loc 1 115 0
+ 230 0132 0837     	 adds r7,r7,#8
+ 231              	.LCFI3:
+ 232              	 .cfi_def_cfa_offset 8
+ 233 0134 BD46     	 mov sp,r7
+ 234              	.LCFI4:
+ 235              	 .cfi_def_cfa_register 13
+ 236              	 
+ 237 0136 80BD     	 pop {r7,pc}
+ 238              	.L11:
+ 239              	 .align 2
+ 240              	.L10:
+ 241 0138 00000000 	 .word interrupt_counter_slow_loop
+ 242 013c 00000000 	 .word interrupt_counter_fast_loop
+ 243 0140 00000000 	 .word interrupt_counter_timer
+ 244 0144 00000000 	 .word motion_config
+ 245 0148 00000000 	 .word loop_control
+ 246 014c 00000000 	 .word drive_command
+ 247 0150 00000000 	 .word u_a_ref
+ 248 0154 00000000 	 .word u_b_ref
+ 249 0158 00000000 	 .word u_c_ref
+ 250 015c 00000000 	 .word ref_gen_status
+ 251 0160 00000000 	 .word interrupt_counter_ref_gen
+ 252              	 .cfi_endproc
+ 253              	.LFE196:
+ 255              	 .text
+ 256              	.Letext0:
+ 257              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 258              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 259              	 .file 4 "../reference_generator.h"
+ 260              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 261              	 .file 6 "../main.h"
+ 262              	 .file 7 "../transform.h"
+ 263              	 .file 8 "../state_machine.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 kernel_interrupt.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
@@ -353,7 +380,7 @@ DEFINED SYMBOLS
     {standard input}:37     .bss.interrupt_counter_timer:00000000 $d
     {standard input}:43     .text.VADC0_G0_2_IRQHandler:00000000 $t
     {standard input}:48     .text.VADC0_G0_2_IRQHandler:00000000 VADC0_G0_2_IRQHandler
-    {standard input}:222    .text.VADC0_G0_2_IRQHandler:00000114 $d
+    {standard input}:241    .text.VADC0_G0_2_IRQHandler:00000138 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
@@ -376,8 +403,9 @@ reference_generator
 pi_regulator_pos
 pi_regulator_speed
 compute_speed
-drive_status
+motion_config
 loop_control
+drive_command
 u_a_ref
 u_b_ref
 u_c_ref

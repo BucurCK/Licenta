@@ -27,7 +27,7 @@
   29              	 .section .data.k,"aw",%progbits
   30              	 .align 2
   33              	k:
-  34 0000 0000003F 	 .word 1056964608
+  34 0000 CDCCCC3E 	 .word 1053609165
   35              	 .global filter_output
   36              	 .section .bss.filter_output,"aw",%nobits
   37              	 .align 2
@@ -64,13 +64,13 @@
   11:../current_protection.c **** #include "driver_pwm.h"
   12:../current_protection.c **** 
   13:../current_protection.c **** float i_prot = 2 * 820.;						// Ampers converted into 16bit scale | 32768/40 ~= 820
-  14:../current_protection.c **** float k = 0.5;									// Percentage of filtered signal
+  14:../current_protection.c **** float k = 0.4;									// Percentage of filtered signal
   15:../current_protection.c **** float filter_output = 0, filter_output_old = 0;	//Output of filtered signal | Last output of filter
   16:../current_protection.c **** uint32_t counter_timer_prot = 0;				//Timer increment in 100us -- if functione called in fast_loop
   17:../current_protection.c **** 
   18:../current_protection.c **** /*
   19:../current_protection.c **** *	y = k*(x - y_last) + y_last
-  20:../current_protection.c **** *	First degree signal filter
+  20:../current_protection.c **** *	First order signal filter
   21:../current_protection.c **** */
   22:../current_protection.c **** void current_filter (float filter_input)
   23:../current_protection.c **** {
@@ -160,14 +160,14 @@
   33:../current_protection.c **** 
   34:../current_protection.c **** 	current_filter(i_alpha*i_alpha + i_beta*i_beta);
  141              	 .loc 1 34 0
- 142 0004 244B     	 ldr r3,.L11
+ 142 0004 264B     	 ldr r3,.L11
  143 0006 93ED007A 	 flds s14,[r3]
- 144 000a 234B     	 ldr r3,.L11
+ 144 000a 254B     	 ldr r3,.L11
  145 000c D3ED007A 	 flds s15,[r3]
  146 0010 27EE277A 	 fmuls s14,s14,s15
- 147 0014 214B     	 ldr r3,.L11+4
+ 147 0014 234B     	 ldr r3,.L11+4
  148 0016 D3ED006A 	 flds s13,[r3]
- 149 001a 204B     	 ldr r3,.L11+4
+ 149 001a 224B     	 ldr r3,.L11+4
  150 001c D3ED007A 	 flds s15,[r3]
  151 0020 66EEA77A 	 fmuls s15,s13,s15
  152 0024 77EE277A 	 fadds s15,s14,s15
@@ -175,93 +175,99 @@
  154 002c FFF7FEFF 	 bl current_filter
   35:../current_protection.c **** 	if (filter_output > i_prot*i_prot)
  155              	 .loc 1 35 0
- 156 0030 1B4B     	 ldr r3,.L11+8
+ 156 0030 1D4B     	 ldr r3,.L11+8
  157 0032 93ED007A 	 flds s14,[r3]
- 158 0036 1A4B     	 ldr r3,.L11+8
+ 158 0036 1C4B     	 ldr r3,.L11+8
  159 0038 D3ED007A 	 flds s15,[r3]
  160 003c 27EE277A 	 fmuls s14,s14,s15
- 161 0040 184B     	 ldr r3,.L11+12
+ 161 0040 1A4B     	 ldr r3,.L11+12
  162 0042 D3ED007A 	 flds s15,[r3]
  163 0046 B4EEE77A 	 fcmpes s14,s15
  164 004a F1EE10FA 	 fmstat
- 165 004e 1FD5     	 bpl .L10
+ 165 004e 22D5     	 bpl .L10
   36:../current_protection.c **** 	{
   37:../current_protection.c **** 		counter_timer_prot++;
  166              	 .loc 1 37 0
- 167 0050 154B     	 ldr r3,.L11+16
+ 167 0050 174B     	 ldr r3,.L11+16
  168 0052 1B68     	 ldr r3,[r3]
  169 0054 0133     	 adds r3,r3,#1
- 170 0056 144A     	 ldr r2,.L11+16
+ 170 0056 164A     	 ldr r2,.L11+16
  171 0058 1360     	 str r3,[r2]
   38:../current_protection.c **** 
   39:../current_protection.c **** 		if(counter_timer_prot > TIME_TRIGGER_FAIL)
  172              	 .loc 1 39 0
- 173 005a 134B     	 ldr r3,.L11+16
+ 173 005a 154B     	 ldr r3,.L11+16
  174 005c 1B68     	 ldr r3,[r3]
  175 005e B3F57A7F 	 cmp r3,#1000
- 176 0062 18D9     	 bls .L4
+ 176 0062 1BD9     	 bls .L4
   40:../current_protection.c **** 		{
   41:../current_protection.c **** 
-  42:../current_protection.c **** 		drive_disabled();								//BUG: driver_command_old won't change
+  42:../current_protection.c **** 		drive_disabled();
  177              	 .loc 1 42 0
  178 0064 FFF7FEFF 	 bl drive_disabled
   43:../current_protection.c **** 		drive_status |= DRIVE_STATUS_PROT_MSK;			//set current_prot_flag
  179              	 .loc 1 43 0
- 180 0068 104B     	 ldr r3,.L11+20
+ 180 0068 124B     	 ldr r3,.L11+20
  181 006a 1B88     	 ldrh r3,[r3]
  182 006c 6FEA4343 	 mvn r3,r3,lsl#17
  183 0070 6FEA5343 	 mvn r3,r3,lsr#17
  184 0074 9AB2     	 uxth r2,r3
- 185 0076 0D4B     	 ldr r3,.L11+20
+ 185 0076 0F4B     	 ldr r3,.L11+20
  186 0078 1A80     	 strh r2,[r3]
   44:../current_protection.c **** 		drive_status &= CLEAR_DRIVE_STATUS;				//set STATUS bits to 0 -> go to state 0
  187              	 .loc 1 44 0
- 188 007a 0C4B     	 ldr r3,.L11+20
+ 188 007a 0E4B     	 ldr r3,.L11+20
  189 007c 1B88     	 ldrh r3,[r3]
  190 007e 23F00F03 	 bic r3,r3,#15
  191 0082 9AB2     	 uxth r2,r3
- 192 0084 094B     	 ldr r3,.L11+20
+ 192 0084 0B4B     	 ldr r3,.L11+20
  193 0086 1A80     	 strh r2,[r3]
-  45:../current_protection.c **** 		counter_timer_prot = 0;							
+  45:../current_protection.c **** 		counter_timer_prot = 0;
  194              	 .loc 1 45 0
- 195 0088 074B     	 ldr r3,.L11+16
+ 195 0088 094B     	 ldr r3,.L11+16
  196 008a 0022     	 movs r2,#0
  197 008c 1A60     	 str r2,[r3]
- 198 008e 02E0     	 b .L4
- 199              	.L10:
-  46:../current_protection.c **** 
-  47:../current_protection.c **** 		}
-  48:../current_protection.c **** 	}else
-  49:../current_protection.c **** 	{
-  50:../current_protection.c **** 		counter_timer_prot = 0;							
- 200              	 .loc 1 50 0
- 201 0090 054B     	 ldr r3,.L11+16
- 202 0092 0022     	 movs r2,#0
- 203 0094 1A60     	 str r2,[r3]
- 204              	.L4:
-  51:../current_protection.c **** 	}
-  52:../current_protection.c **** }
- 205              	 .loc 1 52 0
- 206 0096 80BD     	 pop {r7,pc}
- 207              	.L12:
- 208              	 .align 2
- 209              	.L11:
- 210 0098 00000000 	 .word i_alpha
- 211 009c 00000000 	 .word i_beta
- 212 00a0 00000000 	 .word i_prot
- 213 00a4 00000000 	 .word filter_output
- 214 00a8 00000000 	 .word counter_timer_prot
- 215 00ac 00000000 	 .word drive_status
- 216              	 .cfi_endproc
- 217              	.LFE197:
- 219              	 .text
- 220              	.Letext0:
- 221              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 222              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 223              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 224              	 .file 5 "../main.h"
- 225              	 .file 6 "../transform.h"
- 226              	 .file 7 "../state_machine.h"
+  46:../current_protection.c **** 		drive_command_old = 0;							//reset old status of drive_command
+ 198              	 .loc 1 46 0
+ 199 008e 0A4B     	 ldr r3,.L11+24
+ 200 0090 0022     	 movs r2,#0
+ 201 0092 1A80     	 strh r2,[r3]
+ 202 0094 02E0     	 b .L4
+ 203              	.L10:
+  47:../current_protection.c **** 
+  48:../current_protection.c **** 		}
+  49:../current_protection.c **** 	}else
+  50:../current_protection.c **** 	{
+  51:../current_protection.c **** 		counter_timer_prot = 0;							
+ 204              	 .loc 1 51 0
+ 205 0096 064B     	 ldr r3,.L11+16
+ 206 0098 0022     	 movs r2,#0
+ 207 009a 1A60     	 str r2,[r3]
+ 208              	.L4:
+  52:../current_protection.c **** 	}
+  53:../current_protection.c **** }
+ 209              	 .loc 1 53 0
+ 210 009c 80BD     	 pop {r7,pc}
+ 211              	.L12:
+ 212 009e 00BF     	 .align 2
+ 213              	.L11:
+ 214 00a0 00000000 	 .word i_alpha
+ 215 00a4 00000000 	 .word i_beta
+ 216 00a8 00000000 	 .word i_prot
+ 217 00ac 00000000 	 .word filter_output
+ 218 00b0 00000000 	 .word counter_timer_prot
+ 219 00b4 00000000 	 .word drive_status
+ 220 00b8 00000000 	 .word drive_command_old
+ 221              	 .cfi_endproc
+ 222              	.LFE197:
+ 224              	 .text
+ 225              	.Letext0:
+ 226              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 227              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 228              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 229              	 .file 5 "../main.h"
+ 230              	 .file 6 "../transform.h"
+ 231              	 .file 7 "../state_machine.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 current_protection.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
@@ -281,7 +287,7 @@ DEFINED SYMBOLS
     {standard input}:115    .text.current_filter:00000044 $d
     {standard input}:122    .text.current_protection:00000000 $t
     {standard input}:127    .text.current_protection:00000000 current_protection
-    {standard input}:210    .text.current_protection:00000098 $d
+    {standard input}:214    .text.current_protection:000000a0 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
@@ -289,3 +295,4 @@ drive_disabled
 i_alpha
 i_beta
 drive_status
+drive_command_old

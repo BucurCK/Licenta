@@ -9,6 +9,7 @@
 #include "Encoder.h"
 #include "driver_adc.h"
 #include "pi_regulator.h"
+#include "state_machine.h"
 
 /*
  * Variables
@@ -129,6 +130,10 @@ void compute_fast_field (void)
 {
 	theta_fast = electrical_position_modulo_fast*(2*Pi)/electrical_resolution;
 	sincosf(theta_fast, &sin_theta_fast, &cos_theta_fast);
+	if(tune_test_control)
+	{
+		theta_fast = 0;
+	}
 }
 
 // void abc_dq_test (void)		//TEST

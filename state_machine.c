@@ -16,48 +16,65 @@ uint16_t drive_status = STATE_0_DRIVE_DISABLED;
 uint16_t drive_command = STATE_0_DRIVE_DISABLED;
 uint16_t drive_command_old = STATE_0_DRIVE_DISABLED;
 uint8_t loop_control = LOOP_CONTROL_OFF;
+uint8_t tune_test_control = OFF;
+uint8_t motion_config = OFF;
 
 void state_machine (void)
 {
-	switch(drive_status & 0xF)
+	switch(DRIVE_STATUS_MSK)
 	{
 	case (STATE_0_DRIVE_DISABLED):
 		//Transition 0->1
 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_0_DRIVE_DISABLED) && (DRIVE_COMMAND_STATE_MSK == STATE_1_DRIVE_ON))
 			{
 				drive_on();
-				drive_status = STATE_1_DRIVE_ON;
+				drive_status &= DRIVE_STATUS_CLEAR;
+				drive_status |= STATE_1_DRIVE_ON;
 				drive_command_old = drive_command;
 			}
 			break;
+
 	case (STATE_1_DRIVE_ON):
 		//Transition 1->2
 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_1_DRIVE_ON) && (DRIVE_COMMAND_STATE_MSK == STATE_2_OPERATION_ENABLED))
 			{
 				operation_enabled();
-				drive_status = STATE_2_OPERATION_ENABLED;
+				drive_status &= DRIVE_STATUS_CLEAR;
+				drive_status |= STATE_2_OPERATION_ENABLED;
 				drive_command_old = drive_command;
 			}
+		//Transition 1->0
+		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_1_DRIVE_ON) && (DRIVE_COMMAND_STATE_MSK == STATE_0_DRIVE_DISABLED))
+			{
+			drive_disabled();
+			drive_status &= DRIVE_STATUS_CLEAR;
+			drive_status |= STATE_0_DRIVE_DISABLED;
+			drive_command_old = drive_command;
+			}
 			break;
+
 	case (STATE_2_OPERATION_ENABLED):
 	{
 		//Transition 2->1
 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_2_OPERATION_ENABLED) && (DRIVE_COMMAND_STATE_MSK == STATE_1_DRIVE_ON))
 			{
 				drive_on();
-				drive_status = STATE_1_DRIVE_ON;
+				drive_status &= DRIVE_STATUS_CLEAR;
+				drive_status |= STATE_1_DRIVE_ON;
 				drive_command_old = drive_command;
 			}
 		//Transition 2->0
 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_2_OPERATION_ENABLED) && (DRIVE_COMMAND_STATE_MSK == STATE_0_DRIVE_DISABLED))
 			{
 				drive_disabled();
-				drive_status = STATE_0_DRIVE_DISABLED;
+				drive_status &= DRIVE_STATUS_CLEAR;
+				drive_status |= STATE_0_DRIVE_DISABLED;
 				drive_command_old = drive_command;
 			}
 		//Check for update
-		if(!(DRIVE_COMMAND_UPDATE_OLD_MSK & UPDATE_MSK) && (DRIVE_COMMAND_UPDATE_MSK & UPDATE_MSK))
+		if((!(DRIVE_COMMAND_UPDATE_OLD_MSK & UPDATE_MSK) && (DRIVE_COMMAND_UPDATE_MSK & UPDATE_MSK)) && (DRIVE_COMMAND_STATE_MSK == STATE_2_OPERATION_ENABLED))
 		{
+			//Check for reference generator output (Priority list: POS > SPD > I > U)
 			if(DRIVE_COMMAND_REF_MSK & REF_POS_MSK)
 			{
 				//POS REF
@@ -74,8 +91,7 @@ void state_machine (void)
 				ref_type_select = REF_I;
 				if(DRIVE_COMMAND_TEST_MSK & TUNE_TEST)
 				{
-					//theta_fast = 0; 		SET THETA TO 0 
-					//disable theta computation
+					tune_test_control = ON;
 				}
 			}
 			else
@@ -83,6 +99,7 @@ void state_machine (void)
 				//U REF
 				ref_type_select = REF_U;
 			}
+			compute_motion();
 			drive_command_old = drive_command;
 		}
 	}
@@ -94,25 +111,36 @@ void state_machine (void)
 
 void drive_disabled (void)
 {
-	motion_off();
+	motion_off();						//PWM off
 	loop_control = LOOP_CONTROL_OFF;	//control_loop_off
 	ref_gen_status = STATUS_0_DISABLED;
+	tune_test_control = OFF;
+	motion_config = OFF;
 }
 
 void drive_on (void)
 {
-	motion_off();
+	motion_off();						//PWM off
 	current_offset();
 	init_position();
 	pwm_update(0, 0, 0);				//pwm_on_50%
+	motion_on();
 	loop_control = LOOP_CONTROL_OFF;	//control_loop_off
 	ref_gen_status = STATUS_0_DISABLED;
+	tune_test_control = OFF;
+	motion_config = OFF;
 }
 
 void operation_enabled (void)
 {
 	loop_control = LOOP_CONTROL_ON;		//control_loop_on
-	motion_on();
-	reference_generator_compute();		//TESTING
+	ref_gen_status = STATUS_0_DISABLED;
+
+}
+
+void compute_motion (void)
+{
+	reference_generator_compute();
+	motion_config = ON;
 }
 

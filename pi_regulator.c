@@ -4,13 +4,14 @@
 #include "transform.h"
 #include  "driver_adc.h"
 
-float k_p = 2, k_i = 0;
+float k_p = 1.2, k_i = 0.0002
+;
 float error_i_q = 0, error_i_d = 0, error_spd = 0, error_pos = 0;
 float i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref;
 float p_part_i_q = 0, p_part_i_d = 0, p_part_spd = 0, p_part_pos = 0;
 float i_part_i_q = 0, i_part_i_d = 0, i_part_spd = 0, i_part_pos = 0;
 
-int32_t sat_out_currents = 4000;					//-40[A] & 40[A]
+int32_t sat_out_currents = 8000;					//-40[A] & 40[A]
 int32_t sat_out_spd = 3000;							//-983010[rpm] & 983010[rpm]
 int32_t sat_out_pos = 1000;							//-32bit[iu]	+32bit[iu]
 

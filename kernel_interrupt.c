@@ -42,7 +42,6 @@ void VADC0_G0_2_IRQHandler (void)
 	if (interrupt_counter_fast_loop == TIME_100_us)
 	{
 
-//		test_ia_id_iq_id();	//TEST
         //Read and compute into [SI] all currents
 		read_currents();
 		compute_currents();
@@ -50,22 +49,23 @@ void VADC0_G0_2_IRQHandler (void)
 		compute_u_log();
 
         //Compute all data for motor movement in Operation Enable
-		if (drive_status == STATE_2_OPERATION_ENABLED)
+		if (motion_config)
 		{
-
 		compute_fast_speed();
 		compute_fast_mechanical_position();
 		compute_fast_electrical_position();
 		compute_fast_field();
 		abc_dq();
 		current_protection();
-//		abc_dq_test();	//TEST
 
         //Add Fast Loop regulators
 		if (loop_control == LOOP_CONTROL_ON)
 		{
+			if(LOOP_I_ENABLE)
+			{
 			pi_regulator_i_d();
 			pi_regulator_i_q();
+			}
 		}
 
 		dq_abc();
@@ -91,14 +91,21 @@ void VADC0_G0_2_IRQHandler (void)
 		}
 
         //Slow loop regulators
-		if((loop_control == LOOP_CONTROL_ON) && (drive_status == STATE_2_OPERATION_ENABLED))
+		if((loop_control == LOOP_CONTROL_ON) && motion_config)
 		{
-			pi_regulator_pos();
-			pi_regulator_speed();
+			if(LOOP_POS_ENABLE)
+			{
+				pi_regulator_pos();
+
+			}
+			if(LOOP_SPD_ENABLE)
+			{
+				pi_regulator_speed();
+			}
 		}
 
         //Compute motor speed
-		if (drive_status == STATE_2_OPERATION_ENABLED)
+		if (motion_config)
 		{
             compute_speed();
 		}
