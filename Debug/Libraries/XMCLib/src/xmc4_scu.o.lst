@@ -2971,255 +2971,254 @@
  176:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****                                   processing another request. */
  177:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** } XMC_SCU_STATUS_t;
  178:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 179:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 180:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
- 181:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * DATA TYPES
- 182:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
- 183:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 184:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 185:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Function pointer type used for registering callback functions on SCU event occurrence.
- 186:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 187:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** typedef void (*XMC_SCU_INTERRUPT_EVENT_HANDLER_t)(void);
- 188:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 189:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
- 190:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * DEVICE EXTENSIONS
- 191:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
- 192:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 193:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #if (UC_FAMILY == XMC1)
- 194:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #include <xmc1_scu.h>
- 195:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #elif (UC_FAMILY == XMC4)
- 196:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #include <xmc4_scu.h>
- 197:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #else
- 198:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #error "Unspecified chipset"
- 199:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #endif
- 200:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 201:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
- 202:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * API Prototypes
- 203:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
- 204:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 205:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #ifdef __cplusplus
- 206:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** extern "C" {
- 207:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #endif
+ 179:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
+ 180:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * DATA TYPES
+ 181:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+ 182:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 183:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 184:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Function pointer type used for registering callback functions on SCU event occurrence.
+ 185:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 186:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** typedef void (*XMC_SCU_INTERRUPT_EVENT_HANDLER_t)(void);
+ 187:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 188:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
+ 189:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * DEVICE EXTENSIONS
+ 190:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+ 191:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 192:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #if (UC_FAMILY == XMC1)
+ 193:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #include <xmc1_scu.h>
+ 194:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #elif (UC_FAMILY == XMC4)
+ 195:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #include <xmc4_scu.h>
+ 196:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #else
+ 197:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #error "Unspecified chipset"
+ 198:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #endif
+ 199:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 200:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
+ 201:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * API Prototypes
+ 202:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+ 203:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 204:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #ifdef __cplusplus
+ 205:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** extern "C" {
+ 206:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #endif
+ 207:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
  208:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 209:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 210:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 211:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 212:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param trigger    CCU slices to be triggered synchronously via software. The value is a bitmask 
- 213:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    in the register CCUCON. <br>
- 214:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_CCU_TRIGGER_t for bitmask of individual CCU s
- 215:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    combined using \a OR operation.
- 216:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 217:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 218:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 219:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 220:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Generates active edge(low to high) trigger for multiple CCU units at the same time.\n\n
- 221:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Before executing this API, all the required CCU timers should configure external start.
- 222:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The edge of the start signal should be selected as active edge.
- 223:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The input signal for the CCU slice should be selected as SCU input.
- 224:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The above mentioned configurations can be made using the CCU LLD API XMC_CCU4_SLICE_StartConfig(
- 225:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * CCU timer slice should be started using XMC_CCU4_SLICE_StartTimer() before triggering 
- 226:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the timer using this API.<BR>
- 227:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 228:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_CCU4_SLICE_StartConfig(), XMC_CCU4_SLICE_SetInput(), XMC_SCU_SetCcuTriggerLow()\n\n\n
- 229:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 230:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_SetCcuTriggerHigh(const uint32_t trigger)
- 231:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 232:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_GENERAL->CCUCON |= (uint32_t)trigger;
- 233:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 234:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 235:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 236:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 237:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param trigger  CCU slices to be triggered synchronously via software. The value is a bitmask of
- 238:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    in the register CCUCON. <br>
- 239:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_CCU_TRIGGER_t for bitmask of individual CCU s
- 240:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    combined using \a OR operation.
- 241:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 242:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 243:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 244:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 245:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Generates passive edge(high to low) trigger for multiple CCU units at the same time.\n\n
- 246:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Before executing this API, all the required CCU timers should configure external start.
- 247:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The edge of the start signal should be selected as passive edge.
- 248:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The input signal for the CCU slice should be selected as SCU input.
- 249:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The above mentioned configurations can be made using the CCU LLD API XMC_CCU4_SLICE_StartConfig(
- 250:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * CCU timer slice should be started using XMC_CCU4_SLICE_StartTimer() before triggering 
- 251:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the timer using this API.<BR>
- 252:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 253:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_CCU4_SLICE_StartConfig(), XMC_CCU4_SLICE_SetInput(), XMC_SCU_SetCcuTriggerHigh()\n\n\n
- 254:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 255:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_SetCcuTriggerLow(const uint32_t trigger)
- 256:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 257:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_GENERAL->CCUCON &= (uint32_t)~trigger;
- 258:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 259:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 260:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 261:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 262:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param config Pointer to structure holding the clock prescaler values and divider values for 
- 263:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                configuring clock generators and clock tree.\n
- 264:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                \b Range: Configure the members of structure @ref XMC_SCU_CLOCK_CONFIG_t for vari
- 265:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                parameters of clock setup.
- 266:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 267:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 268:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 269:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 270:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Initializes clock generators and clock tree.\n\n
- 271:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
- 272:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Peripheral clock and system clock are configured based on the input configuration \a config.
- 273:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The system clock frequency is tuned by configuring the FDIV and IDIV values of CLKCR register.
- 274:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The values of FDIV and IDIV can be provided as part of input configuration.
- 275:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The PCLK divider determines the ratio of peripheral clock to the system clock. 
- 276:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The source of RTC clock is set based on the input configuration. 
- 277:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \a SystemCoreClock variable will be updated with the value of
- 278:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * system clock frequency. Access to protected bit fields are handled internally.
- 279:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 280:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
- 281:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the high precision oscillator(fOHP) input and configures the system and peripheral clock
- 282:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Based on the system clock source selected in \a config, either fPLL or fOFI will be chosen as sy
- 283:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Based on PLL mode(normal or prescaler mode) used, PLL ramps up in steps to achieve target freque
- 284:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The clock dividers for CPU, CCU and peripheral clocks will be set based on the input configurati
- 285:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The \a SystemCoreClock variable is set with the value of system clock frequency.
- 286:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 287:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 288:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetPeripheralClockFrequency(), XMC_SCU_CLOCK_GetCpuClockFrequency() \n\n\n
- 289:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 290:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_Init(const XMC_SCU_CLOCK_CONFIG_t *const config);
- 291:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 292:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 293:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 294:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the event to enable. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_t
- 295:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
- 296:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 297:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 298:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 299:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 300:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the generation of interrupt for the input events.\n\n
- 301:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are enabled by setting the respective bit fields in the SRMSK register. \n
- 302:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: User should separately enable the NVIC node responsible for handling the SCU interrupt.
- 303:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The interrupt will be generated when the respective event occurs.
- 304:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 305:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_EnableIRQ(), XMC_SCU_INTERRUPT_DisableEvent()\n\n\n
- 306:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 307:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_EnableEvent(const XMC_SCU_INTERRUPT_EVENT_t event);
+ 209:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 210:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 211:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param trigger    CCU slices to be triggered synchronously via software. The value is a bitmask 
+ 212:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    in the register CCUCON. <br>
+ 213:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_CCU_TRIGGER_t for bitmask of individual CCU s
+ 214:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    combined using \a OR operation.
+ 215:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 216:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 217:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 218:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 219:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Generates active edge(low to high) trigger for multiple CCU units at the same time.\n\n
+ 220:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Before executing this API, all the required CCU timers should configure external start.
+ 221:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The edge of the start signal should be selected as active edge.
+ 222:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The input signal for the CCU slice should be selected as SCU input.
+ 223:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The above mentioned configurations can be made using the CCU LLD API XMC_CCU4_SLICE_StartConfig(
+ 224:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * CCU timer slice should be started using XMC_CCU4_SLICE_StartTimer() before triggering 
+ 225:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the timer using this API.<BR>
+ 226:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 227:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_CCU4_SLICE_StartConfig(), XMC_CCU4_SLICE_SetInput(), XMC_SCU_SetCcuTriggerLow()\n\n\n
+ 228:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 229:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_SetCcuTriggerHigh(const uint32_t trigger)
+ 230:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 231:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_GENERAL->CCUCON |= (uint32_t)trigger;
+ 232:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 233:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 234:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 235:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 236:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param trigger  CCU slices to be triggered synchronously via software. The value is a bitmask of
+ 237:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    in the register CCUCON. <br>
+ 238:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_CCU_TRIGGER_t for bitmask of individual CCU s
+ 239:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    combined using \a OR operation.
+ 240:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 241:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 242:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 243:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 244:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Generates passive edge(high to low) trigger for multiple CCU units at the same time.\n\n
+ 245:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Before executing this API, all the required CCU timers should configure external start.
+ 246:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The edge of the start signal should be selected as passive edge.
+ 247:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The input signal for the CCU slice should be selected as SCU input.
+ 248:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The above mentioned configurations can be made using the CCU LLD API XMC_CCU4_SLICE_StartConfig(
+ 249:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * CCU timer slice should be started using XMC_CCU4_SLICE_StartTimer() before triggering 
+ 250:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the timer using this API.<BR>
+ 251:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 252:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_CCU4_SLICE_StartConfig(), XMC_CCU4_SLICE_SetInput(), XMC_SCU_SetCcuTriggerHigh()\n\n\n
+ 253:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 254:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_SetCcuTriggerLow(const uint32_t trigger)
+ 255:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 256:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_GENERAL->CCUCON &= (uint32_t)~trigger;
+ 257:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 258:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 259:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 260:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 261:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param config Pointer to structure holding the clock prescaler values and divider values for 
+ 262:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                configuring clock generators and clock tree.\n
+ 263:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                \b Range: Configure the members of structure @ref XMC_SCU_CLOCK_CONFIG_t for vari
+ 264:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                parameters of clock setup.
+ 265:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 266:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 267:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 268:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 269:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Initializes clock generators and clock tree.\n\n
+ 270:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
+ 271:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Peripheral clock and system clock are configured based on the input configuration \a config.
+ 272:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The system clock frequency is tuned by configuring the FDIV and IDIV values of CLKCR register.
+ 273:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The values of FDIV and IDIV can be provided as part of input configuration.
+ 274:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The PCLK divider determines the ratio of peripheral clock to the system clock. 
+ 275:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The source of RTC clock is set based on the input configuration. 
+ 276:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \a SystemCoreClock variable will be updated with the value of
+ 277:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * system clock frequency. Access to protected bit fields are handled internally.
+ 278:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 279:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
+ 280:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the high precision oscillator(fOHP) input and configures the system and peripheral clock
+ 281:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Based on the system clock source selected in \a config, either fPLL or fOFI will be chosen as sy
+ 282:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Based on PLL mode(normal or prescaler mode) used, PLL ramps up in steps to achieve target freque
+ 283:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The clock dividers for CPU, CCU and peripheral clocks will be set based on the input configurati
+ 284:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The \a SystemCoreClock variable is set with the value of system clock frequency.
+ 285:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 286:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 287:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetPeripheralClockFrequency(), XMC_SCU_CLOCK_GetCpuClockFrequency() \n\n\n
+ 288:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 289:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_Init(const XMC_SCU_CLOCK_CONFIG_t *const config);
+ 290:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 291:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 292:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 293:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the event to enable. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_t
+ 294:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 295:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 296:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 297:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 298:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 299:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the generation of interrupt for the input events.\n\n
+ 300:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are enabled by setting the respective bit fields in the SRMSK register. \n
+ 301:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: User should separately enable the NVIC node responsible for handling the SCU interrupt.
+ 302:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The interrupt will be generated when the respective event occurs.
+ 303:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 304:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_EnableIRQ(), XMC_SCU_INTERRUPT_DisableEvent()\n\n\n
+ 305:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 306:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_EnableEvent(const XMC_SCU_INTERRUPT_EVENT_t event);
+ 307:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
  308:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 309:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 310:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 311:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 312:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the event to disable. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_
- 313:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
- 314:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 315:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 316:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 317:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 318:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Disables generation of interrupt on occurrence of the input event.\n\n
- 319:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are disabled by resetting the respective bit fields in the SRMSK register. \n
- 320:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 321:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_DisableIRQ(), XMC_SCU_INTERRUPT_EnableEvent()\n\n\n
- 322:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 323:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_DisableEvent(const XMC_SCU_INTERRUPT_EVENT_t event);
- 324:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 325:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 326:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 327:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event Bit mask of the event to be triggered. \b Range: Use type @ref XMC_SCU_INTERRUPT_EV
- 328:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
- 329:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 330:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 331:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 332:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 333:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Triggers the event as if the hardware raised it.\n\n
- 334:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Event will be triggered by setting the respective bitfield in the SRSET register.\n
- 335:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: User should enable the NVIC node that handles the respective event for interrupt generatio
- 336:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 337:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_EnableIRQ(), XMC_SCU_INTERUPT_GetEventStatus(), XMC_SCU_INTERRUPT_ClearEventStatus() \n\n\n
- 338:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 339:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_TriggerEvent(const XMC_SCU_INTERRUPT_EVENT_t  event);
- 340:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 341:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 342:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Status of the SCU events.
- 343:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 344:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 345:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the status of all SCU events.\n\n
- 346:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The status is read from the SRRAW register. To check the status of a particular 
- 347:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * event, the returned value should be masked with the bit mask of the event. The bitmask
- 348:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * of events can be obtained using the type @ref XMC_SCU_INTERRUPT_EVENT_t. Multiple events'
- 349:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * status can be checked by combining the bit masks using \a OR operation. 
- 350:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * After detecting the event, the event status should be cleared using software to detect the event
- 351:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 352:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_INTERRUPT_ClearEventStatus(), XMC_SCU_INTERRUPT_TriggerEvent(), XMC_SCU_INTERRUPT_SetEve
- 353:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 354:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** XMC_SCU_INTERRUPT_EVENT_t XMC_SCU_INTERUPT_GetEventStatus(void);
- 355:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 356:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 357:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 358:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the events to clear. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_t
- 359:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
- 360:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 361:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 362:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 363:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 364:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clears the event status bit in SRRAW register.\n\n
- 365:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are cleared by writing value 1 to their bit positions in the SRCLR register.
- 366:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The API can be used when polling method is used. After detecting the event, the event status
- 367:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * should be cleared using software to detect the event again.
- 368:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 369:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 370:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_INTERUPT_GetEventStatus(), XMC_SCU_INTERRUPT_TriggerEvent() \n\n\n
- 371:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 372:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_ClearEventStatus(const XMC_SCU_INTERRUPT_EVENT_t event);
- 373:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 374:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 375:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 376:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Status representing the reason for device reset.
- 377:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 378:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 379:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the value representing the reason for device reset.\n\n
- 380:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The return value is an encoded word, which can indicate multiple reasons for the last reset. Eac
- 381:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * returned word is representative of a last reset cause. The returned value should be appropriatel
- 382:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the cause of reset. 
- 383:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The cause of the last reset gets automatically stored in 
- 384:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the \a SCU_RSTSTAT register. The reset status shall be reset after each
- 385:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * startup in order to ensure consistent source indication after the next reset.
- 386:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \b Range: The type @ref XMC_SCU_RESET_REASON_t can be used to get the bit masks of the reset cau
- 387:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 388:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 389:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_RESET_ClearDeviceResetReason() \n\n\n
- 390:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 391:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_RESET_GetDeviceResetReason(void)
- 392:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 393:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   return ((SCU_RESET->RSTSTAT) & SCU_RESET_RSTSTAT_RSTSTAT_Msk);
- 394:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 395:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 396:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None 
- 397:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 398:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 399:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clears the reset reason bits in the reset status register. \n\n
- 400:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clearing of the reset status information in the \a SCU_RSTSTAT register via register bit \a RSTC
- 401:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * recommended to ensure a clear indication of the cause of next reset.
- 402:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 403:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 404:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_RESET_GetDeviceResetReason() \n\n\n
- 405:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 406:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_RESET_ClearDeviceResetReason(void)
- 407:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 408:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   /* Clear RSTSTAT.RSTSTAT bitfield */
- 409:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_RESET->RSTCLR = (uint32_t)SCU_RESET_RSTCLR_RSCLR_Msk;
- 410:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 411:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
- 412:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 413:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Value of CPU clock frequency.
- 414:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 415:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 416:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the vlaue of CPU clock frequency.\n\n
- 417:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The value is stored in a global variable \a \b SystemCoreClock.
- 418:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * It is updated when the clock configuration is done using the SCU LLD APIs.
- 419:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The value represents the frequency of clock used for CPU operation.
- 420:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \b Range: Value is of type uint32_t, and gives the value of frequency in Hertz.
- 421:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 422:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 423:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetPeripheralClockFrequency(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
- 424:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 425:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_CLOCK_GetCpuClockFrequency(void)
- 426:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 239              	 .loc 2 426 0
+ 309:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 310:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 311:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the event to disable. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_
+ 312:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 313:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 314:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 315:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 316:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 317:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Disables generation of interrupt on occurrence of the input event.\n\n
+ 318:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are disabled by resetting the respective bit fields in the SRMSK register. \n
+ 319:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 320:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_DisableIRQ(), XMC_SCU_INTERRUPT_EnableEvent()\n\n\n
+ 321:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 322:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_DisableEvent(const XMC_SCU_INTERRUPT_EVENT_t event);
+ 323:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 324:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 325:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 326:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event Bit mask of the event to be triggered. \b Range: Use type @ref XMC_SCU_INTERRUPT_EV
+ 327:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 328:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 329:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 330:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 331:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 332:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Triggers the event as if the hardware raised it.\n\n
+ 333:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Event will be triggered by setting the respective bitfield in the SRSET register.\n
+ 334:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: User should enable the NVIC node that handles the respective event for interrupt generatio
+ 335:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 336:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_EnableIRQ(), XMC_SCU_INTERUPT_GetEventStatus(), XMC_SCU_INTERRUPT_ClearEventStatus() \n\n\n
+ 337:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 338:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_TriggerEvent(const XMC_SCU_INTERRUPT_EVENT_t  event);
+ 339:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 340:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 341:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Status of the SCU events.
+ 342:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 343:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 344:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the status of all SCU events.\n\n
+ 345:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The status is read from the SRRAW register. To check the status of a particular 
+ 346:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * event, the returned value should be masked with the bit mask of the event. The bitmask
+ 347:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * of events can be obtained using the type @ref XMC_SCU_INTERRUPT_EVENT_t. Multiple events'
+ 348:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * status can be checked by combining the bit masks using \a OR operation. 
+ 349:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * After detecting the event, the event status should be cleared using software to detect the event
+ 350:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 351:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_INTERRUPT_ClearEventStatus(), XMC_SCU_INTERRUPT_TriggerEvent(), XMC_SCU_INTERRUPT_SetEve
+ 352:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 353:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** XMC_SCU_INTERRUPT_EVENT_t XMC_SCU_INTERUPT_GetEventStatus(void);
+ 354:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 355:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 356:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 357:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the events to clear. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_t
+ 358:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 359:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 360:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 361:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 362:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 363:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clears the event status bit in SRRAW register.\n\n
+ 364:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are cleared by writing value 1 to their bit positions in the SRCLR register.
+ 365:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The API can be used when polling method is used. After detecting the event, the event status
+ 366:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * should be cleared using software to detect the event again.
+ 367:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 368:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 369:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_INTERUPT_GetEventStatus(), XMC_SCU_INTERRUPT_TriggerEvent() \n\n\n
+ 370:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 371:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_ClearEventStatus(const XMC_SCU_INTERRUPT_EVENT_t event);
+ 372:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 373:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 374:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 375:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Status representing the reason for device reset.
+ 376:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 377:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 378:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the value representing the reason for device reset.\n\n
+ 379:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The return value is an encoded word, which can indicate multiple reasons for the last reset. Eac
+ 380:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * returned word is representative of a last reset cause. The returned value should be appropriatel
+ 381:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the cause of reset. 
+ 382:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The cause of the last reset gets automatically stored in 
+ 383:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the \a SCU_RSTSTAT register. The reset status shall be reset after each
+ 384:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * startup in order to ensure consistent source indication after the next reset.
+ 385:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \b Range: The type @ref XMC_SCU_RESET_REASON_t can be used to get the bit masks of the reset cau
+ 386:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 387:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 388:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_RESET_ClearDeviceResetReason() \n\n\n
+ 389:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 390:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_RESET_GetDeviceResetReason(void)
+ 391:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 392:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   return ((SCU_RESET->RSTSTAT) & SCU_RESET_RSTSTAT_RSTSTAT_Msk);
+ 393:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 394:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 395:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None 
+ 396:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 397:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 398:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clears the reset reason bits in the reset status register. \n\n
+ 399:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clearing of the reset status information in the \a SCU_RSTSTAT register via register bit \a RSTC
+ 400:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * recommended to ensure a clear indication of the cause of next reset.
+ 401:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 402:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 403:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_RESET_GetDeviceResetReason() \n\n\n
+ 404:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 405:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_RESET_ClearDeviceResetReason(void)
+ 406:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 407:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   /* Clear RSTSTAT.RSTSTAT bitfield */
+ 408:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_RESET->RSTCLR = (uint32_t)SCU_RESET_RSTCLR_RSCLR_Msk;
+ 409:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 410:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
+ 411:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 412:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Value of CPU clock frequency.
+ 413:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 414:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 415:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the vlaue of CPU clock frequency.\n\n
+ 416:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The value is stored in a global variable \a \b SystemCoreClock.
+ 417:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * It is updated when the clock configuration is done using the SCU LLD APIs.
+ 418:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The value represents the frequency of clock used for CPU operation.
+ 419:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \b Range: Value is of type uint32_t, and gives the value of frequency in Hertz.
+ 420:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 421:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 422:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetPeripheralClockFrequency(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 423:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 424:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_CLOCK_GetCpuClockFrequency(void)
+ 425:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 239              	 .loc 2 425 0
  240              	 .cfi_startproc
  241              	 
  242              	 
@@ -3231,12 +3230,12 @@
  248 0002 00AF     	 add r7,sp,#0
  249              	.LCFI21:
  250              	 .cfi_def_cfa_register 7
- 427:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   return SystemCoreClock;
- 251              	 .loc 2 427 0
+ 426:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   return SystemCoreClock;
+ 251              	 .loc 2 426 0
  252 0004 034B     	 ldr r3,.L23
  253 0006 1B68     	 ldr r3,[r3]
- 428:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 254              	 .loc 2 428 0
+ 427:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 254              	 .loc 2 427 0
  255 0008 1846     	 mov r0,r3
  256 000a BD46     	 mov sp,r7
  257              	.LCFI22:
@@ -3259,123 +3258,123 @@
  275              	 .thumb_func
  277              	XMC_SCU_GetMirrorStatus:
  278              	.LFB176:
- 429:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 430:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 431:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Value of peripheral clock frequency in Hertz.
- 432:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 433:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 434:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the vlaue of clock frequency at which the peripherals are working.\n\n
- 435:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The value is derived from the CPU frequency. \b Range: Value is of type uint32_t. It is represen
- 436:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 437:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetCpuClockFrequency(),XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
- 438:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 439:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** uint32_t XMC_SCU_CLOCK_GetPeripheralClockFrequency(void); 
- 440:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 441:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #if(UC_SERIES != XMC45)
- 442:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
- 443:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 444:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 445:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral The peripheral for which the clock has to be gated. \b Range: Use type @ref X
- 446:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    to identify the peripheral clock to be gated.
- 447:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 448:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 449:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 450:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 451:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Blocks the supply of clock to the selected peripheral.\n\n
- 452:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clock gating helps in reducing the power consumption. User can selectively gate the clocks of un
- 453:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
- 454:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPCLK is the source of clock to various peripherals. Some peripherals support clock gate. Such a
- 455:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the clock supply for the selected peripheral.
- 456:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual gating of such peripheral clocks by enabling the \a SCU_CGAT
- 457:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * register bit field. Every bit in \a SCU_CGATSET0 register is protected by the bit protection sch
- 458:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * bit fields are handled internally.
- 459:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 460:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
- 461:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPERI is the source of clock to various peripherals. Some peripherals support clock gate. Such a
- 462:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the clock supply for the selected peripheral.
- 463:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual gating of such peripheral clocks by enabling one of the \a
- 464:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * SCU_CGATSET0, \a SCU_CGATSET1 or \a SCU_CGATSET2 register bitfields.
- 465:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * 
- 466:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 467:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: Clock gating shall not be activated unless the module is in reset state. So use \a
- 468:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated() API before enabling the gating of any peripheral.
- 469:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 470:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated(), XMC_SCU_CLOCK_UngatePeripheralClock() \n\n\n
- 471:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 472:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_GatePeripheralClock(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
- 473:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
- 474:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 475:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 476:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral  The peripheral for which the clock has to be ungated. \b Range: Use type @re
- 477:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    to identify the peripheral.
- 478:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 479:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 480:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 481:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 482:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the supply of clock to the selected peripheral.\n\n
- 483:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * By default when the device powers on, the peripheral clock will be gated for the 
- 484:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * peripherals that support clock gating.
- 485:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The peripheral clock should be enabled before using it for any functionality.
- 486:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
- 487:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPCLK is the source of clock to various peripherals. Some peripherals support clock gate.
- 488:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual ungating of such peripheral clocks by setting respective bit
- 489:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * in the \a SCU_CGATCLR0 register.
- 490:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 491:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
- 492:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPERI is the source of clock to various peripherals. Some peripherals support clock gate.
- 493:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual ungating of such peripheral clocks by setting the respective
- 494:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * SCU_CGATCLR0, \a SCU_CGATCLR1 or \a SCU_CGATCLR2 registers.
- 495:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 496:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 497:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 498:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
- 499:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 500:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_UngatePeripheralClock(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
- 501:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 502:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 503:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 504:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral  The peripheral for which the check for clock gating has to be done. 
- 505:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_PERIPHERAL_CLOCK_t to identify the peripheral
- 506:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 507:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return bool Status of the peripheral clock gating. \b Range: true if the peripheral clock is ga
- 508:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *              false if the peripheral clock ungated(gate de-asserted).
- 509:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 510:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 511:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Gives the status of peripheral clock gating.\n\n
- 512:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
- 513:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Checks the status of peripheral clock gating using the register CGATSTAT0.
- 514:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 515:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
- 516:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Checks the status of peripheral clock gating using one of CGATSTAT0, CGATSTAT1 or CGATSTAT2 regi
- 517:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 518:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * It is recommended to use this API before
- 519:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * enabling the gating of any peripherals through \a XMC_SCU_CLOCK_GatePeripheralClock() API.
- 520:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 521:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 522:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_UngatePeripheralClock(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
- 523:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 524:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** bool XMC_SCU_CLOCK_IsPeripheralClockGated(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
- 525:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #endif
+ 428:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 429:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 430:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Value of peripheral clock frequency in Hertz.
+ 431:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 432:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 433:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the vlaue of clock frequency at which the peripherals are working.\n\n
+ 434:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The value is derived from the CPU frequency. \b Range: Value is of type uint32_t. It is represen
+ 435:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 436:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetCpuClockFrequency(),XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 437:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 438:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** uint32_t XMC_SCU_CLOCK_GetPeripheralClockFrequency(void); 
+ 439:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 440:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #if(UC_SERIES != XMC45)
+ 441:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
+ 442:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 443:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 444:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral The peripheral for which the clock has to be gated. \b Range: Use type @ref X
+ 445:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    to identify the peripheral clock to be gated.
+ 446:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 447:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 448:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 449:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 450:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Blocks the supply of clock to the selected peripheral.\n\n
+ 451:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clock gating helps in reducing the power consumption. User can selectively gate the clocks of un
+ 452:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
+ 453:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPCLK is the source of clock to various peripherals. Some peripherals support clock gate. Such a
+ 454:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the clock supply for the selected peripheral.
+ 455:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual gating of such peripheral clocks by enabling the \a SCU_CGAT
+ 456:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * register bit field. Every bit in \a SCU_CGATSET0 register is protected by the bit protection sch
+ 457:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * bit fields are handled internally.
+ 458:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 459:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
+ 460:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPERI is the source of clock to various peripherals. Some peripherals support clock gate. Such a
+ 461:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the clock supply for the selected peripheral.
+ 462:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual gating of such peripheral clocks by enabling one of the \a
+ 463:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * SCU_CGATSET0, \a SCU_CGATSET1 or \a SCU_CGATSET2 register bitfields.
+ 464:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * 
+ 465:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 466:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: Clock gating shall not be activated unless the module is in reset state. So use \a
+ 467:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated() API before enabling the gating of any peripheral.
+ 468:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 469:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated(), XMC_SCU_CLOCK_UngatePeripheralClock() \n\n\n
+ 470:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 471:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_GatePeripheralClock(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
+ 472:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
+ 473:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 474:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 475:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral  The peripheral for which the clock has to be ungated. \b Range: Use type @re
+ 476:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    to identify the peripheral.
+ 477:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 478:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 479:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 480:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 481:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the supply of clock to the selected peripheral.\n\n
+ 482:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * By default when the device powers on, the peripheral clock will be gated for the 
+ 483:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * peripherals that support clock gating.
+ 484:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The peripheral clock should be enabled before using it for any functionality.
+ 485:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
+ 486:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPCLK is the source of clock to various peripherals. Some peripherals support clock gate.
+ 487:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual ungating of such peripheral clocks by setting respective bit
+ 488:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * in the \a SCU_CGATCLR0 register.
+ 489:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 490:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
+ 491:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPERI is the source of clock to various peripherals. Some peripherals support clock gate.
+ 492:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual ungating of such peripheral clocks by setting the respective
+ 493:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * SCU_CGATCLR0, \a SCU_CGATCLR1 or \a SCU_CGATCLR2 registers.
+ 494:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 495:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 496:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 497:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 498:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 499:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_UngatePeripheralClock(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
+ 500:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 501:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 502:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 503:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral  The peripheral for which the check for clock gating has to be done. 
+ 504:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_PERIPHERAL_CLOCK_t to identify the peripheral
+ 505:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 506:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return bool Status of the peripheral clock gating. \b Range: true if the peripheral clock is ga
+ 507:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *              false if the peripheral clock ungated(gate de-asserted).
+ 508:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 509:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 510:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Gives the status of peripheral clock gating.\n\n
+ 511:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
+ 512:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Checks the status of peripheral clock gating using the register CGATSTAT0.
+ 513:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 514:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
+ 515:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Checks the status of peripheral clock gating using one of CGATSTAT0, CGATSTAT1 or CGATSTAT2 regi
+ 516:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 517:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * It is recommended to use this API before
+ 518:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * enabling the gating of any peripherals through \a XMC_SCU_CLOCK_GatePeripheralClock() API.
+ 519:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 520:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 521:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_UngatePeripheralClock(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 522:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 523:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** bool XMC_SCU_CLOCK_IsPeripheralClockGated(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
+ 524:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #endif
+ 525:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
  526:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 527:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 528:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 529:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return  uint32_t  Status of the register mirror update.\n
- 530:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use the bit mask of the SCU_GENERAL_MIRRSTS register for the mirror
- 531:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    interest. e.g.: SCU_GENERAL_MIRRSTS_RTC_CTR_Msk. Multiple update events can b
- 532:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    using \a OR operation.
- 533:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 534:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 535:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the status of hibernate domain register update, when the respective mirror registers ar
- 536:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The hibernate domain is connected to the core domain via SPI serial communication. MIRRSTS is a 
- 537:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * representing the communication of changed value of a mirror register to its corresponding regist
- 538:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * hibernate domain. The bit fields of the register indicate
- 539:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * that a corresponding register of the hibernate domain is ready to accept a write or that the com
- 540:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * is busy with executing the previous operation.\n
- 541:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: There is no hibernate domain in XMC1x devices. This register is retained for legacy purpos
- 542:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 543:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_GetMirrorStatus(void)
- 544:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 279              	 .loc 2 544 0
+ 527:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 528:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return  uint32_t  Status of the register mirror update.\n
+ 529:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use the bit mask of the SCU_GENERAL_MIRRSTS register for the mirror
+ 530:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    interest. e.g.: SCU_GENERAL_MIRRSTS_RTC_CTR_Msk. Multiple update events can b
+ 531:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    using \a OR operation.
+ 532:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 533:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 534:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the status of hibernate domain register update, when the respective mirror registers ar
+ 535:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The hibernate domain is connected to the core domain via SPI serial communication. MIRRSTS is a 
+ 536:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * representing the communication of changed value of a mirror register to its corresponding regist
+ 537:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * hibernate domain. The bit fields of the register indicate
+ 538:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * that a corresponding register of the hibernate domain is ready to accept a write or that the com
+ 539:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * is busy with executing the previous operation.\n
+ 540:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: There is no hibernate domain in XMC1x devices. This register is retained for legacy purpos
+ 541:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 542:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_GetMirrorStatus(void)
+ 543:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 279              	 .loc 2 543 0
  280              	 .cfi_startproc
  281              	 
  282              	 
@@ -3387,12 +3386,12 @@
  288 0002 00AF     	 add r7,sp,#0
  289              	.LCFI25:
  290              	 .cfi_def_cfa_register 7
- 545:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   return(SCU_GENERAL->MIRRSTS);
- 291              	 .loc 2 545 0
+ 544:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   return(SCU_GENERAL->MIRRSTS);
+ 291              	 .loc 2 544 0
  292 0004 034B     	 ldr r3,.L27
  293 0006 D3F8C430 	 ldr r3,[r3,#196]
- 546:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 294              	 .loc 2 546 0
+ 545:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 294              	 .loc 2 545 0
  295 000a 1846     	 mov r0,r3
  296 000c BD46     	 mov sp,r7
  297              	.LCFI26:

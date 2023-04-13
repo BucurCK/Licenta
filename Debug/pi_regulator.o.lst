@@ -22,12 +22,12 @@
   22              	 .section .data.k_p,"aw",%progbits
   23              	 .align 2
   26              	k_p:
-  27 0000 9A99993F 	 .word 1067030938
+  27 0000 9A99193F 	 .word 1058642330
   28              	 .global k_i
   29              	 .section .data.k_i,"aw",%progbits
   30              	 .align 2
   33              	k_i:
-  34 0000 17B75139 	 .word 961656599
+  34 0000 BC74133C 	 .word 1007908028
   35              	 .global error_i_q
   36              	 .section .bss.error_i_q,"aw",%nobits
   37              	 .align 2
@@ -118,17 +118,17 @@
  156              	 .section .data.sat_out_currents,"aw",%progbits
  157              	 .align 2
  160              	sat_out_currents:
- 161 0000 401F0000 	 .word 8000
+ 161 0000 983A0000 	 .word 15000
  162              	 .global sat_out_spd
  163              	 .section .data.sat_out_spd,"aw",%progbits
  164              	 .align 2
  167              	sat_out_spd:
- 168 0000 B80B0000 	 .word 3000
+ 168 0000 1E000000 	 .word 30
  169              	 .global sat_out_pos
  170              	 .section .data.sat_out_pos,"aw",%progbits
  171              	 .align 2
  174              	sat_out_pos:
- 175 0000 E8030000 	 .word 1000
+ 175 0000 64000000 	 .word 100
  176              	 .comm sat_i_part_currents,4,4
  177              	 .comm sat_i_part_spd,4,4
  178              	 .comm sat_i_part_pos,4,4
@@ -146,16 +146,16 @@
    4:../pi_regulator.c **** #include "transform.h"
    5:../pi_regulator.c **** #include  "driver_adc.h"
    6:../pi_regulator.c **** 
-   7:../pi_regulator.c **** float k_p = 1.2, k_i = 0.0002
+   7:../pi_regulator.c **** float k_p = 0.6, k_i = 0.009
    8:../pi_regulator.c **** ;
    9:../pi_regulator.c **** float error_i_q = 0, error_i_d = 0, error_spd = 0, error_pos = 0;
   10:../pi_regulator.c **** float i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref;
   11:../pi_regulator.c **** float p_part_i_q = 0, p_part_i_d = 0, p_part_spd = 0, p_part_pos = 0;
   12:../pi_regulator.c **** float i_part_i_q = 0, i_part_i_d = 0, i_part_spd = 0, i_part_pos = 0;
   13:../pi_regulator.c **** 
-  14:../pi_regulator.c **** int32_t sat_out_currents = 8000;					//-40[A] & 40[A]
-  15:../pi_regulator.c **** int32_t sat_out_spd = 3000;							//-983010[rpm] & 983010[rpm]
-  16:../pi_regulator.c **** int32_t sat_out_pos = 1000;							//-32bit[iu]	+32bit[iu]
+  14:../pi_regulator.c **** int32_t sat_out_currents = 15000;					//-40[A] & 40[A]	15000 ~ 18A
+  15:../pi_regulator.c **** int32_t sat_out_spd = 30;							//-983010[rpm] & 983010[rpm]
+  16:../pi_regulator.c **** int32_t sat_out_pos = 100;							//-32bit[iu]	+32bit[iu]
   17:../pi_regulator.c **** 
   18:../pi_regulator.c **** //10% from sat_out
   19:../pi_regulator.c **** int32_t sat_i_part_currents;

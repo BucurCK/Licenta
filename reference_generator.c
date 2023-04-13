@@ -11,7 +11,7 @@ uint32_t interrupt_counter_ref_gen = 0;
 
 status_ref_gen ref_gen_status = 0;					//0 - disabled, 1 - rise, 2 - high, 3 - fall, 4 - low
 
-int32_t high_level = 3000;							//final reference
+int32_t high_level = 1000;							//final reference
 int32_t high_level_time = 1000;						//time to hold final reference
 
 int32_t rise_time = 10;								//time to get to final reference
@@ -101,8 +101,8 @@ void reference_generator (void)
 			pos_ref = reference;
 			break;
 	case(REF_SPD):
-			spd_ref = reference - reference_old;
-			reference_old = reference;
+			spd_ref = reference;
+//			reference_old = reference;
 			break;
 	case(REF_I):
 			i_q_ref = reference;
