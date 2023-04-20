@@ -79,6 +79,11 @@ void state_machine (void)
 			{
 				//POS REF
 				ref_type_select = REF_POS;
+				//Check to see if SPD loop is OFF and I loop is ON to activate PID regulator
+				if (!(DRIVE_COMMAND_REF_MSK & REF_SPD_MSK) && (DRIVE_COMMAND_REF_MSK & REF_I_MSK))
+				{
+					pid_status = ON;
+				}
 			}
 			else if(DRIVE_COMMAND_REF_MSK & REF_SPD_MSK)
 			{
@@ -116,6 +121,7 @@ void drive_disabled (void)
 	ref_gen_status = STATUS_0_DISABLED;
 	tune_test_control = OFF;
 	motion_config = OFF;
+	pid_status = OFF;
 }
 
 void drive_on (void)
@@ -129,6 +135,7 @@ void drive_on (void)
 	ref_gen_status = STATUS_0_DISABLED;
 	tune_test_control = OFF;
 	motion_config = OFF;
+	pid_status = OFF;
 }
 
 void operation_enabled (void)

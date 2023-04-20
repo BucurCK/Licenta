@@ -95,7 +95,14 @@ void VADC0_G0_2_IRQHandler (void)
 		{
 			if(LOOP_POS_ENABLE)
 			{
+				if (pid_status)
+				{
+				pid_regulator_pos();
+				}
+				else
+				{
 				pi_regulator_pos();
+				}
 
 			}
 			if(LOOP_SPD_ENABLE)

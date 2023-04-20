@@ -39,6 +39,7 @@ float reference = 0;
 float reference_old = 0;
 
 ref_type ref_type_select = 0;
+uint8_t pid_status = 0;
 
 
 void reference_generator_compute (void)

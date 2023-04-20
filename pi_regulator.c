@@ -7,19 +7,23 @@
 float k_p_i= 0.6, k_i_i = 0.01;
 float k_p_spd = 400, k_i_spd =100;
 float k_p_pos = 0.05, k_i_pos = 0.001;
-float error_i_q = 0, error_i_d = 0, error_spd = 0, error_pos = 0;
+float k_p_pos_pid = 6.5, k_i_pos_pid = 0.001, k_d_pos_pid = 0.005;
+float error_i_q = 0, error_i_d = 0, error_spd = 0, error_pos = 0, error_pos_old = 0;
 float i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref;
 float p_part_i_q = 0, p_part_i_d = 0, p_part_spd = 0, p_part_pos = 0;
 float i_part_i_q = 0, i_part_i_d = 0, i_part_spd = 0, i_part_pos = 0;
+float d_part_pos = 0;
 
 int32_t sat_out_currents = 15000;					//-40[A] & 40[A]
 int32_t sat_out_spd = 4000;							//-983010[rpm] & 983010[rpm]
 int32_t sat_out_pos = 50;							//-32bit[iu]	+32bit[iu]
+int32_t sat_out_pos_I = 4000;
 
 //10% from sat_out
 int32_t sat_i_part_currents;
 int32_t sat_i_part_spd;
 int32_t sat_i_part_pos;
+int32_t sat_i_part_pos_I;
 
 void pi_regulator_i_q (void)						//i_q -> u_q_ref
 {
@@ -171,15 +175,66 @@ void pi_regulator_pos (void)				//mechanical_position_fast -> spd_ref
 	}
 
 	//Output
-		spd_ref = p_part_pos + i_part_pos;
+	spd_ref = p_part_pos + i_part_pos;
 
-		if (spd_ref > sat_out_pos)
-		{
-			spd_ref = sat_out_pos;
-		}
-		else if(spd_ref < -sat_out_pos)
-		{
-			spd_ref = -sat_out_pos;
-		}
+	if (spd_ref > sat_out_pos)
+	{
+		spd_ref = sat_out_pos;
+	}
+	else if(spd_ref < -sat_out_pos)
+	{
+		spd_ref = -sat_out_pos;
+	}
+
+}
+void pid_regulator_pos (void)				//mechanical_position_fast -> spd_ref
+{
+	sat_i_part_pos_I = sat_out_pos_I/10;
+	error_pos = pos_ref - mechanical_position_fast;
+
+	//Proportional part computation
+	p_part_pos = error_pos*k_p_pos_pid;
+	if (p_part_pos > sat_out_pos_I)
+	{
+		p_part_pos = sat_out_pos_I;
+	}
+	else if(p_part_pos < -sat_out_pos_I)
+	{
+		p_part_pos = -sat_out_pos_I;
+	}
+
+	//Integral part computation
+	i_part_pos += error_pos*k_i_pos_pid;
+	if (i_part_pos > sat_i_part_pos_I)
+	{
+		i_part_pos = sat_i_part_pos_I;
+	}
+	else if(i_part_pos < -sat_i_part_pos_I)
+	{
+		i_part_pos = -sat_i_part_pos_I;
+	}
+
+	d_part_pos = (error_pos - error_pos_old) * k_d_pos_pid;
+	error_pos_old = error_pos;
+	if (d_part_pos > sat_out_pos_I)
+	{
+		d_part_pos = sat_out_pos_I;
+	}
+	else if(d_part_pos < -sat_out_pos_I)
+	{
+		d_part_pos = -sat_out_pos_I;
+	}
+
+	//Output
+	i_q_ref = p_part_pos + i_part_pos + d_part_pos;
+
+	if (i_q_ref > sat_out_pos_I)
+	{
+		i_q_ref = sat_out_pos_I;
+	}
+	else if(i_q_ref < -sat_out_pos_I)
+	{
+		i_q_ref = -sat_out_pos_I;
+	}
 
 }
