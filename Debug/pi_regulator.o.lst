@@ -37,17 +37,17 @@
   43              	 .section .data.k_i_spd,"aw",%progbits
   44              	 .align 2
   47              	k_i_spd:
-  48 0000 0000C841 	 .word 1103626240
+  48 0000 0000C842 	 .word 1120403456
   49              	 .global k_p_pos
-  50              	 .section .bss.k_p_pos,"aw",%nobits
+  50              	 .section .data.k_p_pos,"aw",%progbits
   51              	 .align 2
   54              	k_p_pos:
-  55 0000 00000000 	 .space 4
+  55 0000 CDCC4C3D 	 .word 1028443341
   56              	 .global k_i_pos
-  57              	 .section .bss.k_i_pos,"aw",%nobits
+  57              	 .section .data.k_i_pos,"aw",%progbits
   58              	 .align 2
   61              	k_i_pos:
-  62 0000 00000000 	 .space 4
+  62 0000 6F12833A 	 .word 981668463
   63              	 .global error_i_q
   64              	 .section .bss.error_i_q,"aw",%nobits
   65              	 .align 2
@@ -167,8 +167,8 @@
    5:../pi_regulator.c **** #include  "driver_adc.h"
    6:../pi_regulator.c **** 
    7:../pi_regulator.c **** float k_p_i= 0.6, k_i_i = 0.01;
-   8:../pi_regulator.c **** float k_p_spd = 400, k_i_spd =25;
-   9:../pi_regulator.c **** float k_p_pos = 0, k_i_pos = 0;
+   8:../pi_regulator.c **** float k_p_spd = 400, k_i_spd =100;
+   9:../pi_regulator.c **** float k_p_pos = 0.05, k_i_pos = 0.001;
   10:../pi_regulator.c **** float error_i_q = 0, error_i_d = 0, error_spd = 0, error_pos = 0;
   11:../pi_regulator.c **** float i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref;
   12:../pi_regulator.c **** float p_part_i_q = 0, p_part_i_d = 0, p_part_spd = 0, p_part_pos = 0;
@@ -1191,10 +1191,10 @@ DEFINED SYMBOLS
     {standard input}:37     .data.k_p_spd:00000000 $d
     {standard input}:47     .data.k_i_spd:00000000 k_i_spd
     {standard input}:44     .data.k_i_spd:00000000 $d
-    {standard input}:54     .bss.k_p_pos:00000000 k_p_pos
-    {standard input}:51     .bss.k_p_pos:00000000 $d
-    {standard input}:61     .bss.k_i_pos:00000000 k_i_pos
-    {standard input}:58     .bss.k_i_pos:00000000 $d
+    {standard input}:54     .data.k_p_pos:00000000 k_p_pos
+    {standard input}:51     .data.k_p_pos:00000000 $d
+    {standard input}:61     .data.k_i_pos:00000000 k_i_pos
+    {standard input}:58     .data.k_i_pos:00000000 $d
     {standard input}:68     .bss.error_i_q:00000000 error_i_q
     {standard input}:65     .bss.error_i_q:00000000 $d
     {standard input}:75     .bss.error_i_d:00000000 error_i_d

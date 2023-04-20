@@ -497,7 +497,7 @@
  422 0020 074B     	 ldr r3,.L29+12
  423 0022 1A80     	 strh r2,[r3]
  103:../transform.c **** 	//FOR TESTING I SET A CONSTANT SPEED VALUE
- 104:../transform.c **** 	//speed_value_fast = 1;
+ 104:../transform.c **** //	speed_value_fast = -1;
  105:../transform.c **** 	timer_value_old_fast = timer_value_fast;
  424              	 .loc 1 105 0
  425 0024 044B     	 ldr r3,.L29+4

@@ -6,9 +6,10 @@
     </symbolfiles>
   </symbolbrowser>
   <screens SelectedScreenId="DataScreen2">
+    <screen RegisteredName="DataScreen2" ScreenHeader="DataScreen1" ScreenType="DataScreen" />
     <screen RegisteredName="Oscilloscope_Screen1" ScreenHeader="Oscilloscope" ScreenType="Oscilloscope_Screen">
       <configuration>
-        <properties mode="CONTINUOUS" slope="POS" timeScale="us" trigHoldOff="0" clkDiv="50" trigDispPos="0" />
+        <properties mode="CONTINUOUS" slope="POS" timeScale="us" trigHoldOff="0" clkDiv="10" trigDispPos="0" />
         <symbols>
           <symbol path="NONE" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
           <symbol path="motor_spd" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
@@ -19,18 +20,17 @@
           <symbol path="mechanical_position_fast" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
         </symbols>
         <channels>
-          <channel index="1" isEnabled="true" selectedSymbol="motor_spd" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="true" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-20" y_Max_Scale_Value="20" />
-          <channel index="2" isEnabled="true" selectedSymbol="spd_ref" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-20" y_Max_Scale_Value="20" />
-          <channel index="3" isEnabled="false" selectedSymbol="i_q_ref" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-14.027688026428223" y_Max_Scale_Value="4000" />
+          <channel index="1" isEnabled="false" selectedSymbol="motor_spd" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-20" y_Max_Scale_Value="20" />
+          <channel index="2" isEnabled="false" selectedSymbol="spd_ref" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-20" y_Max_Scale_Value="20" />
+          <channel index="3" isEnabled="false" selectedSymbol="i_q_ref" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-3772" y_Max_Scale_Value="4000" />
           <channel index="4" isEnabled="false" selectedSymbol="u_q_ref" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-14.027688026428223" y_Max_Scale_Value="4000" />
-          <channel index="5" isEnabled="false" selectedSymbol="pos_ref" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-20" y_Max_Scale_Value="4024" />
-          <channel index="6" isEnabled="false" selectedSymbol="mechanical_position_fast" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-20" y_Max_Scale_Value="4024" />
-          <channel index="7" isEnabled="false" selectedSymbol="motor_spd" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="0" y_Max_Scale_Value="1000" />
-          <channel index="8" isEnabled="false" selectedSymbol="spd_ref" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="0" y_Max_Scale_Value="1000" />
+          <channel index="5" isEnabled="true" selectedSymbol="pos_ref" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="true" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="0" y_Max_Scale_Value="2000" />
+          <channel index="6" isEnabled="true" selectedSymbol="mechanical_position_fast" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="0" y_Max_Scale_Value="2000" />
+          <channel index="7" isEnabled="false" selectedSymbol="motor_spd" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-14" y_Max_Scale_Value="8" />
+          <channel index="8" isEnabled="false" selectedSymbol="spd_ref" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" triggerLevel="0" isTriggerSource="false" bitEn="false" bitIx="0" scaledMode="true" gain="1" offset="0" label="" y_Min_Scale_Value="-14" y_Max_Scale_Value="8" />
         </channels>
       </configuration>
     </screen>
-    <screen RegisteredName="DataScreen2" ScreenHeader="DataScreen1" ScreenType="DataScreen" />
   </screens>
   <nodes>
     <node ScreenId="DataScreen2" OffsetX="378.6" OffsetY="218.97000000000003" AllowMove="true" AllowResize="true" AllowRotate="false" AllowSelect="true" IsInRuntimeMode="false" Width="0" Height="0" ZIndex="28" IsLocked="false" UpdateWhenVisible="true" LabelBackgroundValue="#00FFFFFF" LabelFontFamilyValue="Segoe UI" LabelFontSizeValue="14" LabelFontStyleValue="Normal" LabelFontWeightValue="Normal" LabelForegroundValue="#FF000000" LabelTextAlignmentValue="Center" LabelTextTrimming="None" LabelTextWrapping="Wrap" LabelVerticalAlignment="Center" LabelHorizontalAlignment="Center" LabelVisibility="Collapsed" IsWritableControl="false" WritableValue="0" LabelValue="">
@@ -48,15 +48,15 @@
         </content>
       </innercontent>
       <symbols>
-        <symbol path="repeat_motion" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
-        <symbol path="high_level" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
-        <symbol path="low_level_time" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
-        <symbol path="fall_time" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
-        <symbol path="high_level_time" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
-        <symbol path="rise_time" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
-        <symbol path="drive_command_old" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
-        <symbol path="drive_status" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
         <symbol path="drive_command" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="drive_status" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="drive_command_old" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="rise_time" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="high_level_time" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="fall_time" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="low_level_time" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="high_level" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="repeat_motion" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
       </symbols>
     </node>
     <node ScreenId="DataScreen2" OffsetX="1178.6000000000001" OffsetY="192.57000000000005" AllowMove="true" AllowResize="true" AllowRotate="false" AllowSelect="true" IsInRuntimeMode="false" Width="0" Height="0" ZIndex="30" IsLocked="false" UpdateWhenVisible="true" LabelBackgroundValue="#00FFFFFF" LabelFontFamilyValue="Segoe UI" LabelFontSizeValue="14" LabelFontStyleValue="Normal" LabelFontWeightValue="Normal" LabelForegroundValue="#FF000000" LabelTextAlignmentValue="Center" LabelTextTrimming="None" LabelTextWrapping="Wrap" LabelVerticalAlignment="Center" LabelHorizontalAlignment="Center" LabelVisibility="Collapsed" IsWritableControl="false" WritableValue="0" LabelValue="">
@@ -131,7 +131,7 @@
     <node ScreenId="DataScreen2" OffsetX="80" OffsetY="-20" AllowMove="true" AllowResize="true" AllowRotate="false" AllowSelect="true" IsInRuntimeMode="false" Width="620" Height="60" ZIndex="17" IsLocked="false" UpdateWhenVisible="true" LabelBackgroundValue="#00FFFFFF" LabelFontFamilyValue="Segoe UI" LabelFontSizeValue="14" LabelFontStyleValue="Normal" LabelFontWeightValue="Normal" LabelForegroundValue="#FF000000" LabelTextAlignmentValue="Center" LabelTextTrimming="None" LabelTextWrapping="Wrap" LabelVerticalAlignment="Center" LabelHorizontalAlignment="Center" LabelVisibility="Collapsed" IsWritableControl="false" WritableValue="0" LabelValue="">
       <innercontent>
         <content ControlType="BitControl" Type="BitControl">
-          <definitions Width="620" Height="60" ValueDecimal="0" NumberOfBytes="2" IsSigned="false" IsHexDisplayVisible="true" IsDecimalDisplayVisible="true" DisabledBits="False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False" />
+          <definitions Width="620" Height="60" ValueDecimal="1810" NumberOfBytes="2" IsSigned="false" IsHexDisplayVisible="true" IsDecimalDisplayVisible="true" DisabledBits="False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False-False" />
         </content>
       </innercontent>
       <symbols>
@@ -307,7 +307,7 @@
     <node ScreenId="DataScreen2" OffsetX="940" OffsetY="-20" AllowMove="true" AllowResize="true" AllowRotate="false" AllowSelect="true" IsInRuntimeMode="false" Width="200" Height="60" ZIndex="1" IsLocked="false" UpdateWhenVisible="true" LabelBackgroundValue="#00FFFFFF" LabelFontFamilyValue="Segoe UI" LabelFontSizeValue="14" LabelFontStyleValue="Normal" LabelFontWeightValue="Normal" LabelForegroundValue="#FF000000" LabelTextAlignmentValue="Center" LabelTextTrimming="None" LabelTextWrapping="Wrap" LabelVerticalAlignment="Center" LabelHorizontalAlignment="Center" LabelVisibility="Collapsed" IsWritableControl="false" WritableValue="0" LabelValue="">
       <innercontent>
         <content ControlType="TextboxControl" Type="TextboxControl">
-          <definitions ColorBackground="#FFF5F5F5" Font="Arial Black" FontSizeValue="50" FontStyleValue="Normal" FontWeightValue="Normal" ColorFont="#FF000000" TextAlignmentValue="Right" SeparateThousandsWithComma="false" ScalingFactor="1" ScalingOffset="0" ScalingFormat="" LeadingZeroes="0" NumberOfDecimalPlaces="3" ColorBorder="#FFA9A9A9" BorderThickness="1" CornerRadius="1" Width="200" Height="60" ContainsAssignedSymbols="true" Text="" />
+          <definitions ColorBackground="#FFF5F5F5" Font="Arial Black" FontSizeValue="50" FontStyleValue="Normal" FontWeightValue="Normal" ColorFont="#FF000000" TextAlignmentValue="Right" SeparateThousandsWithComma="false" ScalingFactor="1" ScalingOffset="0" ScalingFormat="" LeadingZeroes="0" NumberOfDecimalPlaces="6" ColorBorder="#FFA9A9A9" BorderThickness="1" CornerRadius="1" Width="200" Height="60" ContainsAssignedSymbols="true" Text="" />
         </content>
       </innercontent>
       <symbols>
@@ -317,7 +317,7 @@
     <node ScreenId="DataScreen2" OffsetX="940" OffsetY="40" AllowMove="true" AllowResize="true" AllowRotate="false" AllowSelect="true" IsInRuntimeMode="false" Width="200" Height="60" ZIndex="2" IsLocked="false" UpdateWhenVisible="true" LabelBackgroundValue="#00FFFFFF" LabelFontFamilyValue="Segoe UI" LabelFontSizeValue="14" LabelFontStyleValue="Normal" LabelFontWeightValue="Normal" LabelForegroundValue="#FF000000" LabelTextAlignmentValue="Center" LabelTextTrimming="None" LabelTextWrapping="Wrap" LabelVerticalAlignment="Center" LabelHorizontalAlignment="Center" LabelVisibility="Collapsed" IsWritableControl="false" WritableValue="0" LabelValue="">
       <innercontent>
         <content ControlType="TextboxControl" Type="TextboxControl">
-          <definitions ColorBackground="#FFF5F5F5" Font="Arial Black" FontSizeValue="50" FontStyleValue="Normal" FontWeightValue="Normal" ColorFont="#FF000000" TextAlignmentValue="Right" SeparateThousandsWithComma="false" ScalingFactor="1" ScalingOffset="0" ScalingFormat="" LeadingZeroes="0" NumberOfDecimalPlaces="1" ColorBorder="#FFA9A9A9" BorderThickness="1" CornerRadius="1" Width="200" Height="60" ContainsAssignedSymbols="true" Text="" />
+          <definitions ColorBackground="#FFF5F5F5" Font="Arial Black" FontSizeValue="50" FontStyleValue="Normal" FontWeightValue="Normal" ColorFont="#FF000000" TextAlignmentValue="Right" SeparateThousandsWithComma="false" ScalingFactor="1" ScalingOffset="0" ScalingFormat="" LeadingZeroes="0" NumberOfDecimalPlaces="4" ColorBorder="#FFA9A9A9" BorderThickness="1" CornerRadius="1" Width="200" Height="60" ContainsAssignedSymbols="true" Text="" />
         </content>
       </innercontent>
       <symbols>
@@ -354,6 +354,23 @@
         <symbol path="error_spd" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
       </symbols>
     </node>
+    <node ScreenId="DataScreen2" OffsetX="80" OffsetY="500" AllowMove="true" AllowResize="true" AllowRotate="false" AllowSelect="true" IsInRuntimeMode="false" Width="620" Height="400" ZIndex="0" IsLocked="false" UpdateWhenVisible="true" LabelBackgroundValue="#00FFFFFF" LabelFontFamilyValue="Segoe UI" LabelFontSizeValue="14" LabelFontStyleValue="Normal" LabelFontWeightValue="Normal" LabelForegroundValue="#FF000000" LabelTextAlignmentValue="Center" LabelTextTrimming="None" LabelTextWrapping="Wrap" LabelVerticalAlignment="Center" LabelHorizontalAlignment="Center" LabelVisibility="Collapsed" IsWritableControl="false" WritableValue="0" LabelValue="">
+      <innercontent>
+        <content ControlType="TreeView" Type="TreeViewControl">
+          <definitions DecimalPlacesForScientificNotation="1" DecimalPlacesForNumericNotation="1" DecimalPlacesForEngineeringNotation="1" EngineeringOptionChecked="false" NumericOptionChecked="true" ScientificOptionChecked="false" />
+        </content>
+      </innercontent>
+      <symbols>
+        <symbol path="current_input" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="rotation_input" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="rpm_input" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="time_fall_input_s" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="time_high_input_s" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="time_low_input_s" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="time_rise_input_s" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+        <symbol path="voltage_input" IsAnArrayElement="false" ElementIndex="0" IsCustomSymbol="false" Mask_Enabled="false" Mask_Start_Bit="0" Mask_End_Bit="0" />
+      </symbols>
+    </node>
   </nodes>
   <explorer>
     <content>
@@ -376,10 +393,10 @@
           <TabOrderIndex>-1</TabOrderIndex>
           <PreviousContainerDesiredSize>
             <Width>0</Width>
-            <Height>608.70439846161639</Height>
+            <Height>486.50541229394156</Height>
           </PreviousContainerDesiredSize>
           <PreviousDesiredWidthInDockedMode>102</PreviousDesiredWidthInDockedMode>
-          <PreviousDesiredHeightInDockedMode>608.70439846161639</PreviousDesiredHeightInDockedMode>
+          <PreviousDesiredHeightInDockedMode>401.52786089769518</PreviousDesiredHeightInDockedMode>
           <Name>workspaceExplorerMainView</Name>
           <State>Dock</State>
           <NoHeader>false</NoHeader>
@@ -388,7 +405,7 @@
           <TargetDocked />
           <TargetFloating />
           <DesiredWidthInDockedMode>102</DesiredWidthInDockedMode>
-          <DesiredHeightInDockedMode>401.52786089769518</DesiredHeightInDockedMode>
+          <DesiredHeightInDockedMode>737.52786089769518</DesiredHeightInDockedMode>
           <DesiredWidthInFloatingMode>230</DesiredWidthInFloatingMode>
           <DesiredHeightInFloatingMode>90</DesiredHeightInFloatingMode>
           <NoDock>false</NoDock>
@@ -434,8 +451,8 @@
           <FixedHeight>0</FixedHeight>
           <FixedWidth>0</FixedWidth>
           <ContainerSize>
-            <Width>1354.9999999999998</Width>
-            <Height>401.52786089769518</Height>
+            <Width>1739</Width>
+            <Height>737.52786089769518</Height>
           </ContainerSize>
           <PreviousHostWidth>90</PreviousHostWidth>
           <PreviousHostHeight>90</PreviousHostHeight>
@@ -451,11 +468,11 @@
           <ZorderInFloatMode>0</ZorderInFloatMode>
           <TabOrderIndex>-1</TabOrderIndex>
           <PreviousContainerDesiredSize>
-            <Width>1695.078431372549</Width>
+            <Width>1390.1097178683383</Width>
             <Height>0</Height>
           </PreviousContainerDesiredSize>
-          <PreviousDesiredWidthInDockedMode>1739</PreviousDesiredWidthInDockedMode>
-          <PreviousDesiredHeightInDockedMode>378.49560153838348</PreviousDesiredHeightInDockedMode>
+          <PreviousDesiredWidthInDockedMode>1354.9999999999998</PreviousDesiredWidthInDockedMode>
+          <PreviousDesiredHeightInDockedMode>249.67213910230487</PreviousDesiredHeightInDockedMode>
           <Name>usrSymbolBrowser</Name>
           <State>Dock</State>
           <NoHeader>false</NoHeader>
@@ -463,7 +480,7 @@
           <SideFloating>Left</SideFloating>
           <TargetDocked />
           <TargetFloating />
-          <DesiredWidthInDockedMode>1354.9999999999998</DesiredWidthInDockedMode>
+          <DesiredWidthInDockedMode>1739</DesiredWidthInDockedMode>
           <DesiredHeightInDockedMode>249.67213910230487</DesiredHeightInDockedMode>
           <DesiredWidthInFloatingMode>90</DesiredWidthInFloatingMode>
           <DesiredHeightInFloatingMode>360</DesiredHeightInFloatingMode>
@@ -510,8 +527,8 @@
           <FixedHeight>0</FixedHeight>
           <FixedWidth>0</FixedWidth>
           <ContainerSize>
-            <Width>1354.9999999999998</Width>
-            <Height>655.2</Height>
+            <Width>1739</Width>
+            <Height>991.2</Height>
           </ContainerSize>
           <PreviousHostWidth>90</PreviousHostWidth>
           <PreviousHostHeight>90</PreviousHostHeight>
@@ -531,7 +548,7 @@
             <Height>0</Height>
           </PreviousContainerDesiredSize>
           <PreviousDesiredWidthInDockedMode>175</PreviousDesiredWidthInDockedMode>
-          <PreviousDesiredHeightInDockedMode>991.2</PreviousDesiredHeightInDockedMode>
+          <PreviousDesiredHeightInDockedMode>655.2</PreviousDesiredHeightInDockedMode>
           <Name>toolboxMainView</Name>
           <State>Dock</State>
           <NoHeader>false</NoHeader>
@@ -540,14 +557,14 @@
           <TargetDocked />
           <TargetFloating />
           <DesiredWidthInDockedMode>175</DesiredWidthInDockedMode>
-          <DesiredHeightInDockedMode>655.2</DesiredHeightInDockedMode>
+          <DesiredHeightInDockedMode>991.2</DesiredHeightInDockedMode>
           <DesiredWidthInFloatingMode>175</DesiredWidthInFloatingMode>
           <DesiredHeightInFloatingMode>90</DesiredHeightInFloatingMode>
           <NoDock>false</NoDock>
           <CanDock>true</CanDock>
           <CanClose>false</CanClose>
           <IsSelectedTab>true</IsSelectedTab>
-          <IsActiveWindow>true</IsActiveWindow>
+          <IsActiveWindow>false</IsActiveWindow>
           <WindowRect />
           <TabGroupName />
           <IsTabGroupOwner>false</IsTabGroupOwner>
@@ -586,8 +603,8 @@
           <FixedHeight>0</FixedHeight>
           <FixedWidth>0</FixedWidth>
           <ContainerSize>
-            <Width>1534</Width>
-            <Height>655.2</Height>
+            <Width>1918</Width>
+            <Height>991.2</Height>
           </ContainerSize>
           <PreviousHostWidth>90</PreviousHostWidth>
           <PreviousHostHeight>90</PreviousHostHeight>
@@ -595,6 +612,82 @@
           <PreviousContainerWidth>90</PreviousContainerWidth>
           <TargetAutoHide />
           <SplitPanelOffset>0</SplitPanelOffset>
+          <IsSwapped>false</IsSwapped>
+        </DockingParams>
+        <DockingParams>
+          <PreviousFloatingWindowRect />
+          <FloatWindowState>Normal</FloatWindowState>
+          <ZorderInFloatMode>0</ZorderInFloatMode>
+          <TabOrderIndex>0</TabOrderIndex>
+          <PreviousContainerDesiredSize>
+            <Width>0</Width>
+            <Height>0</Height>
+          </PreviousContainerDesiredSize>
+          <PreviousDesiredWidthInDockedMode>0</PreviousDesiredWidthInDockedMode>
+          <PreviousDesiredHeightInDockedMode>0</PreviousDesiredHeightInDockedMode>
+          <Name>DataScreen2</Name>
+          <State>Document</State>
+          <NoHeader>false</NoHeader>
+          <SideDocked>Left</SideDocked>
+          <SideFloating>Left</SideFloating>
+          <TargetDocked />
+          <TargetFloating />
+          <DesiredWidthInDockedMode>90</DesiredWidthInDockedMode>
+          <DesiredHeightInDockedMode>90</DesiredHeightInDockedMode>
+          <DesiredWidthInFloatingMode>90</DesiredWidthInFloatingMode>
+          <DesiredHeightInFloatingMode>90</DesiredHeightInFloatingMode>
+          <NoDock>false</NoDock>
+          <CanDock>false</CanDock>
+          <CanClose>false</CanClose>
+          <IsSelectedTab>false</IsSelectedTab>
+          <IsActiveWindow>true</IsActiveWindow>
+          <WindowRect />
+          <TabGroupName />
+          <IsTabGroupOwner>false</IsTabGroupOwner>
+          <SideTabOrder>0</SideTabOrder>
+          <IndexInDockMode>1</IndexInDockMode>
+          <IndexInFloatMode>1</IndexInFloatMode>
+          <TabOrderInDockMode>0</TabOrderInDockMode>
+          <TabOrderInFloatMode>0</TabOrderInFloatMode>
+          <MDIBounds>0,0,124,50</MDIBounds>
+          <TDIIndex>0</TDIIndex>
+          <IsSelected>true</IsSelected>
+          <MDIMinimizedBounds>0,0,124,24</MDIMinimizedBounds>
+          <MDIWindowState>Normal</MDIWindowState>
+          <AllowMDIResize>true</AllowMDIResize>
+          <TDIGroupOrientation>Horizontal</TDIGroupOrientation>
+          <WayOfTDIGroup>0</WayOfTDIGroup>
+          <DockForSide>Left</DockForSide>
+          <PreviousIndexInDockMode>0</PreviousIndexInDockMode>
+          <PreviousSideInDockMode>Left</PreviousSideInDockMode>
+          <DoShift>false</DoShift>
+          <SideRelativetoContainer>Left</SideRelativetoContainer>
+          <TabParent />
+          <DockWindowState>Normal</DockWindowState>
+          <CanMaximize>true</CanMaximize>
+          <CanMinimize>true</CanMinimize>
+          <CanResizeInDockedState>true</CanResizeInDockedState>
+          <CanResizeHeightInDockedState>true</CanResizeHeightInDockedState>
+          <CanResizeWidthInDockedState>true</CanResizeWidthInDockedState>
+          <CanResizeInFloatState>true</CanResizeInFloatState>
+          <CanResizeHeightInFloatState>true</CanResizeHeightInFloatState>
+          <CanResizeWidthInFloatState>true</CanResizeWidthInFloatState>
+          <CanFloatMaximize>true</CanFloatMaximize>
+          <IsFixedSize>false</IsFixedSize>
+          <IsFixedHeight>false</IsFixedHeight>
+          <IsFixedWidth>false</IsFixedWidth>
+          <FixedHeight>0</FixedHeight>
+          <FixedWidth>0</FixedWidth>
+          <ContainerSize>
+            <Width>0</Width>
+            <Height>0</Height>
+          </ContainerSize>
+          <PreviousHostWidth>90</PreviousHostWidth>
+          <PreviousHostHeight>90</PreviousHostHeight>
+          <PreviousContainerHeight>90</PreviousContainerHeight>
+          <PreviousContainerWidth>90</PreviousContainerWidth>
+          <TargetAutoHide />
+          <SplitPanelOffset>106.40000000000009</SplitPanelOffset>
           <IsSwapped>false</IsSwapped>
         </DockingParams>
         <DockingParams>
@@ -634,88 +727,12 @@
           <TabOrderInFloatMode>0</TabOrderInFloatMode>
           <MDIBounds>0,0,124,50</MDIBounds>
           <TDIIndex>0</TDIIndex>
-          <IsSelected>false</IsSelected>
-          <MDIMinimizedBounds>0,0,124,24</MDIMinimizedBounds>
-          <MDIWindowState>Normal</MDIWindowState>
-          <AllowMDIResize>true</AllowMDIResize>
-          <TDIGroupOrientation>Horizontal</TDIGroupOrientation>
-          <WayOfTDIGroup />
-          <DockForSide>Left</DockForSide>
-          <PreviousIndexInDockMode>0</PreviousIndexInDockMode>
-          <PreviousSideInDockMode>Left</PreviousSideInDockMode>
-          <DoShift>false</DoShift>
-          <SideRelativetoContainer>Left</SideRelativetoContainer>
-          <TabParent />
-          <DockWindowState>Normal</DockWindowState>
-          <CanMaximize>true</CanMaximize>
-          <CanMinimize>true</CanMinimize>
-          <CanResizeInDockedState>true</CanResizeInDockedState>
-          <CanResizeHeightInDockedState>true</CanResizeHeightInDockedState>
-          <CanResizeWidthInDockedState>true</CanResizeWidthInDockedState>
-          <CanResizeInFloatState>true</CanResizeInFloatState>
-          <CanResizeHeightInFloatState>true</CanResizeHeightInFloatState>
-          <CanResizeWidthInFloatState>true</CanResizeWidthInFloatState>
-          <CanFloatMaximize>true</CanFloatMaximize>
-          <IsFixedSize>false</IsFixedSize>
-          <IsFixedHeight>false</IsFixedHeight>
-          <IsFixedWidth>false</IsFixedWidth>
-          <FixedHeight>0</FixedHeight>
-          <FixedWidth>0</FixedWidth>
-          <ContainerSize>
-            <Width>0</Width>
-            <Height>0</Height>
-          </ContainerSize>
-          <PreviousHostWidth>90</PreviousHostWidth>
-          <PreviousHostHeight>90</PreviousHostHeight>
-          <PreviousContainerHeight>90</PreviousContainerHeight>
-          <PreviousContainerWidth>90</PreviousContainerWidth>
-          <TargetAutoHide />
-          <SplitPanelOffset>106.40000000000009</SplitPanelOffset>
-          <IsSwapped>false</IsSwapped>
-        </DockingParams>
-        <DockingParams>
-          <PreviousFloatingWindowRect />
-          <FloatWindowState>Normal</FloatWindowState>
-          <ZorderInFloatMode>0</ZorderInFloatMode>
-          <TabOrderIndex>1</TabOrderIndex>
-          <PreviousContainerDesiredSize>
-            <Width>0</Width>
-            <Height>0</Height>
-          </PreviousContainerDesiredSize>
-          <PreviousDesiredWidthInDockedMode>0</PreviousDesiredWidthInDockedMode>
-          <PreviousDesiredHeightInDockedMode>0</PreviousDesiredHeightInDockedMode>
-          <Name>DataScreen2</Name>
-          <State>Document</State>
-          <NoHeader>false</NoHeader>
-          <SideDocked>Left</SideDocked>
-          <SideFloating>Left</SideFloating>
-          <TargetDocked />
-          <TargetFloating />
-          <DesiredWidthInDockedMode>90</DesiredWidthInDockedMode>
-          <DesiredHeightInDockedMode>90</DesiredHeightInDockedMode>
-          <DesiredWidthInFloatingMode>90</DesiredWidthInFloatingMode>
-          <DesiredHeightInFloatingMode>90</DesiredHeightInFloatingMode>
-          <NoDock>false</NoDock>
-          <CanDock>false</CanDock>
-          <CanClose>false</CanClose>
-          <IsSelectedTab>false</IsSelectedTab>
-          <IsActiveWindow>false</IsActiveWindow>
-          <WindowRect />
-          <TabGroupName />
-          <IsTabGroupOwner>false</IsTabGroupOwner>
-          <SideTabOrder>0</SideTabOrder>
-          <IndexInDockMode>1</IndexInDockMode>
-          <IndexInFloatMode>1</IndexInFloatMode>
-          <TabOrderInDockMode>0</TabOrderInDockMode>
-          <TabOrderInFloatMode>0</TabOrderInFloatMode>
-          <MDIBounds>0,0,124,50</MDIBounds>
-          <TDIIndex>1</TDIIndex>
           <IsSelected>true</IsSelected>
           <MDIMinimizedBounds>0,0,124,24</MDIMinimizedBounds>
           <MDIWindowState>Normal</MDIWindowState>
           <AllowMDIResize>true</AllowMDIResize>
           <TDIGroupOrientation>Horizontal</TDIGroupOrientation>
-          <WayOfTDIGroup />
+          <WayOfTDIGroup>1</WayOfTDIGroup>
           <DockForSide>Left</DockForSide>
           <PreviousIndexInDockMode>0</PreviousIndexInDockMode>
           <PreviousSideInDockMode>Left</PreviousSideInDockMode>

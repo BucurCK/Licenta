@@ -97,7 +97,9 @@ void encoder_init (void)
 	CCU40_CC40->INS |= (CCU4_IN_E_MSK << CCU4_INS_EV0IS_POS);	//Event 0 for Out0 on rising edge
 	CCU40_CC40->INS |= (RISING_EDGE_ENC << CCU4_INS_EV0EM_POS);
 	CCU40_CC40->INS |= (CCU4_IN_F_MSK << CCU4_INS_EV1IS_POS);	//Event 1 for Out1 on low level
+//	CCU40_CC40->INS |= (RISING_EDGE_ENC << CCU4_INS_EV1EM_POS);
 	CCU40_CC40->INS |= (0x1UL << CCU4_CC4_INS_EV1LM_Pos);
+
 
 	/*Connection Matrix Control*/
 	CCU40_CC40->CMC |= (CCU4_EVENT_0_MSK << CCU4_CMC_CNTS_POS);	//Event0 set up for Counting

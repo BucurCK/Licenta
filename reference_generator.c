@@ -11,23 +11,29 @@ uint32_t interrupt_counter_ref_gen = 0;
 
 status_ref_gen ref_gen_status = 0;					//0 - disabled, 1 - rise, 2 - high, 3 - fall, 4 - low
 
-int32_t high_level = 4000;							//final reference
-int32_t high_level_time = 500;						//time to hold final reference
+int32_t high_level;							//final reference
+int32_t high_level_time;					//time to hold final reference
 
-int32_t rise_time = 1000;							//time to get to final reference
+int32_t rise_time;							//time to get to final reference
 int32_t rise_increment;
 
-int32_t fall_time = 1000;							//time to get to initial reference
+int32_t fall_time;							//time to get to initial reference
 int32_t fall_decrement;
 
-int32_t low_level = 0;								//initial reference = 0
-int32_t low_level_time = 500;						//time to hold initial reference
+int32_t low_level;							//initial reference = 0
+int32_t low_level_time;						//time to hold initial reference
 
 uint8_t repeat_motion = 1;							// 0 = NO | 1 = YES
 
-float time_rise_input = 0;
-float time_fall_input = 0;
-float
+float time_rise_input_s = 0;
+float time_fall_input_s = 0;
+float time_high_input_s = 0;
+float time_low_input_s = 0;
+
+int16_t current_input = 0;		//1[A] ~= 820[i.u]
+int16_t voltage_input = 0;
+float rpm_input = 0;			//rpm_min = 30 = 1[iu/ms] | use increments of 30 for use of computation
+float rotation_input = 0;		//number of full rotation | 1[rot] = 2000[iu]
 
 float reference = 0;
 float reference_old = 0;
@@ -37,11 +43,48 @@ ref_type ref_type_select = 0;
 
 void reference_generator_compute (void)
 {
+	switch (ref_type_select)
+	{
+	case(REF_POS):
+			high_level = rotation_input * 2000;
+			high_level_time = time_high_input_s * 1000;
+			low_level_time = time_low_input_s * 1000;
+			rise_time = time_rise_input_s * 1000;
+			fall_time = time_fall_input_s * 1000;
+			break;
+	case(REF_SPD):
+			rise_time = time_rise_input_s * 1000;
+			fall_time = rise_time;
+			high_level = rpm_input/30 * rise_time;
+			high_level_time = time_high_input_s * 1000;
+			low_level_time = time_low_input_s * 1000;
+			break;
+	case(REF_I):
+			high_level = current_input;
+			high_level_time = time_high_input_s * 1000;
+			low_level_time = time_low_input_s * 1000;
+			rise_time = time_rise_input_s * 1000;
+			fall_time = time_fall_input_s * 1000;
+			break;
+	case(REF_U):
+			high_level = voltage_input;
+			high_level_time = time_high_input_s * 1000;
+			low_level_time = time_low_input_s * 1000;
+			rise_time = time_rise_input_s * 1000;
+			fall_time = time_fall_input_s * 1000;
+			u_q_ref = reference;
+			break;
+	default:
+		break;
+	}
 
 	rise_increment = high_level/rise_time;
 	fall_decrement = high_level/fall_time;
 	reference = 0;
 	reference_old = 0;
+
+
+
 	//************************************* Move it to drive_commands
 	__disable_irq();
 	interrupt_counter_ref_gen = 0;

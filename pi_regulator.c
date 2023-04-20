@@ -5,8 +5,8 @@
 #include  "driver_adc.h"
 
 float k_p_i= 0.6, k_i_i = 0.01;
-float k_p_spd = 400, k_i_spd =25;
-float k_p_pos = 0, k_i_pos = 0;
+float k_p_spd = 400, k_i_spd =100;
+float k_p_pos = 0.05, k_i_pos = 0.001;
 float error_i_q = 0, error_i_d = 0, error_spd = 0, error_pos = 0;
 float i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref;
 float p_part_i_q = 0, p_part_i_d = 0, p_part_spd = 0, p_part_pos = 0;
