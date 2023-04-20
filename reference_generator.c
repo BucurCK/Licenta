@@ -11,19 +11,23 @@ uint32_t interrupt_counter_ref_gen = 0;
 
 status_ref_gen ref_gen_status = 0;					//0 - disabled, 1 - rise, 2 - high, 3 - fall, 4 - low
 
-int32_t high_level = 3000;							//final reference
-int32_t high_level_time = 1000;						//time to hold final reference
+int32_t high_level = 4000;							//final reference
+int32_t high_level_time = 500;						//time to hold final reference
 
-int32_t rise_time = 10;								//time to get to final reference
+int32_t rise_time = 1000;							//time to get to final reference
 int32_t rise_increment;
 
-int32_t fall_time = 10;								//time to get to initial reference
+int32_t fall_time = 1000;							//time to get to initial reference
 int32_t fall_decrement;
 
 int32_t low_level = 0;								//initial reference = 0
-int32_t low_level_time = 1000;						//time to hold initial reference
+int32_t low_level_time = 500;						//time to hold initial reference
 
 uint8_t repeat_motion = 1;							// 0 = NO | 1 = YES
+
+float time_rise_input = 0;
+float time_fall_input = 0;
+float
 
 float reference = 0;
 float reference_old = 0;

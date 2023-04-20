@@ -7,29 +7,29 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   1 Stack         00000800  1ffe8000  1ffe8000  00018000  2**0
                   ALLOC
-  2 .data         00000048  1ffe8800  0c00510c  00010800  2**2
+  2 .data         00000050  1ffe8800  0c00510c  00010800  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .bss          00007f10  1ffe8848  0c005154  00010848  2**2
+  3 .bss          00007f18  1ffe8850  0c00515c  00010850  2**2
                   ALLOC
   4 .no_init      00000014  2003ffc0  2003ffc0  00017fc0  2**2
                   ALLOC
-  5 .debug_aranges 00000388  00000000  00000000  00010848  2**3
+  5 .debug_aranges 00000388  00000000  00000000  00010850  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00005d47  00000000  00000000  00010bd0  2**0
+  6 .debug_info   00005d8f  00000000  00000000  00010bd8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000edd  00000000  00000000  00016917  2**0
+  7 .debug_abbrev 00000ecc  00000000  00000000  00016967  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00001e22  00000000  00000000  000177f4  2**0
+  8 .debug_line   00001e22  00000000  00000000  00017833  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000c2c  00000000  00000000  00019618  2**2
+  9 .debug_frame  00000c2c  00000000  00000000  00019658  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00001d3c  00000000  00000000  0001a244  2**0
+ 10 .debug_str    00001d68  00000000  00000000  0001a284  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001094  00000000  00000000  0001bf80  2**0
+ 11 .debug_loc    00001094  00000000  00000000  0001bfec  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000278  00000000  00000000  0001d014  2**0
+ 12 .debug_ranges 00000278  00000000  00000000  0001d080  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .build_attributes 0000061c  00000000  00000000  0001d28c  2**0
+ 13 .build_attributes 0000061c  00000000  00000000  0001d2f8  2**0
                   CONTENTS, READONLY
 
 Disassembly of section .text:
@@ -176,14 +176,14 @@ Reset_Handler:
 08000248 <__copy_table_start__>:
  8000248:	0c00510c 	.word	0x0c00510c
  800024c:	1ffe8800 	.word	0x1ffe8800
- 8000250:	00000048 	.word	0x00000048
+ 8000250:	00000050 	.word	0x00000050
  8000254:	0c00510c 	.word	0x0c00510c
  8000258:	1ffe8800 	.word	0x1ffe8800
  800025c:	00000000 	.word	0x00000000
 
 08000260 <__copy_table_end__>:
- 8000260:	1ffe8848 	.word	0x1ffe8848
- 8000264:	00007f10 	.word	0x00007f10
+ 8000260:	1ffe8850 	.word	0x1ffe8850
+ 8000264:	00007f18 	.word	0x00007f18
  8000268:	20000000 	.word	0x20000000
  800026c:	00000000 	.word	0x00000000
  8000270:	20000000 	.word	0x20000000
@@ -1259,17 +1259,17 @@ void encoder_init (void)
  8000848:	681b      	ldr	r3, [r3, #0]
  800084a:	f443 3380 	orr.w	r3, r3, #65536	; 0x10000
  800084e:	6013      	str	r3, [r2, #0]
-	CCU40_CC40->INS |= (CCU4_IN_F_MSK << CCU4_INS_EV1IS_POS);	//Event 1 for Out1 on rising edge
+	CCU40_CC40->INS |= (CCU4_IN_F_MSK << CCU4_INS_EV1IS_POS);	//Event 1 for Out1 on low level
  8000850:	4a29      	ldr	r2, [pc, #164]	; (80008f8 <encoder_init+0x1c4>)
  8000852:	4b29      	ldr	r3, [pc, #164]	; (80008f8 <encoder_init+0x1c4>)
  8000854:	681b      	ldr	r3, [r3, #0]
  8000856:	f043 0350 	orr.w	r3, r3, #80	; 0x50
  800085a:	6013      	str	r3, [r2, #0]
-	CCU40_CC40->INS |= (RISING_EDGE_ENC << CCU4_INS_EV1EM_POS);
+	CCU40_CC40->INS |= (0x1UL << CCU4_CC4_INS_EV1LM_Pos);
  800085c:	4a26      	ldr	r2, [pc, #152]	; (80008f8 <encoder_init+0x1c4>)
  800085e:	4b26      	ldr	r3, [pc, #152]	; (80008f8 <encoder_init+0x1c4>)
  8000860:	681b      	ldr	r3, [r3, #0]
- 8000862:	f443 2380 	orr.w	r3, r3, #262144	; 0x40000
+ 8000862:	f443 0300 	orr.w	r3, r3, #8388608	; 0x800000
  8000866:	6013      	str	r3, [r2, #0]
 
 	/*Connection Matrix Control*/
@@ -1360,7 +1360,7 @@ void encoder_init (void)
  80008f4:	4000c000 	.word	0x4000c000
  80008f8:	4000c100 	.word	0x4000c100
  80008fc:	40028000 	.word	0x40028000
- 8000900:	1fff06c2 	.word	0x1fff06c2
+ 8000900:	1fff06d2 	.word	0x1fff06d2
 
 08000904 <current_filter>:
 /*
@@ -1397,9 +1397,9 @@ void current_filter (float filter_input)
  8000940:	f85d 7b04 	ldr.w	r7, [sp], #4
  8000944:	4770      	bx	lr
  8000946:	bf00      	nop
- 8000948:	1ffe884c 	.word	0x1ffe884c
+ 8000948:	1ffe8854 	.word	0x1ffe8854
  800094c:	1ffe8804 	.word	0x1ffe8804
- 8000950:	1ffe8848 	.word	0x1ffe8848
+ 8000950:	1ffe8850 	.word	0x1ffe8850
 
 08000954 <current_protection>:
 
@@ -1489,13 +1489,13 @@ void current_protection (void)
 }
  80009f0:	bd80      	pop	{r7, pc}
  80009f2:	bf00      	nop
- 80009f4:	1fff0738 	.word	0x1fff0738
- 80009f8:	1fff0750 	.word	0x1fff0750
+ 80009f4:	1fff0748 	.word	0x1fff0748
+ 80009f8:	1fff0760 	.word	0x1fff0760
  80009fc:	1ffe8800 	.word	0x1ffe8800
- 8000a00:	1ffe8848 	.word	0x1ffe8848
- 8000a04:	1ffe8850 	.word	0x1ffe8850
- 8000a08:	1fff06a2 	.word	0x1fff06a2
- 8000a0c:	1fff06a6 	.word	0x1fff06a6
+ 8000a00:	1ffe8850 	.word	0x1ffe8850
+ 8000a04:	1ffe8858 	.word	0x1ffe8858
+ 8000a08:	1fff06b2 	.word	0x1fff06b2
+ 8000a0c:	1fff06b6 	.word	0x1fff06b6
 
 08000a10 <__NVIC_EnableIRQ>:
   \details Enables a device specific interrupt in the NVIC interrupt controller.
@@ -2389,16 +2389,16 @@ void read_currents (void)
  80010a4:	4770      	bx	lr
  80010a6:	bf00      	nop
  80010a8:	40004400 	.word	0x40004400
- 80010ac:	1fff06f8 	.word	0x1fff06f8
- 80010b0:	1fff06dc 	.word	0x1fff06dc
+ 80010ac:	1fff0708 	.word	0x1fff0708
+ 80010b0:	1fff06ec 	.word	0x1fff06ec
  80010b4:	40004800 	.word	0x40004800
- 80010b8:	1fff06c8 	.word	0x1fff06c8
- 80010bc:	1fff06d4 	.word	0x1fff06d4
+ 80010b8:	1fff06d8 	.word	0x1fff06d8
+ 80010bc:	1fff06e4 	.word	0x1fff06e4
  80010c0:	40004c00 	.word	0x40004c00
- 80010c4:	1fff06d0 	.word	0x1fff06d0
- 80010c8:	1fff06fc 	.word	0x1fff06fc
- 80010cc:	1fff06f0 	.word	0x1fff06f0
- 80010d0:	1fff06d8 	.word	0x1fff06d8
+ 80010c4:	1fff06e0 	.word	0x1fff06e0
+ 80010c8:	1fff070c 	.word	0x1fff070c
+ 80010cc:	1fff0700 	.word	0x1fff0700
+ 80010d0:	1fff06e8 	.word	0x1fff06e8
 
 080010d4 <current_offset>:
 /**
@@ -2515,9 +2515,9 @@ void current_offset (void)
  800117e:	46bd      	mov	sp, r7
  8001180:	bd80      	pop	{r7, pc}
  8001182:	bf00      	nop
- 8001184:	1fff06f8 	.word	0x1fff06f8
- 8001188:	1fff06c8 	.word	0x1fff06c8
- 800118c:	1fff06d0 	.word	0x1fff06d0
+ 8001184:	1fff0708 	.word	0x1fff0708
+ 8001188:	1fff06d8 	.word	0x1fff06d8
+ 800118c:	1fff06e0 	.word	0x1fff06e0
  8001190:	40004400 	.word	0x40004400
  8001194:	40004800 	.word	0x40004800
  8001198:	40004c00 	.word	0x40004c00
@@ -2557,8 +2557,8 @@ void compute_u_mot (void)
  80011d4:	f3af 8000 	nop.w
  80011d8:	2b020c4a 	.word	0x2b020c4a
  80011dc:	3f991687 	.word	0x3f991687
- 80011e0:	1fff06f0 	.word	0x1fff06f0
- 80011e4:	1fff06ec 	.word	0x1fff06ec
+ 80011e0:	1fff0700 	.word	0x1fff0700
+ 80011e4:	1fff06fc 	.word	0x1fff06fc
 
 080011e8 <compute_u_log>:
  * Just for Micrium read
@@ -2594,8 +2594,8 @@ void compute_u_log (void)
  800121c:	f3af 8000 	nop.w
  8001220:	4024b33e 	.word	0x4024b33e
  8001224:	3f8b2d4d 	.word	0x3f8b2d4d
- 8001228:	1fff06d8 	.word	0x1fff06d8
- 800122c:	1fff06cc 	.word	0x1fff06cc
+ 8001228:	1fff06e8 	.word	0x1fff06e8
+ 800122c:	1fff06dc 	.word	0x1fff06dc
 
 08001230 <compute_currents>:
 /*
@@ -2763,17 +2763,17 @@ void compute_currents (void)
  80013bc:	f3af 8000 	nop.w
  80013c0:	00000000 	.word	0x00000000
  80013c4:	40efffe0 	.word	0x40efffe0
- 80013c8:	1fff06dc 	.word	0x1fff06dc
+ 80013c8:	1fff06ec 	.word	0x1fff06ec
  80013cc:	40540000 	.word	0x40540000
  80013d0:	40440000 	.word	0x40440000
- 80013d4:	1fff06e8 	.word	0x1fff06e8
- 80013d8:	1fff06d4 	.word	0x1fff06d4
- 80013dc:	1fff06f4 	.word	0x1fff06f4
- 80013e0:	1fff06fc 	.word	0x1fff06fc
- 80013e4:	1fff06e4 	.word	0x1fff06e4
- 80013e8:	1fff073c 	.word	0x1fff073c
+ 80013d4:	1fff06f8 	.word	0x1fff06f8
+ 80013d8:	1fff06e4 	.word	0x1fff06e4
+ 80013dc:	1fff0704 	.word	0x1fff0704
+ 80013e0:	1fff070c 	.word	0x1fff070c
+ 80013e4:	1fff06f4 	.word	0x1fff06f4
+ 80013e8:	1fff074c 	.word	0x1fff074c
  80013ec:	47000000 	.word	0x47000000
- 80013f0:	1fff06e0 	.word	0x1fff06e0
+ 80013f0:	1fff06f0 	.word	0x1fff06f0
  80013f4:	f3af 8000 	nop.w
 
 080013f8 <pwm_init>:
@@ -3627,17 +3627,17 @@ void VADC0_G0_2_IRQHandler (void)
  8001976:	3708      	adds	r7, #8
  8001978:	46bd      	mov	sp, r7
  800197a:	bd80      	pop	{r7, pc}
- 800197c:	1ffe8854 	.word	0x1ffe8854
- 8001980:	1ffe8856 	.word	0x1ffe8856
- 8001984:	1ffe8858 	.word	0x1ffe8858
- 8001988:	1fff06aa 	.word	0x1fff06aa
- 800198c:	1fff06a8 	.word	0x1fff06a8
- 8001990:	1fff06a4 	.word	0x1fff06a4
- 8001994:	1fff0744 	.word	0x1fff0744
- 8001998:	1fff0734 	.word	0x1fff0734
- 800199c:	1fff0754 	.word	0x1fff0754
- 80019a0:	1fff0694 	.word	0x1fff0694
- 80019a4:	1fff0690 	.word	0x1fff0690
+ 800197c:	1ffe885c 	.word	0x1ffe885c
+ 8001980:	1ffe885e 	.word	0x1ffe885e
+ 8001984:	1ffe8860 	.word	0x1ffe8860
+ 8001988:	1fff06ba 	.word	0x1fff06ba
+ 800198c:	1fff06b8 	.word	0x1fff06b8
+ 8001990:	1fff06b4 	.word	0x1fff06b4
+ 8001994:	1fff0754 	.word	0x1fff0754
+ 8001998:	1fff0744 	.word	0x1fff0744
+ 800199c:	1fff0764 	.word	0x1fff0764
+ 80019a0:	1fff06a4 	.word	0x1fff06a4
+ 80019a4:	1fff06a0 	.word	0x1fff06a0
 
 080019a8 <infinite_loop>:
 #include "motor_data_update.h"
@@ -3735,10 +3735,10 @@ void init_position (void)
  8001a24:	601a      	str	r2, [r3, #0]
 }
  8001a26:	bd80      	pop	{r7, pc}
- 8001a28:	1fff06ac 	.word	0x1fff06ac
- 8001a2c:	1fff06b0 	.word	0x1fff06b0
- 8001a30:	1ffe885c 	.word	0x1ffe885c
- 8001a34:	1ffe8860 	.word	0x1ffe8860
+ 8001a28:	1fff06bc 	.word	0x1fff06bc
+ 8001a2c:	1fff06c0 	.word	0x1fff06c0
+ 8001a30:	1ffe8864 	.word	0x1ffe8864
+ 8001a34:	1ffe8868 	.word	0x1ffe8868
 
 08001a38 <compute_speed>:
 /**
@@ -3767,9 +3767,9 @@ void compute_speed (void)
  8001a54:	f85d 7b04 	ldr.w	r7, [sp], #4
  8001a58:	4770      	bx	lr
  8001a5a:	bf00      	nop
- 8001a5c:	1fff06b0 	.word	0x1fff06b0
- 8001a60:	1ffe8860 	.word	0x1ffe8860
- 8001a64:	1ffe885c 	.word	0x1ffe885c
+ 8001a5c:	1fff06c0 	.word	0x1fff06c0
+ 8001a60:	1ffe8868 	.word	0x1ffe8868
+ 8001a64:	1ffe8864 	.word	0x1ffe8864
 
 08001a68 <pi_regulator_i_q>:
 int32_t sat_i_part_currents;
@@ -3800,7 +3800,7 @@ void pi_regulator_i_q (void)						//i_q -> u_q_ref
  8001a92:	edc3 7a00 	vstr	s15, [r3]
 
 	//Proportional part computation
-	p_part_i_q = error_i_q*k_p;
+	p_part_i_q = error_i_q*k_p_i;
  8001a96:	4b63      	ldr	r3, [pc, #396]	; (8001c24 <pi_regulator_i_q+0x1bc>)
  8001a98:	ed93 7a00 	vldr	s14, [r3]
  8001a9c:	4b62      	ldr	r3, [pc, #392]	; (8001c28 <pi_regulator_i_q+0x1c0>)
@@ -3851,7 +3851,7 @@ void pi_regulator_i_q (void)						//i_q -> u_q_ref
 	}
 
 	//Integral part computation
-	i_part_i_q += error_i_q*k_i;
+	i_part_i_q += error_i_q*k_i_i;
  8001b0e:	4b45      	ldr	r3, [pc, #276]	; (8001c24 <pi_regulator_i_q+0x1bc>)
  8001b10:	ed93 7a00 	vldr	s14, [r3]
  8001b14:	4b46      	ldr	r3, [pc, #280]	; (8001c30 <pi_regulator_i_q+0x1c8>)
@@ -3960,17 +3960,17 @@ void pi_regulator_i_q (void)						//i_q -> u_q_ref
  8001c08:	46bd      	mov	sp, r7
  8001c0a:	f85d 7b04 	ldr.w	r7, [sp], #4
  8001c0e:	4770      	bx	lr
- 8001c10:	1ffe8814 	.word	0x1ffe8814
+ 8001c10:	1ffe881c 	.word	0x1ffe881c
  8001c14:	66666667 	.word	0x66666667
- 8001c18:	1fff070c 	.word	0x1fff070c
- 8001c1c:	1ffe8874 	.word	0x1ffe8874
- 8001c20:	1fff073c 	.word	0x1fff073c
- 8001c24:	1ffe8864 	.word	0x1ffe8864
+ 8001c18:	1fff071c 	.word	0x1fff071c
+ 8001c1c:	1ffe8884 	.word	0x1ffe8884
+ 8001c20:	1fff074c 	.word	0x1fff074c
+ 8001c24:	1ffe8874 	.word	0x1ffe8874
  8001c28:	1ffe880c 	.word	0x1ffe880c
- 8001c2c:	1ffe8888 	.word	0x1ffe8888
+ 8001c2c:	1ffe8898 	.word	0x1ffe8898
  8001c30:	1ffe8810 	.word	0x1ffe8810
- 8001c34:	1ffe8898 	.word	0x1ffe8898
- 8001c38:	1ffe8884 	.word	0x1ffe8884
+ 8001c34:	1ffe88a8 	.word	0x1ffe88a8
+ 8001c38:	1ffe8894 	.word	0x1ffe8894
 
 08001c3c <pi_regulator_i_d>:
 
@@ -3998,7 +3998,7 @@ void pi_regulator_i_d (void)					//i_d -> u_d_ref
  8001c66:	edc3 7a00 	vstr	s15, [r3]
 
 	//Proportional part computation
-	p_part_i_d = error_i_d*k_p;
+	p_part_i_d = error_i_d*k_p_i;
  8001c6a:	4b63      	ldr	r3, [pc, #396]	; (8001df8 <pi_regulator_i_d+0x1bc>)
  8001c6c:	ed93 7a00 	vldr	s14, [r3]
  8001c70:	4b62      	ldr	r3, [pc, #392]	; (8001dfc <pi_regulator_i_d+0x1c0>)
@@ -4049,7 +4049,7 @@ void pi_regulator_i_d (void)					//i_d -> u_d_ref
 	}
 
 	//Integral part computation
-	i_part_i_d += error_i_d*k_i;
+	i_part_i_d += error_i_d*k_i_i;
  8001ce2:	4b45      	ldr	r3, [pc, #276]	; (8001df8 <pi_regulator_i_d+0x1bc>)
  8001ce4:	ed93 7a00 	vldr	s14, [r3]
  8001ce8:	4b46      	ldr	r3, [pc, #280]	; (8001e04 <pi_regulator_i_d+0x1c8>)
@@ -4158,17 +4158,17 @@ void pi_regulator_i_d (void)					//i_d -> u_d_ref
  8001ddc:	46bd      	mov	sp, r7
  8001dde:	f85d 7b04 	ldr.w	r7, [sp], #4
  8001de2:	4770      	bx	lr
- 8001de4:	1ffe8814 	.word	0x1ffe8814
+ 8001de4:	1ffe881c 	.word	0x1ffe881c
  8001de8:	66666667 	.word	0x66666667
- 8001dec:	1fff070c 	.word	0x1fff070c
- 8001df0:	1ffe8878 	.word	0x1ffe8878
- 8001df4:	1fff0740 	.word	0x1fff0740
- 8001df8:	1ffe8868 	.word	0x1ffe8868
+ 8001dec:	1fff071c 	.word	0x1fff071c
+ 8001df0:	1ffe8888 	.word	0x1ffe8888
+ 8001df4:	1fff0750 	.word	0x1fff0750
+ 8001df8:	1ffe8878 	.word	0x1ffe8878
  8001dfc:	1ffe880c 	.word	0x1ffe880c
- 8001e00:	1ffe888c 	.word	0x1ffe888c
+ 8001e00:	1ffe889c 	.word	0x1ffe889c
  8001e04:	1ffe8810 	.word	0x1ffe8810
- 8001e08:	1ffe889c 	.word	0x1ffe889c
- 8001e0c:	1fff0708 	.word	0x1fff0708
+ 8001e08:	1ffe88ac 	.word	0x1ffe88ac
+ 8001e0c:	1fff0718 	.word	0x1fff0718
 
 08001e10 <pi_regulator_speed>:
 
@@ -4198,7 +4198,7 @@ void pi_regulator_speed (void)			//motor_spd -> i_q_ref
  8001e40:	edc3 7a00 	vstr	s15, [r3]
 
 	//Proportional part computation
-	p_part_spd = error_spd*k_p;
+	p_part_spd = error_spd*k_p_spd;
  8001e44:	4b63      	ldr	r3, [pc, #396]	; (8001fd4 <pi_regulator_speed+0x1c4>)
  8001e46:	ed93 7a00 	vldr	s14, [r3]
  8001e4a:	4b63      	ldr	r3, [pc, #396]	; (8001fd8 <pi_regulator_speed+0x1c8>)
@@ -4249,7 +4249,7 @@ void pi_regulator_speed (void)			//motor_spd -> i_q_ref
 	}
 
 	//Integral part computation
-	i_part_spd += error_spd*k_i;
+	i_part_spd += error_spd*k_i_spd;
  8001ebc:	4b45      	ldr	r3, [pc, #276]	; (8001fd4 <pi_regulator_speed+0x1c4>)
  8001ebe:	ed93 7a00 	vldr	s14, [r3]
  8001ec2:	4b47      	ldr	r3, [pc, #284]	; (8001fe0 <pi_regulator_speed+0x1d0>)
@@ -4359,18 +4359,18 @@ void pi_regulator_speed (void)			//motor_spd -> i_q_ref
  8001fb8:	f85d 7b04 	ldr.w	r7, [sp], #4
  8001fbc:	4770      	bx	lr
  8001fbe:	bf00      	nop
- 8001fc0:	1ffe8818 	.word	0x1ffe8818
+ 8001fc0:	1ffe8820 	.word	0x1ffe8820
  8001fc4:	66666667 	.word	0x66666667
- 8001fc8:	1fff0700 	.word	0x1fff0700
- 8001fcc:	1ffe8880 	.word	0x1ffe8880
- 8001fd0:	1ffe885c 	.word	0x1ffe885c
- 8001fd4:	1ffe886c 	.word	0x1ffe886c
- 8001fd8:	1ffe880c 	.word	0x1ffe880c
- 8001fdc:	1ffe8890 	.word	0x1ffe8890
- 8001fe0:	1ffe8810 	.word	0x1ffe8810
- 8001fe4:	1ffe88a0 	.word	0x1ffe88a0
- 8001fe8:	1ffe8874 	.word	0x1ffe8874
- 8001fec:	1ffe8884 	.word	0x1ffe8884
+ 8001fc8:	1fff0710 	.word	0x1fff0710
+ 8001fcc:	1ffe8890 	.word	0x1ffe8890
+ 8001fd0:	1ffe8864 	.word	0x1ffe8864
+ 8001fd4:	1ffe887c 	.word	0x1ffe887c
+ 8001fd8:	1ffe8814 	.word	0x1ffe8814
+ 8001fdc:	1ffe88a0 	.word	0x1ffe88a0
+ 8001fe0:	1ffe8818 	.word	0x1ffe8818
+ 8001fe4:	1ffe88b0 	.word	0x1ffe88b0
+ 8001fe8:	1ffe8884 	.word	0x1ffe8884
+ 8001fec:	1ffe8894 	.word	0x1ffe8894
 
 08001ff0 <pi_regulator_pos>:
 void pi_regulator_pos (void)				//mechanical_position_fast -> spd_ref
@@ -4399,7 +4399,7 @@ void pi_regulator_pos (void)				//mechanical_position_fast -> spd_ref
  8002020:	edc3 7a00 	vstr	s15, [r3]
 
 	//Proportional part computation
-	p_part_pos = error_pos*k_p;
+	p_part_pos = error_pos*k_p_pos;
  8002024:	4b63      	ldr	r3, [pc, #396]	; (80021b4 <pi_regulator_pos+0x1c4>)
  8002026:	ed93 7a00 	vldr	s14, [r3]
  800202a:	4b63      	ldr	r3, [pc, #396]	; (80021b8 <pi_regulator_pos+0x1c8>)
@@ -4450,7 +4450,7 @@ void pi_regulator_pos (void)				//mechanical_position_fast -> spd_ref
 	}
 
 	//Integral part computation
-	i_part_pos += error_pos*k_i;
+	i_part_pos += error_pos*k_i_pos;
  800209c:	4b45      	ldr	r3, [pc, #276]	; (80021b4 <pi_regulator_pos+0x1c4>)
  800209e:	ed93 7a00 	vldr	s14, [r3]
  80020a2:	4b47      	ldr	r3, [pc, #284]	; (80021c0 <pi_regulator_pos+0x1d0>)
@@ -4560,17 +4560,17 @@ void pi_regulator_pos (void)				//mechanical_position_fast -> spd_ref
  8002198:	f85d 7b04 	ldr.w	r7, [sp], #4
  800219c:	4770      	bx	lr
  800219e:	bf00      	nop
- 80021a0:	1ffe881c 	.word	0x1ffe881c
+ 80021a0:	1ffe8824 	.word	0x1ffe8824
  80021a4:	66666667 	.word	0x66666667
- 80021a8:	1fff0704 	.word	0x1fff0704
- 80021ac:	1ffe887c 	.word	0x1ffe887c
- 80021b0:	1fff06b0 	.word	0x1fff06b0
- 80021b4:	1ffe8870 	.word	0x1ffe8870
- 80021b8:	1ffe880c 	.word	0x1ffe880c
- 80021bc:	1ffe8894 	.word	0x1ffe8894
- 80021c0:	1ffe8810 	.word	0x1ffe8810
- 80021c4:	1ffe88a4 	.word	0x1ffe88a4
- 80021c8:	1ffe8880 	.word	0x1ffe8880
+ 80021a8:	1fff0714 	.word	0x1fff0714
+ 80021ac:	1ffe888c 	.word	0x1ffe888c
+ 80021b0:	1fff06c0 	.word	0x1fff06c0
+ 80021b4:	1ffe8880 	.word	0x1ffe8880
+ 80021b8:	1ffe886c 	.word	0x1ffe886c
+ 80021bc:	1ffe88a4 	.word	0x1ffe88a4
+ 80021c0:	1ffe8870 	.word	0x1ffe8870
+ 80021c4:	1ffe88b4 	.word	0x1ffe88b4
+ 80021c8:	1ffe8890 	.word	0x1ffe8890
 
 080021cc <ProbeScope_Init>:
 * Returns    : none
@@ -4741,36 +4741,36 @@ void  ProbeScope_Init (uint32_t  sampling_clk_hz)
  80022ac:	f85d 7b04 	ldr.w	r7, [sp], #4
  80022b0:	4770      	bx	lr
  80022b2:	bf00      	nop
- 80022b4:	1ffe88a8 	.word	0x1ffe88a8
- 80022b8:	1ffe9860 	.word	0x1ffe9860
- 80022bc:	1ffea818 	.word	0x1ffea818
- 80022c0:	1ffeb7d0 	.word	0x1ffeb7d0
- 80022c4:	1ffec788 	.word	0x1ffec788
- 80022c8:	1ffed740 	.word	0x1ffed740
- 80022cc:	1ffee6f8 	.word	0x1ffee6f8
- 80022d0:	1ffef6b0 	.word	0x1ffef6b0
- 80022d4:	1fff0668 	.word	0x1fff0668
- 80022d8:	1fff0688 	.word	0x1fff0688
- 80022dc:	1fff0669 	.word	0x1fff0669
- 80022e0:	1fff0674 	.word	0x1fff0674
- 80022e4:	1fff0678 	.word	0x1fff0678
- 80022e8:	1fff0710 	.word	0x1fff0710
- 80022ec:	1fff071c 	.word	0x1fff071c
- 80022f0:	1fff0720 	.word	0x1fff0720
- 80022f4:	1fff066c 	.word	0x1fff066c
- 80022f8:	1fff0728 	.word	0x1fff0728
- 80022fc:	1fff067c 	.word	0x1fff067c
- 8002300:	1fff0680 	.word	0x1fff0680
- 8002304:	1fff0670 	.word	0x1fff0670
- 8002308:	1ffe8820 	.word	0x1ffe8820
- 800230c:	1fff068c 	.word	0x1fff068c
- 8002310:	1ffe8822 	.word	0x1ffe8822
- 8002314:	1ffe8824 	.word	0x1ffe8824
- 8002318:	1ffe8828 	.word	0x1ffe8828
- 800231c:	1fff0684 	.word	0x1fff0684
- 8002320:	1fff0686 	.word	0x1fff0686
- 8002324:	1fff0714 	.word	0x1fff0714
- 8002328:	1fff0724 	.word	0x1fff0724
+ 80022b4:	1ffe88b8 	.word	0x1ffe88b8
+ 80022b8:	1ffe9870 	.word	0x1ffe9870
+ 80022bc:	1ffea828 	.word	0x1ffea828
+ 80022c0:	1ffeb7e0 	.word	0x1ffeb7e0
+ 80022c4:	1ffec798 	.word	0x1ffec798
+ 80022c8:	1ffed750 	.word	0x1ffed750
+ 80022cc:	1ffee708 	.word	0x1ffee708
+ 80022d0:	1ffef6c0 	.word	0x1ffef6c0
+ 80022d4:	1fff0678 	.word	0x1fff0678
+ 80022d8:	1fff0698 	.word	0x1fff0698
+ 80022dc:	1fff0679 	.word	0x1fff0679
+ 80022e0:	1fff0684 	.word	0x1fff0684
+ 80022e4:	1fff0688 	.word	0x1fff0688
+ 80022e8:	1fff0720 	.word	0x1fff0720
+ 80022ec:	1fff072c 	.word	0x1fff072c
+ 80022f0:	1fff0730 	.word	0x1fff0730
+ 80022f4:	1fff067c 	.word	0x1fff067c
+ 80022f8:	1fff0738 	.word	0x1fff0738
+ 80022fc:	1fff068c 	.word	0x1fff068c
+ 8002300:	1fff0690 	.word	0x1fff0690
+ 8002304:	1fff0680 	.word	0x1fff0680
+ 8002308:	1ffe8828 	.word	0x1ffe8828
+ 800230c:	1fff069c 	.word	0x1fff069c
+ 8002310:	1ffe882a 	.word	0x1ffe882a
+ 8002314:	1ffe882c 	.word	0x1ffe882c
+ 8002318:	1ffe8830 	.word	0x1ffe8830
+ 800231c:	1fff0694 	.word	0x1fff0694
+ 8002320:	1fff0696 	.word	0x1fff0696
+ 8002324:	1fff0724 	.word	0x1fff0724
+ 8002328:	1fff0734 	.word	0x1fff0734
 
 0800232c <ProbeScope_Sampling>:
 * Returns    : none
@@ -4820,7 +4820,7 @@ void  ProbeScope_Sampling (void)
 }
  8002368:	bd80      	pop	{r7, pc}
  800236a:	bf00      	nop
- 800236c:	1fff0668 	.word	0x1fff0668
+ 800236c:	1fff0678 	.word	0x1fff0678
 
 08002370 <ProbeScope_ModeOff>:
 * Returns    : none
@@ -4849,8 +4849,8 @@ static  void  ProbeScope_ModeOff (void)
  8002388:	46bd      	mov	sp, r7
  800238a:	f85d 7b04 	ldr.w	r7, [sp], #4
  800238e:	4770      	bx	lr
- 8002390:	1fff0688 	.word	0x1fff0688
- 8002394:	1fff0684 	.word	0x1fff0684
+ 8002390:	1fff0698 	.word	0x1fff0698
+ 8002394:	1fff0694 	.word	0x1fff0694
 
 08002398 <ProbeScope_ModeContinuous>:
 * Returns    : none
@@ -4926,12 +4926,12 @@ static  void  ProbeScope_ModeContinuous (void)
 }
  80023f8:	bd80      	pop	{r7, pc}
  80023fa:	bf00      	nop
- 80023fc:	1fff0728 	.word	0x1fff0728
- 8002400:	1fff0710 	.word	0x1fff0710
- 8002404:	1fff0686 	.word	0x1fff0686
- 8002408:	1fff0684 	.word	0x1fff0684
- 800240c:	1fff0678 	.word	0x1fff0678
- 8002410:	1fff0688 	.word	0x1fff0688
+ 80023fc:	1fff0738 	.word	0x1fff0738
+ 8002400:	1fff0720 	.word	0x1fff0720
+ 8002404:	1fff0696 	.word	0x1fff0696
+ 8002408:	1fff0694 	.word	0x1fff0694
+ 800240c:	1fff0688 	.word	0x1fff0688
+ 8002410:	1fff0698 	.word	0x1fff0698
 
 08002414 <ProbeScope_ModeTrig>:
 * Returns    : none
@@ -5180,19 +5180,19 @@ static  void  ProbeScope_ModeTrig (void)
 }
  800256c:	bd80      	pop	{r7, pc}
  800256e:	bf00      	nop
- 8002570:	1fff0686 	.word	0x1fff0686
- 8002574:	1fff0684 	.word	0x1fff0684
- 8002578:	1fff0688 	.word	0x1fff0688
- 800257c:	1fff0728 	.word	0x1fff0728
- 8002580:	1fff0710 	.word	0x1fff0710
- 8002584:	1fff0674 	.word	0x1fff0674
- 8002588:	1fff0678 	.word	0x1fff0678
- 800258c:	1fff066c 	.word	0x1fff066c
- 8002590:	1fff0680 	.word	0x1fff0680
- 8002594:	1fff071c 	.word	0x1fff071c
- 8002598:	1fff067c 	.word	0x1fff067c
- 800259c:	1fff0668 	.word	0x1fff0668
- 80025a0:	1fff0720 	.word	0x1fff0720
+ 8002570:	1fff0696 	.word	0x1fff0696
+ 8002574:	1fff0694 	.word	0x1fff0694
+ 8002578:	1fff0698 	.word	0x1fff0698
+ 800257c:	1fff0738 	.word	0x1fff0738
+ 8002580:	1fff0720 	.word	0x1fff0720
+ 8002584:	1fff0684 	.word	0x1fff0684
+ 8002588:	1fff0688 	.word	0x1fff0688
+ 800258c:	1fff067c 	.word	0x1fff067c
+ 8002590:	1fff0690 	.word	0x1fff0690
+ 8002594:	1fff072c 	.word	0x1fff072c
+ 8002598:	1fff068c 	.word	0x1fff068c
+ 800259c:	1fff0678 	.word	0x1fff0678
+ 80025a0:	1fff0730 	.word	0x1fff0730
 
 080025a4 <ProbeScope_SampleChAll>:
 * Returns    : none
@@ -5251,14 +5251,14 @@ static  void  ProbeScope_SampleChAll (void)
 }
  80025d8:	bd80      	pop	{r7, pc}
  80025da:	bf00      	nop
- 80025dc:	1ffe88a8 	.word	0x1ffe88a8
- 80025e0:	1ffe9860 	.word	0x1ffe9860
- 80025e4:	1ffea818 	.word	0x1ffea818
- 80025e8:	1ffeb7d0 	.word	0x1ffeb7d0
- 80025ec:	1ffec788 	.word	0x1ffec788
- 80025f0:	1ffed740 	.word	0x1ffed740
- 80025f4:	1ffee6f8 	.word	0x1ffee6f8
- 80025f8:	1ffef6b0 	.word	0x1ffef6b0
+ 80025dc:	1ffe88b8 	.word	0x1ffe88b8
+ 80025e0:	1ffe9870 	.word	0x1ffe9870
+ 80025e4:	1ffea828 	.word	0x1ffea828
+ 80025e8:	1ffeb7e0 	.word	0x1ffeb7e0
+ 80025ec:	1ffec798 	.word	0x1ffec798
+ 80025f0:	1ffed750 	.word	0x1ffed750
+ 80025f4:	1ffee708 	.word	0x1ffee708
+ 80025f8:	1ffef6c0 	.word	0x1ffef6c0
 
 080025fc <ProbeScope_SampleCh>:
 * Returns    : none
@@ -5601,7 +5601,7 @@ static  void  ProbeScope_SampleCh (PROBE_SCOPE_CH  *p_ch)
  80027e8:	f85d 7b04 	ldr.w	r7, [sp], #4
  80027ec:	4770      	bx	lr
  80027ee:	bf00      	nop
- 80027f0:	1fff0678 	.word	0x1fff0678
+ 80027f0:	1fff0688 	.word	0x1fff0688
 
 080027f4 <ProbeScope_SamplePosNext>:
 * Returns    : none
@@ -5638,8 +5638,8 @@ static  void  ProbeScope_SamplePosNext (void)
  800281c:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002820:	4770      	bx	lr
  8002822:	bf00      	nop
- 8002824:	1fff0678 	.word	0x1fff0678
- 8002828:	1fff0674 	.word	0x1fff0674
+ 8002824:	1fff0688 	.word	0x1fff0688
+ 8002828:	1fff0684 	.word	0x1fff0684
 
 0800282c <ProbeScope_IsTrig>:
 *              Sets ProbeScope_TrigFlag to 0 when no trigger is detected
@@ -6078,20 +6078,20 @@ static  void  ProbeScope_IsTrig (void)
                      break;
  8002a70:	e0b7      	b.n	8002be2 <ProbeScope_IsTrig+0x3b6>
  8002a72:	bf00      	nop
- 8002a74:	1fff0669 	.word	0x1fff0669
- 8002a78:	1ffe88a8 	.word	0x1ffe88a8
- 8002a7c:	1ffe9860 	.word	0x1ffe9860
- 8002a80:	1ffea818 	.word	0x1ffea818
- 8002a84:	1ffeb7d0 	.word	0x1ffeb7d0
- 8002a88:	1ffec788 	.word	0x1ffec788
- 8002a8c:	1ffed740 	.word	0x1ffed740
- 8002a90:	1ffee6f8 	.word	0x1ffee6f8
- 8002a94:	1ffef6b0 	.word	0x1ffef6b0
- 8002a98:	1fff0710 	.word	0x1fff0710
- 8002a9c:	1fff0674 	.word	0x1fff0674
- 8002aa0:	1fff0678 	.word	0x1fff0678
- 8002aa4:	1fff0670 	.word	0x1fff0670
- 8002aa8:	1fff0718 	.word	0x1fff0718
+ 8002a74:	1fff0679 	.word	0x1fff0679
+ 8002a78:	1ffe88b8 	.word	0x1ffe88b8
+ 8002a7c:	1ffe9870 	.word	0x1ffe9870
+ 8002a80:	1ffea828 	.word	0x1ffea828
+ 8002a84:	1ffeb7e0 	.word	0x1ffeb7e0
+ 8002a88:	1ffec798 	.word	0x1ffec798
+ 8002a8c:	1ffed750 	.word	0x1ffed750
+ 8002a90:	1ffee708 	.word	0x1ffee708
+ 8002a94:	1ffef6c0 	.word	0x1ffef6c0
+ 8002a98:	1fff0720 	.word	0x1fff0720
+ 8002a9c:	1fff0684 	.word	0x1fff0684
+ 8002aa0:	1fff0688 	.word	0x1fff0688
+ 8002aa4:	1fff0680 	.word	0x1fff0680
+ 8002aa8:	1fff0728 	.word	0x1fff0728
                                      ProbeScope_TrigIx   = ProbeScope_SampleIxCur; 
                                  }
                              }
@@ -6519,9 +6519,9 @@ static  void  ProbeScope_IsTrig (void)
                      break;
  8002cd4:	e0f4      	b.n	8002ec0 <ProbeScope_IsTrig+0x694>
  8002cd6:	e0f3      	b.n	8002ec0 <ProbeScope_IsTrig+0x694>
- 8002cd8:	1fff0710 	.word	0x1fff0710
- 8002cdc:	1fff0678 	.word	0x1fff0678
- 8002ce0:	1fff0718 	.word	0x1fff0718
+ 8002cd8:	1fff0720 	.word	0x1fff0720
+ 8002cdc:	1fff0688 	.word	0x1fff0688
+ 8002ce0:	1fff0728 	.word	0x1fff0728
                                     
 #if PROBE_SCOPE_16_BIT_EN > 0                                   
                 case PROBE_SCOPE_INT16U:
@@ -6913,9 +6913,9 @@ static  void  ProbeScope_IsTrig (void)
  8002ec4:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002ec8:	4770      	bx	lr
  8002eca:	bf00      	nop
- 8002ecc:	1fff0710 	.word	0x1fff0710
- 8002ed0:	1fff0678 	.word	0x1fff0678
- 8002ed4:	1fff0718 	.word	0x1fff0718
+ 8002ecc:	1fff0720 	.word	0x1fff0720
+ 8002ed0:	1fff0688 	.word	0x1fff0688
+ 8002ed4:	1fff0728 	.word	0x1fff0728
 
 08002ed8 <reference_generator_compute>:
 
@@ -6981,15 +6981,15 @@ __STATIC_FORCEINLINE void __enable_irq(void)
  8002f1c:	46bd      	mov	sp, r7
  8002f1e:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002f22:	4770      	bx	lr
- 8002f24:	1ffe882c 	.word	0x1ffe882c
- 8002f28:	1ffe8834 	.word	0x1ffe8834
- 8002f2c:	1fff072c 	.word	0x1fff072c
- 8002f30:	1ffe8838 	.word	0x1ffe8838
- 8002f34:	1fff0730 	.word	0x1fff0730
- 8002f38:	1fff0698 	.word	0x1fff0698
- 8002f3c:	1fff069c 	.word	0x1fff069c
- 8002f40:	1fff0690 	.word	0x1fff0690
- 8002f44:	1fff0694 	.word	0x1fff0694
+ 8002f24:	1ffe8834 	.word	0x1ffe8834
+ 8002f28:	1ffe883c 	.word	0x1ffe883c
+ 8002f2c:	1fff073c 	.word	0x1fff073c
+ 8002f30:	1ffe8840 	.word	0x1ffe8840
+ 8002f34:	1fff0740 	.word	0x1fff0740
+ 8002f38:	1fff06a8 	.word	0x1fff06a8
+ 8002f3c:	1fff06ac 	.word	0x1fff06ac
+ 8002f40:	1fff06a0 	.word	0x1fff06a0
+ 8002f44:	1fff06a4 	.word	0x1fff06a4
 
 08002f48 <reference_generator>:
 
@@ -7215,22 +7215,22 @@ void reference_generator (void)
  80030a4:	46bd      	mov	sp, r7
  80030a6:	f85d 7b04 	ldr.w	r7, [sp], #4
  80030aa:	4770      	bx	lr
- 80030ac:	1fff0694 	.word	0x1fff0694
- 80030b0:	1ffe8834 	.word	0x1ffe8834
- 80030b4:	1fff0690 	.word	0x1fff0690
- 80030b8:	1fff072c 	.word	0x1fff072c
- 80030bc:	1fff0698 	.word	0x1fff0698
- 80030c0:	1ffe8830 	.word	0x1ffe8830
- 80030c4:	1ffe8838 	.word	0x1ffe8838
- 80030c8:	1fff0730 	.word	0x1fff0730
- 80030cc:	1ffe883c 	.word	0x1ffe883c
- 80030d0:	1ffe8840 	.word	0x1ffe8840
- 80030d4:	1fff06a0 	.word	0x1fff06a0
- 80030d8:	1ffe887c 	.word	0x1ffe887c
- 80030dc:	1fff069c 	.word	0x1fff069c
- 80030e0:	1ffe8880 	.word	0x1ffe8880
- 80030e4:	1ffe8874 	.word	0x1ffe8874
- 80030e8:	1ffe8884 	.word	0x1ffe8884
+ 80030ac:	1fff06a4 	.word	0x1fff06a4
+ 80030b0:	1ffe883c 	.word	0x1ffe883c
+ 80030b4:	1fff06a0 	.word	0x1fff06a0
+ 80030b8:	1fff073c 	.word	0x1fff073c
+ 80030bc:	1fff06a8 	.word	0x1fff06a8
+ 80030c0:	1ffe8838 	.word	0x1ffe8838
+ 80030c4:	1ffe8840 	.word	0x1ffe8840
+ 80030c8:	1fff0740 	.word	0x1fff0740
+ 80030cc:	1ffe8844 	.word	0x1ffe8844
+ 80030d0:	1ffe8848 	.word	0x1ffe8848
+ 80030d4:	1fff06b0 	.word	0x1fff06b0
+ 80030d8:	1ffe888c 	.word	0x1ffe888c
+ 80030dc:	1fff06ac 	.word	0x1fff06ac
+ 80030e0:	1ffe8890 	.word	0x1ffe8890
+ 80030e4:	1ffe8884 	.word	0x1ffe8884
+ 80030e8:	1ffe8894 	.word	0x1ffe8894
 
 080030ec <state_machine>:
 uint8_t loop_control = LOOP_CONTROL_OFF;
@@ -7543,11 +7543,11 @@ void state_machine (void)
 	}
 }
  80032ca:	bd80      	pop	{r7, pc}
- 80032cc:	1fff06a2 	.word	0x1fff06a2
- 80032d0:	1fff06a6 	.word	0x1fff06a6
- 80032d4:	1fff06a4 	.word	0x1fff06a4
- 80032d8:	1fff06a0 	.word	0x1fff06a0
- 80032dc:	1fff06a9 	.word	0x1fff06a9
+ 80032cc:	1fff06b2 	.word	0x1fff06b2
+ 80032d0:	1fff06b6 	.word	0x1fff06b6
+ 80032d4:	1fff06b4 	.word	0x1fff06b4
+ 80032d8:	1fff06b0 	.word	0x1fff06b0
+ 80032dc:	1fff06b9 	.word	0x1fff06b9
 
 080032e0 <drive_disabled>:
 
@@ -7576,10 +7576,10 @@ void drive_disabled (void)
 }
  8003300:	bd80      	pop	{r7, pc}
  8003302:	bf00      	nop
- 8003304:	1fff06a8 	.word	0x1fff06a8
- 8003308:	1fff0694 	.word	0x1fff0694
- 800330c:	1fff06a9 	.word	0x1fff06a9
- 8003310:	1fff06aa 	.word	0x1fff06aa
+ 8003304:	1fff06b8 	.word	0x1fff06b8
+ 8003308:	1fff06a4 	.word	0x1fff06a4
+ 800330c:	1fff06b9 	.word	0x1fff06b9
+ 8003310:	1fff06ba 	.word	0x1fff06ba
 
 08003314 <drive_on>:
 
@@ -7618,10 +7618,10 @@ void drive_on (void)
  8003348:	701a      	strb	r2, [r3, #0]
 }
  800334a:	bd80      	pop	{r7, pc}
- 800334c:	1fff06a8 	.word	0x1fff06a8
- 8003350:	1fff0694 	.word	0x1fff0694
- 8003354:	1fff06a9 	.word	0x1fff06a9
- 8003358:	1fff06aa 	.word	0x1fff06aa
+ 800334c:	1fff06b8 	.word	0x1fff06b8
+ 8003350:	1fff06a4 	.word	0x1fff06a4
+ 8003354:	1fff06b9 	.word	0x1fff06b9
+ 8003358:	1fff06ba 	.word	0x1fff06ba
 
 0800335c <operation_enabled>:
 
@@ -7642,8 +7642,8 @@ void operation_enabled (void)
  800336c:	46bd      	mov	sp, r7
  800336e:	f85d 7b04 	ldr.w	r7, [sp], #4
  8003372:	4770      	bx	lr
- 8003374:	1fff06a8 	.word	0x1fff06a8
- 8003378:	1fff0694 	.word	0x1fff0694
+ 8003374:	1fff06b8 	.word	0x1fff06b8
+ 8003378:	1fff06a4 	.word	0x1fff06a4
 
 0800337c <compute_motion>:
 
@@ -7659,7 +7659,7 @@ void compute_motion (void)
  8003388:	701a      	strb	r2, [r3, #0]
 }
  800338a:	bd80      	pop	{r7, pc}
- 800338c:	1fff06aa 	.word	0x1fff06aa
+ 800338c:	1fff06ba 	.word	0x1fff06ba
 
 08003390 <delay_t>:
 
@@ -7709,7 +7709,7 @@ __STATIC_FORCEINLINE void __enable_irq(void)
  80033b4:	f85d 7b04 	ldr.w	r7, [sp], #4
  80033b8:	4770      	bx	lr
  80033ba:	bf00      	nop
- 80033bc:	1ffe8858 	.word	0x1ffe8858
+ 80033bc:	1ffe8860 	.word	0x1ffe8860
 
 080033c0 <abc_dq>:
 
@@ -7781,15 +7781,15 @@ void abc_dq (void)
  800345c:	46bd      	mov	sp, r7
  800345e:	f85d 7b04 	ldr.w	r7, [sp], #4
  8003462:	4770      	bx	lr
- 8003464:	1fff06dc 	.word	0x1fff06dc
- 8003468:	1fff0738 	.word	0x1fff0738
- 800346c:	1fff06d4 	.word	0x1fff06d4
+ 8003464:	1fff06ec 	.word	0x1fff06ec
+ 8003468:	1fff0748 	.word	0x1fff0748
+ 800346c:	1fff06e4 	.word	0x1fff06e4
  8003470:	3f13cd3a 	.word	0x3f13cd3a
- 8003474:	1fff0750 	.word	0x1fff0750
- 8003478:	1fff06bc 	.word	0x1fff06bc
- 800347c:	1fff06b8 	.word	0x1fff06b8
- 8003480:	1fff0740 	.word	0x1fff0740
- 8003484:	1fff073c 	.word	0x1fff073c
+ 8003474:	1fff0760 	.word	0x1fff0760
+ 8003478:	1fff06cc 	.word	0x1fff06cc
+ 800347c:	1fff06c8 	.word	0x1fff06c8
+ 8003480:	1fff0750 	.word	0x1fff0750
+ 8003484:	1fff074c 	.word	0x1fff074c
 
 08003488 <dq_abc>:
 
@@ -7955,16 +7955,16 @@ void dq_abc(void)
  80035e0:	46bd      	mov	sp, r7
  80035e2:	f85d 7b04 	ldr.w	r7, [sp], #4
  80035e6:	4770      	bx	lr
- 80035e8:	1fff0708 	.word	0x1fff0708
- 80035ec:	1fff06bc 	.word	0x1fff06bc
- 80035f0:	1ffe8884 	.word	0x1ffe8884
- 80035f4:	1fff06b8 	.word	0x1fff06b8
- 80035f8:	1fff074c 	.word	0x1fff074c
- 80035fc:	1fff0748 	.word	0x1fff0748
- 8003600:	1fff0744 	.word	0x1fff0744
+ 80035e8:	1fff0718 	.word	0x1fff0718
+ 80035ec:	1fff06cc 	.word	0x1fff06cc
+ 80035f0:	1ffe8894 	.word	0x1ffe8894
+ 80035f4:	1fff06c8 	.word	0x1fff06c8
+ 80035f8:	1fff075c 	.word	0x1fff075c
+ 80035fc:	1fff0758 	.word	0x1fff0758
+ 8003600:	1fff0754 	.word	0x1fff0754
  8003604:	3fddb3d7 	.word	0x3fddb3d7
- 8003608:	1fff0734 	.word	0x1fff0734
- 800360c:	1fff0754 	.word	0x1fff0754
+ 8003608:	1fff0744 	.word	0x1fff0744
+ 800360c:	1fff0764 	.word	0x1fff0764
  8003610:	46fffe00 	.word	0x46fffe00
  8003614:	46fffe00 	.word	0x46fffe00
  8003618:	c7000000 	.word	0xc7000000
@@ -8009,9 +8009,9 @@ void compute_fast_speed (void)
  800364a:	f85d 7b04 	ldr.w	r7, [sp], #4
  800364e:	4770      	bx	lr
  8003650:	4000c100 	.word	0x4000c100
- 8003654:	1fff06c0 	.word	0x1fff06c0
- 8003658:	1fff06c2 	.word	0x1fff06c2
- 800365c:	1fff06c4 	.word	0x1fff06c4
+ 8003654:	1fff06d0 	.word	0x1fff06d0
+ 8003658:	1fff06d2 	.word	0x1fff06d2
+ 800365c:	1fff06d4 	.word	0x1fff06d4
 
 08003660 <compute_fast_mechanical_position>:
 /*
@@ -8034,8 +8034,8 @@ void compute_fast_mechanical_position (void)
  8003674:	46bd      	mov	sp, r7
  8003676:	f85d 7b04 	ldr.w	r7, [sp], #4
  800367a:	4770      	bx	lr
- 800367c:	1fff06c4 	.word	0x1fff06c4
- 8003680:	1fff06b0 	.word	0x1fff06b0
+ 800367c:	1fff06d4 	.word	0x1fff06d4
+ 8003680:	1fff06c0 	.word	0x1fff06c0
 
 08003684 <compute_fast_electrical_position>:
 
@@ -8073,11 +8073,11 @@ void compute_fast_electrical_position (void)
  80036b8:	f85d 7b04 	ldr.w	r7, [sp], #4
  80036bc:	4770      	bx	lr
  80036be:	bf00      	nop
- 80036c0:	1ffe8842 	.word	0x1ffe8842
- 80036c4:	1ffe8844 	.word	0x1ffe8844
- 80036c8:	1fff06c6 	.word	0x1fff06c6
- 80036cc:	1fff06b0 	.word	0x1fff06b0
- 80036d0:	1fff06b4 	.word	0x1fff06b4
+ 80036c0:	1ffe884a 	.word	0x1ffe884a
+ 80036c4:	1ffe884c 	.word	0x1ffe884c
+ 80036c8:	1fff06d6 	.word	0x1fff06d6
+ 80036cc:	1fff06c0 	.word	0x1fff06c0
+ 80036d0:	1fff06c4 	.word	0x1fff06c4
 
 080036d4 <compute_fast_field>:
 /*
@@ -8123,13 +8123,13 @@ void compute_fast_field (void)
 	}
 }
  8003722:	bd80      	pop	{r7, pc}
- 8003724:	1fff06b4 	.word	0x1fff06b4
+ 8003724:	1fff06c4 	.word	0x1fff06c4
  8003728:	40c90fd0 	.word	0x40c90fd0
- 800372c:	1fff06c6 	.word	0x1fff06c6
- 8003730:	1fff06ac 	.word	0x1fff06ac
- 8003734:	1fff06b8 	.word	0x1fff06b8
- 8003738:	1fff06bc 	.word	0x1fff06bc
- 800373c:	1fff06a9 	.word	0x1fff06a9
+ 800372c:	1fff06d6 	.word	0x1fff06d6
+ 8003730:	1fff06bc 	.word	0x1fff06bc
+ 8003734:	1fff06c8 	.word	0x1fff06c8
+ 8003738:	1fff06cc 	.word	0x1fff06cc
+ 800373c:	1fff06b9 	.word	0x1fff06b9
 
 08003740 <sincosf>:
  8003740:	b570      	push	{r4, r5, r6, lr}
@@ -9961,10 +9961,10 @@ void compute_fast_field (void)
  8004d26:	bd70      	pop	{r4, r5, r6, pc}
  8004d28:	bd70      	pop	{r4, r5, r6, pc}
  8004d2a:	bf00      	nop
- 8004d2c:	1ffe8848 	.word	0x1ffe8848
- 8004d30:	1ffe8848 	.word	0x1ffe8848
- 8004d34:	1ffe8848 	.word	0x1ffe8848
- 8004d38:	1ffe8848 	.word	0x1ffe8848
+ 8004d2c:	1ffe8850 	.word	0x1ffe8850
+ 8004d30:	1ffe8850 	.word	0x1ffe8850
+ 8004d34:	1ffe8850 	.word	0x1ffe8850
+ 8004d38:	1ffe8850 	.word	0x1ffe8850
 
 08004d3c <npio2_hw>:
  8004d3c:	3fc90f00 40490f00 4096cb00 40c90f00     ...?..I@...@...@

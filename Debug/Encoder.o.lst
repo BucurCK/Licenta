@@ -2308,19 +2308,19 @@
  402 0114 1B68     	 ldr r3,[r3]
  403 0116 43F48033 	 orr r3,r3,#65536
  404 011a 1360     	 str r3,[r2]
-  99:../Encoder.c  **** 	CCU40_CC40->INS |= (CCU4_IN_F_MSK << CCU4_INS_EV1IS_POS);	//Event 1 for Out1 on rising edge
+  99:../Encoder.c  **** 	CCU40_CC40->INS |= (CCU4_IN_F_MSK << CCU4_INS_EV1IS_POS);	//Event 1 for Out1 on low level
  405              	 .loc 2 99 0
  406 011c 294A     	 ldr r2,.L16+16
  407 011e 294B     	 ldr r3,.L16+16
  408 0120 1B68     	 ldr r3,[r3]
  409 0122 43F05003 	 orr r3,r3,#80
  410 0126 1360     	 str r3,[r2]
- 100:../Encoder.c  **** 	CCU40_CC40->INS |= (RISING_EDGE_ENC << CCU4_INS_EV1EM_POS);
+ 100:../Encoder.c  **** 	CCU40_CC40->INS |= (0x1UL << CCU4_CC4_INS_EV1LM_Pos);
  411              	 .loc 2 100 0
  412 0128 264A     	 ldr r2,.L16+16
  413 012a 264B     	 ldr r3,.L16+16
  414 012c 1B68     	 ldr r3,[r3]
- 415 012e 43F48023 	 orr r3,r3,#262144
+ 415 012e 43F40003 	 orr r3,r3,#8388608
  416 0132 1360     	 str r3,[r2]
  101:../Encoder.c  **** 
  102:../Encoder.c  **** 	/*Connection Matrix Control*/

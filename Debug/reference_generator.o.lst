@@ -31,23 +31,23 @@
   35              	 .section .data.high_level,"aw",%progbits
   36              	 .align 2
   39              	high_level:
-  40 0000 B80B0000 	 .word 3000
+  40 0000 A00F0000 	 .word 4000
   41              	 .global high_level_time
   42              	 .section .data.high_level_time,"aw",%progbits
   43              	 .align 2
   46              	high_level_time:
-  47 0000 E8030000 	 .word 1000
+  47 0000 F4010000 	 .word 500
   48              	 .global rise_time
   49              	 .section .data.rise_time,"aw",%progbits
   50              	 .align 2
   53              	rise_time:
-  54 0000 0A000000 	 .word 10
+  54 0000 E8030000 	 .word 1000
   55              	 .comm rise_increment,4,4
   56              	 .global fall_time
   57              	 .section .data.fall_time,"aw",%progbits
   58              	 .align 2
   61              	fall_time:
-  62 0000 0A000000 	 .word 10
+  62 0000 E8030000 	 .word 1000
   63              	 .comm fall_decrement,4,4
   64              	 .global low_level
   65              	 .section .bss.low_level,"aw",%nobits
@@ -58,7 +58,7 @@
   72              	 .section .data.low_level_time,"aw",%progbits
   73              	 .align 2
   76              	low_level_time:
-  77 0000 E8030000 	 .word 1000
+  77 0000 F4010000 	 .word 500
   78              	 .global repeat_motion
   79              	 .section .data.repeat_motion,"aw",%progbits
   82              	repeat_motion:
@@ -98,17 +98,17 @@
   11:../reference_generator.c **** 
   12:../reference_generator.c **** status_ref_gen ref_gen_status = 0;					//0 - disabled, 1 - rise, 2 - high, 3 - fall, 4 - low
   13:../reference_generator.c **** 
-  14:../reference_generator.c **** int32_t high_level = 3000;							//final reference
-  15:../reference_generator.c **** int32_t high_level_time = 1000;						//time to hold final reference
+  14:../reference_generator.c **** int32_t high_level = 4000;							//final reference
+  15:../reference_generator.c **** int32_t high_level_time = 500;						//time to hold final reference
   16:../reference_generator.c **** 
-  17:../reference_generator.c **** int32_t rise_time = 10;								//time to get to final reference
+  17:../reference_generator.c **** int32_t rise_time = 1000;								//time to get to final reference
   18:../reference_generator.c **** int32_t rise_increment;
   19:../reference_generator.c **** 
-  20:../reference_generator.c **** int32_t fall_time = 10;								//time to get to initial reference
+  20:../reference_generator.c **** int32_t fall_time = 1000;								//time to get to initial reference
   21:../reference_generator.c **** int32_t fall_decrement;
   22:../reference_generator.c **** 
   23:../reference_generator.c **** int32_t low_level = 0;								//initial reference = 0
-  24:../reference_generator.c **** int32_t low_level_time = 1000;						//time to hold initial reference
+  24:../reference_generator.c **** int32_t low_level_time = 500;						//time to hold initial reference
   25:../reference_generator.c **** 
   26:../reference_generator.c **** uint8_t repeat_motion = 1;							// 0 = NO | 1 = YES
   27:../reference_generator.c **** 
