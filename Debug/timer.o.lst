@@ -38,7 +38,7 @@
   11:../timer.c    **** /*
   12:../timer.c    ****  * Wait for time*50us
   13:../timer.c    ****  */
-  14:../timer.c    **** void delay_t (uint32_t time)
+  14:../timer.c    **** void delay_t(uint32_t time)
   15:../timer.c    **** {
   29              	 .loc 1 15 0
   30              	 .cfi_startproc

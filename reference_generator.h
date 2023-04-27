@@ -26,7 +26,6 @@ typedef enum
 
 extern ref_type ref_type_select;
 extern uint32_t interrupt_counter_ref_gen;
-extern uint8_t pid_status;
 
 extern status_ref_gen ref_gen_status;
 

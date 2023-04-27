@@ -11,7 +11,7 @@
 /*
  * Wait for time*50us
  */
-void delay_t (uint32_t time)
+void delay_t(uint32_t time)
 {
 	__disable_irq();
 	interrupt_counter_timer = 0;

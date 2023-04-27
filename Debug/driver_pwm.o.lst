@@ -39,10 +39,10 @@
    2:../driver_pwm.c **** #include "main.h"
    3:../driver_pwm.c **** #include "state_machine.h"
    4:../driver_pwm.c **** 
-   5:../driver_pwm.c **** int16_t pwm_value = 3600;			//PWM max Value
-   6:../driver_pwm.c **** int16_t sat_pwm = 30000;		//Saturation Value for PWM
+   5:../driver_pwm.c **** int16_t pwm_value = 3600; // PWM max Value
+   6:../driver_pwm.c **** int16_t sat_pwm = 30000;  // Saturation Value for PWM
    7:../driver_pwm.c **** 
-   8:../driver_pwm.c **** void pwm_init (void)
+   8:../driver_pwm.c **** void pwm_init(void)
    9:../driver_pwm.c **** {
   43              	 .loc 1 9 0
   44              	 .cfi_startproc
@@ -56,36 +56,36 @@
   52 0002 00AF     	 add r7,sp,#0
   53              	.LCFI1:
   54              	 .cfi_def_cfa_register 7
-  10:../driver_pwm.c **** ///*
-  11:../driver_pwm.c **** // * PWM pins configuration CCU80 - as alter function 3 - CCU80 OUTxy
-  12:../driver_pwm.c **** // */
-  13:../driver_pwm.c **** //	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC11_POS); 		// A_HIGH 	- P5.11 - OUT00
-  14:../driver_pwm.c **** //	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC8_POS);			// A_LOW 	- P5.8  - OUT01
-  15:../driver_pwm.c **** //
-  16:../driver_pwm.c **** //	PORT0->IOCR4 |= (GPIO_OUTPUT_ALTER_3 << PORT0_IOCR4_PC4_Pos);	// B_HIGH 	- P5.10 - OUT10 P0.4 al
-  17:../driver_pwm.c **** //	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC15_POS);		// B_LOW 	- P2.15 - OUT11
-  18:../driver_pwm.c **** //
-  19:../driver_pwm.c **** //	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC9_POS);			// C_HIGH 	- P5.9	- OUT20
-  20:../driver_pwm.c **** //	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC14_POS);		// C_LOW 	- P2.14	- OUT21
+  10:../driver_pwm.c **** 	///*
+  11:../driver_pwm.c **** 	// * PWM pins configuration CCU80 - as alter function 3 - CCU80 OUTxy
+  12:../driver_pwm.c **** 	// */
+  13:../driver_pwm.c **** 	//	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC11_POS); 		// A_HIGH 	- P5.11 - OUT00
+  14:../driver_pwm.c **** 	//	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC8_POS);			// A_LOW 	- P5.8  - OUT01
+  15:../driver_pwm.c **** 	//
+  16:../driver_pwm.c **** 	//	PORT0->IOCR4 |= (GPIO_OUTPUT_ALTER_3 << PORT0_IOCR4_PC4_Pos);	// B_HIGH 	- P5.10 - OUT10 P0.4 a
+  17:../driver_pwm.c **** 	//	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC15_POS);		// B_LOW 	- P2.15 - OUT11
+  18:../driver_pwm.c **** 	//
+  19:../driver_pwm.c **** 	//	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC9_POS);			// C_HIGH 	- P5.9	- OUT20
+  20:../driver_pwm.c **** 	//	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC14_POS);		// C_LOW 	- P2.14	- OUT21
   21:../driver_pwm.c **** 
-  22:../driver_pwm.c **** /*
-  23:../driver_pwm.c ****  * CCU80 is already set up from VADC_irq
-  24:../driver_pwm.c ****  */
-  25:../driver_pwm.c **** //	/*  Reset CCU80*/
-  26:../driver_pwm.c **** //	SCU_RESET->PRSET0 |= SCU_PRSET0_CCU80RS_MSK;
-  27:../driver_pwm.c **** //
-  28:../driver_pwm.c **** //	/* Clear reset of CCU80 */
-  29:../driver_pwm.c **** //	SCU_RESET->PRCLR0 |= SCU_PRCLR0_CCU80RS_MSK;
-  30:../driver_pwm.c **** //
-  31:../driver_pwm.c **** //	/* Enable CCU8 via clkset */
-  32:../driver_pwm.c **** //	SCU_CLK->CLKSET |= SCU_CLKSET_CCUCEN_MSK;
-  33:../driver_pwm.c **** //
-  34:../driver_pwm.c **** //	/* Enable prescaler */
-  35:../driver_pwm.c **** //	CCU80->GIDLC |= CCU8_GIDLC_SPRB_MSK;
+  22:../driver_pwm.c **** 	/*
+  23:../driver_pwm.c **** 	 * CCU80 is already set up from VADC_irq
+  24:../driver_pwm.c **** 	 */
+  25:../driver_pwm.c **** 	//	/*  Reset CCU80*/
+  26:../driver_pwm.c **** 	//	SCU_RESET->PRSET0 |= SCU_PRSET0_CCU80RS_MSK;
+  27:../driver_pwm.c **** 	//
+  28:../driver_pwm.c **** 	//	/* Clear reset of CCU80 */
+  29:../driver_pwm.c **** 	//	SCU_RESET->PRCLR0 |= SCU_PRCLR0_CCU80RS_MSK;
+  30:../driver_pwm.c **** 	//
+  31:../driver_pwm.c **** 	//	/* Enable CCU8 via clkset */
+  32:../driver_pwm.c **** 	//	SCU_CLK->CLKSET |= SCU_CLKSET_CCUCEN_MSK;
+  33:../driver_pwm.c **** 	//
+  34:../driver_pwm.c **** 	//	/* Enable prescaler */
+  35:../driver_pwm.c **** 	//	CCU80->GIDLC |= CCU8_GIDLC_SPRB_MSK;
   36:../driver_pwm.c **** 
-  37:../driver_pwm.c **** /*
-  38:../driver_pwm.c ****  * Counting Mode - center aligned(0->max->0)
-  39:../driver_pwm.c ****  */
+  37:../driver_pwm.c **** 	/*
+  38:../driver_pwm.c **** 	 * Counting Mode - center aligned(0->max->0)
+  39:../driver_pwm.c **** 	 */
   40:../driver_pwm.c **** 	CCU80_CC80->TC |= (uint32_t)(CCU8_CC8_TC_TCM_MSK);
   55              	 .loc 1 40 0
   56 0004 804A     	 ldr r2,.L2
@@ -108,17 +108,17 @@
   71 0022 43F00103 	 orr r3,r3,#1
   72 0026 5361     	 str r3,[r2,#20]
   43:../driver_pwm.c **** 
-  44:../driver_pwm.c **** /*
-  45:../driver_pwm.c ****  * Period&Compare channel 1 values configuration
-  46:../driver_pwm.c ****  */
-  47:../driver_pwm.c **** 	CCU80_CC80->PRS |= (uint32_t)(CCU8_CC8_PRS_PR_VALUE);   //Shadow value to timer period PR
+  44:../driver_pwm.c **** 	/*
+  45:../driver_pwm.c **** 	 * Period&Compare channel 1 values configuration
+  46:../driver_pwm.c **** 	 */
+  47:../driver_pwm.c **** 	CCU80_CC80->PRS |= (uint32_t)(CCU8_CC8_PRS_PR_VALUE);	// Shadow value to timer period PR
   73              	 .loc 1 47 0
   74 0028 774A     	 ldr r2,.L2
   75 002a 774B     	 ldr r3,.L2
   76 002c 5B6B     	 ldr r3,[r3,#52]
   77 002e 43F46163 	 orr r3,r3,#3600
   78 0032 5363     	 str r3,[r2,#52]
-  48:../driver_pwm.c **** 	CCU80_CC80->CR1S |=(uint32_t)(CCU8_CC8_CR1_CR1_VALUE);	//Shadow value to compare channel 1
+  48:../driver_pwm.c **** 	CCU80_CC80->CR1S |= (uint32_t)(CCU8_CC8_CR1_CR1_VALUE); // Shadow value to compare channel 1
   79              	 .loc 1 48 0
   80 0034 744A     	 ldr r2,.L2
   81 0036 744B     	 ldr r3,.L2
@@ -133,7 +133,7 @@
   88 0044 5B6B     	 ldr r3,[r3,#52]
   89 0046 43F46163 	 orr r3,r3,#3600
   90 004a 5363     	 str r3,[r2,#52]
-  51:../driver_pwm.c **** 	CCU80_CC81->CR1S |=(uint32_t)(CCU8_CC8_CR1_CR1_VALUE);
+  51:../driver_pwm.c **** 	CCU80_CC81->CR1S |= (uint32_t)(CCU8_CC8_CR1_CR1_VALUE);
   91              	 .loc 1 51 0
   92 004c 6F4A     	 ldr r2,.L2+4
   93 004e 6F4B     	 ldr r3,.L2+4
@@ -148,7 +148,7 @@
  100 005c 5B6B     	 ldr r3,[r3,#52]
  101 005e 43F46163 	 orr r3,r3,#3600
  102 0062 5363     	 str r3,[r2,#52]
-  54:../driver_pwm.c **** 	CCU80_CC82->CR1S |=(uint32_t)(CCU8_CC8_CR1_CR1_VALUE);
+  54:../driver_pwm.c **** 	CCU80_CC82->CR1S |= (uint32_t)(CCU8_CC8_CR1_CR1_VALUE);
  103              	 .loc 1 54 0
  104 0064 6A4A     	 ldr r2,.L2+8
  105 0066 6A4B     	 ldr r3,.L2+8
@@ -156,280 +156,278 @@
  107 006a 43F4E163 	 orr r3,r3,#1800
  108 006e D363     	 str r3,[r2,#60]
   55:../driver_pwm.c **** 
-  56:../driver_pwm.c **** 
-  57:../driver_pwm.c **** /*
-  58:../driver_pwm.c ****  *  Shadow transfer enable for CCU80_80/81/82    Request shadow transfer
-  59:../driver_pwm.c ****  */
-  60:../driver_pwm.c **** 	CCU80->GCSS |= (CCU8_GCSS_S0SE_MSK | CCU8_GCSS_S1SE_MSK | CCU8_GCSS_S2SE_MSK);
- 109              	 .loc 1 60 0
+  56:../driver_pwm.c **** 	/*
+  57:../driver_pwm.c **** 	 *  Shadow transfer enable for CCU80_80/81/82    Request shadow transfer
+  58:../driver_pwm.c **** 	 */
+  59:../driver_pwm.c **** 	CCU80->GCSS |= (CCU8_GCSS_S0SE_MSK | CCU8_GCSS_S1SE_MSK | CCU8_GCSS_S2SE_MSK);
+ 109              	 .loc 1 59 0
  110 0070 684A     	 ldr r2,.L2+12
  111 0072 684B     	 ldr r3,.L2+12
  112 0074 1B69     	 ldr r3,[r3,#16]
  113 0076 43F48873 	 orr r3,r3,#272
  114 007a 43F00103 	 orr r3,r3,#1
  115 007e 1361     	 str r3,[r2,#16]
-  61:../driver_pwm.c **** 
-  62:../driver_pwm.c **** /*
-  63:../driver_pwm.c ****  * Configure timers
-  64:../driver_pwm.c ****  */
-  65:../driver_pwm.c **** /*
-  66:../driver_pwm.c ****  * Remove from IDLE 80-82
-  67:../driver_pwm.c ****  */
-  68:../driver_pwm.c **** 	CCU80->GIDLC |= (CCU8_GIDLC_CS0I_MSK | CCU8_GIDLC_CS1I_MSK | CCU8_GIDLC_CS2I_MSK) ;
- 116              	 .loc 1 68 0
+  60:../driver_pwm.c **** 
+  61:../driver_pwm.c **** 	/*
+  62:../driver_pwm.c **** 	 * Configure timers
+  63:../driver_pwm.c **** 	 */
+  64:../driver_pwm.c **** 	/*
+  65:../driver_pwm.c **** 	 * Remove from IDLE 80-82
+  66:../driver_pwm.c **** 	 */
+  67:../driver_pwm.c **** 	CCU80->GIDLC |= (CCU8_GIDLC_CS0I_MSK | CCU8_GIDLC_CS1I_MSK | CCU8_GIDLC_CS2I_MSK);
+ 116              	 .loc 1 67 0
  117 0080 644A     	 ldr r2,.L2+12
  118 0082 644B     	 ldr r3,.L2+12
  119 0084 DB68     	 ldr r3,[r3,#12]
  120 0086 43F00703 	 orr r3,r3,#7
  121 008a D360     	 str r3,[r2,#12]
-  69:../driver_pwm.c **** 
-  70:../driver_pwm.c **** /*   Clear the timer run bit(TRBC) and timer (TCC) */
-  71:../driver_pwm.c **** 	CCU80_CC80->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_MSK);
- 122              	 .loc 1 71 0
+  68:../driver_pwm.c **** 
+  69:../driver_pwm.c **** 	/*   Clear the timer run bit(TRBC) and timer (TCC) */
+  70:../driver_pwm.c **** 	CCU80_CC80->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_MSK);
+ 122              	 .loc 1 70 0
  123 008c 5E4A     	 ldr r2,.L2
  124 008e 5E4B     	 ldr r3,.L2
  125 0090 1B69     	 ldr r3,[r3,#16]
  126 0092 43F00103 	 orr r3,r3,#1
  127 0096 1361     	 str r3,[r2,#16]
-  72:../driver_pwm.c **** 	CCU80_CC80->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_MSK);
- 128              	 .loc 1 72 0
+  71:../driver_pwm.c **** 	CCU80_CC80->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_MSK);
+ 128              	 .loc 1 71 0
  129 0098 5B4A     	 ldr r2,.L2
  130 009a 5B4B     	 ldr r3,.L2
  131 009c 1B69     	 ldr r3,[r3,#16]
  132 009e 43F00203 	 orr r3,r3,#2
  133 00a2 1361     	 str r3,[r2,#16]
-  73:../driver_pwm.c **** 
-  74:../driver_pwm.c **** 	CCU80_CC81->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_MSK);
- 134              	 .loc 1 74 0
+  72:../driver_pwm.c **** 
+  73:../driver_pwm.c **** 	CCU80_CC81->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_MSK);
+ 134              	 .loc 1 73 0
  135 00a4 594A     	 ldr r2,.L2+4
  136 00a6 594B     	 ldr r3,.L2+4
  137 00a8 1B69     	 ldr r3,[r3,#16]
  138 00aa 43F00103 	 orr r3,r3,#1
  139 00ae 1361     	 str r3,[r2,#16]
-  75:../driver_pwm.c **** 	CCU80_CC81->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_MSK);
- 140              	 .loc 1 75 0
+  74:../driver_pwm.c **** 	CCU80_CC81->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_MSK);
+ 140              	 .loc 1 74 0
  141 00b0 564A     	 ldr r2,.L2+4
  142 00b2 564B     	 ldr r3,.L2+4
  143 00b4 1B69     	 ldr r3,[r3,#16]
  144 00b6 43F00203 	 orr r3,r3,#2
  145 00ba 1361     	 str r3,[r2,#16]
-  76:../driver_pwm.c **** 
-  77:../driver_pwm.c **** 	CCU80_CC82->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_MSK);
- 146              	 .loc 1 77 0
+  75:../driver_pwm.c **** 
+  76:../driver_pwm.c **** 	CCU80_CC82->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_MSK);
+ 146              	 .loc 1 76 0
  147 00bc 544A     	 ldr r2,.L2+8
  148 00be 544B     	 ldr r3,.L2+8
  149 00c0 1B69     	 ldr r3,[r3,#16]
  150 00c2 43F00103 	 orr r3,r3,#1
  151 00c6 1361     	 str r3,[r2,#16]
-  78:../driver_pwm.c **** 	CCU80_CC82->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_MSK);
- 152              	 .loc 1 78 0
+  77:../driver_pwm.c **** 	CCU80_CC82->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_MSK);
+ 152              	 .loc 1 77 0
  153 00c8 514A     	 ldr r2,.L2+8
  154 00ca 514B     	 ldr r3,.L2+8
  155 00cc 1B69     	 ldr r3,[r3,#16]
  156 00ce 43F00203 	 orr r3,r3,#2
  157 00d2 1361     	 str r3,[r2,#16]
-  79:../driver_pwm.c **** 
-  80:../driver_pwm.c **** /*
-  81:../driver_pwm.c ****  * Deadband config - enable for channel 1 and ST1
-  82:../driver_pwm.c ****  */
-  83:../driver_pwm.c **** 	CCU80_CC80->DTC |= CCU8_CC8_DTC_DTE1_MSK | CCU8_CC8_DTC_DCEN1_MSK;
- 158              	 .loc 1 83 0
+  78:../driver_pwm.c **** 
+  79:../driver_pwm.c **** 	/*
+  80:../driver_pwm.c **** 	 * Deadband config - enable for channel 1 and ST1
+  81:../driver_pwm.c **** 	 */
+  82:../driver_pwm.c **** 	CCU80_CC80->DTC |= CCU8_CC8_DTC_DTE1_MSK | CCU8_CC8_DTC_DCEN1_MSK;
+ 158              	 .loc 1 82 0
  159 00d4 4C4A     	 ldr r2,.L2
  160 00d6 4C4B     	 ldr r3,.L2
  161 00d8 DB6C     	 ldr r3,[r3,#76]
  162 00da 43F00503 	 orr r3,r3,#5
  163 00de D364     	 str r3,[r2,#76]
-  84:../driver_pwm.c **** 	CCU80_CC81->DTC |= CCU8_CC8_DTC_DTE1_MSK | CCU8_CC8_DTC_DCEN1_MSK;
- 164              	 .loc 1 84 0
+  83:../driver_pwm.c **** 	CCU80_CC81->DTC |= CCU8_CC8_DTC_DTE1_MSK | CCU8_CC8_DTC_DCEN1_MSK;
+ 164              	 .loc 1 83 0
  165 00e0 4A4A     	 ldr r2,.L2+4
  166 00e2 4A4B     	 ldr r3,.L2+4
  167 00e4 DB6C     	 ldr r3,[r3,#76]
  168 00e6 43F00503 	 orr r3,r3,#5
  169 00ea D364     	 str r3,[r2,#76]
-  85:../driver_pwm.c **** 	CCU80_CC82->DTC |= CCU8_CC8_DTC_DTE1_MSK | CCU8_CC8_DTC_DCEN1_MSK;
- 170              	 .loc 1 85 0
+  84:../driver_pwm.c **** 	CCU80_CC82->DTC |= CCU8_CC8_DTC_DTE1_MSK | CCU8_CC8_DTC_DCEN1_MSK;
+ 170              	 .loc 1 84 0
  171 00ec 484A     	 ldr r2,.L2+8
  172 00ee 484B     	 ldr r3,.L2+8
  173 00f0 DB6C     	 ldr r3,[r3,#76]
  174 00f2 43F00503 	 orr r3,r3,#5
  175 00f6 D364     	 str r3,[r2,#76]
-  86:../driver_pwm.c **** 
-  87:../driver_pwm.c **** /*
-  88:../driver_pwm.c ****  * Deadband value rising config - rising 50ns
-  89:../driver_pwm.c ****  */
-  90:../driver_pwm.c **** 	CCU80_CC80->DC1R |= CCU8_CC8_DC1R_Value << CCU8_CC8_DC1R_DT1R_POS;
- 176              	 .loc 1 90 0
+  85:../driver_pwm.c **** 
+  86:../driver_pwm.c **** 	/*
+  87:../driver_pwm.c **** 	 * Deadband value rising config - rising 50ns
+  88:../driver_pwm.c **** 	 */
+  89:../driver_pwm.c **** 	CCU80_CC80->DC1R |= CCU8_CC8_DC1R_Value << CCU8_CC8_DC1R_DT1R_POS;
+ 176              	 .loc 1 89 0
  177 00f8 434A     	 ldr r2,.L2
  178 00fa 434B     	 ldr r3,.L2
  179 00fc 1B6D     	 ldr r3,[r3,#80]
  180 00fe 43F00803 	 orr r3,r3,#8
  181 0102 1365     	 str r3,[r2,#80]
-  91:../driver_pwm.c **** 	CCU80_CC81->DC1R |= CCU8_CC8_DC1R_Value << CCU8_CC8_DC1R_DT1R_POS;
- 182              	 .loc 1 91 0
+  90:../driver_pwm.c **** 	CCU80_CC81->DC1R |= CCU8_CC8_DC1R_Value << CCU8_CC8_DC1R_DT1R_POS;
+ 182              	 .loc 1 90 0
  183 0104 414A     	 ldr r2,.L2+4
  184 0106 414B     	 ldr r3,.L2+4
  185 0108 1B6D     	 ldr r3,[r3,#80]
  186 010a 43F00803 	 orr r3,r3,#8
  187 010e 1365     	 str r3,[r2,#80]
-  92:../driver_pwm.c **** 	CCU80_CC82->DC1R |= CCU8_CC8_DC1R_Value << CCU8_CC8_DC1R_DT1R_POS;
- 188              	 .loc 1 92 0
+  91:../driver_pwm.c **** 	CCU80_CC82->DC1R |= CCU8_CC8_DC1R_Value << CCU8_CC8_DC1R_DT1R_POS;
+ 188              	 .loc 1 91 0
  189 0110 3F4A     	 ldr r2,.L2+8
  190 0112 3F4B     	 ldr r3,.L2+8
  191 0114 1B6D     	 ldr r3,[r3,#80]
  192 0116 43F00803 	 orr r3,r3,#8
  193 011a 1365     	 str r3,[r2,#80]
-  93:../driver_pwm.c **** 
-  94:../driver_pwm.c **** /*
-  95:../driver_pwm.c ****  * Input selector & matrix
-  96:../driver_pwm.c ****  * Use IN_H for Event 0 on Rising edge
-  97:../driver_pwm.c ****  * Set start on EVENT 0 on Rising edge
-  98:../driver_pwm.c ****  * Set stop on Event 1 on Falling edge
-  99:../driver_pwm.c ****  */
- 100:../driver_pwm.c **** 	CCU80_CC80->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;		//Set Event 0(system control) as rising e
- 194              	 .loc 1 100 0
+  92:../driver_pwm.c **** 
+  93:../driver_pwm.c **** 	/*
+  94:../driver_pwm.c **** 	 * Input selector & matrix
+  95:../driver_pwm.c **** 	 * Use IN_H for Event 0 on Rising edge
+  96:../driver_pwm.c **** 	 * Set start on EVENT 0 on Rising edge
+  97:../driver_pwm.c **** 	 * Set stop on Event 1 on Falling edge
+  98:../driver_pwm.c **** 	 */
+  99:../driver_pwm.c **** 	CCU80_CC80->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS; // Set Event 0(system control) as rising e
+ 194              	 .loc 1 99 0
  195 011c 3A4A     	 ldr r2,.L2
  196 011e 3A4B     	 ldr r3,.L2
  197 0120 1B68     	 ldr r3,[r3]
  198 0122 43F00703 	 orr r3,r3,#7
  199 0126 1360     	 str r3,[r2]
- 101:../driver_pwm.c **** 	CCU80_CC80->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
- 200              	 .loc 1 101 0
+ 100:../driver_pwm.c **** 	CCU80_CC80->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
+ 200              	 .loc 1 100 0
  201 0128 374A     	 ldr r2,.L2
  202 012a 374B     	 ldr r3,.L2
  203 012c 1B68     	 ldr r3,[r3]
  204 012e 43F48033 	 orr r3,r3,#65536
  205 0132 1360     	 str r3,[r2]
- 102:../driver_pwm.c **** 	CCU80_CC80->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;		//Set Event 1(system control) as falling 
- 206              	 .loc 1 102 0
+ 101:../driver_pwm.c **** 	CCU80_CC80->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS; // Set Event 1(system control) as falling 
+ 206              	 .loc 1 101 0
  207 0134 344A     	 ldr r2,.L2
  208 0136 344B     	 ldr r3,.L2
  209 0138 1B68     	 ldr r3,[r3]
  210 013a 43F07003 	 orr r3,r3,#112
  211 013e 1360     	 str r3,[r2]
- 103:../driver_pwm.c **** 	CCU80_CC80->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
- 212              	 .loc 1 103 0
+ 102:../driver_pwm.c **** 	CCU80_CC80->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
+ 212              	 .loc 1 102 0
  213 0140 314A     	 ldr r2,.L2
  214 0142 314B     	 ldr r3,.L2
  215 0144 1B68     	 ldr r3,[r3]
  216 0146 43F40023 	 orr r3,r3,#524288
  217 014a 1360     	 str r3,[r2]
- 104:../driver_pwm.c **** 
- 105:../driver_pwm.c **** 	CCU80_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;
- 218              	 .loc 1 105 0
+ 103:../driver_pwm.c **** 
+ 104:../driver_pwm.c **** 	CCU80_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;
+ 218              	 .loc 1 104 0
  219 014c 2F4A     	 ldr r2,.L2+4
  220 014e 2F4B     	 ldr r3,.L2+4
  221 0150 1B68     	 ldr r3,[r3]
  222 0152 43F00703 	 orr r3,r3,#7
  223 0156 1360     	 str r3,[r2]
- 106:../driver_pwm.c **** 	CCU80_CC81->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
- 224              	 .loc 1 106 0
+ 105:../driver_pwm.c **** 	CCU80_CC81->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
+ 224              	 .loc 1 105 0
  225 0158 2C4A     	 ldr r2,.L2+4
  226 015a 2C4B     	 ldr r3,.L2+4
  227 015c 1B68     	 ldr r3,[r3]
  228 015e 43F48033 	 orr r3,r3,#65536
  229 0162 1360     	 str r3,[r2]
- 107:../driver_pwm.c **** 	CCU80_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;
- 230              	 .loc 1 107 0
+ 106:../driver_pwm.c **** 	CCU80_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;
+ 230              	 .loc 1 106 0
  231 0164 294A     	 ldr r2,.L2+4
  232 0166 294B     	 ldr r3,.L2+4
  233 0168 1B68     	 ldr r3,[r3]
  234 016a 43F07003 	 orr r3,r3,#112
  235 016e 1360     	 str r3,[r2]
- 108:../driver_pwm.c **** 	CCU80_CC81->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
- 236              	 .loc 1 108 0
+ 107:../driver_pwm.c **** 	CCU80_CC81->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
+ 236              	 .loc 1 107 0
  237 0170 264A     	 ldr r2,.L2+4
  238 0172 264B     	 ldr r3,.L2+4
  239 0174 1B68     	 ldr r3,[r3]
  240 0176 43F40023 	 orr r3,r3,#524288
  241 017a 1360     	 str r3,[r2]
- 109:../driver_pwm.c **** 
- 110:../driver_pwm.c **** 	CCU80_CC82->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;
- 242              	 .loc 1 110 0
+ 108:../driver_pwm.c **** 
+ 109:../driver_pwm.c **** 	CCU80_CC82->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;
+ 242              	 .loc 1 109 0
  243 017c 244A     	 ldr r2,.L2+8
  244 017e 244B     	 ldr r3,.L2+8
  245 0180 1B68     	 ldr r3,[r3]
  246 0182 43F00703 	 orr r3,r3,#7
  247 0186 1360     	 str r3,[r2]
- 111:../driver_pwm.c **** 	CCU80_CC82->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
- 248              	 .loc 1 111 0
+ 110:../driver_pwm.c **** 	CCU80_CC82->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
+ 248              	 .loc 1 110 0
  249 0188 214A     	 ldr r2,.L2+8
  250 018a 214B     	 ldr r3,.L2+8
  251 018c 1B68     	 ldr r3,[r3]
  252 018e 43F48033 	 orr r3,r3,#65536
  253 0192 1360     	 str r3,[r2]
- 112:../driver_pwm.c **** 	CCU80_CC82->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;
- 254              	 .loc 1 112 0
+ 111:../driver_pwm.c **** 	CCU80_CC82->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;
+ 254              	 .loc 1 111 0
  255 0194 1E4A     	 ldr r2,.L2+8
  256 0196 1E4B     	 ldr r3,.L2+8
  257 0198 1B68     	 ldr r3,[r3]
  258 019a 43F07003 	 orr r3,r3,#112
  259 019e 1360     	 str r3,[r2]
- 113:../driver_pwm.c **** 	CCU80_CC82->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
- 260              	 .loc 1 113 0
+ 112:../driver_pwm.c **** 	CCU80_CC82->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
+ 260              	 .loc 1 112 0
  261 01a0 1B4A     	 ldr r2,.L2+8
  262 01a2 1B4B     	 ldr r3,.L2+8
  263 01a4 1B68     	 ldr r3,[r3]
  264 01a6 43F40023 	 orr r3,r3,#524288
  265 01aa 1360     	 str r3,[r2]
- 114:../driver_pwm.c **** 
- 115:../driver_pwm.c **** 	CCU80_CC80->CMC |= CCU8_CC8_CMC_STRTS_EV0_MSK << CCU8_CC8_CMC_STRTS_POS;	//Set Event 0 for start
- 266              	 .loc 1 115 0
+ 113:../driver_pwm.c **** 
+ 114:../driver_pwm.c **** 	CCU80_CC80->CMC |= CCU8_CC8_CMC_STRTS_EV0_MSK << CCU8_CC8_CMC_STRTS_POS; // Set Event 0 for start
+ 266              	 .loc 1 114 0
  267 01ac 164A     	 ldr r2,.L2
  268 01ae 164B     	 ldr r3,.L2
  269 01b0 5B68     	 ldr r3,[r3,#4]
  270 01b2 43F00103 	 orr r3,r3,#1
  271 01b6 5360     	 str r3,[r2,#4]
- 116:../driver_pwm.c **** 	CCU80_CC81->CMC |= CCU8_CC8_CMC_STRTS_EV0_MSK << CCU8_CC8_CMC_STRTS_POS;
- 272              	 .loc 1 116 0
+ 115:../driver_pwm.c **** 	CCU80_CC81->CMC |= CCU8_CC8_CMC_STRTS_EV0_MSK << CCU8_CC8_CMC_STRTS_POS;
+ 272              	 .loc 1 115 0
  273 01b8 144A     	 ldr r2,.L2+4
  274 01ba 144B     	 ldr r3,.L2+4
  275 01bc 5B68     	 ldr r3,[r3,#4]
  276 01be 43F00103 	 orr r3,r3,#1
  277 01c2 5360     	 str r3,[r2,#4]
- 117:../driver_pwm.c **** 	CCU80_CC82->CMC |= CCU8_CC8_CMC_STRTS_EV0_MSK << CCU8_CC8_CMC_STRTS_POS;
- 278              	 .loc 1 117 0
+ 116:../driver_pwm.c **** 	CCU80_CC82->CMC |= CCU8_CC8_CMC_STRTS_EV0_MSK << CCU8_CC8_CMC_STRTS_POS;
+ 278              	 .loc 1 116 0
  279 01c4 124A     	 ldr r2,.L2+8
  280 01c6 124B     	 ldr r3,.L2+8
  281 01c8 5B68     	 ldr r3,[r3,#4]
  282 01ca 43F00103 	 orr r3,r3,#1
  283 01ce 5360     	 str r3,[r2,#4]
- 118:../driver_pwm.c **** 
- 119:../driver_pwm.c **** 
- 120:../driver_pwm.c **** 	CCU80_CC80->CMC |= CCU8_CC8_CMC_ENDS_EV1_MSK << CCU8_CC8_CMC_ENDS_POS;		//Set Event 1 for end
- 284              	 .loc 1 120 0
+ 117:../driver_pwm.c **** 
+ 118:../driver_pwm.c **** 	CCU80_CC80->CMC |= CCU8_CC8_CMC_ENDS_EV1_MSK << CCU8_CC8_CMC_ENDS_POS; // Set Event 1 for end
+ 284              	 .loc 1 118 0
  285 01d0 0D4A     	 ldr r2,.L2
  286 01d2 0D4B     	 ldr r3,.L2
  287 01d4 5B68     	 ldr r3,[r3,#4]
  288 01d6 43F00803 	 orr r3,r3,#8
  289 01da 5360     	 str r3,[r2,#4]
- 121:../driver_pwm.c **** 	CCU80_CC81->CMC |= CCU8_CC8_CMC_ENDS_EV1_MSK << CCU8_CC8_CMC_ENDS_POS;
- 290              	 .loc 1 121 0
+ 119:../driver_pwm.c **** 	CCU80_CC81->CMC |= CCU8_CC8_CMC_ENDS_EV1_MSK << CCU8_CC8_CMC_ENDS_POS;
+ 290              	 .loc 1 119 0
  291 01dc 0B4A     	 ldr r2,.L2+4
  292 01de 0B4B     	 ldr r3,.L2+4
  293 01e0 5B68     	 ldr r3,[r3,#4]
  294 01e2 43F00803 	 orr r3,r3,#8
  295 01e6 5360     	 str r3,[r2,#4]
- 122:../driver_pwm.c **** 	CCU80_CC82->CMC |= CCU8_CC8_CMC_ENDS_EV1_MSK << CCU8_CC8_CMC_ENDS_POS;
- 296              	 .loc 1 122 0
+ 120:../driver_pwm.c **** 	CCU80_CC82->CMC |= CCU8_CC8_CMC_ENDS_EV1_MSK << CCU8_CC8_CMC_ENDS_POS;
+ 296              	 .loc 1 120 0
  297 01e8 094A     	 ldr r2,.L2+8
  298 01ea 094B     	 ldr r3,.L2+8
  299 01ec 5B68     	 ldr r3,[r3,#4]
  300 01ee 43F00803 	 orr r3,r3,#8
  301 01f2 5360     	 str r3,[r2,#4]
- 123:../driver_pwm.c **** 
- 124:../driver_pwm.c **** /*
- 125:../driver_pwm.c ****  * Enable CCUCON Module
- 126:../driver_pwm.c ****  */
- 127:../driver_pwm.c **** 	SCU_GENERAL->CCUCON |= SCU_GENERAL_CCUCON_GSC80_MSK;
- 302              	 .loc 1 127 0
+ 121:../driver_pwm.c **** 
+ 122:../driver_pwm.c **** 	/*
+ 123:../driver_pwm.c **** 	 * Enable CCUCON Module
+ 124:../driver_pwm.c **** 	 */
+ 125:../driver_pwm.c **** 	SCU_GENERAL->CCUCON |= SCU_GENERAL_CCUCON_GSC80_MSK;
+ 302              	 .loc 1 125 0
  303 01f4 084A     	 ldr r2,.L2+16
  304 01f6 084B     	 ldr r3,.L2+16
  305 01f8 DB6C     	 ldr r3,[r3,#76]
  306 01fa 43F48073 	 orr r3,r3,#256
  307 01fe D364     	 str r3,[r2,#76]
- 128:../driver_pwm.c **** //	SCU_GENERAL->CCUCON &= ~SCU_GENERAL_CCUCON_GSC80_MSK; 		//Reset back to 0 if it needs to be re-e
- 129:../driver_pwm.c **** }
- 308              	 .loc 1 129 0
+ 126:../driver_pwm.c **** 	//	SCU_GENERAL->CCUCON &= ~SCU_GENERAL_CCUCON_GSC80_MSK; 		//Reset back to 0 if it needs to be re-
+ 127:../driver_pwm.c **** }
+ 308              	 .loc 1 127 0
  309 0200 BD46     	 mov sp,r7
  310              	.LCFI2:
  311              	 .cfi_def_cfa_register 13
@@ -456,12 +454,12 @@
  333              	 .thumb_func
  335              	pwm_timer_start:
  336              	.LFB197:
- 130:../driver_pwm.c **** /*
- 131:../driver_pwm.c ****  * Sets CCUCON to 1 which enables the 0->1 transition (Rising Edge)
- 132:../driver_pwm.c ****  */
- 133:../driver_pwm.c **** void pwm_timer_start (void)
- 134:../driver_pwm.c **** {
- 337              	 .loc 1 134 0
+ 128:../driver_pwm.c **** /*
+ 129:../driver_pwm.c ****  * Sets CCUCON to 1 which enables the 0->1 transition (Rising Edge)
+ 130:../driver_pwm.c ****  */
+ 131:../driver_pwm.c **** void pwm_timer_start(void)
+ 132:../driver_pwm.c **** {
+ 337              	 .loc 1 132 0
  338              	 .cfi_startproc
  339              	 
  340              	 
@@ -473,15 +471,15 @@
  346 0002 00AF     	 add r7,sp,#0
  347              	.LCFI5:
  348              	 .cfi_def_cfa_register 7
- 135:../driver_pwm.c **** 	SCU_GENERAL->CCUCON |= SCU_GENERAL_CCUCON_GSC80_MSK;
- 349              	 .loc 1 135 0
+ 133:../driver_pwm.c **** 	SCU_GENERAL->CCUCON |= SCU_GENERAL_CCUCON_GSC80_MSK;
+ 349              	 .loc 1 133 0
  350 0004 044A     	 ldr r2,.L5
  351 0006 044B     	 ldr r3,.L5
  352 0008 DB6C     	 ldr r3,[r3,#76]
  353 000a 43F48073 	 orr r3,r3,#256
  354 000e D364     	 str r3,[r2,#76]
- 136:../driver_pwm.c **** }
- 355              	 .loc 1 136 0
+ 134:../driver_pwm.c **** }
+ 355              	 .loc 1 134 0
  356 0010 BD46     	 mov sp,r7
  357              	.LCFI6:
  358              	 .cfi_def_cfa_register 13
@@ -504,12 +502,12 @@
  376              	 .thumb_func
  378              	pwm_timer_stop:
  379              	.LFB198:
- 137:../driver_pwm.c **** /*
- 138:../driver_pwm.c ****  * Sets CCUCON to 0 which enables the 1->0 transition (Falling Edge)
- 139:../driver_pwm.c ****  */
- 140:../driver_pwm.c **** void pwm_timer_stop (void)
- 141:../driver_pwm.c **** {
- 380              	 .loc 1 141 0
+ 135:../driver_pwm.c **** /*
+ 136:../driver_pwm.c ****  * Sets CCUCON to 0 which enables the 1->0 transition (Falling Edge)
+ 137:../driver_pwm.c ****  */
+ 138:../driver_pwm.c **** void pwm_timer_stop(void)
+ 139:../driver_pwm.c **** {
+ 380              	 .loc 1 139 0
  381              	 .cfi_startproc
  382              	 
  383              	 
@@ -521,15 +519,15 @@
  389 0002 00AF     	 add r7,sp,#0
  390              	.LCFI9:
  391              	 .cfi_def_cfa_register 7
- 142:../driver_pwm.c **** 	SCU_GENERAL->CCUCON &= ~SCU_GENERAL_CCUCON_GSC80_MSK;
- 392              	 .loc 1 142 0
+ 140:../driver_pwm.c **** 	SCU_GENERAL->CCUCON &= ~SCU_GENERAL_CCUCON_GSC80_MSK;
+ 392              	 .loc 1 140 0
  393 0004 044A     	 ldr r2,.L8
  394 0006 044B     	 ldr r3,.L8
  395 0008 DB6C     	 ldr r3,[r3,#76]
  396 000a 23F48073 	 bic r3,r3,#256
  397 000e D364     	 str r3,[r2,#76]
- 143:../driver_pwm.c **** }
- 398              	 .loc 1 143 0
+ 141:../driver_pwm.c **** }
+ 398              	 .loc 1 141 0
  399 0010 BD46     	 mov sp,r7
  400              	.LCFI10:
  401              	 .cfi_def_cfa_register 13
@@ -552,13 +550,13 @@
  419              	 .thumb_func
  421              	pwm_update:
  422              	.LFB199:
- 144:../driver_pwm.c **** /*
- 145:../driver_pwm.c ****  * Functions that updates the compare values in the PWM
- 146:../driver_pwm.c ****  * Input type: int16_t
- 147:../driver_pwm.c ****  */
- 148:../driver_pwm.c **** void pwm_update (int16_t uaref,int16_t ubref,int16_t ucref)
- 149:../driver_pwm.c **** {
- 423              	 .loc 1 149 0
+ 142:../driver_pwm.c **** /*
+ 143:../driver_pwm.c ****  * Functions that updates the compare values in the PWM
+ 144:../driver_pwm.c ****  * Input type: int16_t
+ 145:../driver_pwm.c ****  */
+ 146:../driver_pwm.c **** void pwm_update(int16_t uaref, int16_t ubref, int16_t ucref)
+ 147:../driver_pwm.c **** {
+ 423              	 .loc 1 147 0
  424              	 .cfi_startproc
  425              	 
  426              	 
@@ -579,29 +577,29 @@
  441 000c BB80     	 strh r3,[r7,#4]
  442 000e 1346     	 mov r3,r2
  443 0010 7B80     	 strh r3,[r7,#2]
- 150:../driver_pwm.c **** 	/*
- 151:../driver_pwm.c **** 	 * Keeps the voltage values between a range of max/min saturation
- 152:../driver_pwm.c **** 	 * We don't want the resulted PWM to be 0 or MAX
- 153:../driver_pwm.c **** 	 */
- 154:../driver_pwm.c **** 	if (uaref > sat_pwm)
- 444              	 .loc 1 154 0
+ 148:../driver_pwm.c **** 	/*
+ 149:../driver_pwm.c **** 	 * Keeps the voltage values between a range of max/min saturation
+ 150:../driver_pwm.c **** 	 * We don't want the resulted PWM to be 0 or MAX
+ 151:../driver_pwm.c **** 	 */
+ 152:../driver_pwm.c **** 	if (uaref > sat_pwm)
+ 444              	 .loc 1 152 0
  445 0012 504B     	 ldr r3,.L17
  446 0014 1B88     	 ldrh r3,[r3]
  447 0016 B7F90620 	 ldrsh r2,[r7,#6]
  448 001a 1BB2     	 sxth r3,r3
  449 001c 9A42     	 cmp r2,r3
  450 001e 03DD     	 ble .L11
- 155:../driver_pwm.c **** 	{
- 156:../driver_pwm.c **** 		uaref = sat_pwm;
- 451              	 .loc 1 156 0
+ 153:../driver_pwm.c **** 	{
+ 154:../driver_pwm.c **** 		uaref = sat_pwm;
+ 451              	 .loc 1 154 0
  452 0020 4C4B     	 ldr r3,.L17
  453 0022 1B88     	 ldrh r3,[r3]
  454 0024 FB80     	 strh r3,[r7,#6]
  455 0026 0DE0     	 b .L12
  456              	.L11:
- 157:../driver_pwm.c **** 	}
- 158:../driver_pwm.c **** 	else if (uaref < -sat_pwm)
- 457              	 .loc 1 158 0
+ 155:../driver_pwm.c **** 	}
+ 156:../driver_pwm.c **** 	else if (uaref < -sat_pwm)
+ 457              	 .loc 1 156 0
  458 0028 B7F90620 	 ldrsh r2,[r7,#6]
  459 002c 494B     	 ldr r3,.L17
  460 002e 1B88     	 ldrh r3,[r3]
@@ -609,9 +607,9 @@
  462 0032 5B42     	 negs r3,r3
  463 0034 9A42     	 cmp r2,r3
  464 0036 05DA     	 bge .L12
- 159:../driver_pwm.c **** 	{
- 160:../driver_pwm.c **** 		uaref = -sat_pwm;
- 465              	 .loc 1 160 0
+ 157:../driver_pwm.c **** 	{
+ 158:../driver_pwm.c **** 		uaref = -sat_pwm;
+ 465              	 .loc 1 158 0
  466 0038 464B     	 ldr r3,.L17
  467 003a 1B88     	 ldrh r3,[r3]
  468 003c 9BB2     	 uxth r3,r3
@@ -619,27 +617,27 @@
  470 0040 9BB2     	 uxth r3,r3
  471 0042 FB80     	 strh r3,[r7,#6]
  472              	.L12:
- 161:../driver_pwm.c **** 	}
- 162:../driver_pwm.c **** 
- 163:../driver_pwm.c **** 	if (ubref > sat_pwm)
- 473              	 .loc 1 163 0
+ 159:../driver_pwm.c **** 	}
+ 160:../driver_pwm.c **** 
+ 161:../driver_pwm.c **** 	if (ubref > sat_pwm)
+ 473              	 .loc 1 161 0
  474 0044 434B     	 ldr r3,.L17
  475 0046 1B88     	 ldrh r3,[r3]
  476 0048 B7F90420 	 ldrsh r2,[r7,#4]
  477 004c 1BB2     	 sxth r3,r3
  478 004e 9A42     	 cmp r2,r3
  479 0050 03DD     	 ble .L13
- 164:../driver_pwm.c **** 	{
- 165:../driver_pwm.c **** 		ubref = sat_pwm;
- 480              	 .loc 1 165 0
+ 162:../driver_pwm.c **** 	{
+ 163:../driver_pwm.c **** 		ubref = sat_pwm;
+ 480              	 .loc 1 163 0
  481 0052 404B     	 ldr r3,.L17
  482 0054 1B88     	 ldrh r3,[r3]
  483 0056 BB80     	 strh r3,[r7,#4]
  484 0058 0DE0     	 b .L14
  485              	.L13:
- 166:../driver_pwm.c **** 	}
- 167:../driver_pwm.c **** 	else if (ubref < -sat_pwm)
- 486              	 .loc 1 167 0
+ 164:../driver_pwm.c **** 	}
+ 165:../driver_pwm.c **** 	else if (ubref < -sat_pwm)
+ 486              	 .loc 1 165 0
  487 005a B7F90420 	 ldrsh r2,[r7,#4]
  488 005e 3D4B     	 ldr r3,.L17
  489 0060 1B88     	 ldrh r3,[r3]
@@ -647,9 +645,9 @@
  491 0064 5B42     	 negs r3,r3
  492 0066 9A42     	 cmp r2,r3
  493 0068 05DA     	 bge .L14
- 168:../driver_pwm.c **** 	{
- 169:../driver_pwm.c **** 		ubref = -sat_pwm;
- 494              	 .loc 1 169 0
+ 166:../driver_pwm.c **** 	{
+ 167:../driver_pwm.c **** 		ubref = -sat_pwm;
+ 494              	 .loc 1 167 0
  495 006a 3A4B     	 ldr r3,.L17
  496 006c 1B88     	 ldrh r3,[r3]
  497 006e 9BB2     	 uxth r3,r3
@@ -657,27 +655,27 @@
  499 0072 9BB2     	 uxth r3,r3
  500 0074 BB80     	 strh r3,[r7,#4]
  501              	.L14:
- 170:../driver_pwm.c **** 	}
- 171:../driver_pwm.c **** 
- 172:../driver_pwm.c **** 	if (ucref > sat_pwm)
- 502              	 .loc 1 172 0
+ 168:../driver_pwm.c **** 	}
+ 169:../driver_pwm.c **** 
+ 170:../driver_pwm.c **** 	if (ucref > sat_pwm)
+ 502              	 .loc 1 170 0
  503 0076 374B     	 ldr r3,.L17
  504 0078 1B88     	 ldrh r3,[r3]
  505 007a B7F90220 	 ldrsh r2,[r7,#2]
  506 007e 1BB2     	 sxth r3,r3
  507 0080 9A42     	 cmp r2,r3
  508 0082 03DD     	 ble .L15
- 173:../driver_pwm.c **** 	{
- 174:../driver_pwm.c **** 		ucref = sat_pwm;
- 509              	 .loc 1 174 0
+ 171:../driver_pwm.c **** 	{
+ 172:../driver_pwm.c **** 		ucref = sat_pwm;
+ 509              	 .loc 1 172 0
  510 0084 334B     	 ldr r3,.L17
  511 0086 1B88     	 ldrh r3,[r3]
  512 0088 7B80     	 strh r3,[r7,#2]
  513 008a 0DE0     	 b .L16
  514              	.L15:
- 175:../driver_pwm.c **** 	}
- 176:../driver_pwm.c **** 	else if (ucref < -sat_pwm)
- 515              	 .loc 1 176 0
+ 173:../driver_pwm.c **** 	}
+ 174:../driver_pwm.c **** 	else if (ucref < -sat_pwm)
+ 515              	 .loc 1 174 0
  516 008c B7F90220 	 ldrsh r2,[r7,#2]
  517 0090 304B     	 ldr r3,.L17
  518 0092 1B88     	 ldrh r3,[r3]
@@ -685,9 +683,9 @@
  520 0096 5B42     	 negs r3,r3
  521 0098 9A42     	 cmp r2,r3
  522 009a 05DA     	 bge .L16
- 177:../driver_pwm.c **** 	{
- 178:../driver_pwm.c **** 		ucref = -sat_pwm;
- 523              	 .loc 1 178 0
+ 175:../driver_pwm.c **** 	{
+ 176:../driver_pwm.c **** 		ucref = -sat_pwm;
+ 523              	 .loc 1 176 0
  524 009c 2D4B     	 ldr r3,.L17
  525 009e 1B88     	 ldrh r3,[r3]
  526 00a0 9BB2     	 uxth r3,r3
@@ -695,11 +693,11 @@
  528 00a4 9BB2     	 uxth r3,r3
  529 00a6 7B80     	 strh r3,[r7,#2]
  530              	.L16:
- 179:../driver_pwm.c **** 	}
- 180:../driver_pwm.c **** 
- 181:../driver_pwm.c **** 	//New compare value
- 182:../driver_pwm.c **** 	CCU80_CC80->CR1S = (pwm_value/2 - pwm_value * uaref/65535);
- 531              	 .loc 1 182 0
+ 177:../driver_pwm.c **** 	}
+ 178:../driver_pwm.c **** 
+ 179:../driver_pwm.c **** 	// New compare value
+ 180:../driver_pwm.c **** 	CCU80_CC80->CR1S = (pwm_value / 2 - pwm_value * uaref / 65535);
+ 531              	 .loc 1 180 0
  532 00a8 2B48     	 ldr r0,.L17+4
  533 00aa 2C4B     	 ldr r3,.L17+8
  534 00ac 1B88     	 ldrh r3,[r3]
@@ -722,8 +720,8 @@
  551 00d4 CB1A     	 subs r3,r1,r3
  552 00d6 D31A     	 subs r3,r2,r3
  553 00d8 C363     	 str r3,[r0,#60]
- 183:../driver_pwm.c **** 	CCU80_CC81->CR1S = (pwm_value/2 - pwm_value * ubref/65535);
- 554              	 .loc 1 183 0
+ 181:../driver_pwm.c **** 	CCU80_CC81->CR1S = (pwm_value / 2 - pwm_value * ubref / 65535);
+ 554              	 .loc 1 181 0
  555 00da 2248     	 ldr r0,.L17+16
  556 00dc 1F4B     	 ldr r3,.L17+8
  557 00de 1B88     	 ldrh r3,[r3]
@@ -746,8 +744,8 @@
  574 0106 CB1A     	 subs r3,r1,r3
  575 0108 D31A     	 subs r3,r2,r3
  576 010a C363     	 str r3,[r0,#60]
- 184:../driver_pwm.c **** 	CCU80_CC82->CR1S = (pwm_value/2 - pwm_value * ucref/65535);
- 577              	 .loc 1 184 0
+ 182:../driver_pwm.c **** 	CCU80_CC82->CR1S = (pwm_value / 2 - pwm_value * ucref / 65535);
+ 577              	 .loc 1 182 0
  578 010c 1648     	 ldr r0,.L17+20
  579 010e 134B     	 ldr r3,.L17+8
  580 0110 1B88     	 ldrh r3,[r3]
@@ -770,18 +768,18 @@
  597 0138 CB1A     	 subs r3,r1,r3
  598 013a D31A     	 subs r3,r2,r3
  599 013c C363     	 str r3,[r0,#60]
- 185:../driver_pwm.c **** 
- 186:../driver_pwm.c **** 	//Shadow transfer enabled for new compare value
- 187:../driver_pwm.c **** 	CCU80->GCSS |= (CCU8_GCSS_S0SE_MSK | CCU8_GCSS_S1SE_MSK | CCU8_GCSS_S2SE_MSK);
- 600              	 .loc 1 187 0
+ 183:../driver_pwm.c **** 
+ 184:../driver_pwm.c **** 	// Shadow transfer enabled for new compare value
+ 185:../driver_pwm.c **** 	CCU80->GCSS |= (CCU8_GCSS_S0SE_MSK | CCU8_GCSS_S1SE_MSK | CCU8_GCSS_S2SE_MSK);
+ 600              	 .loc 1 185 0
  601 013e 0B4A     	 ldr r2,.L17+24
  602 0140 0A4B     	 ldr r3,.L17+24
  603 0142 1B69     	 ldr r3,[r3,#16]
  604 0144 43F48873 	 orr r3,r3,#272
  605 0148 43F00103 	 orr r3,r3,#1
  606 014c 1361     	 str r3,[r2,#16]
- 188:../driver_pwm.c **** }
- 607              	 .loc 1 188 0
+ 186:../driver_pwm.c **** }
+ 607              	 .loc 1 186 0
  608 014e 0837     	 adds r7,r7,#8
  609              	.LCFI15:
  610              	 .cfi_def_cfa_offset 8
@@ -809,10 +807,10 @@
  633              	 .thumb_func
  635              	motion_on:
  636              	.LFB200:
- 189:../driver_pwm.c **** 
- 190:../driver_pwm.c **** void motion_on (void)
- 191:../driver_pwm.c **** {
- 637              	 .loc 1 191 0
+ 187:../driver_pwm.c **** 
+ 188:../driver_pwm.c **** void motion_on(void)
+ 189:../driver_pwm.c **** {
+ 637              	 .loc 1 189 0
  638              	 .cfi_startproc
  639              	 
  640              	 
@@ -824,55 +822,55 @@
  646 0002 00AF     	 add r7,sp,#0
  647              	.LCFI18:
  648              	 .cfi_def_cfa_register 7
- 192:../driver_pwm.c **** /*
- 193:../driver_pwm.c ****  * PWM pins configuration CCU80 - as alter function 3 - CCU80 OUTxy
- 194:../driver_pwm.c ****  */
- 195:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC11_POS); 		// A_HIGH 	- P5.11 - OUT00
- 649              	 .loc 1 195 0
+ 190:../driver_pwm.c **** 	/*
+ 191:../driver_pwm.c **** 	 * PWM pins configuration CCU80 - as alter function 3 - CCU80 OUTxy
+ 192:../driver_pwm.c **** 	 */
+ 193:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC11_POS); // A_HIGH 	- P5.11 - OUT00
+ 649              	 .loc 1 193 0
  650 0004 134A     	 ldr r2,.L20
  651 0006 134B     	 ldr r3,.L20
  652 0008 9B69     	 ldr r3,[r3,#24]
  653 000a 43F01843 	 orr r3,r3,#-1744830464
  654 000e 9361     	 str r3,[r2,#24]
- 196:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC8_POS);			// A_LOW 	- P5.8  - OUT01
- 655              	 .loc 1 196 0
+ 194:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC8_POS);	 // A_LOW 	- P5.8  - OUT01
+ 655              	 .loc 1 194 0
  656 0010 104A     	 ldr r2,.L20
  657 0012 104B     	 ldr r3,.L20
  658 0014 9B69     	 ldr r3,[r3,#24]
  659 0016 43F09803 	 orr r3,r3,#152
  660 001a 9361     	 str r3,[r2,#24]
- 197:../driver_pwm.c **** 
- 198:../driver_pwm.c **** 	PORT0->IOCR4 |= (GPIO_OUTPUT_ALTER_3 << PORT0_IOCR4_PC4_Pos);	// B_HIGH 	- P5.10 - OUT10 P0.4 alte
- 661              	 .loc 1 198 0
+ 195:../driver_pwm.c **** 
+ 196:../driver_pwm.c **** 	PORT0->IOCR4 |= (GPIO_OUTPUT_ALTER_3 << PORT0_IOCR4_PC4_Pos); // B_HIGH 	- P5.10 - OUT10 P0.4 alte
+ 661              	 .loc 1 196 0
  662 001c 0E4A     	 ldr r2,.L20+4
  663 001e 0E4B     	 ldr r3,.L20+4
  664 0020 5B69     	 ldr r3,[r3,#20]
  665 0022 43F09803 	 orr r3,r3,#152
  666 0026 5361     	 str r3,[r2,#20]
- 199:../driver_pwm.c **** 	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC15_POS);		// B_LOW 	- P2.15 - OUT11
- 667              	 .loc 1 199 0
+ 197:../driver_pwm.c **** 	PORT2->IOCR12 |= (GPIO_OUTPUT_ALTER_3 << PORT2_PC15_POS);	  // B_LOW 	- P2.15 - OUT11
+ 667              	 .loc 1 197 0
  668 0028 0C4A     	 ldr r2,.L20+8
  669 002a 0C4B     	 ldr r3,.L20+8
  670 002c DB69     	 ldr r3,[r3,#28]
  671 002e 43F01843 	 orr r3,r3,#-1744830464
  672 0032 D361     	 str r3,[r2,#28]
- 200:../driver_pwm.c **** 
- 201:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC9_POS);			// C_HIGH 	- P5.9	- OUT20
- 673              	 .loc 1 201 0
+ 198:../driver_pwm.c **** 
+ 199:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC9_POS);	  // C_HIGH 	- P5.9	- OUT20
+ 673              	 .loc 1 199 0
  674 0034 074A     	 ldr r2,.L20
  675 0036 074B     	 ldr r3,.L20
  676 0038 9B69     	 ldr r3,[r3,#24]
  677 003a 43F41843 	 orr r3,r3,#38912
  678 003e 9361     	 str r3,[r2,#24]
- 202:../driver_pwm.c **** 	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC14_POS);		// C_LOW 	- P2.14	- OUT21
- 679              	 .loc 1 202 0
+ 200:../driver_pwm.c **** 	PORT2->IOCR12 |= (GPIO_OUTPUT_ALTER_3 << PORT2_PC14_POS); // C_LOW 	- P2.14	- OUT21
+ 679              	 .loc 1 200 0
  680 0040 064A     	 ldr r2,.L20+8
  681 0042 064B     	 ldr r3,.L20+8
  682 0044 DB69     	 ldr r3,[r3,#28]
  683 0046 43F41803 	 orr r3,r3,#9961472
  684 004a D361     	 str r3,[r2,#28]
- 203:../driver_pwm.c **** }
- 685              	 .loc 1 203 0
+ 201:../driver_pwm.c **** }
+ 685              	 .loc 1 201 0
  686 004c BD46     	 mov sp,r7
  687              	.LCFI19:
  688              	 .cfi_def_cfa_register 13
@@ -897,10 +895,10 @@
  708              	 .thumb_func
  710              	motion_off:
  711              	.LFB201:
- 204:../driver_pwm.c **** 
- 205:../driver_pwm.c **** void motion_off(void)
- 206:../driver_pwm.c **** {
- 712              	 .loc 1 206 0
+ 202:../driver_pwm.c **** 
+ 203:../driver_pwm.c **** void motion_off(void)
+ 204:../driver_pwm.c **** {
+ 712              	 .loc 1 204 0
  713              	 .cfi_startproc
  714              	 
  715              	 
@@ -912,56 +910,55 @@
  721 0002 00AF     	 add r7,sp,#0
  722              	.LCFI22:
  723              	 .cfi_def_cfa_register 7
- 207:../driver_pwm.c **** /*
- 208:../driver_pwm.c ****  * PWM pins configuration CCU80 - OFF
- 209:../driver_pwm.c ****  */
- 210:../driver_pwm.c **** 	PORT5->IOCR8 &= ~(DISABLE_OUTPUT << PORT5_PC11_POS); 		// A_HIGH 	- P5.11 - OUT00
- 724              	 .loc 1 210 0
+ 205:../driver_pwm.c **** 	/*
+ 206:../driver_pwm.c **** 	 * PWM pins configuration CCU80 - OFF
+ 207:../driver_pwm.c **** 	 */
+ 208:../driver_pwm.c **** 	PORT5->IOCR8 &= ~(DISABLE_OUTPUT << PORT5_PC11_POS); // A_HIGH 	- P5.11 - OUT00
+ 724              	 .loc 1 208 0
  725 0004 134A     	 ldr r2,.L23
  726 0006 134B     	 ldr r3,.L23
  727 0008 9B69     	 ldr r3,[r3,#24]
  728 000a 23F07843 	 bic r3,r3,#-134217728
  729 000e 9361     	 str r3,[r2,#24]
- 211:../driver_pwm.c **** 	PORT5->IOCR8 &= ~(DISABLE_OUTPUT << PORT5_PC8_POS);			// A_LOW 	- P5.8  - OUT01
- 730              	 .loc 1 211 0
+ 209:../driver_pwm.c **** 	PORT5->IOCR8 &= ~(DISABLE_OUTPUT << PORT5_PC8_POS);	 // A_LOW 	- P5.8  - OUT01
+ 730              	 .loc 1 209 0
  731 0010 104A     	 ldr r2,.L23
  732 0012 104B     	 ldr r3,.L23
  733 0014 9B69     	 ldr r3,[r3,#24]
  734 0016 23F0F803 	 bic r3,r3,#248
  735 001a 9361     	 str r3,[r2,#24]
- 212:../driver_pwm.c **** 
- 213:../driver_pwm.c **** 	PORT0->IOCR4 &= ~(DISABLE_OUTPUT << PORT0_IOCR4_PC4_Pos);	// B_HIGH 	- P5.10 - OUT10 P0.4 alternat
- 736              	 .loc 1 213 0
+ 210:../driver_pwm.c **** 
+ 211:../driver_pwm.c **** 	PORT0->IOCR4 &= ~(DISABLE_OUTPUT << PORT0_IOCR4_PC4_Pos); // B_HIGH 	- P5.10 - OUT10 P0.4 alternat
+ 736              	 .loc 1 211 0
  737 001c 0E4A     	 ldr r2,.L23+4
  738 001e 0E4B     	 ldr r3,.L23+4
  739 0020 5B69     	 ldr r3,[r3,#20]
  740 0022 23F0F803 	 bic r3,r3,#248
  741 0026 5361     	 str r3,[r2,#20]
- 214:../driver_pwm.c **** 	PORT2->IOCR12 &=~(DISABLE_OUTPUT << PORT2_PC15_POS);		// B_LOW 	- P2.15 - OUT11
- 742              	 .loc 1 214 0
+ 212:../driver_pwm.c **** 	PORT2->IOCR12 &= ~(DISABLE_OUTPUT << PORT2_PC15_POS);	  // B_LOW 	- P2.15 - OUT11
+ 742              	 .loc 1 212 0
  743 0028 0C4A     	 ldr r2,.L23+8
  744 002a 0C4B     	 ldr r3,.L23+8
  745 002c DB69     	 ldr r3,[r3,#28]
  746 002e 23F07843 	 bic r3,r3,#-134217728
  747 0032 D361     	 str r3,[r2,#28]
- 215:../driver_pwm.c **** 
- 216:../driver_pwm.c **** 	PORT5->IOCR8 &= ~(DISABLE_OUTPUT << PORT5_PC9_POS);			// C_HIGH 	- P5.9	- OUT20
- 748              	 .loc 1 216 0
+ 213:../driver_pwm.c **** 
+ 214:../driver_pwm.c **** 	PORT5->IOCR8 &= ~(DISABLE_OUTPUT << PORT5_PC9_POS);	  // C_HIGH 	- P5.9	- OUT20
+ 748              	 .loc 1 214 0
  749 0034 074A     	 ldr r2,.L23
  750 0036 074B     	 ldr r3,.L23
  751 0038 9B69     	 ldr r3,[r3,#24]
  752 003a 23F47843 	 bic r3,r3,#63488
  753 003e 9361     	 str r3,[r2,#24]
- 217:../driver_pwm.c **** 	PORT2->IOCR12 &=~(DISABLE_OUTPUT << PORT2_PC14_POS);		// C_LOW 	- P2.14	- OUT21
- 754              	 .loc 1 217 0
+ 215:../driver_pwm.c **** 	PORT2->IOCR12 &= ~(DISABLE_OUTPUT << PORT2_PC14_POS); // C_LOW 	- P2.14	- OUT21
+ 754              	 .loc 1 215 0
  755 0040 064A     	 ldr r2,.L23+8
  756 0042 064B     	 ldr r3,.L23+8
  757 0044 DB69     	 ldr r3,[r3,#28]
  758 0046 23F47803 	 bic r3,r3,#16252928
  759 004a D361     	 str r3,[r2,#28]
- 218:../driver_pwm.c **** 
- 219:../driver_pwm.c **** }
- 760              	 .loc 1 219 0
+ 216:../driver_pwm.c **** }
+ 760              	 .loc 1 216 0
  761 004c BD46     	 mov sp,r7
  762              	.LCFI23:
  763              	 .cfi_def_cfa_register 13

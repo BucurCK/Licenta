@@ -17,40 +17,39 @@
   17              	.Ltext0:
   18              	 .cfi_sections .debug_frame
   19              	 .comm CCU8_CC8_CR1_CR1_Value,4,4
-  20              	 .comm theta_fast,4,4
-  21              	 .global i_prot
-  22              	 .section .data.i_prot,"aw",%progbits
-  23              	 .align 2
-  26              	i_prot:
-  27 0000 0000CD44 	 .word 1154285568
-  28              	 .global k
-  29              	 .section .data.k,"aw",%progbits
-  30              	 .align 2
-  33              	k:
-  34 0000 CDCCCC3E 	 .word 1053609165
-  35              	 .global filter_output
-  36              	 .section .bss.filter_output,"aw",%nobits
-  37              	 .align 2
-  40              	filter_output:
-  41 0000 00000000 	 .space 4
-  42              	 .global filter_output_old
-  43              	 .section .bss.filter_output_old,"aw",%nobits
-  44              	 .align 2
-  47              	filter_output_old:
-  48 0000 00000000 	 .space 4
-  49              	 .global counter_timer_prot
-  50              	 .section .bss.counter_timer_prot,"aw",%nobits
-  51              	 .align 2
-  54              	counter_timer_prot:
-  55 0000 00000000 	 .space 4
-  56              	 .section .text.current_filter,"ax",%progbits
-  57              	 .align 2
-  58              	 .global current_filter
-  59              	 .thumb
-  60              	 .thumb_func
-  62              	current_filter:
-  63              	.LFB196:
-  64              	 .file 1 "../current_protection.c"
+  20              	 .global i_prot
+  21              	 .section .data.i_prot,"aw",%progbits
+  22              	 .align 2
+  25              	i_prot:
+  26 0000 00C01945 	 .word 1159315456
+  27              	 .global k
+  28              	 .section .data.k,"aw",%progbits
+  29              	 .align 2
+  32              	k:
+  33 0000 CDCCCC3E 	 .word 1053609165
+  34              	 .global filter_output
+  35              	 .section .bss.filter_output,"aw",%nobits
+  36              	 .align 2
+  39              	filter_output:
+  40 0000 00000000 	 .space 4
+  41              	 .global filter_output_old
+  42              	 .section .bss.filter_output_old,"aw",%nobits
+  43              	 .align 2
+  46              	filter_output_old:
+  47 0000 00000000 	 .space 4
+  48              	 .global counter_timer_prot
+  49              	 .section .bss.counter_timer_prot,"aw",%nobits
+  50              	 .align 2
+  53              	counter_timer_prot:
+  54 0000 00000000 	 .space 4
+  55              	 .section .text.current_filter,"ax",%progbits
+  56              	 .align 2
+  57              	 .global current_filter
+  58              	 .thumb
+  59              	 .thumb_func
+  61              	current_filter:
+  62              	.LFB196:
+  63              	 .file 1 "../current_protection.c"
    1:../current_protection.c **** /*
    2:../current_protection.c ****  * current_protection.c
    3:../current_protection.c ****  *
@@ -62,232 +61,233 @@
    9:../current_protection.c **** #include "transform.h"
   10:../current_protection.c **** #include "state_machine.h"
   11:../current_protection.c **** #include "driver_pwm.h"
-  12:../current_protection.c **** 
-  13:../current_protection.c **** float i_prot = 2 * 820.;						// Ampers converted into 16bit scale | 32768/40 ~= 820
-  14:../current_protection.c **** float k = 0.4;									// Percentage of filtered signal
-  15:../current_protection.c **** float filter_output = 0, filter_output_old = 0;	//Output of filtered signal | Last output of filter
-  16:../current_protection.c **** uint32_t counter_timer_prot = 0;				//Timer increment in 100us -- if functione called in fast_loop
-  17:../current_protection.c **** 
-  18:../current_protection.c **** /*
-  19:../current_protection.c **** *	y = k*(x - y_last) + y_last
-  20:../current_protection.c **** *	First order signal filter
-  21:../current_protection.c **** */
-  22:../current_protection.c **** void current_filter (float filter_input)
-  23:../current_protection.c **** {
-  65              	 .loc 1 23 0
-  66              	 .cfi_startproc
+  12:../current_protection.c **** #include <math.h>
+  13:../current_protection.c **** 
+  14:../current_protection.c **** float_t i_prot = 3 * 820.;						// Ampers converted into 16bit scale | 32768/40 ~= 820
+  15:../current_protection.c **** float_t k = 0.4;									// Percentage of filtered signal
+  16:../current_protection.c **** float_t filter_output = 0, filter_output_old = 0; // Output of filtered signal | Last output of fil
+  17:../current_protection.c **** uint32_t counter_timer_prot = 0;				// Timer increment in 100us -- if functione called in fast_loop
+  18:../current_protection.c **** 
+  19:../current_protection.c **** /*
+  20:../current_protection.c ****  *	y = k*(x - y_last) + y_last
+  21:../current_protection.c ****  *	First order signal filter
+  22:../current_protection.c ****  */
+  23:../current_protection.c **** void current_filter(float filter_input)
+  24:../current_protection.c **** {
+  64              	 .loc 1 24 0
+  65              	 .cfi_startproc
+  66              	 
   67              	 
   68              	 
-  69              	 
-  70 0000 80B4     	 push {r7}
-  71              	.LCFI0:
-  72              	 .cfi_def_cfa_offset 4
-  73              	 .cfi_offset 7,-4
-  74 0002 83B0     	 sub sp,sp,#12
-  75              	.LCFI1:
-  76              	 .cfi_def_cfa_offset 16
-  77 0004 00AF     	 add r7,sp,#0
-  78              	.LCFI2:
-  79              	 .cfi_def_cfa_register 7
-  80 0006 7860     	 str r0,[r7,#4]
-  24:../current_protection.c **** 	filter_output = k * (filter_input - filter_output_old) + filter_output_old;
-  81              	 .loc 1 24 0
-  82 0008 0E4B     	 ldr r3,.L2
-  83 000a D3ED007A 	 flds s15,[r3]
-  84 000e 97ED017A 	 flds s14,[r7,#4]
-  85 0012 37EE677A 	 fsubs s14,s14,s15
-  86 0016 0C4B     	 ldr r3,.L2+4
-  87 0018 D3ED007A 	 flds s15,[r3]
-  88 001c 27EE277A 	 fmuls s14,s14,s15
-  89 0020 084B     	 ldr r3,.L2
-  90 0022 D3ED007A 	 flds s15,[r3]
-  91 0026 77EE277A 	 fadds s15,s14,s15
-  92 002a 084B     	 ldr r3,.L2+8
-  93 002c C3ED007A 	 fsts s15,[r3]
-  25:../current_protection.c **** 	filter_output_old = filter_output;
-  94              	 .loc 1 25 0
-  95 0030 064B     	 ldr r3,.L2+8
-  96 0032 1B68     	 ldr r3,[r3]
-  97 0034 034A     	 ldr r2,.L2
-  98 0036 1360     	 str r3,[r2]
-  26:../current_protection.c **** }
-  99              	 .loc 1 26 0
- 100 0038 0C37     	 adds r7,r7,#12
- 101              	.LCFI3:
- 102              	 .cfi_def_cfa_offset 4
- 103 003a BD46     	 mov sp,r7
- 104              	.LCFI4:
- 105              	 .cfi_def_cfa_register 13
- 106              	 
- 107 003c 5DF8047B 	 ldr r7,[sp],#4
- 108              	.LCFI5:
- 109              	 .cfi_restore 7
- 110              	 .cfi_def_cfa_offset 0
- 111 0040 7047     	 bx lr
- 112              	.L3:
- 113 0042 00BF     	 .align 2
- 114              	.L2:
- 115 0044 00000000 	 .word filter_output_old
- 116 0048 00000000 	 .word k
- 117 004c 00000000 	 .word filter_output
- 118              	 .cfi_endproc
- 119              	.LFE196:
- 121              	 .section .text.current_protection,"ax",%progbits
- 122              	 .align 2
- 123              	 .global current_protection
- 124              	 .thumb
- 125              	 .thumb_func
- 127              	current_protection:
- 128              	.LFB197:
-  27:../current_protection.c **** 
-  28:../current_protection.c **** /*
-  29:../current_protection.c **** *	Stops current output if above i_prot for TIME_TRIGGER_FAIL time
-  30:../current_protection.c **** */
-  31:../current_protection.c **** void current_protection (void)
-  32:../current_protection.c **** {
- 129              	 .loc 1 32 0
- 130              	 .cfi_startproc
+  69 0000 80B4     	 push {r7}
+  70              	.LCFI0:
+  71              	 .cfi_def_cfa_offset 4
+  72              	 .cfi_offset 7,-4
+  73 0002 83B0     	 sub sp,sp,#12
+  74              	.LCFI1:
+  75              	 .cfi_def_cfa_offset 16
+  76 0004 00AF     	 add r7,sp,#0
+  77              	.LCFI2:
+  78              	 .cfi_def_cfa_register 7
+  79 0006 7860     	 str r0,[r7,#4]
+  25:../current_protection.c **** 	filter_output = k * (filter_input - filter_output_old) + filter_output_old;
+  80              	 .loc 1 25 0
+  81 0008 0E4B     	 ldr r3,.L2
+  82 000a D3ED007A 	 flds s15,[r3]
+  83 000e 97ED017A 	 flds s14,[r7,#4]
+  84 0012 37EE677A 	 fsubs s14,s14,s15
+  85 0016 0C4B     	 ldr r3,.L2+4
+  86 0018 D3ED007A 	 flds s15,[r3]
+  87 001c 27EE277A 	 fmuls s14,s14,s15
+  88 0020 084B     	 ldr r3,.L2
+  89 0022 D3ED007A 	 flds s15,[r3]
+  90 0026 77EE277A 	 fadds s15,s14,s15
+  91 002a 084B     	 ldr r3,.L2+8
+  92 002c C3ED007A 	 fsts s15,[r3]
+  26:../current_protection.c **** 	filter_output_old = filter_output;
+  93              	 .loc 1 26 0
+  94 0030 064B     	 ldr r3,.L2+8
+  95 0032 1B68     	 ldr r3,[r3]
+  96 0034 034A     	 ldr r2,.L2
+  97 0036 1360     	 str r3,[r2]
+  27:../current_protection.c **** }
+  98              	 .loc 1 27 0
+  99 0038 0C37     	 adds r7,r7,#12
+ 100              	.LCFI3:
+ 101              	 .cfi_def_cfa_offset 4
+ 102 003a BD46     	 mov sp,r7
+ 103              	.LCFI4:
+ 104              	 .cfi_def_cfa_register 13
+ 105              	 
+ 106 003c 5DF8047B 	 ldr r7,[sp],#4
+ 107              	.LCFI5:
+ 108              	 .cfi_restore 7
+ 109              	 .cfi_def_cfa_offset 0
+ 110 0040 7047     	 bx lr
+ 111              	.L3:
+ 112 0042 00BF     	 .align 2
+ 113              	.L2:
+ 114 0044 00000000 	 .word filter_output_old
+ 115 0048 00000000 	 .word k
+ 116 004c 00000000 	 .word filter_output
+ 117              	 .cfi_endproc
+ 118              	.LFE196:
+ 120              	 .section .text.current_protection,"ax",%progbits
+ 121              	 .align 2
+ 122              	 .global current_protection
+ 123              	 .thumb
+ 124              	 .thumb_func
+ 126              	current_protection:
+ 127              	.LFB197:
+  28:../current_protection.c **** 
+  29:../current_protection.c **** /*
+  30:../current_protection.c ****  *	Stops current output if above i_prot for TIME_TRIGGER_FAIL time
+  31:../current_protection.c ****  */
+  32:../current_protection.c **** void current_protection(void)
+  33:../current_protection.c **** {
+ 128              	 .loc 1 33 0
+ 129              	 .cfi_startproc
+ 130              	 
  131              	 
- 132              	 
- 133 0000 80B5     	 push {r7,lr}
- 134              	.LCFI6:
- 135              	 .cfi_def_cfa_offset 8
- 136              	 .cfi_offset 7,-8
- 137              	 .cfi_offset 14,-4
- 138 0002 00AF     	 add r7,sp,#0
- 139              	.LCFI7:
- 140              	 .cfi_def_cfa_register 7
-  33:../current_protection.c **** 
-  34:../current_protection.c **** 	current_filter(i_alpha*i_alpha + i_beta*i_beta);
- 141              	 .loc 1 34 0
- 142 0004 264B     	 ldr r3,.L11
- 143 0006 93ED007A 	 flds s14,[r3]
- 144 000a 254B     	 ldr r3,.L11
- 145 000c D3ED007A 	 flds s15,[r3]
- 146 0010 27EE277A 	 fmuls s14,s14,s15
- 147 0014 234B     	 ldr r3,.L11+4
- 148 0016 D3ED006A 	 flds s13,[r3]
- 149 001a 224B     	 ldr r3,.L11+4
- 150 001c D3ED007A 	 flds s15,[r3]
- 151 0020 66EEA77A 	 fmuls s15,s13,s15
- 152 0024 77EE277A 	 fadds s15,s14,s15
- 153 0028 17EE900A 	 fmrs r0,s15
- 154 002c FFF7FEFF 	 bl current_filter
-  35:../current_protection.c **** 	if (filter_output > i_prot*i_prot)
- 155              	 .loc 1 35 0
- 156 0030 1D4B     	 ldr r3,.L11+8
- 157 0032 93ED007A 	 flds s14,[r3]
- 158 0036 1C4B     	 ldr r3,.L11+8
- 159 0038 D3ED007A 	 flds s15,[r3]
- 160 003c 27EE277A 	 fmuls s14,s14,s15
- 161 0040 1A4B     	 ldr r3,.L11+12
- 162 0042 D3ED007A 	 flds s15,[r3]
- 163 0046 B4EEE77A 	 fcmpes s14,s15
- 164 004a F1EE10FA 	 fmstat
- 165 004e 22D5     	 bpl .L10
-  36:../current_protection.c **** 	{
-  37:../current_protection.c **** 		counter_timer_prot++;
- 166              	 .loc 1 37 0
- 167 0050 174B     	 ldr r3,.L11+16
- 168 0052 1B68     	 ldr r3,[r3]
- 169 0054 0133     	 adds r3,r3,#1
- 170 0056 164A     	 ldr r2,.L11+16
- 171 0058 1360     	 str r3,[r2]
-  38:../current_protection.c **** 
-  39:../current_protection.c **** 		if(counter_timer_prot > TIME_TRIGGER_FAIL)
- 172              	 .loc 1 39 0
- 173 005a 154B     	 ldr r3,.L11+16
- 174 005c 1B68     	 ldr r3,[r3]
- 175 005e B3F57A7F 	 cmp r3,#1000
- 176 0062 1BD9     	 bls .L4
-  40:../current_protection.c **** 		{
-  41:../current_protection.c **** 
-  42:../current_protection.c **** 		drive_disabled();
- 177              	 .loc 1 42 0
- 178 0064 FFF7FEFF 	 bl drive_disabled
-  43:../current_protection.c **** 		drive_status |= DRIVE_STATUS_PROT_MSK;			//set current_prot_flag
- 179              	 .loc 1 43 0
- 180 0068 124B     	 ldr r3,.L11+20
- 181 006a 1B88     	 ldrh r3,[r3]
- 182 006c 6FEA4343 	 mvn r3,r3,lsl#17
- 183 0070 6FEA5343 	 mvn r3,r3,lsr#17
- 184 0074 9AB2     	 uxth r2,r3
- 185 0076 0F4B     	 ldr r3,.L11+20
- 186 0078 1A80     	 strh r2,[r3]
-  44:../current_protection.c **** 		drive_status &= CLEAR_DRIVE_STATUS;				//set STATUS bits to 0 -> go to state 0
- 187              	 .loc 1 44 0
- 188 007a 0E4B     	 ldr r3,.L11+20
- 189 007c 1B88     	 ldrh r3,[r3]
- 190 007e 23F00F03 	 bic r3,r3,#15
- 191 0082 9AB2     	 uxth r2,r3
- 192 0084 0B4B     	 ldr r3,.L11+20
- 193 0086 1A80     	 strh r2,[r3]
-  45:../current_protection.c **** 		counter_timer_prot = 0;
- 194              	 .loc 1 45 0
- 195 0088 094B     	 ldr r3,.L11+16
- 196 008a 0022     	 movs r2,#0
- 197 008c 1A60     	 str r2,[r3]
-  46:../current_protection.c **** 		drive_command_old = 0;							//reset old status of drive_command
- 198              	 .loc 1 46 0
- 199 008e 0A4B     	 ldr r3,.L11+24
- 200 0090 0022     	 movs r2,#0
- 201 0092 1A80     	 strh r2,[r3]
- 202 0094 02E0     	 b .L4
- 203              	.L10:
-  47:../current_protection.c **** 
+ 132 0000 80B5     	 push {r7,lr}
+ 133              	.LCFI6:
+ 134              	 .cfi_def_cfa_offset 8
+ 135              	 .cfi_offset 7,-8
+ 136              	 .cfi_offset 14,-4
+ 137 0002 00AF     	 add r7,sp,#0
+ 138              	.LCFI7:
+ 139              	 .cfi_def_cfa_register 7
+  34:../current_protection.c **** 
+  35:../current_protection.c **** 	current_filter(i_alpha * i_alpha + i_beta * i_beta);
+ 140              	 .loc 1 35 0
+ 141 0004 264B     	 ldr r3,.L11
+ 142 0006 93ED007A 	 flds s14,[r3]
+ 143 000a 254B     	 ldr r3,.L11
+ 144 000c D3ED007A 	 flds s15,[r3]
+ 145 0010 27EE277A 	 fmuls s14,s14,s15
+ 146 0014 234B     	 ldr r3,.L11+4
+ 147 0016 D3ED006A 	 flds s13,[r3]
+ 148 001a 224B     	 ldr r3,.L11+4
+ 149 001c D3ED007A 	 flds s15,[r3]
+ 150 0020 66EEA77A 	 fmuls s15,s13,s15
+ 151 0024 77EE277A 	 fadds s15,s14,s15
+ 152 0028 17EE900A 	 fmrs r0,s15
+ 153 002c FFF7FEFF 	 bl current_filter
+  36:../current_protection.c **** 	if (filter_output > i_prot * i_prot)
+ 154              	 .loc 1 36 0
+ 155 0030 1D4B     	 ldr r3,.L11+8
+ 156 0032 93ED007A 	 flds s14,[r3]
+ 157 0036 1C4B     	 ldr r3,.L11+8
+ 158 0038 D3ED007A 	 flds s15,[r3]
+ 159 003c 27EE277A 	 fmuls s14,s14,s15
+ 160 0040 1A4B     	 ldr r3,.L11+12
+ 161 0042 D3ED007A 	 flds s15,[r3]
+ 162 0046 B4EEE77A 	 fcmpes s14,s15
+ 163 004a F1EE10FA 	 fmstat
+ 164 004e 22D5     	 bpl .L10
+  37:../current_protection.c **** 	{
+  38:../current_protection.c **** 		counter_timer_prot++;
+ 165              	 .loc 1 38 0
+ 166 0050 174B     	 ldr r3,.L11+16
+ 167 0052 1B68     	 ldr r3,[r3]
+ 168 0054 0133     	 adds r3,r3,#1
+ 169 0056 164A     	 ldr r2,.L11+16
+ 170 0058 1360     	 str r3,[r2]
+  39:../current_protection.c **** 
+  40:../current_protection.c **** 		if (counter_timer_prot > TIME_TRIGGER_FAIL)
+ 171              	 .loc 1 40 0
+ 172 005a 154B     	 ldr r3,.L11+16
+ 173 005c 1B68     	 ldr r3,[r3]
+ 174 005e B3F57A7F 	 cmp r3,#1000
+ 175 0062 1BD9     	 bls .L4
+  41:../current_protection.c **** 		{
+  42:../current_protection.c **** 
+  43:../current_protection.c **** 			drive_disabled();
+ 176              	 .loc 1 43 0
+ 177 0064 FFF7FEFF 	 bl drive_disabled
+  44:../current_protection.c **** 			drive_status |= DRIVE_STATUS_PROT_MSK; // set current_prot_flag
+ 178              	 .loc 1 44 0
+ 179 0068 124B     	 ldr r3,.L11+20
+ 180 006a 1B88     	 ldrh r3,[r3]
+ 181 006c 6FEA4343 	 mvn r3,r3,lsl#17
+ 182 0070 6FEA5343 	 mvn r3,r3,lsr#17
+ 183 0074 9AB2     	 uxth r2,r3
+ 184 0076 0F4B     	 ldr r3,.L11+20
+ 185 0078 1A80     	 strh r2,[r3]
+  45:../current_protection.c **** 			drive_status &= CLEAR_DRIVE_STATUS;	   // set STATUS bits to 0 -> go to state 0
+ 186              	 .loc 1 45 0
+ 187 007a 0E4B     	 ldr r3,.L11+20
+ 188 007c 1B88     	 ldrh r3,[r3]
+ 189 007e 23F00F03 	 bic r3,r3,#15
+ 190 0082 9AB2     	 uxth r2,r3
+ 191 0084 0B4B     	 ldr r3,.L11+20
+ 192 0086 1A80     	 strh r2,[r3]
+  46:../current_protection.c **** 			counter_timer_prot = 0;
+ 193              	 .loc 1 46 0
+ 194 0088 094B     	 ldr r3,.L11+16
+ 195 008a 0022     	 movs r2,#0
+ 196 008c 1A60     	 str r2,[r3]
+  47:../current_protection.c **** 			drive_command_old = 0; // reset old status of drive_command
+ 197              	 .loc 1 47 0
+ 198 008e 0A4B     	 ldr r3,.L11+24
+ 199 0090 0022     	 movs r2,#0
+ 200 0092 1A80     	 strh r2,[r3]
+ 201 0094 02E0     	 b .L4
+ 202              	.L10:
   48:../current_protection.c **** 		}
-  49:../current_protection.c **** 	}else
-  50:../current_protection.c **** 	{
-  51:../current_protection.c **** 		counter_timer_prot = 0;							
- 204              	 .loc 1 51 0
- 205 0096 064B     	 ldr r3,.L11+16
- 206 0098 0022     	 movs r2,#0
- 207 009a 1A60     	 str r2,[r3]
- 208              	.L4:
-  52:../current_protection.c **** 	}
-  53:../current_protection.c **** }
- 209              	 .loc 1 53 0
- 210 009c 80BD     	 pop {r7,pc}
- 211              	.L12:
- 212 009e 00BF     	 .align 2
- 213              	.L11:
- 214 00a0 00000000 	 .word i_alpha
- 215 00a4 00000000 	 .word i_beta
- 216 00a8 00000000 	 .word i_prot
- 217 00ac 00000000 	 .word filter_output
- 218 00b0 00000000 	 .word counter_timer_prot
- 219 00b4 00000000 	 .word drive_status
- 220 00b8 00000000 	 .word drive_command_old
- 221              	 .cfi_endproc
- 222              	.LFE197:
- 224              	 .text
- 225              	.Letext0:
- 226              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 227              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 228              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 229              	 .file 5 "../main.h"
- 230              	 .file 6 "../transform.h"
- 231              	 .file 7 "../state_machine.h"
+  49:../current_protection.c **** 	}
+  50:../current_protection.c **** 	else
+  51:../current_protection.c **** 	{
+  52:../current_protection.c **** 		counter_timer_prot = 0;
+ 203              	 .loc 1 52 0
+ 204 0096 064B     	 ldr r3,.L11+16
+ 205 0098 0022     	 movs r2,#0
+ 206 009a 1A60     	 str r2,[r3]
+ 207              	.L4:
+  53:../current_protection.c **** 	}
+  54:../current_protection.c **** }
+ 208              	 .loc 1 54 0
+ 209 009c 80BD     	 pop {r7,pc}
+ 210              	.L12:
+ 211 009e 00BF     	 .align 2
+ 212              	.L11:
+ 213 00a0 00000000 	 .word i_alpha
+ 214 00a4 00000000 	 .word i_beta
+ 215 00a8 00000000 	 .word i_prot
+ 216 00ac 00000000 	 .word filter_output
+ 217 00b0 00000000 	 .word counter_timer_prot
+ 218 00b4 00000000 	 .word drive_status
+ 219 00b8 00000000 	 .word drive_command_old
+ 220              	 .cfi_endproc
+ 221              	.LFE197:
+ 223              	 .text
+ 224              	.Letext0:
+ 225              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 226              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 227              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
+ 228              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 229              	 .file 6 "../main.h"
+ 230              	 .file 7 "../transform.h"
+ 231              	 .file 8 "../state_machine.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 current_protection.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
-                            *COM*:00000004 theta_fast
-    {standard input}:26     .data.i_prot:00000000 i_prot
-    {standard input}:23     .data.i_prot:00000000 $d
-    {standard input}:33     .data.k:00000000 k
-    {standard input}:30     .data.k:00000000 $d
-    {standard input}:40     .bss.filter_output:00000000 filter_output
-    {standard input}:37     .bss.filter_output:00000000 $d
-    {standard input}:47     .bss.filter_output_old:00000000 filter_output_old
-    {standard input}:44     .bss.filter_output_old:00000000 $d
-    {standard input}:54     .bss.counter_timer_prot:00000000 counter_timer_prot
-    {standard input}:51     .bss.counter_timer_prot:00000000 $d
-    {standard input}:57     .text.current_filter:00000000 $t
-    {standard input}:62     .text.current_filter:00000000 current_filter
-    {standard input}:115    .text.current_filter:00000044 $d
-    {standard input}:122    .text.current_protection:00000000 $t
-    {standard input}:127    .text.current_protection:00000000 current_protection
-    {standard input}:214    .text.current_protection:000000a0 $d
+    {standard input}:25     .data.i_prot:00000000 i_prot
+    {standard input}:22     .data.i_prot:00000000 $d
+    {standard input}:32     .data.k:00000000 k
+    {standard input}:29     .data.k:00000000 $d
+    {standard input}:39     .bss.filter_output:00000000 filter_output
+    {standard input}:36     .bss.filter_output:00000000 $d
+    {standard input}:46     .bss.filter_output_old:00000000 filter_output_old
+    {standard input}:43     .bss.filter_output_old:00000000 $d
+    {standard input}:53     .bss.counter_timer_prot:00000000 counter_timer_prot
+    {standard input}:50     .bss.counter_timer_prot:00000000 $d
+    {standard input}:56     .text.current_filter:00000000 $t
+    {standard input}:61     .text.current_filter:00000000 current_filter
+    {standard input}:114    .text.current_filter:00000044 $d
+    {standard input}:121    .text.current_protection:00000000 $t
+    {standard input}:126    .text.current_protection:00000000 current_protection
+    {standard input}:213    .text.current_protection:000000a0 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

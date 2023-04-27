@@ -18,10 +18,10 @@ extern void current_offset(void);
 
 extern int16_t ia, ib, ic;
 
-//extern float ia_a, ib_a, ic_a;
+//extern float_t ia_a, ib_a, ic_a;
 
 //extern int16_t ia_test, ib_test; //testing
-//extern float signal_ia_test, signal_ib_test, sin_increment_2_pi, cos_increment_2_pi; //For testing
+//extern float_t signal_ia_test, signal_ib_test, sin_increment_2_pi, cos_increment_2_pi; //For testing
 
 
 #define PORT14_IOCR0_PC0_POS			(3UL)

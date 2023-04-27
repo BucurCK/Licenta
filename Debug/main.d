@@ -21,7 +21,7 @@ main.o main.d main.o: ../main.c \
  C:/CODE/Licenta/kernel_interrupt.h C:/CODE/Licenta/main.h ../io.h \
  ../timer.h ../Encoder.h C:/CODE/Licenta/probe_scope.h ../driver_adc.h \
  ../transform.h ../motor_data_update.h ../state_machine.h \
- ../current_protection.h
+ ../current_protection.h ../pi_regulator.h
 
 C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_common.h:
 
@@ -84,3 +84,5 @@ C:/CODE/Licenta/probe_scope.h:
 ../state_machine.h:
 
 ../current_protection.h:
+
+../pi_regulator.h:
