@@ -1,3 +1,6 @@
+#ifndef REFERENCE_GENERATOR_H_
+#define REFERENCE_GENERATOR_H_
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <xmc_common.h>
@@ -26,15 +29,13 @@ typedef enum
 
 extern ref_type ref_type_select;
 extern uint32_t interrupt_counter_ref_gen;
-
 extern status_ref_gen ref_gen_status;
-
-
 
 void reference_generator (void);
 void reference_generator_compute (void);
 
+#define ROTATION_IU			(2000U)			//4 * 500 IU per rotation
+#define SECOND				(1000U)			//Slow loop = 1 ms
+#define MINUTE				(60U * SECOND)
 
-
-//TODO
-
+#endif /* REFERENCE_GENERATOR_H_ */

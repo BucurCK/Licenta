@@ -34,6 +34,7 @@ int main(void)
 	__enable_irq();			// built in interrupt enable function
 	pi_init();
 
+
 	while (1U)
 	{
 		/* Infinite loop */

@@ -47,32 +47,32 @@ void reference_generator_compute(void)
 	switch (ref_type_select)
 	{
 	case (REF_POS):
-		high_level = rotation_input * 2000;
-		high_level_time = time_high_input_s * 1000;
-		low_level_time = time_low_input_s * 1000;
-		rise_time = time_rise_input_s * 1000;
-		fall_time = time_fall_input_s * 1000;
+		high_level = rotation_input * ROTATION_IU;
+		high_level_time = time_high_input_s * SECOND;
+		low_level_time = time_low_input_s * SECOND;
+		rise_time = time_rise_input_s * SECOND;
+		fall_time = time_fall_input_s * SECOND;
 		break;
 	case (REF_SPD):
-		rise_time = time_rise_input_s * 1000;
-		fall_time = time_high_input_s * 1000;
-		high_level = rpm_input / 30;
-		high_level_time = time_high_input_s * 1000;
-		low_level_time = time_low_input_s * 1000;
+		rise_time = time_rise_input_s * SECOND;
+		fall_time = time_high_input_s * SECOND;
+		high_level = rpm_input / (MINUTE / ROTATION_IU);
+		high_level_time = time_high_input_s * SECOND;
+		low_level_time = time_low_input_s * SECOND;
 		break;
 	case (REF_I):
 		high_level = current_input;
-		high_level_time = time_high_input_s * 1000;
-		low_level_time = time_low_input_s * 1000;
-		rise_time = time_rise_input_s * 1000;
-		fall_time = time_fall_input_s * 1000;
+		high_level_time = time_high_input_s * SECOND;
+		low_level_time = time_low_input_s * SECOND;
+		rise_time = time_rise_input_s * SECOND;
+		fall_time = time_fall_input_s * SECOND;
 		break;
 	case (REF_U):
 		high_level = voltage_input;
-		high_level_time = time_high_input_s * 1000;
-		low_level_time = time_low_input_s * 1000;
-		rise_time = time_rise_input_s * 1000;
-		fall_time = time_fall_input_s * 1000;
+		high_level_time = time_high_input_s * SECOND;
+		low_level_time = time_low_input_s * SECOND;
+		rise_time = time_rise_input_s * SECOND;
+		fall_time = time_fall_input_s * SECOND;
 		u_q_ref = reference;
 		break;
 	default:

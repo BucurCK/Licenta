@@ -1,9 +1,3 @@
-/*
- * driver_pwm.c
- *
- *  Created on: Jul 23, 2019
- *      Author: student
- */
 #include <stdint.h>
 #include <stdbool.h>
 #include <xmc_common.h>
@@ -16,18 +10,12 @@
 #include "transform.h"
 #include "io.h"
 
+/*Interrupt function for Eru0 used with ENCZ component of encoder -- NOT USED*/
+void ERU0_0_IRQHandler(void) {}
+
 /*
  * Initialize CCU40 and POSIF0
  */
-// int16_t timer_value_old = 0;
-
-/*Interrupt function for Eru0 used with ENCZ component of encoder*/
-void ERU0_0_IRQHandler(void)
-{
-	//	set_output_blink_1();						//TOGGLE LED1
-	//	ERU0->EXICON[2] &= ~ERU0_EXICON0_FL_MSK;	//Reset Status Flag for ETLx
-}
-
 void encoder_init(void)
 {
 	/*

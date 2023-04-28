@@ -133,7 +133,7 @@ typedef enum
 
 
 /*   */
-#define CCU8_CC8_PRS_PR_Value 			3600UL    // !0khz
+#define CCU8_CC8_PRS_PR_Value 			3600UL    // 20khz
 
 //#define CCU8_CC8_DC1R_Value 			1800UL
 

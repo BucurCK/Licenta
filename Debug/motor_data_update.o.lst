@@ -101,126 +101,123 @@
   77              	 .loc 1 31 0
   78 0028 41F28830 	 movw r0,#5000
   79 002c FFF7FEFF 	 bl delay_t
-  32:../motor_data_update.c **** 	motion_off();			// Disable PWM pin
-  80              	 .loc 1 32 0
-  81 0030 FFF7FEFF 	 bl motion_off
+  32:../motor_data_update.c **** //	motion_off();			// Disable PWM pin			NEED TO CHECK if it still works
   33:../motor_data_update.c **** 
   34:../motor_data_update.c **** 	theta_fast = 0;
-  82              	 .loc 1 34 0
-  83 0034 084B     	 ldr r3,.L2
-  84 0036 4FF00002 	 mov r2,#0
-  85 003a 1A60     	 str r2,[r3]
+  80              	 .loc 1 34 0
+  81 0030 084B     	 ldr r3,.L2
+  82 0032 4FF00002 	 mov r2,#0
+  83 0036 1A60     	 str r2,[r3]
   35:../motor_data_update.c **** 	mechanical_position_fast = 0;
-  86              	 .loc 1 35 0
-  87 003c 074B     	 ldr r3,.L2+4
-  88 003e 0022     	 movs r2,#0
-  89 0040 1A60     	 str r2,[r3]
+  84              	 .loc 1 35 0
+  85 0038 074B     	 ldr r3,.L2+4
+  86 003a 0022     	 movs r2,#0
+  87 003c 1A60     	 str r2,[r3]
   36:../motor_data_update.c **** 	timer_value_old_fast = CCU40_CC40->TIMER;
-  90              	 .loc 1 36 0
-  91 0042 074B     	 ldr r3,.L2+8
-  92 0044 1B6F     	 ldr r3,[r3,#112]
-  93 0046 9AB2     	 uxth r2,r3
-  94 0048 064B     	 ldr r3,.L2+12
-  95 004a 1A80     	 strh r2,[r3]
+  88              	 .loc 1 36 0
+  89 003e 074B     	 ldr r3,.L2+8
+  90 0040 1B6F     	 ldr r3,[r3,#112]
+  91 0042 9AB2     	 uxth r2,r3
+  92 0044 064B     	 ldr r3,.L2+12
+  93 0046 1A80     	 strh r2,[r3]
   37:../motor_data_update.c **** 	timer_value_old_slow = CCU40_CC40->TIMER;
-  96              	 .loc 1 37 0
-  97 004c 044B     	 ldr r3,.L2+8
-  98 004e 1B6F     	 ldr r3,[r3,#112]
-  99 0050 9AB2     	 uxth r2,r3
- 100 0052 054B     	 ldr r3,.L2+16
- 101 0054 1A80     	 strh r2,[r3]
-  38:../motor_data_update.c **** //	motor_spd = 0;
-  39:../motor_data_update.c **** }
- 102              	 .loc 1 39 0
- 103 0056 80BD     	 pop {r7,pc}
- 104              	.L3:
- 105              	 .align 2
- 106              	.L2:
- 107 0058 00000000 	 .word theta_fast
- 108 005c 00000000 	 .word mechanical_position_fast
- 109 0060 00C10040 	 .word 1073791232
- 110 0064 00000000 	 .word timer_value_old_fast
- 111 0068 00000000 	 .word timer_value_old_slow
- 112              	 .cfi_endproc
- 113              	.LFE196:
- 115              	 .section .text.compute_speed,"ax",%progbits
- 116              	 .align 2
- 117              	 .global compute_speed
- 118              	 .thumb
- 119              	 .thumb_func
- 121              	compute_speed:
- 122              	.LFB197:
-  40:../motor_data_update.c **** 
-  41:../motor_data_update.c **** /**
-  42:../motor_data_update.c ****  * Compute current speed
-  43:../motor_data_update.c ****  * Slow loop
-  44:../motor_data_update.c ****  */
-  45:../motor_data_update.c **** void compute_speed(void)
-  46:../motor_data_update.c **** {
- 123              	 .loc 1 46 0
- 124              	 .cfi_startproc
+  94              	 .loc 1 37 0
+  95 0048 044B     	 ldr r3,.L2+8
+  96 004a 1B6F     	 ldr r3,[r3,#112]
+  97 004c 9AB2     	 uxth r2,r3
+  98 004e 054B     	 ldr r3,.L2+16
+  99 0050 1A80     	 strh r2,[r3]
+  38:../motor_data_update.c **** }
+ 100              	 .loc 1 38 0
+ 101 0052 80BD     	 pop {r7,pc}
+ 102              	.L3:
+ 103              	 .align 2
+ 104              	.L2:
+ 105 0054 00000000 	 .word theta_fast
+ 106 0058 00000000 	 .word mechanical_position_fast
+ 107 005c 00C10040 	 .word 1073791232
+ 108 0060 00000000 	 .word timer_value_old_fast
+ 109 0064 00000000 	 .word timer_value_old_slow
+ 110              	 .cfi_endproc
+ 111              	.LFE196:
+ 113              	 .section .text.compute_speed,"ax",%progbits
+ 114              	 .align 2
+ 115              	 .global compute_speed
+ 116              	 .thumb
+ 117              	 .thumb_func
+ 119              	compute_speed:
+ 120              	.LFB197:
+  39:../motor_data_update.c **** 
+  40:../motor_data_update.c **** /*
+  41:../motor_data_update.c ****  * Compute current speed
+  42:../motor_data_update.c ****  * Slow loop
+  43:../motor_data_update.c ****  */
+  44:../motor_data_update.c **** void compute_speed(void)
+  45:../motor_data_update.c **** {
+ 121              	 .loc 1 45 0
+ 122              	 .cfi_startproc
+ 123              	 
+ 124              	 
  125              	 
- 126              	 
- 127              	 
- 128 0000 80B4     	 push {r7}
- 129              	.LCFI2:
- 130              	 .cfi_def_cfa_offset 4
- 131              	 .cfi_offset 7,-4
- 132 0002 00AF     	 add r7,sp,#0
- 133              	.LCFI3:
- 134              	 .cfi_def_cfa_register 7
-  47:../motor_data_update.c **** 	timer_value_slow = CCU40_CC40->TIMER;
- 135              	 .loc 1 47 0
- 136 0004 0A4B     	 ldr r3,.L5
- 137 0006 1B6F     	 ldr r3,[r3,#112]
- 138 0008 9AB2     	 uxth r2,r3
- 139 000a 0A4B     	 ldr r3,.L5+4
- 140 000c 1A80     	 strh r2,[r3]
-  48:../motor_data_update.c **** 	motor_spd = timer_value_slow - timer_value_old_slow;
- 141              	 .loc 1 48 0
- 142 000e 094B     	 ldr r3,.L5+4
- 143 0010 1B88     	 ldrh r3,[r3]
- 144 0012 1A46     	 mov r2,r3
- 145 0014 084B     	 ldr r3,.L5+8
- 146 0016 1B88     	 ldrh r3,[r3]
- 147 0018 D31A     	 subs r3,r2,r3
- 148 001a 084A     	 ldr r2,.L5+12
- 149 001c 1360     	 str r3,[r2]
-  49:../motor_data_update.c **** 	timer_value_old_slow = timer_value_slow;
- 150              	 .loc 1 49 0
- 151 001e 054B     	 ldr r3,.L5+4
- 152 0020 1A88     	 ldrh r2,[r3]
- 153 0022 054B     	 ldr r3,.L5+8
- 154 0024 1A80     	 strh r2,[r3]
-  50:../motor_data_update.c **** }
- 155              	 .loc 1 50 0
- 156 0026 BD46     	 mov sp,r7
- 157              	.LCFI4:
- 158              	 .cfi_def_cfa_register 13
- 159              	 
- 160 0028 5DF8047B 	 ldr r7,[sp],#4
- 161              	.LCFI5:
- 162              	 .cfi_restore 7
- 163              	 .cfi_def_cfa_offset 0
- 164 002c 7047     	 bx lr
- 165              	.L6:
- 166 002e 00BF     	 .align 2
- 167              	.L5:
- 168 0030 00C10040 	 .word 1073791232
- 169 0034 00000000 	 .word timer_value_slow
- 170 0038 00000000 	 .word timer_value_old_slow
- 171 003c 00000000 	 .word motor_spd
- 172              	 .cfi_endproc
- 173              	.LFE197:
- 175              	 .text
- 176              	.Letext0:
- 177              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 178              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 179              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
- 180              	 .file 5 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
- 181              	 .file 6 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 182              	 .file 7 "../main.h"
- 183              	 .file 8 "../transform.h"
+ 126 0000 80B4     	 push {r7}
+ 127              	.LCFI2:
+ 128              	 .cfi_def_cfa_offset 4
+ 129              	 .cfi_offset 7,-4
+ 130 0002 00AF     	 add r7,sp,#0
+ 131              	.LCFI3:
+ 132              	 .cfi_def_cfa_register 7
+  46:../motor_data_update.c **** 	timer_value_slow = CCU40_CC40->TIMER;
+ 133              	 .loc 1 46 0
+ 134 0004 0A4B     	 ldr r3,.L5
+ 135 0006 1B6F     	 ldr r3,[r3,#112]
+ 136 0008 9AB2     	 uxth r2,r3
+ 137 000a 0A4B     	 ldr r3,.L5+4
+ 138 000c 1A80     	 strh r2,[r3]
+  47:../motor_data_update.c **** 	motor_spd = timer_value_slow - timer_value_old_slow;
+ 139              	 .loc 1 47 0
+ 140 000e 094B     	 ldr r3,.L5+4
+ 141 0010 1B88     	 ldrh r3,[r3]
+ 142 0012 1A46     	 mov r2,r3
+ 143 0014 084B     	 ldr r3,.L5+8
+ 144 0016 1B88     	 ldrh r3,[r3]
+ 145 0018 D31A     	 subs r3,r2,r3
+ 146 001a 084A     	 ldr r2,.L5+12
+ 147 001c 1360     	 str r3,[r2]
+  48:../motor_data_update.c **** 	timer_value_old_slow = timer_value_slow;
+ 148              	 .loc 1 48 0
+ 149 001e 054B     	 ldr r3,.L5+4
+ 150 0020 1A88     	 ldrh r2,[r3]
+ 151 0022 054B     	 ldr r3,.L5+8
+ 152 0024 1A80     	 strh r2,[r3]
+  49:../motor_data_update.c **** }
+ 153              	 .loc 1 49 0
+ 154 0026 BD46     	 mov sp,r7
+ 155              	.LCFI4:
+ 156              	 .cfi_def_cfa_register 13
+ 157              	 
+ 158 0028 5DF8047B 	 ldr r7,[sp],#4
+ 159              	.LCFI5:
+ 160              	 .cfi_restore 7
+ 161              	 .cfi_def_cfa_offset 0
+ 162 002c 7047     	 bx lr
+ 163              	.L6:
+ 164 002e 00BF     	 .align 2
+ 165              	.L5:
+ 166 0030 00C10040 	 .word 1073791232
+ 167 0034 00000000 	 .word timer_value_slow
+ 168 0038 00000000 	 .word timer_value_old_slow
+ 169 003c 00000000 	 .word motor_spd
+ 170              	 .cfi_endproc
+ 171              	.LFE197:
+ 173              	 .text
+ 174              	.Letext0:
+ 175              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 176              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 177              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 178              	 .file 5 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
+ 179              	 .file 6 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 180              	 .file 7 "../main.h"
+ 181              	 .file 8 "../transform.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 motor_data_update.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
@@ -232,17 +229,16 @@ DEFINED SYMBOLS
     {standard input}:36     .bss.timer_value_old_slow:00000000 $d
     {standard input}:42     .text.init_position:00000000 $t
     {standard input}:47     .text.init_position:00000000 init_position
-    {standard input}:107    .text.init_position:00000058 $d
-    {standard input}:116    .text.compute_speed:00000000 $t
-    {standard input}:121    .text.compute_speed:00000000 compute_speed
-    {standard input}:168    .text.compute_speed:00000030 $d
+    {standard input}:105    .text.init_position:00000054 $d
+    {standard input}:114    .text.compute_speed:00000000 $t
+    {standard input}:119    .text.compute_speed:00000000 compute_speed
+    {standard input}:166    .text.compute_speed:00000030 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
 motion_on
 pwm_update
 delay_t
-motion_off
 theta_fast
 mechanical_position_fast
 timer_value_old_fast

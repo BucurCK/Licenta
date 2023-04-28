@@ -29,16 +29,15 @@ void init_position(void)
 
 	pwm_update(4000, 0, 0); // Apply voltage on A Phase
 	delay_t(SECOND_1 / 2);	// Wait 0.5s
-	motion_off();			// Disable PWM pin
+//	motion_off();			// Disable PWM pin			NEED TO CHECK if it still works
 
 	theta_fast = 0;
 	mechanical_position_fast = 0;
 	timer_value_old_fast = CCU40_CC40->TIMER;
 	timer_value_old_slow = CCU40_CC40->TIMER;
-//	motor_spd = 0;
 }
 
-/**
+/*
  * Compute current speed
  * Slow loop
  */

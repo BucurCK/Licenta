@@ -176,7 +176,7 @@
  158              	.L3:
   48:../reference_generator.c **** 	{
   49:../reference_generator.c **** 	case (REF_POS):
-  50:../reference_generator.c **** 		high_level = rotation_input * 2000;
+  50:../reference_generator.c **** 		high_level = rotation_input * ROTATION_IU;
  159              	 .loc 1 50 0
  160 0024 9A4B     	 ldr r3,.L10+4
  161 0026 D3ED007A 	 flds s15,[r3]
@@ -186,7 +186,7 @@
  165 0036 17EE902A 	 fmrs r2,s15
  166 003a 974B     	 ldr r3,.L10+12
  167 003c 1A60     	 str r2,[r3]
-  51:../reference_generator.c **** 		high_level_time = time_high_input_s * 1000;
+  51:../reference_generator.c **** 		high_level_time = time_high_input_s * SECOND;
  168              	 .loc 1 51 0
  169 003e 974B     	 ldr r3,.L10+16
  170 0040 D3ED007A 	 flds s15,[r3]
@@ -196,7 +196,7 @@
  174 0050 17EE902A 	 fmrs r2,s15
  175 0054 934B     	 ldr r3,.L10+24
  176 0056 1A60     	 str r2,[r3]
-  52:../reference_generator.c **** 		low_level_time = time_low_input_s * 1000;
+  52:../reference_generator.c **** 		low_level_time = time_low_input_s * SECOND;
  177              	 .loc 1 52 0
  178 0058 934B     	 ldr r3,.L10+28
  179 005a D3ED007A 	 flds s15,[r3]
@@ -206,7 +206,7 @@
  183 006a 17EE902A 	 fmrs r2,s15
  184 006e 8F4B     	 ldr r3,.L10+32
  185 0070 1A60     	 str r2,[r3]
-  53:../reference_generator.c **** 		rise_time = time_rise_input_s * 1000;
+  53:../reference_generator.c **** 		rise_time = time_rise_input_s * SECOND;
  186              	 .loc 1 53 0
  187 0072 8F4B     	 ldr r3,.L10+36
  188 0074 D3ED007A 	 flds s15,[r3]
@@ -216,7 +216,7 @@
  192 0084 17EE902A 	 fmrs r2,s15
  193 0088 8A4B     	 ldr r3,.L10+40
  194 008a 1A60     	 str r2,[r3]
-  54:../reference_generator.c **** 		fall_time = time_fall_input_s * 1000;
+  54:../reference_generator.c **** 		fall_time = time_fall_input_s * SECOND;
  195              	 .loc 1 54 0
  196 008c 8A4B     	 ldr r3,.L10+44
  197 008e D3ED007A 	 flds s15,[r3]
@@ -231,7 +231,7 @@
  205 00a6 BAE0     	 b .L8
  206              	.L5:
   56:../reference_generator.c **** 	case (REF_SPD):
-  57:../reference_generator.c **** 		rise_time = time_rise_input_s * 1000;
+  57:../reference_generator.c **** 		rise_time = time_rise_input_s * SECOND;
  207              	 .loc 1 57 0
  208 00a8 814B     	 ldr r3,.L10+36
  209 00aa D3ED007A 	 flds s15,[r3]
@@ -241,7 +241,7 @@
  213 00ba 17EE902A 	 fmrs r2,s15
  214 00be 7D4B     	 ldr r3,.L10+40
  215 00c0 1A60     	 str r2,[r3]
-  58:../reference_generator.c **** 		fall_time = time_high_input_s * 1000;
+  58:../reference_generator.c **** 		fall_time = time_high_input_s * SECOND;
  216              	 .loc 1 58 0
  217 00c2 764B     	 ldr r3,.L10+16
  218 00c4 D3ED007A 	 flds s15,[r3]
@@ -251,7 +251,7 @@
  222 00d4 17EE902A 	 fmrs r2,s15
  223 00d8 784B     	 ldr r3,.L10+48
  224 00da 1A60     	 str r2,[r3]
-  59:../reference_generator.c **** 		high_level = rpm_input / 30;
+  59:../reference_generator.c **** 		high_level = rpm_input / (MINUTE / ROTATION_IU);
  225              	 .loc 1 59 0
  226 00dc 784B     	 ldr r3,.L10+52
  227 00de D3ED007A 	 flds s15,[r3]
@@ -261,7 +261,7 @@
  231 00ee 17EE902A 	 fmrs r2,s15
  232 00f2 694B     	 ldr r3,.L10+12
  233 00f4 1A60     	 str r2,[r3]
-  60:../reference_generator.c **** 		high_level_time = time_high_input_s * 1000;
+  60:../reference_generator.c **** 		high_level_time = time_high_input_s * SECOND;
  234              	 .loc 1 60 0
  235 00f6 694B     	 ldr r3,.L10+16
  236 00f8 D3ED007A 	 flds s15,[r3]
@@ -271,7 +271,7 @@
  240 0108 17EE902A 	 fmrs r2,s15
  241 010c 654B     	 ldr r3,.L10+24
  242 010e 1A60     	 str r2,[r3]
-  61:../reference_generator.c **** 		low_level_time = time_low_input_s * 1000;
+  61:../reference_generator.c **** 		low_level_time = time_low_input_s * SECOND;
  243              	 .loc 1 61 0
  244 0110 654B     	 ldr r3,.L10+28
  245 0112 D3ED007A 	 flds s15,[r3]
@@ -293,7 +293,7 @@
  258 0130 1BB2     	 sxth r3,r3
  259 0132 594A     	 ldr r2,.L10+12
  260 0134 1360     	 str r3,[r2]
-  65:../reference_generator.c **** 		high_level_time = time_high_input_s * 1000;
+  65:../reference_generator.c **** 		high_level_time = time_high_input_s * SECOND;
  261              	 .loc 1 65 0
  262 0136 594B     	 ldr r3,.L10+16
  263 0138 D3ED007A 	 flds s15,[r3]
@@ -303,7 +303,7 @@
  267 0148 17EE902A 	 fmrs r2,s15
  268 014c 554B     	 ldr r3,.L10+24
  269 014e 1A60     	 str r2,[r3]
-  66:../reference_generator.c **** 		low_level_time = time_low_input_s * 1000;
+  66:../reference_generator.c **** 		low_level_time = time_low_input_s * SECOND;
  270              	 .loc 1 66 0
  271 0150 554B     	 ldr r3,.L10+28
  272 0152 D3ED007A 	 flds s15,[r3]
@@ -313,7 +313,7 @@
  276 0162 17EE902A 	 fmrs r2,s15
  277 0166 514B     	 ldr r3,.L10+32
  278 0168 1A60     	 str r2,[r3]
-  67:../reference_generator.c **** 		rise_time = time_rise_input_s * 1000;
+  67:../reference_generator.c **** 		rise_time = time_rise_input_s * SECOND;
  279              	 .loc 1 67 0
  280 016a 514B     	 ldr r3,.L10+36
  281 016c D3ED007A 	 flds s15,[r3]
@@ -323,7 +323,7 @@
  285 017c 17EE902A 	 fmrs r2,s15
  286 0180 4C4B     	 ldr r3,.L10+40
  287 0182 1A60     	 str r2,[r3]
-  68:../reference_generator.c **** 		fall_time = time_fall_input_s * 1000;
+  68:../reference_generator.c **** 		fall_time = time_fall_input_s * SECOND;
  288              	 .loc 1 68 0
  289 0184 4C4B     	 ldr r3,.L10+44
  290 0186 D3ED007A 	 flds s15,[r3]
@@ -345,7 +345,7 @@
  303 01a4 1BB2     	 sxth r3,r3
  304 01a6 3C4A     	 ldr r2,.L10+12
  305 01a8 1360     	 str r3,[r2]
-  72:../reference_generator.c **** 		high_level_time = time_high_input_s * 1000;
+  72:../reference_generator.c **** 		high_level_time = time_high_input_s * SECOND;
  306              	 .loc 1 72 0
  307 01aa 3C4B     	 ldr r3,.L10+16
  308 01ac D3ED007A 	 flds s15,[r3]
@@ -355,7 +355,7 @@
  312 01bc 17EE902A 	 fmrs r2,s15
  313 01c0 384B     	 ldr r3,.L10+24
  314 01c2 1A60     	 str r2,[r3]
-  73:../reference_generator.c **** 		low_level_time = time_low_input_s * 1000;
+  73:../reference_generator.c **** 		low_level_time = time_low_input_s * SECOND;
  315              	 .loc 1 73 0
  316 01c4 384B     	 ldr r3,.L10+28
  317 01c6 D3ED007A 	 flds s15,[r3]
@@ -365,7 +365,7 @@
  321 01d6 17EE902A 	 fmrs r2,s15
  322 01da 344B     	 ldr r3,.L10+32
  323 01dc 1A60     	 str r2,[r3]
-  74:../reference_generator.c **** 		rise_time = time_rise_input_s * 1000;
+  74:../reference_generator.c **** 		rise_time = time_rise_input_s * SECOND;
  324              	 .loc 1 74 0
  325 01de 344B     	 ldr r3,.L10+36
  326 01e0 D3ED007A 	 flds s15,[r3]
@@ -375,7 +375,7 @@
  330 01f0 17EE902A 	 fmrs r2,s15
  331 01f4 2F4B     	 ldr r3,.L10+40
  332 01f6 1A60     	 str r2,[r3]
-  75:../reference_generator.c **** 		fall_time = time_fall_input_s * 1000;
+  75:../reference_generator.c **** 		fall_time = time_fall_input_s * SECOND;
  333              	 .loc 1 75 0
  334 01f8 2F4B     	 ldr r3,.L10+44
  335 01fa D3ED007A 	 flds s15,[r3]

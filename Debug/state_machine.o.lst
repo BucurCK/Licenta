@@ -36,22 +36,18 @@
   42              	 .section .bss.loop_control,"aw",%nobits
   45              	loop_control:
   46 0000 00       	 .space 1
-  47              	 .global tune_test_control
-  48              	 .section .bss.tune_test_control,"aw",%nobits
-  51              	tune_test_control:
+  47              	 .global motion_config
+  48              	 .section .bss.motion_config,"aw",%nobits
+  51              	motion_config:
   52 0000 00       	 .space 1
-  53              	 .global motion_config
-  54              	 .section .bss.motion_config,"aw",%nobits
-  57              	motion_config:
-  58 0000 00       	 .space 1
-  59              	 .section .text.state_machine,"ax",%progbits
-  60              	 .align 2
-  61              	 .global state_machine
-  62              	 .thumb
-  63              	 .thumb_func
-  65              	state_machine:
-  66              	.LFB196:
-  67              	 .file 1 "../state_machine.c"
+  53              	 .section .text.state_machine,"ax",%progbits
+  54              	 .align 2
+  55              	 .global state_machine
+  56              	 .thumb
+  57              	 .thumb_func
+  59              	state_machine:
+  60              	.LFB196:
+  61              	 .file 1 "../state_machine.c"
    1:../state_machine.c **** /*
    2:../state_machine.c ****  * state_machine.c
    3:../state_machine.c ****  *
@@ -69,673 +65,693 @@
   15:../state_machine.c **** uint16_t drive_status = STATE_0_DRIVE_DISABLED;
   16:../state_machine.c **** uint16_t drive_command = STATE_0_DRIVE_DISABLED;
   17:../state_machine.c **** uint16_t drive_command_old = STATE_0_DRIVE_DISABLED;
-  18:../state_machine.c **** uint8_t loop_control = LOOP_CONTROL_OFF; // enable/disable all control loops -- TO DO
-  19:../state_machine.c **** uint8_t tune_test_control = OFF;		 // set theta to 0 if current tuning is enabled
-  20:../state_machine.c **** 
-  21:../state_machine.c **** /* 0 => do not compute any motion operations
-  22:../state_machine.c ****    1 => compute motion operations*/
-  23:../state_machine.c **** uint8_t motion_config = OFF;
-  24:../state_machine.c **** 
-  25:../state_machine.c **** void state_machine(void)
-  26:../state_machine.c **** {
-  68              	 .loc 1 26 0
-  69              	 .cfi_startproc
-  70              	 
-  71              	 
-  72 0000 80B5     	 push {r7,lr}
-  73              	.LCFI0:
-  74              	 .cfi_def_cfa_offset 8
-  75              	 .cfi_offset 7,-8
-  76              	 .cfi_offset 14,-4
-  77 0002 00AF     	 add r7,sp,#0
-  78              	.LCFI1:
-  79              	 .cfi_def_cfa_register 7
-  27:../state_machine.c **** 	switch (DRIVE_STATUS_MSK)
-  80              	 .loc 1 27 0
-  81 0004 764B     	 ldr r3,.L19
-  82 0006 1B88     	 ldrh r3,[r3]
-  83 0008 03F00F03 	 and r3,r3,#15
-  84 000c 012B     	 cmp r3,#1
-  85 000e 26D0     	 beq .L3
-  86 0010 012B     	 cmp r3,#1
-  87 0012 02D3     	 bcc .L4
-  88 0014 022B     	 cmp r3,#2
-  89 0016 61D0     	 beq .L5
-  28:../state_machine.c **** 	{
-  29:../state_machine.c **** 	case (STATE_0_DRIVE_DISABLED):
-  30:../state_machine.c **** 		// Transition 0->1
-  31:../state_machine.c **** 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_0_DRIVE_DISABLED) && (DRIVE_COMMAND_STATE_MSK == STATE_
-  32:../state_machine.c **** 		{
-  33:../state_machine.c **** 			drive_on();
-  34:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
-  35:../state_machine.c **** 			drive_status |= STATE_1_DRIVE_ON;
-  36:../state_machine.c **** 			drive_command_old = drive_command;
-  37:../state_machine.c **** 		}
-  38:../state_machine.c **** 		break;
-  39:../state_machine.c **** 
-  40:../state_machine.c **** 	case (STATE_1_DRIVE_ON):
-  41:../state_machine.c **** 		// Transition 1->2
-  42:../state_machine.c **** 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_1_DRIVE_ON) && (DRIVE_COMMAND_STATE_MSK == STATE_2_OPER
-  43:../state_machine.c **** 		{
-  44:../state_machine.c **** 			operation_enabled();
-  45:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
-  46:../state_machine.c **** 			drive_status |= STATE_2_OPERATION_ENABLED;
-  47:../state_machine.c **** 			drive_command_old = drive_command;
-  48:../state_machine.c **** 		}
-  49:../state_machine.c **** 		// Transition 1->0
-  50:../state_machine.c **** 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_1_DRIVE_ON) && (DRIVE_COMMAND_STATE_MSK == STATE_0_DRIV
-  51:../state_machine.c **** 		{
-  52:../state_machine.c **** 			drive_disabled();
-  53:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
-  54:../state_machine.c **** 			drive_status |= STATE_0_DRIVE_DISABLED;
-  55:../state_machine.c **** 			drive_command_old = drive_command;
-  56:../state_machine.c **** 		}
-  57:../state_machine.c **** 		break;
-  58:../state_machine.c **** 
-  59:../state_machine.c **** 	case (STATE_2_OPERATION_ENABLED):
-  60:../state_machine.c **** 	{
-  61:../state_machine.c **** 		// Transition 2->1
-  62:../state_machine.c **** 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_2_OPERATION_ENABLED) && (DRIVE_COMMAND_STATE_MSK == STA
-  63:../state_machine.c **** 		{
-  64:../state_machine.c **** 			drive_on();
-  65:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
-  66:../state_machine.c **** 			drive_status |= STATE_1_DRIVE_ON;
-  67:../state_machine.c **** 			drive_command_old = drive_command;
-  68:../state_machine.c **** 		}
-  69:../state_machine.c **** 		// Transition 2->0
-  70:../state_machine.c **** 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_2_OPERATION_ENABLED) && (DRIVE_COMMAND_STATE_MSK == STA
-  71:../state_machine.c **** 		{
-  72:../state_machine.c **** 			drive_disabled();
-  73:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
-  74:../state_machine.c **** 			drive_status |= STATE_0_DRIVE_DISABLED;
-  75:../state_machine.c **** 			drive_command_old = drive_command;
-  76:../state_machine.c **** 		}
-  77:../state_machine.c **** 		// Check for update
-  78:../state_machine.c **** 		if ((!(DRIVE_COMMAND_UPDATE_OLD_MSK & UPDATE_MSK) && (DRIVE_COMMAND_UPDATE_MSK & UPDATE_MSK)) && 
-  79:../state_machine.c **** 		{
-  80:../state_machine.c **** 			// Check for reference generator output (Priority list: POS > SPD > I > U)
-  81:../state_machine.c **** 			if (DRIVE_COMMAND_REF_MSK & REF_POS_MSK)
-  82:../state_machine.c **** 			{
-  83:../state_machine.c **** 				// POS REF
-  84:../state_machine.c **** 				ref_type_select = REF_POS;
-  85:../state_machine.c **** 			}
-  86:../state_machine.c **** 			else if (DRIVE_COMMAND_REF_MSK & REF_SPD_MSK)
+  18:../state_machine.c **** uint8_t loop_control = LOOP_CONTROL_OFF;
+  19:../state_machine.c **** 
+  20:../state_machine.c **** /* 0 => do not compute any motion operations
+  21:../state_machine.c ****    1 => compute motion operations*/
+  22:../state_machine.c **** uint8_t motion_config = OFF;
+  23:../state_machine.c **** 
+  24:../state_machine.c **** /*
+  25:../state_machine.c **** 	Simple State Machine
+  26:../state_machine.c **** 	DRIVE_DISABLED | DRIVE_ON | OPERATION_ENABLED
+  27:../state_machine.c **** */
+  28:../state_machine.c **** void state_machine(void)
+  29:../state_machine.c **** {
+  62              	 .loc 1 29 0
+  63              	 .cfi_startproc
+  64              	 
+  65              	 
+  66 0000 80B5     	 push {r7,lr}
+  67              	.LCFI0:
+  68              	 .cfi_def_cfa_offset 8
+  69              	 .cfi_offset 7,-8
+  70              	 .cfi_offset 14,-4
+  71 0002 00AF     	 add r7,sp,#0
+  72              	.LCFI1:
+  73              	 .cfi_def_cfa_register 7
+  30:../state_machine.c **** 	switch (DRIVE_STATUS_MSK)
+  74              	 .loc 1 30 0
+  75 0004 814B     	 ldr r3,.L19
+  76 0006 1B88     	 ldrh r3,[r3]
+  77 0008 03F00F03 	 and r3,r3,#15
+  78 000c 012B     	 cmp r3,#1
+  79 000e 26D0     	 beq .L3
+  80 0010 012B     	 cmp r3,#1
+  81 0012 02D3     	 bcc .L4
+  82 0014 022B     	 cmp r3,#2
+  83 0016 61D0     	 beq .L5
+  31:../state_machine.c **** 	{
+  32:../state_machine.c **** 	case (STATE_0_DRIVE_DISABLED):
+  33:../state_machine.c **** 		// Transition 0->1
+  34:../state_machine.c **** 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_0_DRIVE_DISABLED) && (DRIVE_COMMAND_STATE_MSK == STATE_
+  35:../state_machine.c **** 		{
+  36:../state_machine.c **** 			drive_on();
+  37:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
+  38:../state_machine.c **** 			drive_status |= STATE_1_DRIVE_ON;
+  39:../state_machine.c **** 			drive_command_old = drive_command;
+  40:../state_machine.c **** 		}
+  41:../state_machine.c **** 		break;
+  42:../state_machine.c **** 
+  43:../state_machine.c **** 	case (STATE_1_DRIVE_ON):
+  44:../state_machine.c **** 		// Transition 1->2
+  45:../state_machine.c **** 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_1_DRIVE_ON) && (DRIVE_COMMAND_STATE_MSK == STATE_2_OPER
+  46:../state_machine.c **** 		{
+  47:../state_machine.c **** 			operation_enabled();
+  48:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
+  49:../state_machine.c **** 			drive_status |= STATE_2_OPERATION_ENABLED;
+  50:../state_machine.c **** 			drive_command_old = drive_command;
+  51:../state_machine.c **** 		}
+  52:../state_machine.c **** 		// Transition 1->0
+  53:../state_machine.c **** 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_1_DRIVE_ON) && (DRIVE_COMMAND_STATE_MSK == STATE_0_DRIV
+  54:../state_machine.c **** 		{
+  55:../state_machine.c **** 			drive_disabled();
+  56:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
+  57:../state_machine.c **** 			drive_status |= STATE_0_DRIVE_DISABLED;
+  58:../state_machine.c **** 			drive_command_old = drive_command;
+  59:../state_machine.c **** 		}
+  60:../state_machine.c **** 		break;
+  61:../state_machine.c **** 
+  62:../state_machine.c **** 	case (STATE_2_OPERATION_ENABLED):
+  63:../state_machine.c **** 	{
+  64:../state_machine.c **** 		// Transition 2->1
+  65:../state_machine.c **** 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_2_OPERATION_ENABLED) && (DRIVE_COMMAND_STATE_MSK == STA
+  66:../state_machine.c **** 		{
+  67:../state_machine.c **** 			drive_on();
+  68:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
+  69:../state_machine.c **** 			drive_status |= STATE_1_DRIVE_ON;
+  70:../state_machine.c **** 			drive_command_old = drive_command;
+  71:../state_machine.c **** 		}
+  72:../state_machine.c **** 		// Transition 2->0
+  73:../state_machine.c **** 		if ((DRIVE_COMMAND_OLD_STATE_MSK == STATE_2_OPERATION_ENABLED) && (DRIVE_COMMAND_STATE_MSK == STA
+  74:../state_machine.c **** 		{
+  75:../state_machine.c **** 			drive_disabled();
+  76:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
+  77:../state_machine.c **** 			drive_status |= STATE_0_DRIVE_DISABLED;
+  78:../state_machine.c **** 			drive_command_old = drive_command;
+  79:../state_machine.c **** 		}
+  80:../state_machine.c **** 		// Check for update transition and OPERATION_ENABLED still active
+  81:../state_machine.c **** 		if ((!(DRIVE_COMMAND_UPDATE_OLD_MSK & UPDATE_MSK) && (DRIVE_COMMAND_UPDATE_MSK & UPDATE_MSK)) && 
+  82:../state_machine.c **** 		{
+  83:../state_machine.c **** 			loop_control = LOOP_CONTROL_OFF;			// reset all loops
+  84:../state_machine.c **** 			loop_control |= DRIVE_COMMAND_REF_MSK >> 8; // save selected loops
+  85:../state_machine.c **** 
+  86:../state_machine.c **** 			// Check for reference generator output (Priority list: POS > SPD > I > U)
+  87:../state_machine.c **** 			if (DRIVE_COMMAND_REF_MSK & REF_POS_MSK)
+  88:../state_machine.c **** 			{
+  89:../state_machine.c **** 				// POS REF
+  90:../state_machine.c **** 				ref_type_select = REF_POS;
+  91:../state_machine.c **** 			}
+  92:../state_machine.c **** 			else if (DRIVE_COMMAND_REF_MSK & REF_SPD_MSK)
+  93:../state_machine.c **** 			{
+  94:../state_machine.c **** 				// SPD REF
+  95:../state_machine.c **** 				ref_type_select = REF_SPD;
+  96:../state_machine.c **** 			}
+  97:../state_machine.c **** 			else if (DRIVE_COMMAND_REF_MSK & REF_I_MSK)
+  98:../state_machine.c **** 			{
+  99:../state_machine.c **** 				// I REFF
+ 100:../state_machine.c **** 				ref_type_select = REF_I;
+ 101:../state_machine.c **** 				if (DRIVE_COMMAND_TEST_MSK & TUNE_TEST)
+ 102:../state_machine.c **** 				{
+ 103:../state_machine.c **** 					loop_control |= TUNE_REF_LOOP_MSK;
+ 104:../state_machine.c **** 				}
+ 105:../state_machine.c **** 			}
+ 106:../state_machine.c **** 			else
+ 107:../state_machine.c **** 			{
+ 108:../state_machine.c **** 				// U REF
+ 109:../state_machine.c **** 				ref_type_select = REF_U;
+ 110:../state_machine.c **** 			}
+ 111:../state_machine.c **** 			compute_motion();
+ 112:../state_machine.c **** 			drive_command_old = drive_command;
+ 113:../state_machine.c **** 		}
+ 114:../state_machine.c **** 	}
+ 115:../state_machine.c **** 	break;
+ 116:../state_machine.c **** 	default:
+ 117:../state_machine.c **** 		break;
+  84              	 .loc 1 117 0
+  85 0018 F6E0     	 b .L1
+  86              	.L4:
+  34:../state_machine.c **** 		{
+  87              	 .loc 1 34 0
+  88 001a 7D4B     	 ldr r3,.L19+4
+  89 001c 1B88     	 ldrh r3,[r3]
+  90 001e 03F00F03 	 and r3,r3,#15
+  91 0022 002B     	 cmp r3,#0
+  92 0024 1AD1     	 bne .L6
+  34:../state_machine.c **** 		{
+  93              	 .loc 1 34 0 is_stmt 0 discriminator 1
+  94 0026 7B4B     	 ldr r3,.L19+8
+  95 0028 1B88     	 ldrh r3,[r3]
+  96 002a 03F00F03 	 and r3,r3,#15
+  97 002e 012B     	 cmp r3,#1
+  98 0030 14D1     	 bne .L6
+  36:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
+  99              	 .loc 1 36 0 is_stmt 1
+ 100 0032 FFF7FEFF 	 bl drive_on
+  37:../state_machine.c **** 			drive_status |= STATE_1_DRIVE_ON;
+ 101              	 .loc 1 37 0
+ 102 0036 754B     	 ldr r3,.L19
+ 103 0038 1B88     	 ldrh r3,[r3]
+ 104 003a 23F00F03 	 bic r3,r3,#15
+ 105 003e 9AB2     	 uxth r2,r3
+ 106 0040 724B     	 ldr r3,.L19
+ 107 0042 1A80     	 strh r2,[r3]
+  38:../state_machine.c **** 			drive_command_old = drive_command;
+ 108              	 .loc 1 38 0
+ 109 0044 714B     	 ldr r3,.L19
+ 110 0046 1B88     	 ldrh r3,[r3]
+ 111 0048 43F00103 	 orr r3,r3,#1
+ 112 004c 9AB2     	 uxth r2,r3
+ 113 004e 6F4B     	 ldr r3,.L19
+ 114 0050 1A80     	 strh r2,[r3]
+  39:../state_machine.c **** 		}
+ 115              	 .loc 1 39 0
+ 116 0052 704B     	 ldr r3,.L19+8
+ 117 0054 1A88     	 ldrh r2,[r3]
+ 118 0056 6E4B     	 ldr r3,.L19+4
+ 119 0058 1A80     	 strh r2,[r3]
+  41:../state_machine.c **** 
+ 120              	 .loc 1 41 0
+ 121 005a D5E0     	 b .L1
+ 122              	.L6:
+ 123 005c D4E0     	 b .L1
+ 124              	.L3:
+  45:../state_machine.c **** 		{
+ 125              	 .loc 1 45 0
+ 126 005e 6C4B     	 ldr r3,.L19+4
+ 127 0060 1B88     	 ldrh r3,[r3]
+ 128 0062 03F00F03 	 and r3,r3,#15
+ 129 0066 012B     	 cmp r3,#1
+ 130 0068 19D1     	 bne .L8
+  45:../state_machine.c **** 		{
+ 131              	 .loc 1 45 0 is_stmt 0 discriminator 1
+ 132 006a 6A4B     	 ldr r3,.L19+8
+ 133 006c 1B88     	 ldrh r3,[r3]
+ 134 006e 03F00F03 	 and r3,r3,#15
+ 135 0072 022B     	 cmp r3,#2
+ 136 0074 13D1     	 bne .L8
+  47:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
+ 137              	 .loc 1 47 0 is_stmt 1
+ 138 0076 FFF7FEFF 	 bl operation_enabled
+  48:../state_machine.c **** 			drive_status |= STATE_2_OPERATION_ENABLED;
+ 139              	 .loc 1 48 0
+ 140 007a 644B     	 ldr r3,.L19
+ 141 007c 1B88     	 ldrh r3,[r3]
+ 142 007e 23F00F03 	 bic r3,r3,#15
+ 143 0082 9AB2     	 uxth r2,r3
+ 144 0084 614B     	 ldr r3,.L19
+ 145 0086 1A80     	 strh r2,[r3]
+  49:../state_machine.c **** 			drive_command_old = drive_command;
+ 146              	 .loc 1 49 0
+ 147 0088 604B     	 ldr r3,.L19
+ 148 008a 1B88     	 ldrh r3,[r3]
+ 149 008c 43F00203 	 orr r3,r3,#2
+ 150 0090 9AB2     	 uxth r2,r3
+ 151 0092 5E4B     	 ldr r3,.L19
+ 152 0094 1A80     	 strh r2,[r3]
+  50:../state_machine.c **** 		}
+ 153              	 .loc 1 50 0
+ 154 0096 5F4B     	 ldr r3,.L19+8
+ 155 0098 1A88     	 ldrh r2,[r3]
+ 156 009a 5D4B     	 ldr r3,.L19+4
+ 157 009c 1A80     	 strh r2,[r3]
+ 158              	.L8:
+  53:../state_machine.c **** 		{
+ 159              	 .loc 1 53 0
+ 160 009e 5C4B     	 ldr r3,.L19+4
+ 161 00a0 1B88     	 ldrh r3,[r3]
+ 162 00a2 03F00F03 	 and r3,r3,#15
+ 163 00a6 012B     	 cmp r3,#1
+ 164 00a8 17D1     	 bne .L9
+  53:../state_machine.c **** 		{
+ 165              	 .loc 1 53 0 is_stmt 0 discriminator 1
+ 166 00aa 5A4B     	 ldr r3,.L19+8
+ 167 00ac 1B88     	 ldrh r3,[r3]
+ 168 00ae 03F00F03 	 and r3,r3,#15
+ 169 00b2 002B     	 cmp r3,#0
+ 170 00b4 11D1     	 bne .L9
+  55:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
+ 171              	 .loc 1 55 0 is_stmt 1
+ 172 00b6 FFF7FEFF 	 bl drive_disabled
+  56:../state_machine.c **** 			drive_status |= STATE_0_DRIVE_DISABLED;
+ 173              	 .loc 1 56 0
+ 174 00ba 544B     	 ldr r3,.L19
+ 175 00bc 1B88     	 ldrh r3,[r3]
+ 176 00be 23F00F03 	 bic r3,r3,#15
+ 177 00c2 9AB2     	 uxth r2,r3
+ 178 00c4 514B     	 ldr r3,.L19
+ 179 00c6 1A80     	 strh r2,[r3]
+  57:../state_machine.c **** 			drive_command_old = drive_command;
+ 180              	 .loc 1 57 0
+ 181 00c8 504B     	 ldr r3,.L19
+ 182 00ca 1A88     	 ldrh r2,[r3]
+ 183 00cc 4F4B     	 ldr r3,.L19
+ 184 00ce 1A80     	 strh r2,[r3]
+  58:../state_machine.c **** 		}
+ 185              	 .loc 1 58 0
+ 186 00d0 504B     	 ldr r3,.L19+8
+ 187 00d2 1A88     	 ldrh r2,[r3]
+ 188 00d4 4E4B     	 ldr r3,.L19+4
+ 189 00d6 1A80     	 strh r2,[r3]
+  60:../state_machine.c **** 
+ 190              	 .loc 1 60 0
+ 191 00d8 96E0     	 b .L1
+ 192              	.L9:
+ 193 00da 95E0     	 b .L1
+ 194              	.L5:
+  65:../state_machine.c **** 		{
+ 195              	 .loc 1 65 0
+ 196 00dc 4C4B     	 ldr r3,.L19+4
+ 197 00de 1B88     	 ldrh r3,[r3]
+ 198 00e0 03F00F03 	 and r3,r3,#15
+ 199 00e4 022B     	 cmp r3,#2
+ 200 00e6 19D1     	 bne .L10
+  65:../state_machine.c **** 		{
+ 201              	 .loc 1 65 0 is_stmt 0 discriminator 1
+ 202 00e8 4A4B     	 ldr r3,.L19+8
+ 203 00ea 1B88     	 ldrh r3,[r3]
+ 204 00ec 03F00F03 	 and r3,r3,#15
+ 205 00f0 012B     	 cmp r3,#1
+ 206 00f2 13D1     	 bne .L10
+  67:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
+ 207              	 .loc 1 67 0 is_stmt 1
+ 208 00f4 FFF7FEFF 	 bl drive_on
+  68:../state_machine.c **** 			drive_status |= STATE_1_DRIVE_ON;
+ 209              	 .loc 1 68 0
+ 210 00f8 444B     	 ldr r3,.L19
+ 211 00fa 1B88     	 ldrh r3,[r3]
+ 212 00fc 23F00F03 	 bic r3,r3,#15
+ 213 0100 9AB2     	 uxth r2,r3
+ 214 0102 424B     	 ldr r3,.L19
+ 215 0104 1A80     	 strh r2,[r3]
+  69:../state_machine.c **** 			drive_command_old = drive_command;
+ 216              	 .loc 1 69 0
+ 217 0106 414B     	 ldr r3,.L19
+ 218 0108 1B88     	 ldrh r3,[r3]
+ 219 010a 43F00103 	 orr r3,r3,#1
+ 220 010e 9AB2     	 uxth r2,r3
+ 221 0110 3E4B     	 ldr r3,.L19
+ 222 0112 1A80     	 strh r2,[r3]
+  70:../state_machine.c **** 		}
+ 223              	 .loc 1 70 0
+ 224 0114 3F4B     	 ldr r3,.L19+8
+ 225 0116 1A88     	 ldrh r2,[r3]
+ 226 0118 3D4B     	 ldr r3,.L19+4
+ 227 011a 1A80     	 strh r2,[r3]
+ 228              	.L10:
+  73:../state_machine.c **** 		{
+ 229              	 .loc 1 73 0
+ 230 011c 3C4B     	 ldr r3,.L19+4
+ 231 011e 1B88     	 ldrh r3,[r3]
+ 232 0120 03F00F03 	 and r3,r3,#15
+ 233 0124 022B     	 cmp r3,#2
+ 234 0126 16D1     	 bne .L11
+  73:../state_machine.c **** 		{
+ 235              	 .loc 1 73 0 is_stmt 0 discriminator 1
+ 236 0128 3A4B     	 ldr r3,.L19+8
+ 237 012a 1B88     	 ldrh r3,[r3]
+ 238 012c 03F00F03 	 and r3,r3,#15
+ 239 0130 002B     	 cmp r3,#0
+ 240 0132 10D1     	 bne .L11
+  75:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
+ 241              	 .loc 1 75 0 is_stmt 1
+ 242 0134 FFF7FEFF 	 bl drive_disabled
+  76:../state_machine.c **** 			drive_status |= STATE_0_DRIVE_DISABLED;
+ 243              	 .loc 1 76 0
+ 244 0138 344B     	 ldr r3,.L19
+ 245 013a 1B88     	 ldrh r3,[r3]
+ 246 013c 23F00F03 	 bic r3,r3,#15
+ 247 0140 9AB2     	 uxth r2,r3
+ 248 0142 324B     	 ldr r3,.L19
+ 249 0144 1A80     	 strh r2,[r3]
+  77:../state_machine.c **** 			drive_command_old = drive_command;
+ 250              	 .loc 1 77 0
+ 251 0146 314B     	 ldr r3,.L19
+ 252 0148 1A88     	 ldrh r2,[r3]
+ 253 014a 304B     	 ldr r3,.L19
+ 254 014c 1A80     	 strh r2,[r3]
+  78:../state_machine.c **** 		}
+ 255              	 .loc 1 78 0
+ 256 014e 314B     	 ldr r3,.L19+8
+ 257 0150 1A88     	 ldrh r2,[r3]
+ 258 0152 2F4B     	 ldr r3,.L19+4
+ 259 0154 1A80     	 strh r2,[r3]
+ 260              	.L11:
+  81:../state_machine.c **** 		{
+ 261              	 .loc 1 81 0
+ 262 0156 2E4B     	 ldr r3,.L19+4
+ 263 0158 1B88     	 ldrh r3,[r3]
+ 264 015a 03F01003 	 and r3,r3,#16
+ 265 015e 002B     	 cmp r3,#0
+ 266 0160 51D1     	 bne .L12
+  81:../state_machine.c **** 		{
+ 267              	 .loc 1 81 0 is_stmt 0 discriminator 1
+ 268 0162 2C4B     	 ldr r3,.L19+8
+ 269 0164 1B88     	 ldrh r3,[r3]
+ 270 0166 03F01003 	 and r3,r3,#16
+ 271 016a 002B     	 cmp r3,#0
+ 272 016c 4BD0     	 beq .L12
+  81:../state_machine.c **** 		{
+ 273              	 .loc 1 81 0 discriminator 2
+ 274 016e 294B     	 ldr r3,.L19+8
+ 275 0170 1B88     	 ldrh r3,[r3]
+ 276 0172 03F00F03 	 and r3,r3,#15
+ 277 0176 022B     	 cmp r3,#2
+ 278 0178 45D1     	 bne .L12
+  83:../state_machine.c **** 			loop_control |= DRIVE_COMMAND_REF_MSK >> 8; // save selected loops
+ 279              	 .loc 1 83 0 is_stmt 1
+ 280 017a 274B     	 ldr r3,.L19+12
+ 281 017c 0022     	 movs r2,#0
+ 282 017e 1A70     	 strb r2,[r3]
+  84:../state_machine.c **** 
+ 283              	 .loc 1 84 0
+ 284 0180 244B     	 ldr r3,.L19+8
+ 285 0182 1B88     	 ldrh r3,[r3]
+ 286 0184 03F47063 	 and r3,r3,#3840
+ 287 0188 1B12     	 asrs r3,r3,#8
+ 288 018a DAB2     	 uxtb r2,r3
+ 289 018c 224B     	 ldr r3,.L19+12
+ 290 018e 1B78     	 ldrb r3,[r3]
+ 291 0190 DBB2     	 uxtb r3,r3
+ 292 0192 1343     	 orrs r3,r3,r2
+ 293 0194 DBB2     	 uxtb r3,r3
+ 294 0196 DAB2     	 uxtb r2,r3
+ 295 0198 1F4B     	 ldr r3,.L19+12
+ 296 019a 1A70     	 strb r2,[r3]
   87:../state_machine.c **** 			{
-  88:../state_machine.c **** 				// SPD REF
-  89:../state_machine.c **** 				ref_type_select = REF_SPD;
+ 297              	 .loc 1 87 0
+ 298 019c 1D4B     	 ldr r3,.L19+8
+ 299 019e 1B88     	 ldrh r3,[r3]
+ 300 01a0 03F48063 	 and r3,r3,#1024
+ 301 01a4 002B     	 cmp r3,#0
+ 302 01a6 03D0     	 beq .L13
   90:../state_machine.c **** 			}
-  91:../state_machine.c **** 			else if (DRIVE_COMMAND_REF_MSK & REF_I_MSK)
+ 303              	 .loc 1 90 0
+ 304 01a8 1C4B     	 ldr r3,.L19+16
+ 305 01aa 0022     	 movs r2,#0
+ 306 01ac 1A70     	 strb r2,[r3]
+ 307 01ae 23E0     	 b .L14
+ 308              	.L13:
   92:../state_machine.c **** 			{
-  93:../state_machine.c **** 				// I REFF
-  94:../state_machine.c **** 				ref_type_select = REF_I;
-  95:../state_machine.c **** 				if (DRIVE_COMMAND_TEST_MSK & TUNE_TEST)
-  96:../state_machine.c **** 				{
-  97:../state_machine.c **** 					tune_test_control = ON;
-  98:../state_machine.c **** 				}
-  99:../state_machine.c **** 			}
- 100:../state_machine.c **** 			else
- 101:../state_machine.c **** 			{
- 102:../state_machine.c **** 				// U REF
- 103:../state_machine.c **** 				ref_type_select = REF_U;
- 104:../state_machine.c **** 			}
- 105:../state_machine.c **** 			compute_motion();
- 106:../state_machine.c **** 			drive_command_old = drive_command;
- 107:../state_machine.c **** 		}
- 108:../state_machine.c **** 	}
- 109:../state_machine.c **** 	break;
- 110:../state_machine.c **** 	default:
- 111:../state_machine.c **** 		break;
-  90              	 .loc 1 111 0
-  91 0018 E1E0     	 b .L1
-  92              	.L4:
-  31:../state_machine.c **** 		{
-  93              	 .loc 1 31 0
-  94 001a 724B     	 ldr r3,.L19+4
-  95 001c 1B88     	 ldrh r3,[r3]
-  96 001e 03F00F03 	 and r3,r3,#15
-  97 0022 002B     	 cmp r3,#0
-  98 0024 1AD1     	 bne .L6
-  31:../state_machine.c **** 		{
-  99              	 .loc 1 31 0 is_stmt 0 discriminator 1
- 100 0026 704B     	 ldr r3,.L19+8
- 101 0028 1B88     	 ldrh r3,[r3]
- 102 002a 03F00F03 	 and r3,r3,#15
- 103 002e 012B     	 cmp r3,#1
- 104 0030 14D1     	 bne .L6
-  33:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
- 105              	 .loc 1 33 0 is_stmt 1
- 106 0032 FFF7FEFF 	 bl drive_on
-  34:../state_machine.c **** 			drive_status |= STATE_1_DRIVE_ON;
- 107              	 .loc 1 34 0
- 108 0036 6A4B     	 ldr r3,.L19
- 109 0038 1B88     	 ldrh r3,[r3]
- 110 003a 23F00F03 	 bic r3,r3,#15
- 111 003e 9AB2     	 uxth r2,r3
- 112 0040 674B     	 ldr r3,.L19
- 113 0042 1A80     	 strh r2,[r3]
-  35:../state_machine.c **** 			drive_command_old = drive_command;
- 114              	 .loc 1 35 0
- 115 0044 664B     	 ldr r3,.L19
- 116 0046 1B88     	 ldrh r3,[r3]
- 117 0048 43F00103 	 orr r3,r3,#1
- 118 004c 9AB2     	 uxth r2,r3
- 119 004e 644B     	 ldr r3,.L19
- 120 0050 1A80     	 strh r2,[r3]
-  36:../state_machine.c **** 		}
- 121              	 .loc 1 36 0
- 122 0052 654B     	 ldr r3,.L19+8
- 123 0054 1A88     	 ldrh r2,[r3]
- 124 0056 634B     	 ldr r3,.L19+4
- 125 0058 1A80     	 strh r2,[r3]
-  38:../state_machine.c **** 
- 126              	 .loc 1 38 0
- 127 005a C0E0     	 b .L1
- 128              	.L6:
- 129 005c BFE0     	 b .L1
- 130              	.L3:
-  42:../state_machine.c **** 		{
- 131              	 .loc 1 42 0
- 132 005e 614B     	 ldr r3,.L19+4
- 133 0060 1B88     	 ldrh r3,[r3]
- 134 0062 03F00F03 	 and r3,r3,#15
- 135 0066 012B     	 cmp r3,#1
- 136 0068 19D1     	 bne .L8
-  42:../state_machine.c **** 		{
- 137              	 .loc 1 42 0 is_stmt 0 discriminator 1
- 138 006a 5F4B     	 ldr r3,.L19+8
- 139 006c 1B88     	 ldrh r3,[r3]
- 140 006e 03F00F03 	 and r3,r3,#15
- 141 0072 022B     	 cmp r3,#2
- 142 0074 13D1     	 bne .L8
-  44:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
- 143              	 .loc 1 44 0 is_stmt 1
- 144 0076 FFF7FEFF 	 bl operation_enabled
-  45:../state_machine.c **** 			drive_status |= STATE_2_OPERATION_ENABLED;
- 145              	 .loc 1 45 0
- 146 007a 594B     	 ldr r3,.L19
- 147 007c 1B88     	 ldrh r3,[r3]
- 148 007e 23F00F03 	 bic r3,r3,#15
- 149 0082 9AB2     	 uxth r2,r3
- 150 0084 564B     	 ldr r3,.L19
- 151 0086 1A80     	 strh r2,[r3]
-  46:../state_machine.c **** 			drive_command_old = drive_command;
- 152              	 .loc 1 46 0
- 153 0088 554B     	 ldr r3,.L19
- 154 008a 1B88     	 ldrh r3,[r3]
- 155 008c 43F00203 	 orr r3,r3,#2
- 156 0090 9AB2     	 uxth r2,r3
- 157 0092 534B     	 ldr r3,.L19
- 158 0094 1A80     	 strh r2,[r3]
-  47:../state_machine.c **** 		}
- 159              	 .loc 1 47 0
- 160 0096 544B     	 ldr r3,.L19+8
- 161 0098 1A88     	 ldrh r2,[r3]
- 162 009a 524B     	 ldr r3,.L19+4
- 163 009c 1A80     	 strh r2,[r3]
- 164              	.L8:
-  50:../state_machine.c **** 		{
- 165              	 .loc 1 50 0
- 166 009e 514B     	 ldr r3,.L19+4
- 167 00a0 1B88     	 ldrh r3,[r3]
- 168 00a2 03F00F03 	 and r3,r3,#15
- 169 00a6 012B     	 cmp r3,#1
- 170 00a8 17D1     	 bne .L9
-  50:../state_machine.c **** 		{
- 171              	 .loc 1 50 0 is_stmt 0 discriminator 1
- 172 00aa 4F4B     	 ldr r3,.L19+8
- 173 00ac 1B88     	 ldrh r3,[r3]
- 174 00ae 03F00F03 	 and r3,r3,#15
- 175 00b2 002B     	 cmp r3,#0
- 176 00b4 11D1     	 bne .L9
-  52:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
- 177              	 .loc 1 52 0 is_stmt 1
- 178 00b6 FFF7FEFF 	 bl drive_disabled
-  53:../state_machine.c **** 			drive_status |= STATE_0_DRIVE_DISABLED;
- 179              	 .loc 1 53 0
- 180 00ba 494B     	 ldr r3,.L19
- 181 00bc 1B88     	 ldrh r3,[r3]
- 182 00be 23F00F03 	 bic r3,r3,#15
- 183 00c2 9AB2     	 uxth r2,r3
- 184 00c4 464B     	 ldr r3,.L19
- 185 00c6 1A80     	 strh r2,[r3]
-  54:../state_machine.c **** 			drive_command_old = drive_command;
- 186              	 .loc 1 54 0
- 187 00c8 454B     	 ldr r3,.L19
- 188 00ca 1A88     	 ldrh r2,[r3]
- 189 00cc 444B     	 ldr r3,.L19
- 190 00ce 1A80     	 strh r2,[r3]
-  55:../state_machine.c **** 		}
- 191              	 .loc 1 55 0
- 192 00d0 454B     	 ldr r3,.L19+8
- 193 00d2 1A88     	 ldrh r2,[r3]
- 194 00d4 434B     	 ldr r3,.L19+4
- 195 00d6 1A80     	 strh r2,[r3]
-  57:../state_machine.c **** 
- 196              	 .loc 1 57 0
- 197 00d8 81E0     	 b .L1
- 198              	.L9:
- 199 00da 80E0     	 b .L1
- 200              	.L5:
-  62:../state_machine.c **** 		{
- 201              	 .loc 1 62 0
- 202 00dc 414B     	 ldr r3,.L19+4
- 203 00de 1B88     	 ldrh r3,[r3]
- 204 00e0 03F00F03 	 and r3,r3,#15
- 205 00e4 022B     	 cmp r3,#2
- 206 00e6 19D1     	 bne .L10
-  62:../state_machine.c **** 		{
- 207              	 .loc 1 62 0 is_stmt 0 discriminator 1
- 208 00e8 3F4B     	 ldr r3,.L19+8
- 209 00ea 1B88     	 ldrh r3,[r3]
- 210 00ec 03F00F03 	 and r3,r3,#15
- 211 00f0 012B     	 cmp r3,#1
- 212 00f2 13D1     	 bne .L10
-  64:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
- 213              	 .loc 1 64 0 is_stmt 1
- 214 00f4 FFF7FEFF 	 bl drive_on
-  65:../state_machine.c **** 			drive_status |= STATE_1_DRIVE_ON;
- 215              	 .loc 1 65 0
- 216 00f8 394B     	 ldr r3,.L19
- 217 00fa 1B88     	 ldrh r3,[r3]
- 218 00fc 23F00F03 	 bic r3,r3,#15
- 219 0100 9AB2     	 uxth r2,r3
- 220 0102 374B     	 ldr r3,.L19
- 221 0104 1A80     	 strh r2,[r3]
-  66:../state_machine.c **** 			drive_command_old = drive_command;
- 222              	 .loc 1 66 0
- 223 0106 364B     	 ldr r3,.L19
- 224 0108 1B88     	 ldrh r3,[r3]
- 225 010a 43F00103 	 orr r3,r3,#1
- 226 010e 9AB2     	 uxth r2,r3
- 227 0110 334B     	 ldr r3,.L19
- 228 0112 1A80     	 strh r2,[r3]
-  67:../state_machine.c **** 		}
- 229              	 .loc 1 67 0
- 230 0114 344B     	 ldr r3,.L19+8
- 231 0116 1A88     	 ldrh r2,[r3]
- 232 0118 324B     	 ldr r3,.L19+4
- 233 011a 1A80     	 strh r2,[r3]
- 234              	.L10:
-  70:../state_machine.c **** 		{
- 235              	 .loc 1 70 0
- 236 011c 314B     	 ldr r3,.L19+4
- 237 011e 1B88     	 ldrh r3,[r3]
- 238 0120 03F00F03 	 and r3,r3,#15
- 239 0124 022B     	 cmp r3,#2
- 240 0126 16D1     	 bne .L11
-  70:../state_machine.c **** 		{
- 241              	 .loc 1 70 0 is_stmt 0 discriminator 1
- 242 0128 2F4B     	 ldr r3,.L19+8
- 243 012a 1B88     	 ldrh r3,[r3]
- 244 012c 03F00F03 	 and r3,r3,#15
- 245 0130 002B     	 cmp r3,#0
- 246 0132 10D1     	 bne .L11
-  72:../state_machine.c **** 			drive_status &= DRIVE_STATUS_CLEAR;
- 247              	 .loc 1 72 0 is_stmt 1
- 248 0134 FFF7FEFF 	 bl drive_disabled
-  73:../state_machine.c **** 			drive_status |= STATE_0_DRIVE_DISABLED;
- 249              	 .loc 1 73 0
- 250 0138 294B     	 ldr r3,.L19
- 251 013a 1B88     	 ldrh r3,[r3]
- 252 013c 23F00F03 	 bic r3,r3,#15
- 253 0140 9AB2     	 uxth r2,r3
- 254 0142 274B     	 ldr r3,.L19
- 255 0144 1A80     	 strh r2,[r3]
-  74:../state_machine.c **** 			drive_command_old = drive_command;
- 256              	 .loc 1 74 0
- 257 0146 264B     	 ldr r3,.L19
- 258 0148 1A88     	 ldrh r2,[r3]
- 259 014a 254B     	 ldr r3,.L19
- 260 014c 1A80     	 strh r2,[r3]
-  75:../state_machine.c **** 		}
- 261              	 .loc 1 75 0
- 262 014e 264B     	 ldr r3,.L19+8
- 263 0150 1A88     	 ldrh r2,[r3]
- 264 0152 244B     	 ldr r3,.L19+4
- 265 0154 1A80     	 strh r2,[r3]
- 266              	.L11:
-  78:../state_machine.c **** 		{
- 267              	 .loc 1 78 0
- 268 0156 234B     	 ldr r3,.L19+4
- 269 0158 1B88     	 ldrh r3,[r3]
- 270 015a 03F01003 	 and r3,r3,#16
- 271 015e 002B     	 cmp r3,#0
- 272 0160 3CD1     	 bne .L12
-  78:../state_machine.c **** 		{
- 273              	 .loc 1 78 0 is_stmt 0 discriminator 1
- 274 0162 214B     	 ldr r3,.L19+8
- 275 0164 1B88     	 ldrh r3,[r3]
- 276 0166 03F01003 	 and r3,r3,#16
- 277 016a 002B     	 cmp r3,#0
- 278 016c 36D0     	 beq .L12
-  78:../state_machine.c **** 		{
- 279              	 .loc 1 78 0 discriminator 2
- 280 016e 1E4B     	 ldr r3,.L19+8
- 281 0170 1B88     	 ldrh r3,[r3]
- 282 0172 03F00F03 	 and r3,r3,#15
- 283 0176 022B     	 cmp r3,#2
- 284 0178 30D1     	 bne .L12
-  81:../state_machine.c **** 			{
- 285              	 .loc 1 81 0 is_stmt 1
- 286 017a 1B4B     	 ldr r3,.L19+8
- 287 017c 1B88     	 ldrh r3,[r3]
- 288 017e 03F48063 	 and r3,r3,#1024
- 289 0182 002B     	 cmp r3,#0
- 290 0184 03D0     	 beq .L13
-  84:../state_machine.c **** 			}
- 291              	 .loc 1 84 0
- 292 0186 194B     	 ldr r3,.L19+12
- 293 0188 0022     	 movs r2,#0
- 294 018a 1A70     	 strb r2,[r3]
- 295 018c 1FE0     	 b .L14
- 296              	.L13:
-  86:../state_machine.c **** 			{
- 297              	 .loc 1 86 0
- 298 018e 164B     	 ldr r3,.L19+8
- 299 0190 1B88     	 ldrh r3,[r3]
- 300 0192 03F40073 	 and r3,r3,#512
- 301 0196 002B     	 cmp r3,#0
- 302 0198 03D0     	 beq .L15
-  89:../state_machine.c **** 			}
- 303              	 .loc 1 89 0
- 304 019a 144B     	 ldr r3,.L19+12
- 305 019c 0122     	 movs r2,#1
- 306 019e 1A70     	 strb r2,[r3]
- 307 01a0 15E0     	 b .L14
- 308              	.L15:
-  91:../state_machine.c **** 			{
- 309              	 .loc 1 91 0
- 310 01a2 114B     	 ldr r3,.L19+8
- 311 01a4 1B88     	 ldrh r3,[r3]
- 312 01a6 03F48073 	 and r3,r3,#256
- 313 01aa 002B     	 cmp r3,#0
- 314 01ac 0CD0     	 beq .L16
-  94:../state_machine.c **** 				if (DRIVE_COMMAND_TEST_MSK & TUNE_TEST)
- 315              	 .loc 1 94 0
- 316 01ae 0F4B     	 ldr r3,.L19+12
- 317 01b0 0222     	 movs r2,#2
- 318 01b2 1A70     	 strb r2,[r3]
-  95:../state_machine.c **** 				{
- 319              	 .loc 1 95 0
- 320 01b4 0C4B     	 ldr r3,.L19+8
- 321 01b6 1B88     	 ldrh r3,[r3]
- 322 01b8 9BB2     	 uxth r3,r3
- 323 01ba 1BB2     	 sxth r3,r3
- 324 01bc 002B     	 cmp r3,#0
- 325 01be 06DA     	 bge .L14
-  97:../state_machine.c **** 				}
- 326              	 .loc 1 97 0
- 327 01c0 0B4B     	 ldr r3,.L19+16
- 328 01c2 0122     	 movs r2,#1
- 329 01c4 1A70     	 strb r2,[r3]
- 330 01c6 02E0     	 b .L14
- 331              	.L16:
- 103:../state_machine.c **** 			}
- 332              	 .loc 1 103 0
- 333 01c8 084B     	 ldr r3,.L19+12
- 334 01ca 0322     	 movs r2,#3
- 335 01cc 1A70     	 strb r2,[r3]
- 336              	.L14:
- 105:../state_machine.c **** 			drive_command_old = drive_command;
- 337              	 .loc 1 105 0
- 338 01ce FFF7FEFF 	 bl compute_motion
- 106:../state_machine.c **** 		}
- 339              	 .loc 1 106 0
- 340 01d2 054B     	 ldr r3,.L19+8
- 341 01d4 1A88     	 ldrh r2,[r3]
- 342 01d6 034B     	 ldr r3,.L19+4
- 343 01d8 1A80     	 strh r2,[r3]
- 109:../state_machine.c **** 	default:
- 344              	 .loc 1 109 0
- 345 01da FFE7     	 b .L18
- 346              	.L12:
- 347              	.L18:
- 348 01dc 00BF     	 nop
- 349              	.L1:
- 112:../state_machine.c **** 	}
- 113:../state_machine.c **** }
- 350              	 .loc 1 113 0
- 351 01de 80BD     	 pop {r7,pc}
- 352              	.L20:
- 353              	 .align 2
- 354              	.L19:
- 355 01e0 00000000 	 .word drive_status
- 356 01e4 00000000 	 .word drive_command_old
- 357 01e8 00000000 	 .word drive_command
- 358 01ec 00000000 	 .word ref_type_select
- 359 01f0 00000000 	 .word tune_test_control
- 360              	 .cfi_endproc
- 361              	.LFE196:
- 363              	 .section .text.drive_disabled,"ax",%progbits
- 364              	 .align 2
- 365              	 .global drive_disabled
- 366              	 .thumb
- 367              	 .thumb_func
- 369              	drive_disabled:
- 370              	.LFB197:
- 114:../state_machine.c **** /*
- 115:../state_machine.c **** 	PWM output disabled
- 116:../state_machine.c **** 	CONTROL_LOOPS | REF_GEN | MOTION = OFF
- 117:../state_machine.c **** */
- 118:../state_machine.c **** void drive_disabled(void)
- 119:../state_machine.c **** {
- 371              	 .loc 1 119 0
- 372              	 .cfi_startproc
- 373              	 
- 374              	 
- 375 0000 80B5     	 push {r7,lr}
- 376              	.LCFI2:
- 377              	 .cfi_def_cfa_offset 8
- 378              	 .cfi_offset 7,-8
- 379              	 .cfi_offset 14,-4
- 380 0002 00AF     	 add r7,sp,#0
- 381              	.LCFI3:
- 382              	 .cfi_def_cfa_register 7
- 120:../state_machine.c **** 	motion_off();
- 383              	 .loc 1 120 0
- 384 0004 FFF7FEFF 	 bl motion_off
- 121:../state_machine.c **** 	loop_control = LOOP_CONTROL_OFF;
- 385              	 .loc 1 121 0
- 386 0008 044B     	 ldr r3,.L22
- 387 000a 0022     	 movs r2,#0
- 388 000c 1A70     	 strb r2,[r3]
- 122:../state_machine.c **** 	ref_gen_status = STATUS_0_DISABLED;
- 389              	 .loc 1 122 0
- 390 000e 044B     	 ldr r3,.L22+4
- 391 0010 0022     	 movs r2,#0
- 392 0012 1A70     	 strb r2,[r3]
- 123:../state_machine.c **** 	motion_config = OFF;
- 393              	 .loc 1 123 0
- 394 0014 034B     	 ldr r3,.L22+8
- 395 0016 0022     	 movs r2,#0
- 396 0018 1A70     	 strb r2,[r3]
- 124:../state_machine.c **** 	//	tune_test_control = OFF;
- 125:../state_machine.c **** }
- 397              	 .loc 1 125 0
- 398 001a 80BD     	 pop {r7,pc}
- 399              	.L23:
- 400              	 .align 2
- 401              	.L22:
- 402 001c 00000000 	 .word loop_control
- 403 0020 00000000 	 .word ref_gen_status
- 404 0024 00000000 	 .word motion_config
- 405              	 .cfi_endproc
- 406              	.LFE197:
- 408              	 .section .text.drive_on,"ax",%progbits
- 409              	 .align 2
- 410              	 .global drive_on
- 411              	 .thumb
- 412              	 .thumb_func
- 414              	drive_on:
- 415              	.LFB198:
- 126:../state_machine.c **** /*
- 127:../state_machine.c **** 	Initilize position | PWM(50%) | PWM output enabled | Current offset computed
- 128:../state_machine.c **** 	CONTROL_LOOPS | REF_GEN | MOTION | = OFF
- 129:../state_machine.c **** */
- 130:../state_machine.c **** void drive_on(void)
- 131:../state_machine.c **** {
- 416              	 .loc 1 131 0
- 417              	 .cfi_startproc
- 418              	 
- 419              	 
- 420 0000 80B5     	 push {r7,lr}
- 421              	.LCFI4:
- 422              	 .cfi_def_cfa_offset 8
- 423              	 .cfi_offset 7,-8
- 424              	 .cfi_offset 14,-4
- 425 0002 00AF     	 add r7,sp,#0
- 426              	.LCFI5:
- 427              	 .cfi_def_cfa_register 7
- 132:../state_machine.c **** 	motion_off();
- 428              	 .loc 1 132 0
- 429 0004 FFF7FEFF 	 bl motion_off
- 133:../state_machine.c **** 	loop_control = LOOP_CONTROL_OFF;
- 430              	 .loc 1 133 0
- 431 0008 0B4B     	 ldr r3,.L25
- 432 000a 0022     	 movs r2,#0
- 433 000c 1A70     	 strb r2,[r3]
- 134:../state_machine.c **** 	ref_gen_status = STATUS_0_DISABLED;
- 434              	 .loc 1 134 0
- 435 000e 0B4B     	 ldr r3,.L25+4
- 436 0010 0022     	 movs r2,#0
- 437 0012 1A70     	 strb r2,[r3]
- 135:../state_machine.c **** 	tune_test_control = OFF; // TO DO
- 438              	 .loc 1 135 0
- 439 0014 0A4B     	 ldr r3,.L25+8
- 440 0016 0022     	 movs r2,#0
- 441 0018 1A70     	 strb r2,[r3]
- 136:../state_machine.c **** 	motion_config = OFF;
- 442              	 .loc 1 136 0
- 443 001a 0A4B     	 ldr r3,.L25+12
- 444 001c 0022     	 movs r2,#0
- 445 001e 1A70     	 strb r2,[r3]
- 137:../state_machine.c **** 
- 138:../state_machine.c **** 	init_position();
- 446              	 .loc 1 138 0
- 447 0020 FFF7FEFF 	 bl init_position
- 139:../state_machine.c **** 	pwm_update(0, 0, 0); // PWM(50%)
- 448              	 .loc 1 139 0
- 449 0024 0020     	 movs r0,#0
- 450 0026 0021     	 movs r1,#0
- 451 0028 0022     	 movs r2,#0
- 452 002a FFF7FEFF 	 bl pwm_update
- 140:../state_machine.c **** 	motion_on();
+ 309              	 .loc 1 92 0
+ 310 01b0 184B     	 ldr r3,.L19+8
+ 311 01b2 1B88     	 ldrh r3,[r3]
+ 312 01b4 03F40073 	 and r3,r3,#512
+ 313 01b8 002B     	 cmp r3,#0
+ 314 01ba 03D0     	 beq .L15
+  95:../state_machine.c **** 			}
+ 315              	 .loc 1 95 0
+ 316 01bc 174B     	 ldr r3,.L19+16
+ 317 01be 0122     	 movs r2,#1
+ 318 01c0 1A70     	 strb r2,[r3]
+ 319 01c2 19E0     	 b .L14
+ 320              	.L15:
+  97:../state_machine.c **** 			{
+ 321              	 .loc 1 97 0
+ 322 01c4 134B     	 ldr r3,.L19+8
+ 323 01c6 1B88     	 ldrh r3,[r3]
+ 324 01c8 03F48073 	 and r3,r3,#256
+ 325 01cc 002B     	 cmp r3,#0
+ 326 01ce 10D0     	 beq .L16
+ 100:../state_machine.c **** 				if (DRIVE_COMMAND_TEST_MSK & TUNE_TEST)
+ 327              	 .loc 1 100 0
+ 328 01d0 124B     	 ldr r3,.L19+16
+ 329 01d2 0222     	 movs r2,#2
+ 330 01d4 1A70     	 strb r2,[r3]
+ 101:../state_machine.c **** 				{
+ 331              	 .loc 1 101 0
+ 332 01d6 0F4B     	 ldr r3,.L19+8
+ 333 01d8 1B88     	 ldrh r3,[r3]
+ 334 01da 9BB2     	 uxth r3,r3
+ 335 01dc 1BB2     	 sxth r3,r3
+ 336 01de 002B     	 cmp r3,#0
+ 337 01e0 0ADA     	 bge .L14
+ 103:../state_machine.c **** 				}
+ 338              	 .loc 1 103 0
+ 339 01e2 0D4B     	 ldr r3,.L19+12
+ 340 01e4 1B78     	 ldrb r3,[r3]
+ 341 01e6 63F07F03 	 orn r3,r3,#127
+ 342 01ea DAB2     	 uxtb r2,r3
+ 343 01ec 0A4B     	 ldr r3,.L19+12
+ 344 01ee 1A70     	 strb r2,[r3]
+ 345 01f0 02E0     	 b .L14
+ 346              	.L16:
+ 109:../state_machine.c **** 			}
+ 347              	 .loc 1 109 0
+ 348 01f2 0A4B     	 ldr r3,.L19+16
+ 349 01f4 0322     	 movs r2,#3
+ 350 01f6 1A70     	 strb r2,[r3]
+ 351              	.L14:
+ 111:../state_machine.c **** 			drive_command_old = drive_command;
+ 352              	 .loc 1 111 0
+ 353 01f8 FFF7FEFF 	 bl compute_motion
+ 112:../state_machine.c **** 		}
+ 354              	 .loc 1 112 0
+ 355 01fc 054B     	 ldr r3,.L19+8
+ 356 01fe 1A88     	 ldrh r2,[r3]
+ 357 0200 034B     	 ldr r3,.L19+4
+ 358 0202 1A80     	 strh r2,[r3]
+ 115:../state_machine.c **** 	default:
+ 359              	 .loc 1 115 0
+ 360 0204 FFE7     	 b .L18
+ 361              	.L12:
+ 362              	.L18:
+ 363 0206 00BF     	 nop
+ 364              	.L1:
+ 118:../state_machine.c **** 	}
+ 119:../state_machine.c **** }
+ 365              	 .loc 1 119 0
+ 366 0208 80BD     	 pop {r7,pc}
+ 367              	.L20:
+ 368 020a 00BF     	 .align 2
+ 369              	.L19:
+ 370 020c 00000000 	 .word drive_status
+ 371 0210 00000000 	 .word drive_command_old
+ 372 0214 00000000 	 .word drive_command
+ 373 0218 00000000 	 .word loop_control
+ 374 021c 00000000 	 .word ref_type_select
+ 375              	 .cfi_endproc
+ 376              	.LFE196:
+ 378              	 .section .text.drive_disabled,"ax",%progbits
+ 379              	 .align 2
+ 380              	 .global drive_disabled
+ 381              	 .thumb
+ 382              	 .thumb_func
+ 384              	drive_disabled:
+ 385              	.LFB197:
+ 120:../state_machine.c **** /*
+ 121:../state_machine.c **** 	PWM output disabled
+ 122:../state_machine.c **** 	CONTROL_LOOPS | REF_GEN | MOTION = OFF
+ 123:../state_machine.c **** */
+ 124:../state_machine.c **** void drive_disabled(void)
+ 125:../state_machine.c **** {
+ 386              	 .loc 1 125 0
+ 387              	 .cfi_startproc
+ 388              	 
+ 389              	 
+ 390 0000 80B5     	 push {r7,lr}
+ 391              	.LCFI2:
+ 392              	 .cfi_def_cfa_offset 8
+ 393              	 .cfi_offset 7,-8
+ 394              	 .cfi_offset 14,-4
+ 395 0002 00AF     	 add r7,sp,#0
+ 396              	.LCFI3:
+ 397              	 .cfi_def_cfa_register 7
+ 126:../state_machine.c **** 	motion_off();
+ 398              	 .loc 1 126 0
+ 399 0004 FFF7FEFF 	 bl motion_off
+ 127:../state_machine.c **** 	loop_control = LOOP_CONTROL_OFF;
+ 400              	 .loc 1 127 0
+ 401 0008 044B     	 ldr r3,.L22
+ 402 000a 0022     	 movs r2,#0
+ 403 000c 1A70     	 strb r2,[r3]
+ 128:../state_machine.c **** 	ref_gen_status = STATUS_0_DISABLED;
+ 404              	 .loc 1 128 0
+ 405 000e 044B     	 ldr r3,.L22+4
+ 406 0010 0022     	 movs r2,#0
+ 407 0012 1A70     	 strb r2,[r3]
+ 129:../state_machine.c **** 	motion_config = OFF;
+ 408              	 .loc 1 129 0
+ 409 0014 034B     	 ldr r3,.L22+8
+ 410 0016 0022     	 movs r2,#0
+ 411 0018 1A70     	 strb r2,[r3]
+ 130:../state_machine.c **** }
+ 412              	 .loc 1 130 0
+ 413 001a 80BD     	 pop {r7,pc}
+ 414              	.L23:
+ 415              	 .align 2
+ 416              	.L22:
+ 417 001c 00000000 	 .word loop_control
+ 418 0020 00000000 	 .word ref_gen_status
+ 419 0024 00000000 	 .word motion_config
+ 420              	 .cfi_endproc
+ 421              	.LFE197:
+ 423              	 .section .text.drive_on,"ax",%progbits
+ 424              	 .align 2
+ 425              	 .global drive_on
+ 426              	 .thumb
+ 427              	 .thumb_func
+ 429              	drive_on:
+ 430              	.LFB198:
+ 131:../state_machine.c **** /*
+ 132:../state_machine.c **** 	Initilize position | PWM(50%) | PWM output enabled | Current offset computed
+ 133:../state_machine.c **** 	CONTROL_LOOPS | REF_GEN | MOTION | = OFF
+ 134:../state_machine.c **** */
+ 135:../state_machine.c **** void drive_on(void)
+ 136:../state_machine.c **** {
+ 431              	 .loc 1 136 0
+ 432              	 .cfi_startproc
+ 433              	 
+ 434              	 
+ 435 0000 80B5     	 push {r7,lr}
+ 436              	.LCFI4:
+ 437              	 .cfi_def_cfa_offset 8
+ 438              	 .cfi_offset 7,-8
+ 439              	 .cfi_offset 14,-4
+ 440 0002 00AF     	 add r7,sp,#0
+ 441              	.LCFI5:
+ 442              	 .cfi_def_cfa_register 7
+ 137:../state_machine.c **** 	motion_off();
+ 443              	 .loc 1 137 0
+ 444 0004 FFF7FEFF 	 bl motion_off
+ 138:../state_machine.c **** 	loop_control = LOOP_CONTROL_OFF;
+ 445              	 .loc 1 138 0
+ 446 0008 0A4B     	 ldr r3,.L25
+ 447 000a 0022     	 movs r2,#0
+ 448 000c 1A70     	 strb r2,[r3]
+ 139:../state_machine.c **** 	ref_gen_status = STATUS_0_DISABLED;
+ 449              	 .loc 1 139 0
+ 450 000e 0A4B     	 ldr r3,.L25+4
+ 451 0010 0022     	 movs r2,#0
+ 452 0012 1A70     	 strb r2,[r3]
+ 140:../state_machine.c **** 	motion_config = OFF;
  453              	 .loc 1 140 0
- 454 002e FFF7FEFF 	 bl motion_on
- 141:../state_machine.c **** 	current_offset();
- 455              	 .loc 1 141 0
- 456 0032 FFF7FEFF 	 bl current_offset
- 142:../state_machine.c **** 
- 143:../state_machine.c **** }
- 457              	 .loc 1 143 0
- 458 0036 80BD     	 pop {r7,pc}
- 459              	.L26:
- 460              	 .align 2
- 461              	.L25:
- 462 0038 00000000 	 .word loop_control
- 463 003c 00000000 	 .word ref_gen_status
- 464 0040 00000000 	 .word tune_test_control
- 465 0044 00000000 	 .word motion_config
- 466              	 .cfi_endproc
- 467              	.LFE198:
- 469              	 .section .text.operation_enabled,"ax",%progbits
- 470              	 .align 2
- 471              	 .global operation_enabled
- 472              	 .thumb
- 473              	 .thumb_func
- 475              	operation_enabled:
- 476              	.LFB199:
- 144:../state_machine.c **** 
- 145:../state_machine.c **** /*
- 146:../state_machine.c **** 	CONTROL_LOOPS = ON
- 147:../state_machine.c **** 	Wait for motion commands to start movement computation
- 148:../state_machine.c **** */
- 149:../state_machine.c **** void operation_enabled(void)
- 150:../state_machine.c **** {
- 477              	 .loc 1 150 0
- 478              	 .cfi_startproc
- 479              	 
- 480              	 
- 481              	 
- 482 0000 80B4     	 push {r7}
- 483              	.LCFI6:
- 484              	 .cfi_def_cfa_offset 4
- 485              	 .cfi_offset 7,-4
- 486 0002 00AF     	 add r7,sp,#0
- 487              	.LCFI7:
- 488              	 .cfi_def_cfa_register 7
- 151:../state_machine.c **** 	loop_control = LOOP_CONTROL_ON; // control_loop_on
- 489              	 .loc 1 151 0
- 490 0004 034B     	 ldr r3,.L28
- 491 0006 0122     	 movs r2,#1
- 492 0008 1A70     	 strb r2,[r3]
- 152:../state_machine.c **** 	// ref_gen_status = STATUS_0_DISABLED;
- 153:../state_machine.c **** }
- 493              	 .loc 1 153 0
- 494 000a BD46     	 mov sp,r7
- 495              	.LCFI8:
- 496              	 .cfi_def_cfa_register 13
- 497              	 
- 498 000c 5DF8047B 	 ldr r7,[sp],#4
- 499              	.LCFI9:
- 500              	 .cfi_restore 7
- 501              	 .cfi_def_cfa_offset 0
- 502 0010 7047     	 bx lr
- 503              	.L29:
- 504 0012 00BF     	 .align 2
- 505              	.L28:
- 506 0014 00000000 	 .word loop_control
- 507              	 .cfi_endproc
- 508              	.LFE199:
- 510              	 .section .text.compute_motion,"ax",%progbits
- 511              	 .align 2
- 512              	 .global compute_motion
- 513              	 .thumb
- 514              	 .thumb_func
- 516              	compute_motion:
- 517              	.LFB200:
- 154:../state_machine.c **** 
- 155:../state_machine.c **** /*
- 156:../state_machine.c **** 	During OPERATION_ENABLE start computation function
- 157:../state_machine.c **** */
- 158:../state_machine.c **** void compute_motion(void)
- 159:../state_machine.c **** {
- 518              	 .loc 1 159 0
- 519              	 .cfi_startproc
- 520              	 
- 521              	 
- 522 0000 80B5     	 push {r7,lr}
- 523              	.LCFI10:
- 524              	 .cfi_def_cfa_offset 8
- 525              	 .cfi_offset 7,-8
- 526              	 .cfi_offset 14,-4
- 527 0002 00AF     	 add r7,sp,#0
- 528              	.LCFI11:
- 529              	 .cfi_def_cfa_register 7
- 160:../state_machine.c **** 	reference_generator_compute();
- 530              	 .loc 1 160 0
- 531 0004 FFF7FEFF 	 bl reference_generator_compute
- 161:../state_machine.c **** 	motion_config = ON;
- 532              	 .loc 1 161 0
- 533 0008 014B     	 ldr r3,.L31
- 534 000a 0122     	 movs r2,#1
- 535 000c 1A70     	 strb r2,[r3]
- 162:../state_machine.c **** }
- 536              	 .loc 1 162 0
- 537 000e 80BD     	 pop {r7,pc}
- 538              	.L32:
- 539              	 .align 2
- 540              	.L31:
- 541 0010 00000000 	 .word motion_config
- 542              	 .cfi_endproc
- 543              	.LFE200:
- 545              	 .text
- 546              	.Letext0:
- 547              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 548              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 549              	 .file 4 "../reference_generator.h"
- 550              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 551              	 .file 6 "../main.h"
+ 454 0014 094B     	 ldr r3,.L25+8
+ 455 0016 0022     	 movs r2,#0
+ 456 0018 1A70     	 strb r2,[r3]
+ 141:../state_machine.c **** 
+ 142:../state_machine.c **** 	pwm_update(0, 0, 0); // PWM(50%)
+ 457              	 .loc 1 142 0
+ 458 001a 0020     	 movs r0,#0
+ 459 001c 0021     	 movs r1,#0
+ 460 001e 0022     	 movs r2,#0
+ 461 0020 FFF7FEFF 	 bl pwm_update
+ 143:../state_machine.c **** 	motion_on();
+ 462              	 .loc 1 143 0
+ 463 0024 FFF7FEFF 	 bl motion_on
+ 144:../state_machine.c **** 	current_offset();
+ 464              	 .loc 1 144 0
+ 465 0028 FFF7FEFF 	 bl current_offset
+ 145:../state_machine.c **** 	init_position();		//NEED TO CHECK if it still works !!!!
+ 466              	 .loc 1 145 0
+ 467 002c FFF7FEFF 	 bl init_position
+ 146:../state_machine.c **** }
+ 468              	 .loc 1 146 0
+ 469 0030 80BD     	 pop {r7,pc}
+ 470              	.L26:
+ 471 0032 00BF     	 .align 2
+ 472              	.L25:
+ 473 0034 00000000 	 .word loop_control
+ 474 0038 00000000 	 .word ref_gen_status
+ 475 003c 00000000 	 .word motion_config
+ 476              	 .cfi_endproc
+ 477              	.LFE198:
+ 479              	 .section .text.operation_enabled,"ax",%progbits
+ 480              	 .align 2
+ 481              	 .global operation_enabled
+ 482              	 .thumb
+ 483              	 .thumb_func
+ 485              	operation_enabled:
+ 486              	.LFB199:
+ 147:../state_machine.c **** 
+ 148:../state_machine.c **** /*
+ 149:../state_machine.c **** 	CONTROL_LOOPS = OFF
+ 150:../state_machine.c **** 	Wait for motion commands to start movement computation
+ 151:../state_machine.c **** */
+ 152:../state_machine.c **** void operation_enabled(void)
+ 153:../state_machine.c **** {
+ 487              	 .loc 1 153 0
+ 488              	 .cfi_startproc
+ 489              	 
+ 490              	 
+ 491              	 
+ 492 0000 80B4     	 push {r7}
+ 493              	.LCFI6:
+ 494              	 .cfi_def_cfa_offset 4
+ 495              	 .cfi_offset 7,-4
+ 496 0002 00AF     	 add r7,sp,#0
+ 497              	.LCFI7:
+ 498              	 .cfi_def_cfa_register 7
+ 154:../state_machine.c **** 	loop_control = LOOP_CONTROL_OFF;
+ 499              	 .loc 1 154 0
+ 500 0004 034B     	 ldr r3,.L28
+ 501 0006 0022     	 movs r2,#0
+ 502 0008 1A70     	 strb r2,[r3]
+ 155:../state_machine.c **** }
+ 503              	 .loc 1 155 0
+ 504 000a BD46     	 mov sp,r7
+ 505              	.LCFI8:
+ 506              	 .cfi_def_cfa_register 13
+ 507              	 
+ 508 000c 5DF8047B 	 ldr r7,[sp],#4
+ 509              	.LCFI9:
+ 510              	 .cfi_restore 7
+ 511              	 .cfi_def_cfa_offset 0
+ 512 0010 7047     	 bx lr
+ 513              	.L29:
+ 514 0012 00BF     	 .align 2
+ 515              	.L28:
+ 516 0014 00000000 	 .word loop_control
+ 517              	 .cfi_endproc
+ 518              	.LFE199:
+ 520              	 .section .text.compute_motion,"ax",%progbits
+ 521              	 .align 2
+ 522              	 .global compute_motion
+ 523              	 .thumb
+ 524              	 .thumb_func
+ 526              	compute_motion:
+ 527              	.LFB200:
+ 156:../state_machine.c **** 
+ 157:../state_machine.c **** /*
+ 158:../state_machine.c **** 	During OPERATION_ENABLE start computation function
+ 159:../state_machine.c **** */
+ 160:../state_machine.c **** void compute_motion(void)
+ 161:../state_machine.c **** {
+ 528              	 .loc 1 161 0
+ 529              	 .cfi_startproc
+ 530              	 
+ 531              	 
+ 532 0000 80B5     	 push {r7,lr}
+ 533              	.LCFI10:
+ 534              	 .cfi_def_cfa_offset 8
+ 535              	 .cfi_offset 7,-8
+ 536              	 .cfi_offset 14,-4
+ 537 0002 00AF     	 add r7,sp,#0
+ 538              	.LCFI11:
+ 539              	 .cfi_def_cfa_register 7
+ 162:../state_machine.c **** 	reference_generator_compute();
+ 540              	 .loc 1 162 0
+ 541 0004 FFF7FEFF 	 bl reference_generator_compute
+ 163:../state_machine.c **** 	motion_config = ON;
+ 542              	 .loc 1 163 0
+ 543 0008 014B     	 ldr r3,.L31
+ 544 000a 0122     	 movs r2,#1
+ 545 000c 1A70     	 strb r2,[r3]
+ 164:../state_machine.c **** }
+ 546              	 .loc 1 164 0
+ 547 000e 80BD     	 pop {r7,pc}
+ 548              	.L32:
+ 549              	 .align 2
+ 550              	.L31:
+ 551 0010 00000000 	 .word motion_config
+ 552              	 .cfi_endproc
+ 553              	.LFE200:
+ 555              	 .text
+ 556              	.Letext0:
+ 557              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 558              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 559              	 .file 4 "../reference_generator.h"
+ 560              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 561              	 .file 6 "../main.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 state_machine.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
@@ -747,33 +763,31 @@ DEFINED SYMBOLS
     {standard input}:36     .bss.drive_command_old:00000000 $d
     {standard input}:45     .bss.loop_control:00000000 loop_control
     {standard input}:46     .bss.loop_control:00000000 $d
-    {standard input}:51     .bss.tune_test_control:00000000 tune_test_control
-    {standard input}:52     .bss.tune_test_control:00000000 $d
-    {standard input}:57     .bss.motion_config:00000000 motion_config
-    {standard input}:58     .bss.motion_config:00000000 $d
-    {standard input}:60     .text.state_machine:00000000 $t
-    {standard input}:65     .text.state_machine:00000000 state_machine
-    {standard input}:414    .text.drive_on:00000000 drive_on
-    {standard input}:475    .text.operation_enabled:00000000 operation_enabled
-    {standard input}:369    .text.drive_disabled:00000000 drive_disabled
-    {standard input}:516    .text.compute_motion:00000000 compute_motion
-    {standard input}:355    .text.state_machine:000001e0 $d
-    {standard input}:364    .text.drive_disabled:00000000 $t
-    {standard input}:402    .text.drive_disabled:0000001c $d
-    {standard input}:409    .text.drive_on:00000000 $t
-    {standard input}:462    .text.drive_on:00000038 $d
-    {standard input}:470    .text.operation_enabled:00000000 $t
-    {standard input}:506    .text.operation_enabled:00000014 $d
-    {standard input}:511    .text.compute_motion:00000000 $t
-    {standard input}:541    .text.compute_motion:00000010 $d
+    {standard input}:51     .bss.motion_config:00000000 motion_config
+    {standard input}:52     .bss.motion_config:00000000 $d
+    {standard input}:54     .text.state_machine:00000000 $t
+    {standard input}:59     .text.state_machine:00000000 state_machine
+    {standard input}:429    .text.drive_on:00000000 drive_on
+    {standard input}:485    .text.operation_enabled:00000000 operation_enabled
+    {standard input}:384    .text.drive_disabled:00000000 drive_disabled
+    {standard input}:526    .text.compute_motion:00000000 compute_motion
+    {standard input}:370    .text.state_machine:0000020c $d
+    {standard input}:379    .text.drive_disabled:00000000 $t
+    {standard input}:417    .text.drive_disabled:0000001c $d
+    {standard input}:424    .text.drive_on:00000000 $t
+    {standard input}:473    .text.drive_on:00000034 $d
+    {standard input}:480    .text.operation_enabled:00000000 $t
+    {standard input}:516    .text.operation_enabled:00000014 $d
+    {standard input}:521    .text.compute_motion:00000000 $t
+    {standard input}:551    .text.compute_motion:00000010 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
 ref_type_select
 motion_off
 ref_gen_status
-init_position
 pwm_update
 motion_on
 current_offset
+init_position
 reference_generator_compute

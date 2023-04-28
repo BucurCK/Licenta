@@ -253,14 +253,15 @@
   90 001e FFF7FEFF 	 bl pi_init
   91              	.L3:
   36:../main.c     **** 
-  37:../main.c     **** 	while (1U)
-  38:../main.c     **** 	{
-  39:../main.c     **** 		/* Infinite loop */
-  40:../main.c     **** 		infinite_loop();
-  92              	 .loc 1 40 0 discriminator 1
+  37:../main.c     **** 
+  38:../main.c     **** 	while (1U)
+  39:../main.c     **** 	{
+  40:../main.c     **** 		/* Infinite loop */
+  41:../main.c     **** 		infinite_loop();
+  92              	 .loc 1 41 0 discriminator 1
   93 0022 FFF7FEFF 	 bl infinite_loop
-  41:../main.c     **** 	}
-  94              	 .loc 1 41 0 discriminator 1
+  42:../main.c     **** 	}
+  94              	 .loc 1 42 0 discriminator 1
   95 0026 FCE7     	 b .L3
   96              	 .cfi_endproc
   97              	.LFE362:

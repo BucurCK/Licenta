@@ -5,6 +5,9 @@
 int16_t pwm_value = 3600; // PWM max Value
 int16_t sat_pwm = 30000;  // Saturation Value for PWM
 
+/*
+	Initialize PWM unit
+*/
 void pwm_init(void)
 {
 	///*
@@ -140,14 +143,14 @@ void pwm_timer_stop(void)
 	SCU_GENERAL->CCUCON &= ~SCU_GENERAL_CCUCON_GSC80_MSK;
 }
 /*
- * Functions that updates the compare values in the PWM
+ * Update compare values for PWM
  * Input type: int16_t
  */
 void pwm_update(int16_t uaref, int16_t ubref, int16_t ucref)
 {
 	/*
-	 * Keeps the voltage values between a range of max/min saturation
-	 * We don't want the resulted PWM to be 0 or MAX
+	 * Keeps the voltage values between max/min saturation
+	 * Resulted PWM shouldn't be 0 or MAX
 	 */
 	if (uaref > sat_pwm)
 	{
@@ -184,7 +187,9 @@ void pwm_update(int16_t uaref, int16_t ubref, int16_t ucref)
 	// Shadow transfer enabled for new compare value
 	CCU80->GCSS |= (CCU8_GCSS_S0SE_MSK | CCU8_GCSS_S1SE_MSK | CCU8_GCSS_S2SE_MSK);
 }
-
+/*
+	Enable all PWM pins
+*/
 void motion_on(void)
 {
 	/*
@@ -200,6 +205,9 @@ void motion_on(void)
 	PORT2->IOCR12 |= (GPIO_OUTPUT_ALTER_3 << PORT2_PC14_POS); // C_LOW 	- P2.14	- OUT21
 }
 
+/*
+	Disable all PWM pins
+*/
 void motion_off(void)
 {
 	/*

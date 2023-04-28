@@ -63,10 +63,10 @@
   11:../current_protection.c **** #include "driver_pwm.h"
   12:../current_protection.c **** #include <math.h>
   13:../current_protection.c **** 
-  14:../current_protection.c **** float_t i_prot = 3 * 820.;						// Ampers converted into 16bit scale | 32768/40 ~= 820
-  15:../current_protection.c **** float_t k = 0.4;									// Percentage of filtered signal
+  14:../current_protection.c **** float_t i_prot = 3 * 820.;						  // Ampers converted into 16bit scale | 32768/40 ~= 820
+  15:../current_protection.c **** float_t k = 0.4;								  // Percentage of filtered signal
   16:../current_protection.c **** float_t filter_output = 0, filter_output_old = 0; // Output of filtered signal | Last output of fil
-  17:../current_protection.c **** uint32_t counter_timer_prot = 0;				// Timer increment in 100us -- if functione called in fast_loop
+  17:../current_protection.c **** uint32_t counter_timer_prot = 0;				  // Timer increment in 100us -- if functione called in fast_lo
   18:../current_protection.c **** 
   19:../current_protection.c **** /*
   20:../current_protection.c ****  *	y = k*(x - y_last) + y_last
@@ -157,9 +157,8 @@
  137 0002 00AF     	 add r7,sp,#0
  138              	.LCFI7:
  139              	 .cfi_def_cfa_register 7
-  34:../current_protection.c **** 
-  35:../current_protection.c **** 	current_filter(i_alpha * i_alpha + i_beta * i_beta);
- 140              	 .loc 1 35 0
+  34:../current_protection.c **** 	current_filter((i_alpha * i_alpha) + (i_beta * i_beta));
+ 140              	 .loc 1 34 0
  141 0004 264B     	 ldr r3,.L11
  142 0006 93ED007A 	 flds s14,[r3]
  143 000a 254B     	 ldr r3,.L11
@@ -173,8 +172,8 @@
  151 0024 77EE277A 	 fadds s15,s14,s15
  152 0028 17EE900A 	 fmrs r0,s15
  153 002c FFF7FEFF 	 bl current_filter
-  36:../current_protection.c **** 	if (filter_output > i_prot * i_prot)
- 154              	 .loc 1 36 0
+  35:../current_protection.c **** 	if (filter_output > (i_prot * i_prot))
+ 154              	 .loc 1 35 0
  155 0030 1D4B     	 ldr r3,.L11+8
  156 0032 93ED007A 	 flds s14,[r3]
  157 0036 1C4B     	 ldr r3,.L11+8
@@ -185,28 +184,27 @@
  162 0046 B4EEE77A 	 fcmpes s14,s15
  163 004a F1EE10FA 	 fmstat
  164 004e 22D5     	 bpl .L10
-  37:../current_protection.c **** 	{
-  38:../current_protection.c **** 		counter_timer_prot++;
- 165              	 .loc 1 38 0
+  36:../current_protection.c **** 	{
+  37:../current_protection.c **** 		counter_timer_prot++;
+ 165              	 .loc 1 37 0
  166 0050 174B     	 ldr r3,.L11+16
  167 0052 1B68     	 ldr r3,[r3]
  168 0054 0133     	 adds r3,r3,#1
  169 0056 164A     	 ldr r2,.L11+16
  170 0058 1360     	 str r3,[r2]
-  39:../current_protection.c **** 
-  40:../current_protection.c **** 		if (counter_timer_prot > TIME_TRIGGER_FAIL)
- 171              	 .loc 1 40 0
+  38:../current_protection.c **** 
+  39:../current_protection.c **** 		if (counter_timer_prot > TIME_TRIGGER_FAIL)
+ 171              	 .loc 1 39 0
  172 005a 154B     	 ldr r3,.L11+16
  173 005c 1B68     	 ldr r3,[r3]
  174 005e B3F57A7F 	 cmp r3,#1000
  175 0062 1BD9     	 bls .L4
-  41:../current_protection.c **** 		{
-  42:../current_protection.c **** 
-  43:../current_protection.c **** 			drive_disabled();
- 176              	 .loc 1 43 0
+  40:../current_protection.c **** 		{
+  41:../current_protection.c **** 			drive_disabled();
+ 176              	 .loc 1 41 0
  177 0064 FFF7FEFF 	 bl drive_disabled
-  44:../current_protection.c **** 			drive_status |= DRIVE_STATUS_PROT_MSK; // set current_prot_flag
- 178              	 .loc 1 44 0
+  42:../current_protection.c **** 			drive_status |= DRIVE_STATUS_PROT_MSK; // set current_prot_flag
+ 178              	 .loc 1 42 0
  179 0068 124B     	 ldr r3,.L11+20
  180 006a 1B88     	 ldrh r3,[r3]
  181 006c 6FEA4343 	 mvn r3,r3,lsl#17
@@ -214,39 +212,39 @@
  183 0074 9AB2     	 uxth r2,r3
  184 0076 0F4B     	 ldr r3,.L11+20
  185 0078 1A80     	 strh r2,[r3]
-  45:../current_protection.c **** 			drive_status &= CLEAR_DRIVE_STATUS;	   // set STATUS bits to 0 -> go to state 0
- 186              	 .loc 1 45 0
+  43:../current_protection.c **** 			drive_status &= CLEAR_DRIVE_STATUS;	   // set STATUS bits to 0 -> go to state 0
+ 186              	 .loc 1 43 0
  187 007a 0E4B     	 ldr r3,.L11+20
  188 007c 1B88     	 ldrh r3,[r3]
  189 007e 23F00F03 	 bic r3,r3,#15
  190 0082 9AB2     	 uxth r2,r3
  191 0084 0B4B     	 ldr r3,.L11+20
  192 0086 1A80     	 strh r2,[r3]
-  46:../current_protection.c **** 			counter_timer_prot = 0;
- 193              	 .loc 1 46 0
+  44:../current_protection.c **** 			counter_timer_prot = 0;
+ 193              	 .loc 1 44 0
  194 0088 094B     	 ldr r3,.L11+16
  195 008a 0022     	 movs r2,#0
  196 008c 1A60     	 str r2,[r3]
-  47:../current_protection.c **** 			drive_command_old = 0; // reset old status of drive_command
- 197              	 .loc 1 47 0
+  45:../current_protection.c **** 			drive_command_old = 0; // reset old status of drive_command
+ 197              	 .loc 1 45 0
  198 008e 0A4B     	 ldr r3,.L11+24
  199 0090 0022     	 movs r2,#0
  200 0092 1A80     	 strh r2,[r3]
  201 0094 02E0     	 b .L4
  202              	.L10:
-  48:../current_protection.c **** 		}
-  49:../current_protection.c **** 	}
-  50:../current_protection.c **** 	else
-  51:../current_protection.c **** 	{
-  52:../current_protection.c **** 		counter_timer_prot = 0;
- 203              	 .loc 1 52 0
+  46:../current_protection.c **** 		}
+  47:../current_protection.c **** 	}
+  48:../current_protection.c **** 	else
+  49:../current_protection.c **** 	{
+  50:../current_protection.c **** 		counter_timer_prot = 0;
+ 203              	 .loc 1 50 0
  204 0096 064B     	 ldr r3,.L11+16
  205 0098 0022     	 movs r2,#0
  206 009a 1A60     	 str r2,[r3]
  207              	.L4:
-  53:../current_protection.c **** 	}
-  54:../current_protection.c **** }
- 208              	 .loc 1 54 0
+  51:../current_protection.c **** 	}
+  52:../current_protection.c **** }
+ 208              	 .loc 1 52 0
  209 009c 80BD     	 pop {r7,pc}
  210              	.L12:
  211 009e 00BF     	 .align 2

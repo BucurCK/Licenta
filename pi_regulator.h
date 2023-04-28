@@ -1,7 +1,5 @@
-
-
-/*you header file can have declarations here*/
-
+#ifndef PI_REGULATOR_H_
+#define PI_REGULATOR_H_
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -9,7 +7,7 @@
 #include "driver_pwm.h"
 #include "motor_data_update.h"
 #include "main.h"
-#include <math.h> //TODO
+#include <math.h>
 
 #define LOOP_I_ENABLE			(drive_command_old & 0x100U)
 #define LOOP_SPD_ENABLE			(drive_command_old & 0x200U)
@@ -40,4 +38,6 @@ extern void pi_regulator_i_q(void);
 extern void pi_regulator_speed(void);
 extern void pid_regulator_pos(void);
 extern void pi_init(void);
+
+#endif /* PI_REGULATOR_H_ */
 

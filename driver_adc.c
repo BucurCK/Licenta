@@ -16,16 +16,17 @@
 #include "reference_generator.h"
 #include "current_protection.h"
 
-int u_mot_dig, u_log_dig;				 // saves the 12bit value read from VADC
-float_t u_mot, u_log;						 // The 12bit value converted into Volts
+int32_t u_mot_dig, u_log_dig;			 // saves the 12bit value read from VADC
+float_t u_mot, u_log;					 // The 12bit value converted into Volts
 int32_t offset_ia, offset_ib, offset_ic; // Current offsets for every phase
 int16_t ia, ib, ic;						 // Currents read from ADC in 16bit
 float_t ia_a, ib_a, ic_a, iq_a;			 // Float values for Micrium
+uint8_t prot_status = ON;				 // Status of Current protection -- OFF for offset computation
 // int32_t ia_32, ib_32, ic_32;							// Int32 values for Micrium(int16 is prone to error for osciloscope)
 
 /*
- * Main VADC interrupts
- */
+	Initialize VADC unit
+*/
 void adc_init(void)
 {
 	/*Pin setup - P14.0 P14.3 P14.4*/
@@ -276,6 +277,11 @@ void interrupt_vadc_init(void)
 	SCU_GENERAL->CCUCON &= ~SCU_GENERAL_CCUCON_GSC80_Msk;
 }
 
+/*
+	Read currents from VADC
+	abc RES[1] | u_mot u_log RES[14]
+	'a' is too noisy => computed form 'bc'
+*/
 void read_currents(void)
 {
 	ia = (VADC_G0->RES[1] & 0xFFFF) * 16 - offset_ia; // 16 bit value -- INVERTED
@@ -291,10 +297,11 @@ void read_currents(void)
 	// ic_32 = ic;
 }
 /**
- * Compute the current offset for every phase
+ * Compute current offset for every phase
  */
 void current_offset(void)
 {
+	prot_status = OFF; //Turn Current protection OFF
 	offset_ia = 0;
 	offset_ib = 0;
 	offset_ic = 0;
@@ -310,11 +317,12 @@ void current_offset(void)
 	offset_ia = offset_ia / 16;
 	offset_ib = offset_ib / 16;
 	offset_ic = offset_ic / 16;
+	prot_status = ON; //Turn Current protection ON
 }
 
 /*
- * Just for Micrium read
- * Compute the 12bit value of u_mot into volts
+ * For Micrium display
+ * Compute 12bit value of u_mot into volts
  * u_mot_max = 100V
  */
 void compute_u_mot(void)
@@ -323,7 +331,7 @@ void compute_u_mot(void)
 }
 
 /*
- * Just for Micrium read
+ * For Micrium display
  * Compute the 12bit value of u_log into volts
  * u_log_max = 50V
  */
@@ -333,7 +341,7 @@ void compute_u_log(void)
 }
 
 /*
- * Just for Micrium read
+ * For Micrium read
  * I_pos = 40A | I_neg = -40A
  */
 void compute_currents(void)

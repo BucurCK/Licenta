@@ -2027,33 +2027,21 @@
  217              	ERU0_0_IRQHandler:
  218              	.LFB196:
  219              	 .file 2 "../Encoder.c"
-   1:../Encoder.c  **** /*
-   2:../Encoder.c  ****  * driver_pwm.c
-   3:../Encoder.c  ****  *
-   4:../Encoder.c  ****  *  Created on: Jul 23, 2019
-   5:../Encoder.c  ****  *      Author: student
-   6:../Encoder.c  ****  */
-   7:../Encoder.c  **** #include <stdint.h>
-   8:../Encoder.c  **** #include <stdbool.h>
-   9:../Encoder.c  **** #include <xmc_common.h>
-  10:../Encoder.c  **** #include "driver_pwm.h"
-  11:../Encoder.c  **** #include "main.h"
-  12:../Encoder.c  **** #include "motor_data_update.h"
-  13:../Encoder.c  **** #include "Encoder.h"
-  14:../Encoder.c  **** #include "math.h"
-  15:../Encoder.c  **** #include "stdlib.h"
-  16:../Encoder.c  **** #include "transform.h"
-  17:../Encoder.c  **** #include "io.h"
-  18:../Encoder.c  **** 
-  19:../Encoder.c  **** /*
-  20:../Encoder.c  ****  * Initialize CCU40 and POSIF0
-  21:../Encoder.c  ****  */
-  22:../Encoder.c  **** // int16_t timer_value_old = 0;
-  23:../Encoder.c  **** 
-  24:../Encoder.c  **** /*Interrupt function for Eru0 used with ENCZ component of encoder*/
-  25:../Encoder.c  **** void ERU0_0_IRQHandler(void)
-  26:../Encoder.c  **** {
- 220              	 .loc 2 26 0
+   1:../Encoder.c  **** #include <stdint.h>
+   2:../Encoder.c  **** #include <stdbool.h>
+   3:../Encoder.c  **** #include <xmc_common.h>
+   4:../Encoder.c  **** #include "driver_pwm.h"
+   5:../Encoder.c  **** #include "main.h"
+   6:../Encoder.c  **** #include "motor_data_update.h"
+   7:../Encoder.c  **** #include "Encoder.h"
+   8:../Encoder.c  **** #include "math.h"
+   9:../Encoder.c  **** #include "stdlib.h"
+  10:../Encoder.c  **** #include "transform.h"
+  11:../Encoder.c  **** #include "io.h"
+  12:../Encoder.c  **** 
+  13:../Encoder.c  **** /*Interrupt function for Eru0 used with ENCZ component of encoder -- NOT USED*/
+  14:../Encoder.c  **** void ERU0_0_IRQHandler(void) {}
+ 220              	 .loc 2 14 0
  221              	 .cfi_startproc
  222              	 
  223              	 
@@ -2065,10 +2053,7 @@
  229 0002 00AF     	 add r7,sp,#0
  230              	.LCFI19:
  231              	 .cfi_def_cfa_register 7
-  27:../Encoder.c  **** 	//	set_output_blink_1();						//TOGGLE LED1
-  28:../Encoder.c  **** 	//	ERU0->EXICON[2] &= ~ERU0_EXICON0_FL_MSK;	//Reset Status Flag for ETLx
-  29:../Encoder.c  **** }
- 232              	 .loc 2 29 0
+ 232              	 .loc 2 14 0
  233 0004 BD46     	 mov sp,r7
  234              	.LCFI20:
  235              	 .cfi_def_cfa_register 13
@@ -2087,10 +2072,13 @@
  249              	 .thumb_func
  251              	encoder_init:
  252              	.LFB197:
-  30:../Encoder.c  **** 
-  31:../Encoder.c  **** void encoder_init(void)
-  32:../Encoder.c  **** {
- 253              	 .loc 2 32 0
+  15:../Encoder.c  **** 
+  16:../Encoder.c  **** /*
+  17:../Encoder.c  ****  * Initialize CCU40 and POSIF0
+  18:../Encoder.c  ****  */
+  19:../Encoder.c  **** void encoder_init(void)
+  20:../Encoder.c  **** {
+ 253              	 .loc 2 20 0
  254              	 .cfi_startproc
  255              	 
  256              	 
@@ -2102,309 +2090,309 @@
  262 0002 00AF     	 add r7,sp,#0
  263              	.LCFI23:
  264              	 .cfi_def_cfa_register 7
-  33:../Encoder.c  **** 	/*
-  34:../Encoder.c  **** 	 * Pin set up
-  35:../Encoder.c  **** 	 */
-  36:../Encoder.c  **** 	/*Digital Pad activated*/
-  37:../Encoder.c  **** 	PORT14->PDISC &= ~(PORTS_PDISC_5_MSK);
- 265              	 .loc 2 37 0
+  21:../Encoder.c  **** 	/*
+  22:../Encoder.c  **** 	 * Pin set up
+  23:../Encoder.c  **** 	 */
+  24:../Encoder.c  **** 	/*Digital Pad activated*/
+  25:../Encoder.c  **** 	PORT14->PDISC &= ~(PORTS_PDISC_5_MSK);
+ 265              	 .loc 2 25 0
  266 0004 684A     	 ldr r2,.L16
  267 0006 684B     	 ldr r3,.L16
  268 0008 1B6E     	 ldr r3,[r3,#96]
  269 000a 23F02003 	 bic r3,r3,#32
  270 000e 1366     	 str r3,[r2,#96]
-  38:../Encoder.c  **** 	PORT14->PDISC &= ~(PORTS_PDISC_6_MSK);
- 271              	 .loc 2 38 0
+  26:../Encoder.c  **** 	PORT14->PDISC &= ~(PORTS_PDISC_6_MSK);
+ 271              	 .loc 2 26 0
  272 0010 654A     	 ldr r2,.L16
  273 0012 654B     	 ldr r3,.L16
  274 0014 1B6E     	 ldr r3,[r3,#96]
  275 0016 23F04003 	 bic r3,r3,#64
  276 001a 1366     	 str r3,[r2,#96]
-  39:../Encoder.c  **** 	PORT14->PDISC &= ~(PORTS_PDISC_7_MSK);
- 277              	 .loc 2 39 0
+  27:../Encoder.c  **** 	PORT14->PDISC &= ~(PORTS_PDISC_7_MSK);
+ 277              	 .loc 2 27 0
  278 001c 624A     	 ldr r2,.L16
  279 001e 624B     	 ldr r3,.L16
  280 0020 1B6E     	 ldr r3,[r3,#96]
  281 0022 23F08003 	 bic r3,r3,#128
  282 0026 1366     	 str r3,[r2,#96]
-  40:../Encoder.c  **** 
-  41:../Encoder.c  **** 	/*POSIF Pins*/
-  42:../Encoder.c  **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC5_POS); // P14.5 ENCZ
- 283              	 .loc 2 42 0
+  28:../Encoder.c  **** 
+  29:../Encoder.c  **** 	/*POSIF Pins*/
+  30:../Encoder.c  **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC5_POS); // P14.5 ENCZ
+ 283              	 .loc 2 30 0
  284 0028 5F4A     	 ldr r2,.L16
  285 002a 5F4B     	 ldr r3,.L16
  286 002c 5B69     	 ldr r3,[r3,#20]
  287 002e 43F48053 	 orr r3,r3,#4096
  288 0032 5361     	 str r3,[r2,#20]
-  43:../Encoder.c  **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC6_POS); // P14.6	ENCB
- 289              	 .loc 2 43 0
+  31:../Encoder.c  **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC6_POS); // P14.6	ENCB
+ 289              	 .loc 2 31 0
  290 0034 5C4A     	 ldr r2,.L16
  291 0036 5C4B     	 ldr r3,.L16
  292 0038 5B69     	 ldr r3,[r3,#20]
  293 003a 43F48013 	 orr r3,r3,#1048576
  294 003e 5361     	 str r3,[r2,#20]
-  44:../Encoder.c  **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC7_POS); // P14.7	ENCA
- 295              	 .loc 2 44 0
+  32:../Encoder.c  **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC7_POS); // P14.7	ENCA
+ 295              	 .loc 2 32 0
  296 0040 594A     	 ldr r2,.L16
  297 0042 594B     	 ldr r3,.L16
  298 0044 5B69     	 ldr r3,[r3,#20]
  299 0046 43F08053 	 orr r3,r3,#268435456
  300 004a 5361     	 str r3,[r2,#20]
-  45:../Encoder.c  **** 
-  46:../Encoder.c  **** 	/*
-  47:../Encoder.c  **** 	 * Configure CCU40
-  48:../Encoder.c  **** 	 */
-  49:../Encoder.c  **** 	/* Reset CCU40*/
-  50:../Encoder.c  **** 	SCU_RESET->PRSET0 |= (SCU_PRESET0_CCU40RS_MSK);
- 301              	 .loc 2 50 0
+  33:../Encoder.c  **** 
+  34:../Encoder.c  **** 	/*
+  35:../Encoder.c  **** 	 * Configure CCU40
+  36:../Encoder.c  **** 	 */
+  37:../Encoder.c  **** 	/* Reset CCU40*/
+  38:../Encoder.c  **** 	SCU_RESET->PRSET0 |= (SCU_PRESET0_CCU40RS_MSK);
+ 301              	 .loc 2 38 0
  302 004c 574A     	 ldr r2,.L16+4
  303 004e 574B     	 ldr r3,.L16+4
  304 0050 1B69     	 ldr r3,[r3,#16]
  305 0052 43F00403 	 orr r3,r3,#4
  306 0056 1361     	 str r3,[r2,#16]
-  51:../Encoder.c  **** 
-  52:../Encoder.c  **** 	/* Clear reset of CCU40 */
-  53:../Encoder.c  **** 	SCU_RESET->PRCLR0 |= (SCU_PRCLR0_CCU40RS_MSK);
- 307              	 .loc 2 53 0
+  39:../Encoder.c  **** 
+  40:../Encoder.c  **** 	/* Clear reset of CCU40 */
+  41:../Encoder.c  **** 	SCU_RESET->PRCLR0 |= (SCU_PRCLR0_CCU40RS_MSK);
+ 307              	 .loc 2 41 0
  308 0058 544A     	 ldr r2,.L16+4
  309 005a 544B     	 ldr r3,.L16+4
  310 005c 5B69     	 ldr r3,[r3,#20]
  311 005e 43F00403 	 orr r3,r3,#4
  312 0062 5361     	 str r3,[r2,#20]
-  54:../Encoder.c  **** 
-  55:../Encoder.c  **** 	/* Enable CCU4 via clkset */
-  56:../Encoder.c  **** 	SCU_CLK->CLKSET |= SCU_CLKSET_CCUCEN_MSK;
- 313              	 .loc 2 56 0
+  42:../Encoder.c  **** 
+  43:../Encoder.c  **** 	/* Enable CCU4 via clkset */
+  44:../Encoder.c  **** 	SCU_CLK->CLKSET |= SCU_CLKSET_CCUCEN_MSK;
+ 313              	 .loc 2 44 0
  314 0064 524A     	 ldr r2,.L16+8
  315 0066 524B     	 ldr r3,.L16+8
  316 0068 5B68     	 ldr r3,[r3,#4]
  317 006a 43F01003 	 orr r3,r3,#16
  318 006e 5360     	 str r3,[r2,#4]
-  57:../Encoder.c  **** 
-  58:../Encoder.c  **** 	/* Enable prescaler */
-  59:../Encoder.c  **** 	CCU40->GIDLC |= CCU4_GIDLC_SPRB_MSK;
- 319              	 .loc 2 59 0
+  45:../Encoder.c  **** 
+  46:../Encoder.c  **** 	/* Enable prescaler */
+  47:../Encoder.c  **** 	CCU40->GIDLC |= CCU4_GIDLC_SPRB_MSK;
+ 319              	 .loc 2 47 0
  320 0070 504A     	 ldr r2,.L16+12
  321 0072 504B     	 ldr r3,.L16+12
  322 0074 DB68     	 ldr r3,[r3,#12]
  323 0076 43F48073 	 orr r3,r3,#256
  324 007a D360     	 str r3,[r2,#12]
-  60:../Encoder.c  **** 
-  61:../Encoder.c  **** 	/*Set clock as Module Clock*/
-  62:../Encoder.c  **** 	CCU40->GCTRL &= ~(CCU4_GCTRL_PCIS_MOD_CLK_MSK << CCU4_GCTRL_PCIS_POS);
- 325              	 .loc 2 62 0
+  48:../Encoder.c  **** 
+  49:../Encoder.c  **** 	/*Set clock as Module Clock*/
+  50:../Encoder.c  **** 	CCU40->GCTRL &= ~(CCU4_GCTRL_PCIS_MOD_CLK_MSK << CCU4_GCTRL_PCIS_POS);
+ 325              	 .loc 2 50 0
  326 007c 4D4A     	 ldr r2,.L16+12
  327 007e 4D4B     	 ldr r3,.L16+12
  328 0080 1B68     	 ldr r3,[r3]
  329 0082 23F03003 	 bic r3,r3,#48
  330 0086 1360     	 str r3,[r2]
-  63:../Encoder.c  **** 
-  64:../Encoder.c  **** 	/*Set Counting Mode - Edge Aligned*/
-  65:../Encoder.c  **** 	CCU40_CC40->TC &= ~(CCU4_TC_TCM_EDGE_MSK);
- 331              	 .loc 2 65 0
+  51:../Encoder.c  **** 
+  52:../Encoder.c  **** 	/*Set Counting Mode - Edge Aligned*/
+  53:../Encoder.c  **** 	CCU40_CC40->TC &= ~(CCU4_TC_TCM_EDGE_MSK);
+ 331              	 .loc 2 53 0
  332 0088 4B4A     	 ldr r2,.L16+16
  333 008a 4B4B     	 ldr r3,.L16+16
  334 008c 5B69     	 ldr r3,[r3,#20]
  335 008e 23F00103 	 bic r3,r3,#1
  336 0092 5361     	 str r3,[r2,#20]
-  66:../Encoder.c  **** 
-  67:../Encoder.c  **** 	/*Period Value*/
-  68:../Encoder.c  **** 	CCU40_CC40->PRS |= (CCU4_CC4_PRS_VALUE);
- 337              	 .loc 2 68 0
+  54:../Encoder.c  **** 
+  55:../Encoder.c  **** 	/*Period Value*/
+  56:../Encoder.c  **** 	CCU40_CC40->PRS |= (CCU4_CC4_PRS_VALUE);
+ 337              	 .loc 2 56 0
  338 0094 484A     	 ldr r2,.L16+16
  339 0096 484B     	 ldr r3,.L16+16
  340 0098 5B6B     	 ldr r3,[r3,#52]
  341 009a 6FEA1343 	 mvn r3,r3,lsr#16
  342 009e 6FEA0343 	 mvn r3,r3,lsl#16
  343 00a2 5363     	 str r3,[r2,#52]
-  69:../Encoder.c  **** 
-  70:../Encoder.c  **** 	/*Shadow transfer for PR*/
-  71:../Encoder.c  **** 	CCU40->GCSS |= (CCU4_GCSS_S0SE_MSK);
- 344              	 .loc 2 71 0
+  57:../Encoder.c  **** 
+  58:../Encoder.c  **** 	/*Shadow transfer for PR*/
+  59:../Encoder.c  **** 	CCU40->GCSS |= (CCU4_GCSS_S0SE_MSK);
+ 344              	 .loc 2 59 0
  345 00a4 434A     	 ldr r2,.L16+12
  346 00a6 434B     	 ldr r3,.L16+12
  347 00a8 1B69     	 ldr r3,[r3,#16]
  348 00aa 43F00103 	 orr r3,r3,#1
  349 00ae 1361     	 str r3,[r2,#16]
-  72:../Encoder.c  **** 
-  73:../Encoder.c  **** 	/*
-  74:../Encoder.c  **** 	 * Configure POSIF0
-  75:../Encoder.c  **** 	 */
-  76:../Encoder.c  **** 	/* Reset POSIF0*/
-  77:../Encoder.c  **** 	SCU_RESET->PRSET0 |= (SCU_PRESET0_POSIF0RS_MSK);
- 350              	 .loc 2 77 0
+  60:../Encoder.c  **** 
+  61:../Encoder.c  **** 	/*
+  62:../Encoder.c  **** 	 * Configure POSIF0
+  63:../Encoder.c  **** 	 */
+  64:../Encoder.c  **** 	/* Reset POSIF0*/
+  65:../Encoder.c  **** 	SCU_RESET->PRSET0 |= (SCU_PRESET0_POSIF0RS_MSK);
+ 350              	 .loc 2 65 0
  351 00b0 3E4A     	 ldr r2,.L16+4
  352 00b2 3E4B     	 ldr r3,.L16+4
  353 00b4 1B69     	 ldr r3,[r3,#16]
  354 00b6 43F40073 	 orr r3,r3,#512
  355 00ba 1361     	 str r3,[r2,#16]
-  78:../Encoder.c  **** 
-  79:../Encoder.c  **** 	/* Clear reset of POSIF0*/
-  80:../Encoder.c  **** 	SCU_RESET->PRCLR0 |= (SCU_PRCLR0_POSIF0RS_MSK);
- 356              	 .loc 2 80 0
+  66:../Encoder.c  **** 
+  67:../Encoder.c  **** 	/* Clear reset of POSIF0*/
+  68:../Encoder.c  **** 	SCU_RESET->PRCLR0 |= (SCU_PRCLR0_POSIF0RS_MSK);
+ 356              	 .loc 2 68 0
  357 00bc 3B4A     	 ldr r2,.L16+4
  358 00be 3B4B     	 ldr r3,.L16+4
  359 00c0 5B69     	 ldr r3,[r3,#20]
  360 00c2 43F40073 	 orr r3,r3,#512
  361 00c6 5361     	 str r3,[r2,#20]
-  81:../Encoder.c  **** 
-  82:../Encoder.c  **** 	/*Quadrature Decoder Mode enabled*/
-  83:../Encoder.c  **** 	POSIF0->PCONF |= POSIF_PCONF_FSEL_QUAD_MSK;
- 362              	 .loc 2 83 0
+  69:../Encoder.c  **** 
+  70:../Encoder.c  **** 	/*Quadrature Decoder Mode enabled*/
+  71:../Encoder.c  **** 	POSIF0->PCONF |= POSIF_PCONF_FSEL_QUAD_MSK;
+ 362              	 .loc 2 71 0
  363 00c8 3C4A     	 ldr r2,.L16+20
  364 00ca 3C4B     	 ldr r3,.L16+20
  365 00cc 1B68     	 ldr r3,[r3]
  366 00ce 43F00103 	 orr r3,r3,#1
  367 00d2 1360     	 str r3,[r2]
-  84:../Encoder.c  **** 
-  85:../Encoder.c  **** 	/*Phase/Hal selector as INxB for the used pins*/
-  86:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL0_POS);
- 368              	 .loc 2 86 0
+  72:../Encoder.c  **** 
+  73:../Encoder.c  **** 	/*Phase/Hal selector as INxB for the used pins*/
+  74:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL0_POS);
+ 368              	 .loc 2 74 0
  369 00d4 394A     	 ldr r2,.L16+20
  370 00d6 394B     	 ldr r3,.L16+20
  371 00d8 1B68     	 ldr r3,[r3]
  372 00da 43F48073 	 orr r3,r3,#256
  373 00de 1360     	 str r3,[r2]
-  87:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL1_POS);
- 374              	 .loc 2 87 0
+  75:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL1_POS);
+ 374              	 .loc 2 75 0
  375 00e0 364A     	 ldr r2,.L16+20
  376 00e2 364B     	 ldr r3,.L16+20
  377 00e4 1B68     	 ldr r3,[r3]
  378 00e6 43F48063 	 orr r3,r3,#1024
  379 00ea 1360     	 str r3,[r2]
-  88:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL2_POS);
- 380              	 .loc 2 88 0
+  76:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL2_POS);
+ 380              	 .loc 2 76 0
  381 00ec 334A     	 ldr r2,.L16+20
  382 00ee 334B     	 ldr r3,.L16+20
  383 00f0 1B68     	 ldr r3,[r3]
  384 00f2 43F48053 	 orr r3,r3,#4096
  385 00f6 1360     	 str r3,[r2]
-  89:../Encoder.c  **** 
-  90:../Encoder.c  **** 	/*Low Pass filter configuration - 4 clock cycles*/
-  91:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_LOW_PASS_4 << POSIF_PCONF_LPC_POS);
- 386              	 .loc 2 91 0
+  77:../Encoder.c  **** 
+  78:../Encoder.c  **** 	/*Low Pass filter configuration - 4 clock cycles*/
+  79:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_LOW_PASS_4 << POSIF_PCONF_LPC_POS);
+ 386              	 .loc 2 79 0
  387 00f8 304A     	 ldr r2,.L16+20
  388 00fa 304B     	 ldr r3,.L16+20
  389 00fc 1B68     	 ldr r3,[r3]
  390 00fe 43F04053 	 orr r3,r3,#805306368
  391 0102 1360     	 str r3,[r2]
-  92:../Encoder.c  **** 
-  93:../Encoder.c  **** 	/*
-  94:../Encoder.c  **** 	 * POSIF to CC40
-  95:../Encoder.c  **** 	 */
-  96:../Encoder.c  **** 	/*Input selector configuration*/
-  97:../Encoder.c  **** 	CCU40_CC40->INS |= (CCU4_IN_E_MSK << CCU4_INS_EV0IS_POS); // Event 0 for Out0 on rising edge
- 392              	 .loc 2 97 0
+  80:../Encoder.c  **** 
+  81:../Encoder.c  **** 	/*
+  82:../Encoder.c  **** 	 * POSIF to CC40
+  83:../Encoder.c  **** 	 */
+  84:../Encoder.c  **** 	/*Input selector configuration*/
+  85:../Encoder.c  **** 	CCU40_CC40->INS |= (CCU4_IN_E_MSK << CCU4_INS_EV0IS_POS); // Event 0 for Out0 on rising edge
+ 392              	 .loc 2 85 0
  393 0104 2C4A     	 ldr r2,.L16+16
  394 0106 2C4B     	 ldr r3,.L16+16
  395 0108 1B68     	 ldr r3,[r3]
  396 010a 43F00403 	 orr r3,r3,#4
  397 010e 1360     	 str r3,[r2]
-  98:../Encoder.c  **** 	CCU40_CC40->INS |= (RISING_EDGE_ENC << CCU4_INS_EV0EM_POS);
- 398              	 .loc 2 98 0
+  86:../Encoder.c  **** 	CCU40_CC40->INS |= (RISING_EDGE_ENC << CCU4_INS_EV0EM_POS);
+ 398              	 .loc 2 86 0
  399 0110 294A     	 ldr r2,.L16+16
  400 0112 294B     	 ldr r3,.L16+16
  401 0114 1B68     	 ldr r3,[r3]
  402 0116 43F48033 	 orr r3,r3,#65536
  403 011a 1360     	 str r3,[r2]
-  99:../Encoder.c  **** 	CCU40_CC40->INS |= (CCU4_IN_F_MSK << CCU4_INS_EV1IS_POS); // Event 1 for Out1 on low level
- 404              	 .loc 2 99 0
+  87:../Encoder.c  **** 	CCU40_CC40->INS |= (CCU4_IN_F_MSK << CCU4_INS_EV1IS_POS); // Event 1 for Out1 on low level
+ 404              	 .loc 2 87 0
  405 011c 264A     	 ldr r2,.L16+16
  406 011e 264B     	 ldr r3,.L16+16
  407 0120 1B68     	 ldr r3,[r3]
  408 0122 43F05003 	 orr r3,r3,#80
  409 0126 1360     	 str r3,[r2]
- 100:../Encoder.c  **** 	//	CCU40_CC40->INS |= (RISING_EDGE_ENC << CCU4_INS_EV1EM_POS);
- 101:../Encoder.c  **** 	CCU40_CC40->INS |= (0x1UL << CCU4_CC4_INS_EV1LM_Pos);
- 410              	 .loc 2 101 0
+  88:../Encoder.c  **** 	//	CCU40_CC40->INS |= (RISING_EDGE_ENC << CCU4_INS_EV1EM_POS);
+  89:../Encoder.c  **** 	CCU40_CC40->INS |= (0x1UL << CCU4_CC4_INS_EV1LM_Pos);
+ 410              	 .loc 2 89 0
  411 0128 234A     	 ldr r2,.L16+16
  412 012a 234B     	 ldr r3,.L16+16
  413 012c 1B68     	 ldr r3,[r3]
  414 012e 43F40003 	 orr r3,r3,#8388608
  415 0132 1360     	 str r3,[r2]
- 102:../Encoder.c  **** 
- 103:../Encoder.c  **** 	/*Connection Matrix Control*/
- 104:../Encoder.c  **** 	CCU40_CC40->CMC |= (CCU4_EVENT_0_MSK << CCU4_CMC_CNTS_POS); // Event0 set up for Counting
- 416              	 .loc 2 104 0
+  90:../Encoder.c  **** 
+  91:../Encoder.c  **** 	/*Connection Matrix Control*/
+  92:../Encoder.c  **** 	CCU40_CC40->CMC |= (CCU4_EVENT_0_MSK << CCU4_CMC_CNTS_POS); // Event0 set up for Counting
+ 416              	 .loc 2 92 0
  417 0134 204A     	 ldr r2,.L16+16
  418 0136 204B     	 ldr r3,.L16+16
  419 0138 5B68     	 ldr r3,[r3,#4]
  420 013a 43F48043 	 orr r3,r3,#16384
  421 013e 5360     	 str r3,[r2,#4]
- 105:../Encoder.c  **** 	CCU40_CC40->CMC |= (CCU4_EVENT_1_MSK << CCU4_CMC_UDS_POS);	// Event1 set up for Direction
- 422              	 .loc 2 105 0
+  93:../Encoder.c  **** 	CCU40_CC40->CMC |= (CCU4_EVENT_1_MSK << CCU4_CMC_UDS_POS);	// Event1 set up for Direction
+ 422              	 .loc 2 93 0
  423 0140 1D4A     	 ldr r2,.L16+16
  424 0142 1D4B     	 ldr r3,.L16+16
  425 0144 5B68     	 ldr r3,[r3,#4]
  426 0146 43F40063 	 orr r3,r3,#2048
  427 014a 5360     	 str r3,[r2,#4]
- 106:../Encoder.c  **** 	/*
- 107:../Encoder.c  **** 	 * Stop and Start POSIF/CC40
- 108:../Encoder.c  **** 	 */
- 109:../Encoder.c  **** 	/*Stop and reset the state machine of the quadrature decoder and the current status of the Hall se
- 110:../Encoder.c  **** 	POSIF0->PRUNC |= POSIF_PRUNC_CRB_MSK; // Stops POSIF
- 428              	 .loc 2 110 0
+  94:../Encoder.c  **** 	/*
+  95:../Encoder.c  **** 	 * Stop and Start POSIF/CC40
+  96:../Encoder.c  **** 	 */
+  97:../Encoder.c  **** 	/*Stop and reset the state machine of the quadrature decoder and the current status of the Hall se
+  98:../Encoder.c  **** 	POSIF0->PRUNC |= POSIF_PRUNC_CRB_MSK; // Stops POSIF
+ 428              	 .loc 2 98 0
  429 014c 1B4A     	 ldr r2,.L16+20
  430 014e 1B4B     	 ldr r3,.L16+20
  431 0150 DB68     	 ldr r3,[r3,#12]
  432 0152 43F00103 	 orr r3,r3,#1
  433 0156 D360     	 str r3,[r2,#12]
- 111:../Encoder.c  **** 	POSIF0->PRUNC |= POSIF_PRUNC_CSM_MSK; // Resets POSIF
- 434              	 .loc 2 111 0
+  99:../Encoder.c  **** 	POSIF0->PRUNC |= POSIF_PRUNC_CSM_MSK; // Resets POSIF
+ 434              	 .loc 2 99 0
  435 0158 184A     	 ldr r2,.L16+20
  436 015a 184B     	 ldr r3,.L16+20
  437 015c DB68     	 ldr r3,[r3,#12]
  438 015e 43F00203 	 orr r3,r3,#2
  439 0162 D360     	 str r3,[r2,#12]
- 112:../Encoder.c  **** 
- 113:../Encoder.c  **** 	/*Exit Idle CC40*/
- 114:../Encoder.c  **** 	CCU40->GIDLC |= (CCU4_GIDLC_CS0I_MSK);
- 440              	 .loc 2 114 0
+ 100:../Encoder.c  **** 
+ 101:../Encoder.c  **** 	/*Exit Idle CC40*/
+ 102:../Encoder.c  **** 	CCU40->GIDLC |= (CCU4_GIDLC_CS0I_MSK);
+ 440              	 .loc 2 102 0
  441 0164 134A     	 ldr r2,.L16+12
  442 0166 134B     	 ldr r3,.L16+12
  443 0168 DB68     	 ldr r3,[r3,#12]
  444 016a 43F00103 	 orr r3,r3,#1
  445 016e D360     	 str r3,[r2,#12]
- 115:../Encoder.c  **** 
- 116:../Encoder.c  **** 	/*Stop and clear timer*/
- 117:../Encoder.c  **** 	CCU40_CC40->TCCLR |= (uint32_t)(CCU4_CC4_TCCLR_TRBC_Msk);
- 446              	 .loc 2 117 0
+ 103:../Encoder.c  **** 
+ 104:../Encoder.c  **** 	/*Stop and clear timer*/
+ 105:../Encoder.c  **** 	CCU40_CC40->TCCLR |= (uint32_t)(CCU4_CC4_TCCLR_TRBC_Msk);
+ 446              	 .loc 2 105 0
  447 0170 114A     	 ldr r2,.L16+16
  448 0172 114B     	 ldr r3,.L16+16
  449 0174 1B69     	 ldr r3,[r3,#16]
  450 0176 43F00103 	 orr r3,r3,#1
  451 017a 1361     	 str r3,[r2,#16]
- 118:../Encoder.c  **** 	CCU40_CC40->TCCLR |= (uint32_t)(CCU4_CC4_TCCLR_TCC_Msk);
- 452              	 .loc 2 118 0
+ 106:../Encoder.c  **** 	CCU40_CC40->TCCLR |= (uint32_t)(CCU4_CC4_TCCLR_TCC_Msk);
+ 452              	 .loc 2 106 0
  453 017c 0E4A     	 ldr r2,.L16+16
  454 017e 0E4B     	 ldr r3,.L16+16
  455 0180 1B69     	 ldr r3,[r3,#16]
  456 0182 43F00203 	 orr r3,r3,#2
  457 0186 1361     	 str r3,[r2,#16]
- 119:../Encoder.c  **** 
- 120:../Encoder.c  **** 	/*Start CCU40*/
- 121:../Encoder.c  **** 	CCU40_CC40->TCSET |= (CCU4_TCSET_TRBS_MSK);
- 458              	 .loc 2 121 0
+ 107:../Encoder.c  **** 
+ 108:../Encoder.c  **** 	/*Start CCU40*/
+ 109:../Encoder.c  **** 	CCU40_CC40->TCSET |= (CCU4_TCSET_TRBS_MSK);
+ 458              	 .loc 2 109 0
  459 0188 0B4A     	 ldr r2,.L16+16
  460 018a 0B4B     	 ldr r3,.L16+16
  461 018c DB68     	 ldr r3,[r3,#12]
  462 018e 43F00103 	 orr r3,r3,#1
  463 0192 D360     	 str r3,[r2,#12]
- 122:../Encoder.c  **** 
- 123:../Encoder.c  **** 	/*Start POSIF0*/
- 124:../Encoder.c  **** 	POSIF0->PRUNS |= (POSIF_PRUNS_SRB_MSK);
- 464              	 .loc 2 124 0
+ 110:../Encoder.c  **** 
+ 111:../Encoder.c  **** 	/*Start POSIF0*/
+ 112:../Encoder.c  **** 	POSIF0->PRUNS |= (POSIF_PRUNS_SRB_MSK);
+ 464              	 .loc 2 112 0
  465 0194 094A     	 ldr r2,.L16+20
  466 0196 094B     	 ldr r3,.L16+20
  467 0198 9B68     	 ldr r3,[r3,#8]
  468 019a 43F00103 	 orr r3,r3,#1
  469 019e 9360     	 str r3,[r2,#8]
- 125:../Encoder.c  **** 
- 126:../Encoder.c  **** 	/*Saves the first value of the timer*/
- 127:../Encoder.c  **** 	//	timer_value_old = CCU40_CC40->TIMER;
- 128:../Encoder.c  **** 	//	timer_value_old_fast = CCU40_CC40->TIMER;
- 129:../Encoder.c  **** }
- 470              	 .loc 2 129 0
+ 113:../Encoder.c  **** 
+ 114:../Encoder.c  **** 	/*Saves the first value of the timer*/
+ 115:../Encoder.c  **** 	//	timer_value_old = CCU40_CC40->TIMER;
+ 116:../Encoder.c  **** 	//	timer_value_old_fast = CCU40_CC40->TIMER;
+ 117:../Encoder.c  **** }
+ 470              	 .loc 2 117 0
  471 01a0 BD46     	 mov sp,r7
  472              	.LCFI24:
  473              	 .cfi_def_cfa_register 13
@@ -2432,10 +2420,10 @@
  496              	 .thumb_func
  498              	encoder_interrupt_init:
  499              	.LFB198:
- 130:../Encoder.c  **** 
- 131:../Encoder.c  **** void encoder_interrupt_init(void)
- 132:../Encoder.c  **** {
- 500              	 .loc 2 132 0
+ 118:../Encoder.c  **** 
+ 119:../Encoder.c  **** void encoder_interrupt_init(void)
+ 120:../Encoder.c  **** {
+ 500              	 .loc 2 120 0
  501              	 .cfi_startproc
  502              	 
  503              	 
@@ -2447,75 +2435,75 @@
  509 0002 00AF     	 add r7,sp,#0
  510              	.LCFI27:
  511              	 .cfi_def_cfa_register 7
- 133:../Encoder.c  **** 
- 134:../Encoder.c  **** 	/*Set P0.13 as input pin for ENC Z*/
- 135:../Encoder.c  **** 	PORT0->IOCR12 |= (INPUT_PULL_UP_MSK << PORT0_IOCR12_PC13_POS); // activate pull-up input on P0.13
- 512              	 .loc 2 135 0
+ 121:../Encoder.c  **** 
+ 122:../Encoder.c  **** 	/*Set P0.13 as input pin for ENC Z*/
+ 123:../Encoder.c  **** 	PORT0->IOCR12 |= (INPUT_PULL_UP_MSK << PORT0_IOCR12_PC13_POS); // activate pull-up input on P0.13
+ 512              	 .loc 2 123 0
  513 0004 174A     	 ldr r2,.L19
  514 0006 174B     	 ldr r3,.L19
  515 0008 DB69     	 ldr r3,[r3,#28]
  516 000a 43F48053 	 orr r3,r3,#4096
  517 000e D361     	 str r3,[r2,#28]
- 136:../Encoder.c  **** 
- 137:../Encoder.c  **** 	/*Start/reset/clear is done by default for ERU0*/
- 138:../Encoder.c  **** 
- 139:../Encoder.c  **** 	/*Enable ERU0 2A2*/
- 140:../Encoder.c  **** 	ERU0->EXISEL |= (ERU0_EXICEL_EXS2A_2A2_MSK << ERU0_EXICEL_EXS2A_2A2_POS);
- 518              	 .loc 2 140 0
+ 124:../Encoder.c  **** 
+ 125:../Encoder.c  **** 	/*Start/reset/clear is done by default for ERU0*/
+ 126:../Encoder.c  **** 
+ 127:../Encoder.c  **** 	/*Enable ERU0 2A2*/
+ 128:../Encoder.c  **** 	ERU0->EXISEL |= (ERU0_EXICEL_EXS2A_2A2_MSK << ERU0_EXICEL_EXS2A_2A2_POS);
+ 518              	 .loc 2 128 0
  519 0010 154A     	 ldr r2,.L19+4
  520 0012 154B     	 ldr r3,.L19+4
  521 0014 1B68     	 ldr r3,[r3]
  522 0016 43F40073 	 orr r3,r3,#512
  523 001a 1360     	 str r3,[r2]
- 141:../Encoder.c  **** 
- 142:../Encoder.c  **** 	/*Event input control for ERU0_2A2 we need to configure EXICON2*/
- 143:../Encoder.c  **** 	ERU0->EXICON[2] |= ERU0_EXICON0_PE_MSK;								// The trigger pulse generation is enabled
- 524              	 .loc 2 143 0
+ 129:../Encoder.c  **** 
+ 130:../Encoder.c  **** 	/*Event input control for ERU0_2A2 we need to configure EXICON2*/
+ 131:../Encoder.c  **** 	ERU0->EXICON[2] |= ERU0_EXICON0_PE_MSK;								// The trigger pulse generation is enabled
+ 524              	 .loc 2 131 0
  525 001c 124A     	 ldr r2,.L19+4
  526 001e 124B     	 ldr r3,.L19+4
  527 0020 9B69     	 ldr r3,[r3,#24]
  528 0022 43F00103 	 orr r3,r3,#1
  529 0026 9361     	 str r3,[r2,#24]
- 144:../Encoder.c  **** 	ERU0->EXICON[2] |= ERU0_EXICON0_RE_MSK;								// A rising edge is considered as edge even
- 530              	 .loc 2 144 0
+ 132:../Encoder.c  **** 	ERU0->EXICON[2] |= ERU0_EXICON0_RE_MSK;								// A rising edge is considered as edge even
+ 530              	 .loc 2 132 0
  531 0028 0F4A     	 ldr r2,.L19+4
  532 002a 0F4B     	 ldr r3,.L19+4
  533 002c 9B69     	 ldr r3,[r3,#24]
  534 002e 43F00403 	 orr r3,r3,#4
  535 0032 9361     	 str r3,[r2,#24]
- 145:../Encoder.c  **** 	ERU0->EXICON[2] &= ~(ERU0_EXICON0_SS_A_MSK << ERU0_EXICON0_SS_POS); // Input A without additional 
- 536              	 .loc 2 145 0
+ 133:../Encoder.c  **** 	ERU0->EXICON[2] &= ~(ERU0_EXICON0_SS_A_MSK << ERU0_EXICON0_SS_POS); // Input A without additional 
+ 536              	 .loc 2 133 0
  537 0034 0C4A     	 ldr r2,.L19+4
  538 0036 0C4B     	 ldr r3,.L19+4
  539 0038 9B69     	 ldr r3,[r3,#24]
  540 003a 23F44073 	 bic r3,r3,#768
  541 003e 9361     	 str r3,[r2,#24]
- 146:../Encoder.c  **** 
- 147:../Encoder.c  **** 	/*Event output control for OGU0 (default path for ERU0)*/
- 148:../Encoder.c  **** 	ERU0->EXOCON[0] |= (ERU0_EXOCON0_GP_MSK << ERU0_EXOCON0_GP_POS); // ERU_GOUTy is always enabled an
- 542              	 .loc 2 148 0
+ 134:../Encoder.c  **** 
+ 135:../Encoder.c  **** 	/*Event output control for OGU0 (default path for ERU0)*/
+ 136:../Encoder.c  **** 	ERU0->EXOCON[0] |= (ERU0_EXOCON0_GP_MSK << ERU0_EXOCON0_GP_POS); // ERU_GOUTy is always enabled an
+ 542              	 .loc 2 136 0
  543 0040 094A     	 ldr r2,.L19+4
  544 0042 094B     	 ldr r3,.L19+4
  545 0044 1B6A     	 ldr r3,[r3,#32]
  546 0046 43F01003 	 orr r3,r3,#16
  547 004a 1362     	 str r3,[r2,#32]
- 149:../Encoder.c  **** 
- 150:../Encoder.c  **** 	/*Interrupt enable*/
- 151:../Encoder.c  **** 	NVIC_SetPriority(ERU0_0_IRQn, 2U);
- 548              	 .loc 2 151 0
+ 137:../Encoder.c  **** 
+ 138:../Encoder.c  **** 	/*Interrupt enable*/
+ 139:../Encoder.c  **** 	NVIC_SetPriority(ERU0_0_IRQn, 2U);
+ 548              	 .loc 2 139 0
  549 004c 0120     	 movs r0,#1
  550 004e 0221     	 movs r1,#2
  551 0050 FFF7FEFF 	 bl __NVIC_SetPriority
- 152:../Encoder.c  **** 	NVIC_ClearPendingIRQ(ERU0_0_IRQn);
- 552              	 .loc 2 152 0
+ 140:../Encoder.c  **** 	NVIC_ClearPendingIRQ(ERU0_0_IRQn);
+ 552              	 .loc 2 140 0
  553 0054 0120     	 movs r0,#1
  554 0056 FFF7FEFF 	 bl __NVIC_ClearPendingIRQ
- 153:../Encoder.c  **** 	NVIC_EnableIRQ(ERU0_0_IRQn);
- 555              	 .loc 2 153 0
+ 141:../Encoder.c  **** 	NVIC_EnableIRQ(ERU0_0_IRQn);
+ 555              	 .loc 2 141 0
  556 005a 0120     	 movs r0,#1
  557 005c FFF7FEFF 	 bl __NVIC_EnableIRQ
- 154:../Encoder.c  **** }
- 558              	 .loc 2 154 0
+ 142:../Encoder.c  **** }
+ 558              	 .loc 2 142 0
  559 0060 80BD     	 pop {r7,pc}
  560              	.L20:
  561 0062 00BF     	 .align 2

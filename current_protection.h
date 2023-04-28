@@ -1,10 +1,3 @@
-/*
- * current_protection.h
- *
- *  Created on: 6 Apr 2023
- *      Author: xraid
- */
-
 #ifndef CURRENT_PROTECTION_H_
 #define CURRENT_PROTECTION_H_
 

@@ -23,6 +23,7 @@ extern void abc_dq_test(void);
 #define MAX_UINT_16		(32767)
 #define MIN_UINT_16		(-32768)
 #define F_1_SQRT_3		(0.5773502f)
+#define SQRT_3          (1.7320508f)
 
 #endif /* TRANSFORM_H_ */
 

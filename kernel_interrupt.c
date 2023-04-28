@@ -15,15 +15,14 @@
 #include "pi_regulator.h"
 #include "reference_generator.h"
 #include "current_protection.h"
-
 #include "kernel_interrupt.h"
 
 uint16_t interrupt_counter_slow_loop = 0; // Slow Loop counter
 uint16_t interrupt_counter_fast_loop = 0; // Fast Loop couner
-uint16_t interrupt_counter_timer = 0;	  // Timer Counter
+uint32_t interrupt_counter_timer = 0;	  // Timer Counter
 
 /********************************************************************/
-// TESTING
+//// FOR TESTING
 //  float_t signal_ia_test = 0, signal_ib_test = 0, signal_ic_test = 0;
 //  float_t increment_2_pi = 0;
 //  float_t sin_increment_2_pi, cos_increment_2_pi;
@@ -56,22 +55,23 @@ void VADC0_G0_2_IRQHandler(void)
 			compute_fast_electrical_position();
 			compute_fast_field();
 			abc_dq();
-			current_protection();
 
 			// Add Fast Loop regulators
-			if (LOOP_CONTROL_ON == loop_control)
+			if (loop_control & I_REF_LOOP_MSK)
 			{
-				if (LOOP_I_ENABLE)
-				{
-					pi_regulator_i_d();
-					pi_regulator_i_q();
-				}
+				pi_regulator_i_d();
+				pi_regulator_i_q();
 			}
 
 			dq_abc();
 			pwm_update(u_a_ref, u_b_ref, u_c_ref);
 
 			ProbeScope_Sampling(); // For Micrium Osciloscope
+		}
+
+		if (prot_status)
+		{
+			current_protection();
 		}
 
 		interrupt_counter_fast_loop = 0;
@@ -82,28 +82,25 @@ void VADC0_G0_2_IRQHandler(void)
 	 */
 	if (TIME_1_ms == interrupt_counter_slow_loop)
 	{
-		// Reference Generator function and timer
-		if (STATUS_0_DISABLED != ref_gen_status)
-		{
-			interrupt_counter_ref_gen++;
-			reference_generator();
-		}
-
 		if (motion_config)
 		{
-			compute_speed(); // Compute motor speed
+			compute_speed(); // Compute motor speed and position
 
-			if (LOOP_CONTROL_ON == loop_control)
+			// Reference Generator function and timer  TO DO - CHECK IF STILL WORKS
+			if (STATUS_0_DISABLED != ref_gen_status)
 			{
-				// Slow loop regulators
-				if (LOOP_POS_ENABLE)
-				{
-					pid_regulator_pos();
-				}
-				if (LOOP_SPD_ENABLE)
-				{
-					pi_regulator_speed();
-				}
+				interrupt_counter_ref_gen++;
+				reference_generator();
+			}
+
+			// Slow loop regulators
+			if (loop_control & POS_REF_LOOP_MSK)
+			{
+				pid_regulator_pos();
+			}
+			if (loop_control & SPD_REF_LOOP_MSK)
+			{
+				pi_regulator_speed();
 			}
 		}
 
@@ -111,6 +108,13 @@ void VADC0_G0_2_IRQHandler(void)
 	}
 }
 
+/*
+ * Interrupt with low priority every 0.2ms
+ */
+void CCU81_0_IRQHandler(void)
+{
+	// interrupt_counter_timer++;
+}
 // void test_ia_id_iq_id (void)
 // {
 // 	increment_2_pi += 0.01;

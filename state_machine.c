@@ -15,13 +15,16 @@
 uint16_t drive_status = STATE_0_DRIVE_DISABLED;
 uint16_t drive_command = STATE_0_DRIVE_DISABLED;
 uint16_t drive_command_old = STATE_0_DRIVE_DISABLED;
-uint8_t loop_control = LOOP_CONTROL_OFF; // enable/disable all control loops -- TO DO
-uint8_t tune_test_control = OFF;		 // set theta to 0 if current tuning is enabled
+uint8_t loop_control = LOOP_CONTROL_OFF;
 
 /* 0 => do not compute any motion operations
    1 => compute motion operations*/
 uint8_t motion_config = OFF;
 
+/*
+	Simple State Machine
+	DRIVE_DISABLED | DRIVE_ON | OPERATION_ENABLED
+*/
 void state_machine(void)
 {
 	switch (DRIVE_STATUS_MSK)
@@ -74,9 +77,12 @@ void state_machine(void)
 			drive_status |= STATE_0_DRIVE_DISABLED;
 			drive_command_old = drive_command;
 		}
-		// Check for update
+		// Check for update transition and OPERATION_ENABLED still active
 		if ((!(DRIVE_COMMAND_UPDATE_OLD_MSK & UPDATE_MSK) && (DRIVE_COMMAND_UPDATE_MSK & UPDATE_MSK)) && (DRIVE_COMMAND_STATE_MSK == STATE_2_OPERATION_ENABLED))
 		{
+			loop_control = LOOP_CONTROL_OFF;			// reset all loops
+			loop_control |= DRIVE_COMMAND_REF_MSK >> 8; // save selected loops
+
 			// Check for reference generator output (Priority list: POS > SPD > I > U)
 			if (DRIVE_COMMAND_REF_MSK & REF_POS_MSK)
 			{
@@ -94,7 +100,7 @@ void state_machine(void)
 				ref_type_select = REF_I;
 				if (DRIVE_COMMAND_TEST_MSK & TUNE_TEST)
 				{
-					tune_test_control = ON;
+					loop_control |= TUNE_REF_LOOP_MSK;
 				}
 			}
 			else
@@ -121,7 +127,6 @@ void drive_disabled(void)
 	loop_control = LOOP_CONTROL_OFF;
 	ref_gen_status = STATUS_0_DISABLED;
 	motion_config = OFF;
-	//	tune_test_control = OFF;
 }
 /*
 	Initilize position | PWM(50%) | PWM output enabled | Current offset computed
@@ -132,23 +137,21 @@ void drive_on(void)
 	motion_off();
 	loop_control = LOOP_CONTROL_OFF;
 	ref_gen_status = STATUS_0_DISABLED;
-	tune_test_control = OFF; // TO DO
 	motion_config = OFF;
 
-	init_position();
 	pwm_update(0, 0, 0); // PWM(50%)
 	motion_on();
 	current_offset();
+	init_position();		//NEED TO CHECK if it still works !!!!
 }
 
 /*
-	CONTROL_LOOPS = ON
+	CONTROL_LOOPS = OFF
 	Wait for motion commands to start movement computation
 */
 void operation_enabled(void)
 {
-	loop_control = LOOP_CONTROL_ON; // control_loop_on
-									// ref_gen_status = STATUS_0_DISABLED;
+	loop_control = LOOP_CONTROL_OFF;
 }
 
 /*

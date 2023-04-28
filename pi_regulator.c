@@ -158,7 +158,7 @@ void pid_regulator_pos(void) // mechanical_position_fast -> spd_ref
 		position[i].i_part = -position[i].sat_i_part;
 	}
 
-	// Derived part computation
+	// Derived part computation	
 	position[i].d_part = (position[i].error - err_old_pos) * position[i].kd;
 	if (position[i].d_part > position[i].sat_out)
 	{
@@ -229,9 +229,10 @@ void pi_init(void)
 	position[0].sat_out = 50;
 	position[0].sat_i_part = position[0].sat_out / 10;
 
-	position[1].kp = 1;
-	position[1].ki = 0.0;
-	position[1].kd = 0.0;
+	position[1].kp = 0.5;
+	position[1].ki = 0.025;
+	position[1].kd = 25.0;
 	position[1].sat_out = 5000;
 	position[1].sat_i_part = position[1].sat_out / 10;
+
 }
