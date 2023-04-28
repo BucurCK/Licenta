@@ -10,7 +10,7 @@ timer.o timer.d timer.o: ../timer.c ../timer.h ../main.h \
  C:/CODE/Licenta/Libraries/CMSIS/Include/mpu_armv7.h \
  C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h \
  C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_ccu8_map.h \
- ../kernel_interrupt.h
+ ../kernel_interrupt.h ../driver_pwm.h
 
 ../timer.h:
 
@@ -39,3 +39,5 @@ C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h
 C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_ccu8_map.h:
 
 ../kernel_interrupt.h:
+
+../driver_pwm.h:

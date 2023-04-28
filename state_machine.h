@@ -1,10 +1,3 @@
-/*
- * state_machine.h
- *
- *  Created on: 24 Mar 2023
- *      Author: xraid
- */
-
 #ifndef STATE_MACHINE_H_
 #define STATE_MACHINE_H_
 
@@ -12,15 +5,13 @@ extern uint16_t drive_status;
 extern uint16_t drive_command;
 extern uint16_t drive_command_old;
 extern uint8_t loop_control;
-extern uint8_t tune_test_control;
 extern uint8_t motion_config;
 
 extern void drive_disabled(void);
 extern void drive_on(void);
 extern void operation_enabled(void);
 extern void compute_motion (void);
-
-extern void state_machine();
+extern void state_machine(void);
 
 #define LOOP_CONTROL_ON					(1U)
 #define LOOP_CONTROL_OFF				(0U)
@@ -46,6 +37,11 @@ extern void state_machine();
 #define DRIVE_STATUS_MSK				(drive_status & 0xFU)
 #define DRIVE_STATUS_CLEAR      		~(0xFU)
 #define TUNE_TEST_ENABLE				(drive_command & 0x8000)
+
+#define I_REF_LOOP_MSK                  (0x1U)
+#define SPD_REF_LOOP_MSK                (0x2U)
+#define POS_REF_LOOP_MSK                (0x4U)
+#define TUNE_REF_LOOP_MSK               (0x80U)
 
 
 

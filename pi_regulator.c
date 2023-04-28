@@ -2,183 +2,237 @@
 #include <stdbool.h>
 #include "pi_regulator.h"
 #include "transform.h"
-#include  "driver_adc.h"
+#include "driver_adc.h"
+#include "state_machine.h"
 
-float k_p = 1.2, k_i = 0.0002
-;
-float error_i_q = 0, error_i_d = 0, error_spd = 0, error_pos = 0;
-float i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref;
-float p_part_i_q = 0, p_part_i_d = 0, p_part_spd = 0, p_part_pos = 0;
-float i_part_i_q = 0, i_part_i_d = 0, i_part_spd = 0, i_part_pos = 0;
+regulator position[2]; // to modify
+regulator current_q;
+regulator current_d;
+regulator speed;
+float_t err_old_pos;
 
-int32_t sat_out_currents = 8000;					//-40[A] & 40[A]
-int32_t sat_out_spd = 3000;							//-983010[rpm] & 983010[rpm]
-int32_t sat_out_pos = 1000;							//-32bit[iu]	+32bit[iu]
+float_t i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref;
 
-//10% from sat_out
-int32_t sat_i_part_currents;
-int32_t sat_i_part_spd;
-int32_t sat_i_part_pos;
-
-void pi_regulator_i_q (void)						//i_q -> u_q_ref
+void pi_regulator_i_q(void) // i_q -> u_q_ref
 {
-	sat_i_part_currents = sat_out_currents/10;
-	error_i_q = i_q_ref - i_q;
+	current_q.error = i_q_ref - i_q;
 
-	//Proportional part computation
-	p_part_i_q = error_i_q*k_p;
-	if (p_part_i_q > sat_out_currents)
+	// Proportional part computation
+	current_q.p_part = current_q.error * current_q.kp;
+	if (current_q.p_part > current_q.sat_out)
 	{
-		p_part_i_q = sat_out_currents;
+		current_q.p_part = current_q.sat_out;
 	}
-	else if(p_part_i_q < -sat_out_currents)
+	else if (current_q.p_part < -current_q.sat_out)
 	{
-		p_part_i_q = -sat_out_currents;
-	}
-
-	//Integral part computation
-	i_part_i_q += error_i_q*k_i;
-	if (i_part_i_q > sat_i_part_currents)
-	{
-		i_part_i_q = sat_i_part_currents;
-	}
-	else if(i_part_i_q < -sat_i_part_currents)
-	{
-		i_part_i_q = -sat_i_part_currents;
+		current_q.p_part = -current_q.sat_out;
 	}
 
-	//Output
-	u_q_ref = p_part_i_q + i_part_i_q;
-
-	if (u_q_ref > sat_out_currents)
+	// Integral part computation
+	current_q.i_part += current_q.error * current_q.ki;
+	if (current_q.i_part > current_q.sat_i_part)
 	{
-		u_q_ref = sat_out_currents;
+		current_q.i_part = current_q.sat_i_part;
 	}
-	else if(u_q_ref < -sat_out_currents)
+	else if (current_q.i_part < -current_q.sat_i_part)
 	{
-		u_q_ref = -sat_out_currents;
+		current_q.i_part = -current_q.sat_i_part;
 	}
 
+	// Output
+	u_q_ref = current_q.p_part + current_q.i_part;
+
+	if (u_q_ref > current_q.sat_out)
+	{
+		u_q_ref = current_q.sat_out;
+	}
+	else if (u_q_ref < -current_q.sat_out)
+	{
+		u_q_ref = -current_q.sat_out;
+	}
 }
 
-void pi_regulator_i_d (void)					//i_d -> u_d_ref
+void pi_regulator_i_d(void) // i_d -> u_d_ref
 {
-	sat_i_part_currents = sat_out_currents/10;
-	error_i_d = i_d_ref - i_d;
+	current_d.error = i_d_ref - i_d;
 
-	//Proportional part computation
-	p_part_i_d = error_i_d*k_p;
-	if (p_part_i_d > sat_out_currents)
+	// Proportional part computation
+	current_d.p_part = current_d.error * current_d.kp;
+	if (current_d.p_part > current_d.sat_out)
 	{
-		p_part_i_d = sat_out_currents;
+		current_d.p_part = current_d.sat_out;
 	}
-	else if(p_part_i_d < -sat_out_currents)
+	else if (current_d.p_part < -current_d.sat_out)
 	{
-		p_part_i_d = -sat_out_currents;
-	}
-
-	//Integral part computation
-	i_part_i_d += error_i_d*k_i;
-	if (i_part_i_d > sat_i_part_currents)
-	{
-		i_part_i_d = sat_i_part_currents;
-	}
-	else if(i_part_i_d < -sat_i_part_currents)
-	{
-		i_part_i_d = -sat_i_part_currents;
+		current_d.p_part = -current_d.sat_out;
 	}
 
-	//Output
-	u_d_ref = p_part_i_d + i_part_i_d;
-
-	if (u_d_ref > sat_out_currents)
+	// Integral part computation
+	current_d.i_part += current_d.error * current_d.ki;
+	if (current_d.i_part > current_d.sat_i_part)
 	{
-		u_d_ref = sat_out_currents;
+		current_d.i_part = current_d.sat_i_part;
 	}
-	else if(u_d_ref < -sat_out_currents)
+	else if (current_d.i_part < -current_d.sat_i_part)
 	{
-		u_d_ref = -sat_out_currents;
+		current_d.i_part = -current_d.sat_i_part;
 	}
 
+	// Output
+	u_d_ref = current_d.p_part + current_d.i_part;
+
+	if (u_d_ref > current_d.sat_out)
+	{
+		u_d_ref = current_d.sat_out;
+	}
+	else if (u_d_ref < -current_d.sat_out)
+	{
+		u_d_ref = -current_d.sat_out;
+	}
 }
 
-void pi_regulator_speed (void)			//motor_spd -> i_q_ref
+void pi_regulator_speed(void) // motor_spd -> i_q_ref
 {
-	sat_i_part_spd = sat_out_spd/10;
-	error_spd = spd_ref - motor_spd;
+	speed.error = spd_ref - motor_spd;
 
-	//Proportional part computation
-	p_part_spd = error_spd*k_p;
-	if (p_part_spd > sat_out_spd)
+	// Proportional part computation
+	speed.p_part = speed.error * speed.kp;
+	if (speed.p_part > speed.sat_out)
 	{
-		p_part_spd = sat_out_spd;
+		speed.p_part = speed.sat_out;
 	}
-	else if(p_part_spd < -sat_out_spd)
+	else if (speed.p_part < -speed.sat_out)
 	{
-		p_part_spd = -sat_out_spd;
-	}
-
-	//Integral part computation
-	i_part_spd += error_spd*k_i;
-	if (i_part_spd > sat_i_part_spd)
-	{
-		i_part_spd = sat_i_part_spd;
-	}
-	else if(i_part_spd < -sat_i_part_spd)
-	{
-		i_part_spd = -sat_i_part_spd;
+		speed.p_part = -speed.sat_out;
 	}
 
-	//Output
-	i_q_ref = p_part_spd + i_part_spd;
-
-	if (i_q_ref > sat_out_spd)
+	// Integral part computation
+	speed.i_part += speed.error * speed.ki;
+	if (speed.i_part > speed.sat_i_part)
 	{
-		i_q_ref = sat_out_spd;
+		speed.i_part = speed.sat_i_part;
 	}
-	else if(u_q_ref < -sat_out_spd)
+	else if (speed.i_part < -speed.sat_i_part)
 	{
-		i_q_ref = -sat_out_spd;
+		speed.i_part = -speed.sat_i_part;
 	}
 
+	// Output
+	i_q_ref = speed.p_part + speed.i_part;
+
+	if (i_q_ref > speed.sat_out)
+	{
+		i_q_ref = speed.sat_out;
+	}
+	else if (i_q_ref < -speed.sat_out)
+	{
+		i_q_ref = -speed.sat_out;
+	}
 }
-void pi_regulator_pos (void)				//mechanical_position_fast -> spd_ref
+
+void pid_regulator_pos(void) // mechanical_position_fast -> spd_ref
 {
-	sat_i_part_pos = sat_out_pos/10;
-	error_pos = pos_ref - mechanical_position_fast;
+	int i = !(LOOP_SPD_ENABLE);
 
-	//Proportional part computation
-	p_part_pos = error_pos*k_p;
-	if (p_part_pos > sat_out_pos)
-	{
-		p_part_pos = sat_out_pos;
-	}
-	else if(p_part_pos < -sat_out_pos)
-	{
-		p_part_pos = -sat_out_pos;
-	}
+	position[i].error = pos_ref - mechanical_position_fast;
 
-	//Integral part computation
-	i_part_pos += error_pos*k_i;
-	if (i_part_pos > sat_i_part_pos)
+	// Proportional part computation
+	position[i].p_part = position[i].error * position[i].kp;
+	if (position[i].p_part > position[i].sat_out)
 	{
-		i_part_pos = sat_i_part_pos;
+		position[i].p_part = position[i].sat_out;
 	}
-	else if(i_part_pos < -sat_i_part_pos)
+	else if (position[i].p_part < -position[i].sat_out)
 	{
-		i_part_pos = -sat_i_part_pos;
+		position[i].p_part = -position[i].sat_out;
 	}
 
-	//Output
-		spd_ref = p_part_pos + i_part_pos;
+	// Integral part computation
+	position[i].i_part += position[i].error * position[i].ki;
+	if (position[i].i_part > position[i].sat_i_part)
+	{
+		position[i].i_part = position[i].sat_i_part;
+	}
+	else if (position[i].i_part < -position[i].sat_i_part)
+	{
+		position[i].i_part = -position[i].sat_i_part;
+	}
 
-		if (spd_ref > sat_out_pos)
+	// Derived part computation	
+	position[i].d_part = (position[i].error - err_old_pos) * position[i].kd;
+	if (position[i].d_part > position[i].sat_out)
+	{
+		position[i].d_part = position[i].sat_out;
+	}
+	else if (position[i].d_part < -position[i].sat_out)
+	{
+		position[i].d_part = -position[i].sat_out;
+	}
+
+	// Output SPD or I
+	switch (i)
+	{
+	case (SPD_REF):
+		spd_ref = position[i].p_part + position[i].i_part + position[i].d_part;
+
+		if (spd_ref > position[i].sat_out)
 		{
-			spd_ref = sat_out_pos;
+			spd_ref = position[i].sat_out;
 		}
-		else if(spd_ref < -sat_out_pos)
+		else if (spd_ref < -position[i].sat_out)
 		{
-			spd_ref = -sat_out_pos;
+			spd_ref = -position[i].sat_out;
 		}
+		break;
+
+	case (I_REF):
+		i_q_ref = position[i].p_part + position[i].i_part + position[i].d_part;
+
+		if (i_q_ref > position[i].sat_out)
+		{
+			i_q_ref = position[i].sat_out;
+		}
+		else if (i_q_ref < -position[i].sat_out)
+		{
+			i_q_ref = -position[i].sat_out;
+		}
+		break;
+
+	default:
+		break;
+	}
+}
+
+void pi_init(void)
+{
+	current_q.kp = 10;
+	current_q.ki = 0.05;
+	current_q.kd = 0;
+	current_q.sat_out = 15000;
+	current_q.sat_i_part = current_q.sat_out / 10;
+
+	current_d.kp = current_q.kp;
+	current_d.ki = current_q.ki;
+	current_d.kd = current_q.kd;
+	current_d.sat_out = current_q.sat_out;
+	current_d.sat_i_part = current_q.sat_i_part;
+
+	speed.kp = 200;
+	speed.ki = 5;
+	speed.kd = 0;
+	speed.sat_out = 5000;
+	speed.sat_i_part = speed.sat_out / 10;
+
+	position[0].kp = 0.3;
+	position[0].ki = 0.0015;
+	position[0].kd = 0;
+	position[0].sat_out = 50;
+	position[0].sat_i_part = position[0].sat_out / 10;
+
+	position[1].kp = 0.5;
+	position[1].ki = 0.025;
+	position[1].kd = 25.0;
+	position[1].sat_out = 5000;
+	position[1].sat_i_part = position[1].sat_out / 10;
 
 }

@@ -17,74 +17,89 @@
   17              	.Ltext0:
   18              	 .cfi_sections .debug_frame
   19              	 .comm CCU8_CC8_CR1_CR1_Value,4,4
-  20              	 .comm theta_fast,4,4
-  21              	 .global interrupt_counter_ref_gen
-  22              	 .section .bss.interrupt_counter_ref_gen,"aw",%nobits
-  23              	 .align 2
-  26              	interrupt_counter_ref_gen:
-  27 0000 00000000 	 .space 4
-  28              	 .global ref_gen_status
-  29              	 .section .bss.ref_gen_status,"aw",%nobits
-  32              	ref_gen_status:
-  33 0000 00       	 .space 1
-  34              	 .global high_level
-  35              	 .section .data.high_level,"aw",%progbits
-  36              	 .align 2
-  39              	high_level:
-  40 0000 B80B0000 	 .word 3000
-  41              	 .global high_level_time
-  42              	 .section .data.high_level_time,"aw",%progbits
-  43              	 .align 2
-  46              	high_level_time:
-  47 0000 E8030000 	 .word 1000
-  48              	 .global rise_time
-  49              	 .section .data.rise_time,"aw",%progbits
-  50              	 .align 2
-  53              	rise_time:
-  54 0000 0A000000 	 .word 10
-  55              	 .comm rise_increment,4,4
-  56              	 .global fall_time
-  57              	 .section .data.fall_time,"aw",%progbits
-  58              	 .align 2
-  61              	fall_time:
-  62 0000 0A000000 	 .word 10
-  63              	 .comm fall_decrement,4,4
-  64              	 .global low_level
-  65              	 .section .bss.low_level,"aw",%nobits
-  66              	 .align 2
-  69              	low_level:
-  70 0000 00000000 	 .space 4
-  71              	 .global low_level_time
-  72              	 .section .data.low_level_time,"aw",%progbits
-  73              	 .align 2
-  76              	low_level_time:
-  77 0000 E8030000 	 .word 1000
-  78              	 .global repeat_motion
-  79              	 .section .data.repeat_motion,"aw",%progbits
-  82              	repeat_motion:
-  83 0000 01       	 .byte 1
-  84              	 .global reference
-  85              	 .section .bss.reference,"aw",%nobits
-  86              	 .align 2
-  89              	reference:
-  90 0000 00000000 	 .space 4
-  91              	 .global reference_old
-  92              	 .section .bss.reference_old,"aw",%nobits
-  93              	 .align 2
-  96              	reference_old:
-  97 0000 00000000 	 .space 4
-  98              	 .global ref_type_select
-  99              	 .section .bss.ref_type_select,"aw",%nobits
- 102              	ref_type_select:
- 103 0000 00       	 .space 1
- 104              	 .section .text.reference_generator_compute,"ax",%progbits
+  20              	 .global interrupt_counter_ref_gen
+  21              	 .section .bss.interrupt_counter_ref_gen,"aw",%nobits
+  22              	 .align 2
+  25              	interrupt_counter_ref_gen:
+  26 0000 00000000 	 .space 4
+  27              	 .global ref_gen_status
+  28              	 .section .bss.ref_gen_status,"aw",%nobits
+  31              	ref_gen_status:
+  32 0000 00       	 .space 1
+  33              	 .comm high_level,4,4
+  34              	 .comm high_level_time,4,4
+  35              	 .comm rise_time,4,4
+  36              	 .comm rise_increment,4,4
+  37              	 .comm fall_time,4,4
+  38              	 .comm fall_decrement,4,4
+  39              	 .comm low_level,4,4
+  40              	 .comm low_level_time,4,4
+  41              	 .global repeat_motion
+  42              	 .section .data.repeat_motion,"aw",%progbits
+  45              	repeat_motion:
+  46 0000 01       	 .byte 1
+  47              	 .global time_rise_input_s
+  48              	 .section .bss.time_rise_input_s,"aw",%nobits
+  49              	 .align 2
+  52              	time_rise_input_s:
+  53 0000 00000000 	 .space 4
+  54              	 .global time_fall_input_s
+  55              	 .section .bss.time_fall_input_s,"aw",%nobits
+  56              	 .align 2
+  59              	time_fall_input_s:
+  60 0000 00000000 	 .space 4
+  61              	 .global time_high_input_s
+  62              	 .section .bss.time_high_input_s,"aw",%nobits
+  63              	 .align 2
+  66              	time_high_input_s:
+  67 0000 00000000 	 .space 4
+  68              	 .global time_low_input_s
+  69              	 .section .bss.time_low_input_s,"aw",%nobits
+  70              	 .align 2
+  73              	time_low_input_s:
+  74 0000 00000000 	 .space 4
+  75              	 .global current_input
+  76              	 .section .bss.current_input,"aw",%nobits
+  77              	 .align 1
+  80              	current_input:
+  81 0000 0000     	 .space 2
+  82              	 .global voltage_input
+  83              	 .section .bss.voltage_input,"aw",%nobits
+  84              	 .align 1
+  87              	voltage_input:
+  88 0000 0000     	 .space 2
+  89              	 .global rpm_input
+  90              	 .section .bss.rpm_input,"aw",%nobits
+  91              	 .align 2
+  94              	rpm_input:
+  95 0000 00000000 	 .space 4
+  96              	 .global rotation_input
+  97              	 .section .bss.rotation_input,"aw",%nobits
+  98              	 .align 2
+ 101              	rotation_input:
+ 102 0000 00000000 	 .space 4
+ 103              	 .global reference
+ 104              	 .section .bss.reference,"aw",%nobits
  105              	 .align 2
- 106              	 .global reference_generator_compute
- 107              	 .thumb
- 108              	 .thumb_func
- 110              	reference_generator_compute:
- 111              	.LFB196:
- 112              	 .file 1 "../reference_generator.c"
+ 108              	reference:
+ 109 0000 00000000 	 .space 4
+ 110              	 .global reference_old
+ 111              	 .section .bss.reference_old,"aw",%nobits
+ 112              	 .align 2
+ 115              	reference_old:
+ 116 0000 00000000 	 .space 4
+ 117              	 .global ref_type_select
+ 118              	 .section .bss.ref_type_select,"aw",%nobits
+ 121              	ref_type_select:
+ 122 0000 00       	 .space 1
+ 123              	 .section .text.reference_generator_compute,"ax",%progbits
+ 124              	 .align 2
+ 125              	 .global reference_generator_compute
+ 126              	 .thumb
+ 127              	 .thumb_func
+ 129              	reference_generator_compute:
+ 130              	.LFB196:
+ 131              	 .file 1 "../reference_generator.c"
    1:../reference_generator.c **** #include <stdint.h>
    2:../reference_generator.c **** #include <stdbool.h>
    3:../reference_generator.c **** #include "reference_generator.h"
@@ -92,78 +107,340 @@
    5:../reference_generator.c **** #include "pi_regulator.h"
    6:../reference_generator.c **** #include "state_machine.h"
    7:../reference_generator.c **** #include "transform.h"
-   8:../reference_generator.c **** 
-   9:../reference_generator.c **** //For reference Time = [ms] | high_level = motor counts
-  10:../reference_generator.c **** uint32_t interrupt_counter_ref_gen = 0;
-  11:../reference_generator.c **** 
-  12:../reference_generator.c **** status_ref_gen ref_gen_status = 0;					//0 - disabled, 1 - rise, 2 - high, 3 - fall, 4 - low
-  13:../reference_generator.c **** 
-  14:../reference_generator.c **** int32_t high_level = 3000;							//final reference
-  15:../reference_generator.c **** int32_t high_level_time = 1000;						//time to hold final reference
-  16:../reference_generator.c **** 
-  17:../reference_generator.c **** int32_t rise_time = 10;								//time to get to final reference
-  18:../reference_generator.c **** int32_t rise_increment;
-  19:../reference_generator.c **** 
-  20:../reference_generator.c **** int32_t fall_time = 10;								//time to get to initial reference
-  21:../reference_generator.c **** int32_t fall_decrement;
-  22:../reference_generator.c **** 
-  23:../reference_generator.c **** int32_t low_level = 0;								//initial reference = 0
-  24:../reference_generator.c **** int32_t low_level_time = 1000;						//time to hold initial reference
-  25:../reference_generator.c **** 
-  26:../reference_generator.c **** uint8_t repeat_motion = 1;							// 0 = NO | 1 = YES
-  27:../reference_generator.c **** 
-  28:../reference_generator.c **** float reference = 0;
-  29:../reference_generator.c **** float reference_old = 0;
-  30:../reference_generator.c **** 
-  31:../reference_generator.c **** ref_type ref_type_select = 0;
-  32:../reference_generator.c **** 
+   8:../reference_generator.c **** #include <math.h>
+   9:../reference_generator.c **** 
+  10:../reference_generator.c **** // For reference Time = [ms] | high_level = motor counts
+  11:../reference_generator.c **** uint32_t interrupt_counter_ref_gen = 0;
+  12:../reference_generator.c **** 
+  13:../reference_generator.c **** status_ref_gen ref_gen_status = 0; // 0 - disabled, 1 - rise, 2 - high, 3 - fall, 4 - low
+  14:../reference_generator.c **** 
+  15:../reference_generator.c **** int32_t high_level;		 // final reference
+  16:../reference_generator.c **** int32_t high_level_time; // time to hold final reference
+  17:../reference_generator.c **** 
+  18:../reference_generator.c **** int32_t rise_time; // time to get to final reference
+  19:../reference_generator.c **** float_t rise_increment;
+  20:../reference_generator.c **** 
+  21:../reference_generator.c **** int32_t fall_time; // time to get to initial reference
+  22:../reference_generator.c **** float_t fall_decrement;
+  23:../reference_generator.c **** 
+  24:../reference_generator.c **** int32_t low_level;		// initial reference = 0
+  25:../reference_generator.c **** int32_t low_level_time; // time to hold initial reference
+  26:../reference_generator.c **** 
+  27:../reference_generator.c **** uint8_t repeat_motion = 1; // 0 = NO | 1 = YES
+  28:../reference_generator.c **** 
+  29:../reference_generator.c **** float_t time_rise_input_s = 0;
+  30:../reference_generator.c **** float_t time_fall_input_s = 0;
+  31:../reference_generator.c **** float_t time_high_input_s = 0;
+  32:../reference_generator.c **** float_t time_low_input_s = 0;
   33:../reference_generator.c **** 
-  34:../reference_generator.c **** void reference_generator_compute (void)
-  35:../reference_generator.c **** {
- 113              	 .loc 1 35 0
- 114              	 .cfi_startproc
- 115              	 
- 116              	 
- 117              	 
- 118 0000 80B4     	 push {r7}
- 119              	.LCFI0:
- 120              	 .cfi_def_cfa_offset 4
- 121              	 .cfi_offset 7,-4
- 122 0002 00AF     	 add r7,sp,#0
- 123              	.LCFI1:
- 124              	 .cfi_def_cfa_register 7
-  36:../reference_generator.c **** 
-  37:../reference_generator.c **** 	rise_increment = high_level/rise_time;
- 125              	 .loc 1 37 0
- 126 0004 114B     	 ldr r3,.L2
- 127 0006 1A68     	 ldr r2,[r3]
- 128 0008 114B     	 ldr r3,.L2+4
- 129 000a 1B68     	 ldr r3,[r3]
- 130 000c 92FBF3F3 	 sdiv r3,r2,r3
- 131 0010 104A     	 ldr r2,.L2+8
- 132 0012 1360     	 str r3,[r2]
-  38:../reference_generator.c **** 	fall_decrement = high_level/fall_time;
- 133              	 .loc 1 38 0
- 134 0014 0D4B     	 ldr r3,.L2
- 135 0016 1A68     	 ldr r2,[r3]
- 136 0018 0F4B     	 ldr r3,.L2+12
- 137 001a 1B68     	 ldr r3,[r3]
- 138 001c 92FBF3F3 	 sdiv r3,r2,r3
- 139 0020 0E4A     	 ldr r2,.L2+16
- 140 0022 1360     	 str r3,[r2]
-  39:../reference_generator.c **** 	reference = 0;
- 141              	 .loc 1 39 0
- 142 0024 0E4B     	 ldr r3,.L2+20
- 143 0026 4FF00002 	 mov r2,#0
- 144 002a 1A60     	 str r2,[r3]
-  40:../reference_generator.c **** 	reference_old = 0;
- 145              	 .loc 1 40 0
- 146 002c 0D4B     	 ldr r3,.L2+24
- 147 002e 4FF00002 	 mov r2,#0
- 148 0032 1A60     	 str r2,[r3]
- 149              	.LBB6:
- 150              	.LBB7:
- 151              	 .file 2 "C:/CODE/Licenta/Libraries/CMSIS/Include/cmsis_gcc.h"
+  34:../reference_generator.c **** int16_t current_input = 0; // 1[A] ~= 820[i.u]
+  35:../reference_generator.c **** int16_t voltage_input = 0;
+  36:../reference_generator.c **** float_t rpm_input = 0;	  // rpm_min = 30 = 1[iu/ms] | use increments of 30 for use of computation
+  37:../reference_generator.c **** float_t rotation_input = 0; // number of full rotation | 1[rot] = 2000[iu]
+  38:../reference_generator.c **** 
+  39:../reference_generator.c **** float_t reference = 0;
+  40:../reference_generator.c **** float_t reference_old = 0;
+  41:../reference_generator.c **** 
+  42:../reference_generator.c **** ref_type ref_type_select = 0;
+  43:../reference_generator.c **** 
+  44:../reference_generator.c **** void reference_generator_compute(void)
+  45:../reference_generator.c **** {
+ 132              	 .loc 1 45 0
+ 133              	 .cfi_startproc
+ 134              	 
+ 135              	 
+ 136              	 
+ 137 0000 80B4     	 push {r7}
+ 138              	.LCFI0:
+ 139              	 .cfi_def_cfa_offset 4
+ 140              	 .cfi_offset 7,-4
+ 141 0002 00AF     	 add r7,sp,#0
+ 142              	.LCFI1:
+ 143              	 .cfi_def_cfa_register 7
+  46:../reference_generator.c **** 	// Compute human data inputs into machine outputs
+  47:../reference_generator.c **** 	switch (ref_type_select)
+ 144              	 .loc 1 47 0
+ 145 0004 A14B     	 ldr r3,.L10
+ 146 0006 1B78     	 ldrb r3,[r3]
+ 147 0008 032B     	 cmp r3,#3
+ 148 000a 00F20781 	 bhi .L9
+ 149 000e 01A2     	 adr r2,.L4
+ 150 0010 52F823F0 	 ldr pc,[r2,r3,lsl#2]
+ 151              	 .p2align 2
+ 152              	.L4:
+ 153 0014 25000000 	 .word .L3+1
+ 154 0018 A9000000 	 .word .L5+1
+ 155 001c 2D010000 	 .word .L6+1
+ 156 0020 A1010000 	 .word .L7+1
+ 157              	 .p2align 1
+ 158              	.L3:
+  48:../reference_generator.c **** 	{
+  49:../reference_generator.c **** 	case (REF_POS):
+  50:../reference_generator.c **** 		high_level = rotation_input * ROTATION_IU;
+ 159              	 .loc 1 50 0
+ 160 0024 9A4B     	 ldr r3,.L10+4
+ 161 0026 D3ED007A 	 flds s15,[r3]
+ 162 002a 9FED9A7A 	 flds s14,.L10+8
+ 163 002e 67EE877A 	 fmuls s15,s15,s14
+ 164 0032 FDEEE77A 	 ftosizs s15,s15
+ 165 0036 17EE902A 	 fmrs r2,s15
+ 166 003a 974B     	 ldr r3,.L10+12
+ 167 003c 1A60     	 str r2,[r3]
+  51:../reference_generator.c **** 		high_level_time = time_high_input_s * SECOND;
+ 168              	 .loc 1 51 0
+ 169 003e 974B     	 ldr r3,.L10+16
+ 170 0040 D3ED007A 	 flds s15,[r3]
+ 171 0044 9FED967A 	 flds s14,.L10+20
+ 172 0048 67EE877A 	 fmuls s15,s15,s14
+ 173 004c FDEEE77A 	 ftosizs s15,s15
+ 174 0050 17EE902A 	 fmrs r2,s15
+ 175 0054 934B     	 ldr r3,.L10+24
+ 176 0056 1A60     	 str r2,[r3]
+  52:../reference_generator.c **** 		low_level_time = time_low_input_s * SECOND;
+ 177              	 .loc 1 52 0
+ 178 0058 934B     	 ldr r3,.L10+28
+ 179 005a D3ED007A 	 flds s15,[r3]
+ 180 005e 9FED907A 	 flds s14,.L10+20
+ 181 0062 67EE877A 	 fmuls s15,s15,s14
+ 182 0066 FDEEE77A 	 ftosizs s15,s15
+ 183 006a 17EE902A 	 fmrs r2,s15
+ 184 006e 8F4B     	 ldr r3,.L10+32
+ 185 0070 1A60     	 str r2,[r3]
+  53:../reference_generator.c **** 		rise_time = time_rise_input_s * SECOND;
+ 186              	 .loc 1 53 0
+ 187 0072 8F4B     	 ldr r3,.L10+36
+ 188 0074 D3ED007A 	 flds s15,[r3]
+ 189 0078 9FED897A 	 flds s14,.L10+20
+ 190 007c 67EE877A 	 fmuls s15,s15,s14
+ 191 0080 FDEEE77A 	 ftosizs s15,s15
+ 192 0084 17EE902A 	 fmrs r2,s15
+ 193 0088 8A4B     	 ldr r3,.L10+40
+ 194 008a 1A60     	 str r2,[r3]
+  54:../reference_generator.c **** 		fall_time = time_fall_input_s * SECOND;
+ 195              	 .loc 1 54 0
+ 196 008c 8A4B     	 ldr r3,.L10+44
+ 197 008e D3ED007A 	 flds s15,[r3]
+ 198 0092 9FED837A 	 flds s14,.L10+20
+ 199 0096 67EE877A 	 fmuls s15,s15,s14
+ 200 009a FDEEE77A 	 ftosizs s15,s15
+ 201 009e 17EE902A 	 fmrs r2,s15
+ 202 00a2 864B     	 ldr r3,.L10+48
+ 203 00a4 1A60     	 str r2,[r3]
+  55:../reference_generator.c **** 		break;
+ 204              	 .loc 1 55 0
+ 205 00a6 BAE0     	 b .L8
+ 206              	.L5:
+  56:../reference_generator.c **** 	case (REF_SPD):
+  57:../reference_generator.c **** 		rise_time = time_rise_input_s * SECOND;
+ 207              	 .loc 1 57 0
+ 208 00a8 814B     	 ldr r3,.L10+36
+ 209 00aa D3ED007A 	 flds s15,[r3]
+ 210 00ae 9FED7C7A 	 flds s14,.L10+20
+ 211 00b2 67EE877A 	 fmuls s15,s15,s14
+ 212 00b6 FDEEE77A 	 ftosizs s15,s15
+ 213 00ba 17EE902A 	 fmrs r2,s15
+ 214 00be 7D4B     	 ldr r3,.L10+40
+ 215 00c0 1A60     	 str r2,[r3]
+  58:../reference_generator.c **** 		fall_time = time_high_input_s * SECOND;
+ 216              	 .loc 1 58 0
+ 217 00c2 764B     	 ldr r3,.L10+16
+ 218 00c4 D3ED007A 	 flds s15,[r3]
+ 219 00c8 9FED757A 	 flds s14,.L10+20
+ 220 00cc 67EE877A 	 fmuls s15,s15,s14
+ 221 00d0 FDEEE77A 	 ftosizs s15,s15
+ 222 00d4 17EE902A 	 fmrs r2,s15
+ 223 00d8 784B     	 ldr r3,.L10+48
+ 224 00da 1A60     	 str r2,[r3]
+  59:../reference_generator.c **** 		high_level = rpm_input / (MINUTE / ROTATION_IU);
+ 225              	 .loc 1 59 0
+ 226 00dc 784B     	 ldr r3,.L10+52
+ 227 00de D3ED007A 	 flds s15,[r3]
+ 228 00e2 B3EE0E7A 	 fconsts s14,#62
+ 229 00e6 C7EE877A 	 fdivs s15,s15,s14
+ 230 00ea FDEEE77A 	 ftosizs s15,s15
+ 231 00ee 17EE902A 	 fmrs r2,s15
+ 232 00f2 694B     	 ldr r3,.L10+12
+ 233 00f4 1A60     	 str r2,[r3]
+  60:../reference_generator.c **** 		high_level_time = time_high_input_s * SECOND;
+ 234              	 .loc 1 60 0
+ 235 00f6 694B     	 ldr r3,.L10+16
+ 236 00f8 D3ED007A 	 flds s15,[r3]
+ 237 00fc 9FED687A 	 flds s14,.L10+20
+ 238 0100 67EE877A 	 fmuls s15,s15,s14
+ 239 0104 FDEEE77A 	 ftosizs s15,s15
+ 240 0108 17EE902A 	 fmrs r2,s15
+ 241 010c 654B     	 ldr r3,.L10+24
+ 242 010e 1A60     	 str r2,[r3]
+  61:../reference_generator.c **** 		low_level_time = time_low_input_s * SECOND;
+ 243              	 .loc 1 61 0
+ 244 0110 654B     	 ldr r3,.L10+28
+ 245 0112 D3ED007A 	 flds s15,[r3]
+ 246 0116 9FED627A 	 flds s14,.L10+20
+ 247 011a 67EE877A 	 fmuls s15,s15,s14
+ 248 011e FDEEE77A 	 ftosizs s15,s15
+ 249 0122 17EE902A 	 fmrs r2,s15
+ 250 0126 614B     	 ldr r3,.L10+32
+ 251 0128 1A60     	 str r2,[r3]
+  62:../reference_generator.c **** 		break;
+ 252              	 .loc 1 62 0
+ 253 012a 78E0     	 b .L8
+ 254              	.L6:
+  63:../reference_generator.c **** 	case (REF_I):
+  64:../reference_generator.c **** 		high_level = current_input;
+ 255              	 .loc 1 64 0
+ 256 012c 654B     	 ldr r3,.L10+56
+ 257 012e 1B88     	 ldrh r3,[r3]
+ 258 0130 1BB2     	 sxth r3,r3
+ 259 0132 594A     	 ldr r2,.L10+12
+ 260 0134 1360     	 str r3,[r2]
+  65:../reference_generator.c **** 		high_level_time = time_high_input_s * SECOND;
+ 261              	 .loc 1 65 0
+ 262 0136 594B     	 ldr r3,.L10+16
+ 263 0138 D3ED007A 	 flds s15,[r3]
+ 264 013c 9FED587A 	 flds s14,.L10+20
+ 265 0140 67EE877A 	 fmuls s15,s15,s14
+ 266 0144 FDEEE77A 	 ftosizs s15,s15
+ 267 0148 17EE902A 	 fmrs r2,s15
+ 268 014c 554B     	 ldr r3,.L10+24
+ 269 014e 1A60     	 str r2,[r3]
+  66:../reference_generator.c **** 		low_level_time = time_low_input_s * SECOND;
+ 270              	 .loc 1 66 0
+ 271 0150 554B     	 ldr r3,.L10+28
+ 272 0152 D3ED007A 	 flds s15,[r3]
+ 273 0156 9FED527A 	 flds s14,.L10+20
+ 274 015a 67EE877A 	 fmuls s15,s15,s14
+ 275 015e FDEEE77A 	 ftosizs s15,s15
+ 276 0162 17EE902A 	 fmrs r2,s15
+ 277 0166 514B     	 ldr r3,.L10+32
+ 278 0168 1A60     	 str r2,[r3]
+  67:../reference_generator.c **** 		rise_time = time_rise_input_s * SECOND;
+ 279              	 .loc 1 67 0
+ 280 016a 514B     	 ldr r3,.L10+36
+ 281 016c D3ED007A 	 flds s15,[r3]
+ 282 0170 9FED4B7A 	 flds s14,.L10+20
+ 283 0174 67EE877A 	 fmuls s15,s15,s14
+ 284 0178 FDEEE77A 	 ftosizs s15,s15
+ 285 017c 17EE902A 	 fmrs r2,s15
+ 286 0180 4C4B     	 ldr r3,.L10+40
+ 287 0182 1A60     	 str r2,[r3]
+  68:../reference_generator.c **** 		fall_time = time_fall_input_s * SECOND;
+ 288              	 .loc 1 68 0
+ 289 0184 4C4B     	 ldr r3,.L10+44
+ 290 0186 D3ED007A 	 flds s15,[r3]
+ 291 018a 9FED457A 	 flds s14,.L10+20
+ 292 018e 67EE877A 	 fmuls s15,s15,s14
+ 293 0192 FDEEE77A 	 ftosizs s15,s15
+ 294 0196 17EE902A 	 fmrs r2,s15
+ 295 019a 484B     	 ldr r3,.L10+48
+ 296 019c 1A60     	 str r2,[r3]
+  69:../reference_generator.c **** 		break;
+ 297              	 .loc 1 69 0
+ 298 019e 3EE0     	 b .L8
+ 299              	.L7:
+  70:../reference_generator.c **** 	case (REF_U):
+  71:../reference_generator.c **** 		high_level = voltage_input;
+ 300              	 .loc 1 71 0
+ 301 01a0 494B     	 ldr r3,.L10+60
+ 302 01a2 1B88     	 ldrh r3,[r3]
+ 303 01a4 1BB2     	 sxth r3,r3
+ 304 01a6 3C4A     	 ldr r2,.L10+12
+ 305 01a8 1360     	 str r3,[r2]
+  72:../reference_generator.c **** 		high_level_time = time_high_input_s * SECOND;
+ 306              	 .loc 1 72 0
+ 307 01aa 3C4B     	 ldr r3,.L10+16
+ 308 01ac D3ED007A 	 flds s15,[r3]
+ 309 01b0 9FED3B7A 	 flds s14,.L10+20
+ 310 01b4 67EE877A 	 fmuls s15,s15,s14
+ 311 01b8 FDEEE77A 	 ftosizs s15,s15
+ 312 01bc 17EE902A 	 fmrs r2,s15
+ 313 01c0 384B     	 ldr r3,.L10+24
+ 314 01c2 1A60     	 str r2,[r3]
+  73:../reference_generator.c **** 		low_level_time = time_low_input_s * SECOND;
+ 315              	 .loc 1 73 0
+ 316 01c4 384B     	 ldr r3,.L10+28
+ 317 01c6 D3ED007A 	 flds s15,[r3]
+ 318 01ca 9FED357A 	 flds s14,.L10+20
+ 319 01ce 67EE877A 	 fmuls s15,s15,s14
+ 320 01d2 FDEEE77A 	 ftosizs s15,s15
+ 321 01d6 17EE902A 	 fmrs r2,s15
+ 322 01da 344B     	 ldr r3,.L10+32
+ 323 01dc 1A60     	 str r2,[r3]
+  74:../reference_generator.c **** 		rise_time = time_rise_input_s * SECOND;
+ 324              	 .loc 1 74 0
+ 325 01de 344B     	 ldr r3,.L10+36
+ 326 01e0 D3ED007A 	 flds s15,[r3]
+ 327 01e4 9FED2E7A 	 flds s14,.L10+20
+ 328 01e8 67EE877A 	 fmuls s15,s15,s14
+ 329 01ec FDEEE77A 	 ftosizs s15,s15
+ 330 01f0 17EE902A 	 fmrs r2,s15
+ 331 01f4 2F4B     	 ldr r3,.L10+40
+ 332 01f6 1A60     	 str r2,[r3]
+  75:../reference_generator.c **** 		fall_time = time_fall_input_s * SECOND;
+ 333              	 .loc 1 75 0
+ 334 01f8 2F4B     	 ldr r3,.L10+44
+ 335 01fa D3ED007A 	 flds s15,[r3]
+ 336 01fe 9FED287A 	 flds s14,.L10+20
+ 337 0202 67EE877A 	 fmuls s15,s15,s14
+ 338 0206 FDEEE77A 	 ftosizs s15,s15
+ 339 020a 17EE902A 	 fmrs r2,s15
+ 340 020e 2B4B     	 ldr r3,.L10+48
+ 341 0210 1A60     	 str r2,[r3]
+  76:../reference_generator.c **** 		u_q_ref = reference;
+ 342              	 .loc 1 76 0
+ 343 0212 2E4B     	 ldr r3,.L10+64
+ 344 0214 1B68     	 ldr r3,[r3]
+ 345 0216 2E4A     	 ldr r2,.L10+68
+ 346 0218 1360     	 str r3,[r2]
+  77:../reference_generator.c **** 		break;
+ 347              	 .loc 1 77 0
+ 348 021a 00E0     	 b .L8
+ 349              	.L9:
+  78:../reference_generator.c **** 	default:
+  79:../reference_generator.c **** 		break;
+ 350              	 .loc 1 79 0
+ 351 021c 00BF     	 nop
+ 352              	.L8:
+  80:../reference_generator.c **** 	}
+  81:../reference_generator.c **** 
+  82:../reference_generator.c **** 	rise_increment = (float_t)high_level / rise_time;
+ 353              	 .loc 1 82 0
+ 354 021e 1E4B     	 ldr r3,.L10+12
+ 355 0220 1B68     	 ldr r3,[r3]
+ 356 0222 07EE903A 	 fmsr s15,r3
+ 357 0226 B8EEE77A 	 fsitos s14,s15
+ 358 022a 224B     	 ldr r3,.L10+40
+ 359 022c 1B68     	 ldr r3,[r3]
+ 360 022e 07EE903A 	 fmsr s15,r3
+ 361 0232 F8EEE77A 	 fsitos s15,s15
+ 362 0236 C7EE277A 	 fdivs s15,s14,s15
+ 363 023a 264B     	 ldr r3,.L10+72
+ 364 023c C3ED007A 	 fsts s15,[r3]
+  83:../reference_generator.c **** 	fall_decrement = (float_t)high_level / fall_time;
+ 365              	 .loc 1 83 0
+ 366 0240 154B     	 ldr r3,.L10+12
+ 367 0242 1B68     	 ldr r3,[r3]
+ 368 0244 07EE903A 	 fmsr s15,r3
+ 369 0248 B8EEE77A 	 fsitos s14,s15
+ 370 024c 1B4B     	 ldr r3,.L10+48
+ 371 024e 1B68     	 ldr r3,[r3]
+ 372 0250 07EE903A 	 fmsr s15,r3
+ 373 0254 F8EEE77A 	 fsitos s15,s15
+ 374 0258 C7EE277A 	 fdivs s15,s14,s15
+ 375 025c 1E4B     	 ldr r3,.L10+76
+ 376 025e C3ED007A 	 fsts s15,[r3]
+  84:../reference_generator.c **** 	reference = 0;
+ 377              	 .loc 1 84 0
+ 378 0262 1A4B     	 ldr r3,.L10+64
+ 379 0264 4FF00002 	 mov r2,#0
+ 380 0268 1A60     	 str r2,[r3]
+  85:../reference_generator.c **** 	reference_old = 0;
+ 381              	 .loc 1 85 0
+ 382 026a 1C4B     	 ldr r3,.L10+80
+ 383 026c 4FF00002 	 mov r2,#0
+ 384 0270 1A60     	 str r2,[r3]
+ 385              	.LBB6:
+ 386              	.LBB7:
+ 387              	 .file 2 "C:/CODE/Licenta/Libraries/CMSIS/Include/cmsis_gcc.h"
    1:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**************************************************************************//**
    2:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @file     cmsis_gcc.h
    3:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
@@ -306,441 +583,451 @@
  140:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
  141:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
  142:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
- 152              	 .loc 2 142 0
- 153              	
- 154 0034 72B6     	 cpsid i
- 155              	
- 156              	 .thumb
- 157              	.LBE7:
- 158              	.LBE6:
-  41:../reference_generator.c **** 	//************************************* Move it to drive_commands
-  42:../reference_generator.c **** 	__disable_irq();
-  43:../reference_generator.c **** 	interrupt_counter_ref_gen = 0;
- 159              	 .loc 1 43 0
- 160 0036 0C4B     	 ldr r3,.L2+28
- 161 0038 0022     	 movs r2,#0
- 162 003a 1A60     	 str r2,[r3]
- 163              	.LBB8:
- 164              	.LBB9:
+ 388              	 .loc 2 142 0
+ 389              	
+ 390 0272 72B6     	 cpsid i
+ 391              	
+ 392              	 .thumb
+ 393              	.LBE7:
+ 394              	.LBE6:
+  86:../reference_generator.c **** 
+  87:../reference_generator.c **** 	__disable_irq();
+  88:../reference_generator.c **** 	interrupt_counter_ref_gen = 0;
+ 395              	 .loc 1 88 0
+ 396 0274 1A4B     	 ldr r3,.L10+84
+ 397 0276 0022     	 movs r2,#0
+ 398 0278 1A60     	 str r2,[r3]
+ 399              	.LBB8:
+ 400              	.LBB9:
  131:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 165              	 .loc 2 131 0
- 166              	
- 167 003c 62B6     	 cpsie i
- 168              	
- 169              	 .thumb
- 170              	.LBE9:
- 171              	.LBE8:
-  44:../reference_generator.c **** 	__enable_irq();
-  45:../reference_generator.c **** 	ref_gen_status = STATUS_1_RISE;
- 172              	 .loc 1 45 0
- 173 003e 0B4B     	 ldr r3,.L2+32
- 174 0040 0122     	 movs r2,#1
- 175 0042 1A70     	 strb r2,[r3]
-  46:../reference_generator.c **** 	//*************************************
-  47:../reference_generator.c **** }
- 176              	 .loc 1 47 0
- 177 0044 BD46     	 mov sp,r7
- 178              	.LCFI2:
- 179              	 .cfi_def_cfa_register 13
- 180              	 
- 181 0046 5DF8047B 	 ldr r7,[sp],#4
- 182              	.LCFI3:
- 183              	 .cfi_restore 7
- 184              	 .cfi_def_cfa_offset 0
- 185 004a 7047     	 bx lr
- 186              	.L3:
- 187              	 .align 2
- 188              	.L2:
- 189 004c 00000000 	 .word high_level
- 190 0050 00000000 	 .word rise_time
- 191 0054 00000000 	 .word rise_increment
- 192 0058 00000000 	 .word fall_time
- 193 005c 00000000 	 .word fall_decrement
- 194 0060 00000000 	 .word reference
- 195 0064 00000000 	 .word reference_old
- 196 0068 00000000 	 .word interrupt_counter_ref_gen
- 197 006c 00000000 	 .word ref_gen_status
- 198              	 .cfi_endproc
- 199              	.LFE196:
- 201              	 .section .text.reference_generator,"ax",%progbits
- 202              	 .align 2
- 203              	 .global reference_generator
- 204              	 .thumb
- 205              	 .thumb_func
- 207              	reference_generator:
- 208              	.LFB197:
-  48:../reference_generator.c **** 
-  49:../reference_generator.c **** void reference_generator (void)
-  50:../reference_generator.c **** {
- 209              	 .loc 1 50 0
- 210              	 .cfi_startproc
- 211              	 
- 212              	 
- 213              	 
- 214 0000 80B4     	 push {r7}
- 215              	.LCFI4:
- 216              	 .cfi_def_cfa_offset 4
- 217              	 .cfi_offset 7,-4
- 218 0002 00AF     	 add r7,sp,#0
- 219              	.LCFI5:
- 220              	 .cfi_def_cfa_register 7
-  51:../reference_generator.c **** 	switch(ref_gen_status)
- 221              	 .loc 1 51 0
- 222 0004 574B     	 ldr r3,.L26
- 223 0006 1B78     	 ldrb r3,[r3]
- 224 0008 013B     	 subs r3,r3,#1
- 225 000a 032B     	 cmp r3,#3
- 226 000c 76D8     	 bhi .L24
- 227 000e 01A2     	 adr r2,.L7
- 228 0010 52F823F0 	 ldr pc,[r2,r3,lsl#2]
- 229              	 .p2align 2
- 230              	.L7:
- 231 0014 25000000 	 .word .L6+1
- 232 0018 5D000000 	 .word .L8+1
- 233 001c 7B000000 	 .word .L9+1
- 234 0020 B3000000 	 .word .L10+1
- 235              	 .p2align 1
- 236              	.L6:
-  52:../reference_generator.c **** 	{
-  53:../reference_generator.c **** 	case (STATUS_1_RISE):
-  54:../reference_generator.c **** 			if (interrupt_counter_ref_gen >= rise_time)
- 237              	 .loc 1 54 0
- 238 0024 504B     	 ldr r3,.L26+4
- 239 0026 1B68     	 ldr r3,[r3]
- 240 0028 1A46     	 mov r2,r3
- 241 002a 504B     	 ldr r3,.L26+8
- 242 002c 1B68     	 ldr r3,[r3]
- 243 002e 9A42     	 cmp r2,r3
- 244 0030 05D8     	 bhi .L11
-  55:../reference_generator.c **** 			{
-  56:../reference_generator.c **** 				ref_gen_status = STATUS_2_HIGH_LEVEL;
- 245              	 .loc 1 56 0
- 246 0032 4C4B     	 ldr r3,.L26
- 247 0034 0222     	 movs r2,#2
- 248 0036 1A70     	 strb r2,[r3]
-  57:../reference_generator.c **** 				interrupt_counter_ref_gen = 0;
- 249              	 .loc 1 57 0
- 250 0038 4C4B     	 ldr r3,.L26+8
- 251 003a 0022     	 movs r2,#0
- 252 003c 1A60     	 str r2,[r3]
- 253              	.L11:
-  58:../reference_generator.c **** 			}
-  59:../reference_generator.c **** 				reference += rise_increment;
- 254              	 .loc 1 59 0
- 255 003e 4C4B     	 ldr r3,.L26+12
- 256 0040 1B68     	 ldr r3,[r3]
- 257 0042 07EE903A 	 fmsr s15,r3
- 258 0046 B8EEE77A 	 fsitos s14,s15
- 259 004a 4A4B     	 ldr r3,.L26+16
- 260 004c D3ED007A 	 flds s15,[r3]
- 261 0050 77EE277A 	 fadds s15,s14,s15
- 262 0054 474B     	 ldr r3,.L26+16
- 263 0056 C3ED007A 	 fsts s15,[r3]
-  60:../reference_generator.c **** 
-  61:../reference_generator.c **** 			break;
- 264              	 .loc 1 61 0
- 265 005a 50E0     	 b .L12
- 266              	.L8:
-  62:../reference_generator.c **** 
-  63:../reference_generator.c **** 	case (STATUS_2_HIGH_LEVEL):
-  64:../reference_generator.c **** 			if (interrupt_counter_ref_gen >= high_level_time)
- 267              	 .loc 1 64 0
- 268 005c 464B     	 ldr r3,.L26+20
- 269 005e 1B68     	 ldr r3,[r3]
- 270 0060 1A46     	 mov r2,r3
- 271 0062 424B     	 ldr r3,.L26+8
- 272 0064 1B68     	 ldr r3,[r3]
- 273 0066 9A42     	 cmp r2,r3
- 274 0068 06D8     	 bhi .L13
-  65:../reference_generator.c **** 			{
-  66:../reference_generator.c **** 				ref_gen_status = STATUS_3_FALL;
- 275              	 .loc 1 66 0
- 276 006a 3E4B     	 ldr r3,.L26
- 277 006c 0322     	 movs r2,#3
- 278 006e 1A70     	 strb r2,[r3]
-  67:../reference_generator.c **** 				interrupt_counter_ref_gen = 0;
- 279              	 .loc 1 67 0
- 280 0070 3E4B     	 ldr r3,.L26+8
- 281 0072 0022     	 movs r2,#0
- 282 0074 1A60     	 str r2,[r3]
-  68:../reference_generator.c **** 			}
-  69:../reference_generator.c **** 			break;
- 283              	 .loc 1 69 0
- 284 0076 42E0     	 b .L12
- 285              	.L13:
- 286 0078 41E0     	 b .L12
- 287              	.L9:
-  70:../reference_generator.c **** 
-  71:../reference_generator.c **** 	case (STATUS_3_FALL):
-  72:../reference_generator.c **** 			if (interrupt_counter_ref_gen >= fall_time)
- 288              	 .loc 1 72 0
- 289 007a 404B     	 ldr r3,.L26+24
- 290 007c 1B68     	 ldr r3,[r3]
- 291 007e 1A46     	 mov r2,r3
- 292 0080 3A4B     	 ldr r3,.L26+8
- 293 0082 1B68     	 ldr r3,[r3]
- 294 0084 9A42     	 cmp r2,r3
- 295 0086 05D8     	 bhi .L14
-  73:../reference_generator.c **** 			{
-  74:../reference_generator.c **** 				ref_gen_status = STATUS_4_LOW_LEVEL;
- 296              	 .loc 1 74 0
- 297 0088 364B     	 ldr r3,.L26
- 298 008a 0422     	 movs r2,#4
- 299 008c 1A70     	 strb r2,[r3]
-  75:../reference_generator.c **** 				interrupt_counter_ref_gen = 0;
- 300              	 .loc 1 75 0
- 301 008e 374B     	 ldr r3,.L26+8
- 302 0090 0022     	 movs r2,#0
- 303 0092 1A60     	 str r2,[r3]
- 304              	.L14:
-  76:../reference_generator.c **** 			}
-  77:../reference_generator.c **** 				reference -= fall_decrement;
- 305              	 .loc 1 77 0
- 306 0094 374B     	 ldr r3,.L26+16
- 307 0096 93ED007A 	 flds s14,[r3]
- 308 009a 394B     	 ldr r3,.L26+28
- 309 009c 1B68     	 ldr r3,[r3]
- 310 009e 07EE903A 	 fmsr s15,r3
- 311 00a2 F8EEE77A 	 fsitos s15,s15
- 312 00a6 77EE677A 	 fsubs s15,s14,s15
- 313 00aa 324B     	 ldr r3,.L26+16
- 314 00ac C3ED007A 	 fsts s15,[r3]
-  78:../reference_generator.c **** 
-  79:../reference_generator.c **** 			break;
- 315              	 .loc 1 79 0
- 316 00b0 25E0     	 b .L12
- 317              	.L10:
-  80:../reference_generator.c **** 
-  81:../reference_generator.c **** 	case (STATUS_4_LOW_LEVEL):
-  82:../reference_generator.c **** 			if ((interrupt_counter_ref_gen >= low_level_time) && (repeat_motion == 0))
- 318              	 .loc 1 82 0
- 319 00b2 344B     	 ldr r3,.L26+32
- 320 00b4 1B68     	 ldr r3,[r3]
- 321 00b6 1A46     	 mov r2,r3
- 322 00b8 2C4B     	 ldr r3,.L26+8
- 323 00ba 1B68     	 ldr r3,[r3]
- 324 00bc 9A42     	 cmp r2,r3
- 325 00be 0AD8     	 bhi .L15
- 326              	 .loc 1 82 0 is_stmt 0 discriminator 1
- 327 00c0 314B     	 ldr r3,.L26+36
- 328 00c2 1B78     	 ldrb r3,[r3]
- 329 00c4 002B     	 cmp r3,#0
- 330 00c6 06D1     	 bne .L15
-  83:../reference_generator.c **** 			{
-  84:../reference_generator.c **** 				ref_gen_status = STATUS_0_DISABLED;
- 331              	 .loc 1 84 0 is_stmt 1
- 332 00c8 264B     	 ldr r3,.L26
- 333 00ca 0022     	 movs r2,#0
- 334 00cc 1A70     	 strb r2,[r3]
-  85:../reference_generator.c **** 				interrupt_counter_ref_gen = 0;
- 335              	 .loc 1 85 0
- 336 00ce 274B     	 ldr r3,.L26+8
- 337 00d0 0022     	 movs r2,#0
- 338 00d2 1A60     	 str r2,[r3]
- 339 00d4 11E0     	 b .L16
- 340              	.L15:
-  86:../reference_generator.c **** 			}
-  87:../reference_generator.c **** 			else if ((interrupt_counter_ref_gen >= low_level_time) && (repeat_motion == 1))
- 341              	 .loc 1 87 0
- 342 00d6 2B4B     	 ldr r3,.L26+32
- 343 00d8 1B68     	 ldr r3,[r3]
- 344 00da 1A46     	 mov r2,r3
- 345 00dc 234B     	 ldr r3,.L26+8
- 346 00de 1B68     	 ldr r3,[r3]
- 347 00e0 9A42     	 cmp r2,r3
- 348 00e2 0AD8     	 bhi .L16
- 349              	 .loc 1 87 0 is_stmt 0 discriminator 1
- 350 00e4 284B     	 ldr r3,.L26+36
- 351 00e6 1B78     	 ldrb r3,[r3]
- 352 00e8 012B     	 cmp r3,#1
- 353 00ea 06D1     	 bne .L16
-  88:../reference_generator.c **** 			{
-  89:../reference_generator.c **** 				ref_gen_status = STATUS_1_RISE;
- 354              	 .loc 1 89 0 is_stmt 1
- 355 00ec 1D4B     	 ldr r3,.L26
- 356 00ee 0122     	 movs r2,#1
- 357 00f0 1A70     	 strb r2,[r3]
-  90:../reference_generator.c **** 				interrupt_counter_ref_gen = 0;
- 358              	 .loc 1 90 0
- 359 00f2 1E4B     	 ldr r3,.L26+8
- 360 00f4 0022     	 movs r2,#0
- 361 00f6 1A60     	 str r2,[r3]
-  91:../reference_generator.c **** 			}
-  92:../reference_generator.c **** 			break;
- 362              	 .loc 1 92 0
- 363 00f8 01E0     	 b .L12
- 364              	.L16:
- 365 00fa 00E0     	 b .L12
- 366              	.L24:
-  93:../reference_generator.c **** 
-  94:../reference_generator.c **** 	default:
-  95:../reference_generator.c **** 		break;
- 367              	 .loc 1 95 0
- 368 00fc 00BF     	 nop
- 369              	.L12:
-  96:../reference_generator.c **** 	}
-  97:../reference_generator.c **** 
-  98:../reference_generator.c **** 	switch (ref_type_select)
- 370              	 .loc 1 98 0
- 371 00fe 234B     	 ldr r3,.L26+40
- 372 0100 1B78     	 ldrb r3,[r3]
- 373 0102 032B     	 cmp r3,#3
- 374 0104 29D8     	 bhi .L25
- 375 0106 01A2     	 adr r2,.L19
- 376 0108 52F823F0 	 ldr pc,[r2,r3,lsl#2]
- 377              	 .p2align 2
- 378              	.L19:
- 379 010c 1D010000 	 .word .L18+1
- 380 0110 27010000 	 .word .L20+1
- 381 0114 47010000 	 .word .L21+1
- 382 0118 51010000 	 .word .L22+1
- 383              	 .p2align 1
- 384              	.L18:
-  99:../reference_generator.c **** 	{
- 100:../reference_generator.c **** 	case(REF_POS):
- 101:../reference_generator.c **** 			pos_ref = reference;
- 385              	 .loc 1 101 0
- 386 011c 154B     	 ldr r3,.L26+16
- 387 011e 1B68     	 ldr r3,[r3]
- 388 0120 1B4A     	 ldr r2,.L26+44
- 389 0122 1360     	 str r3,[r2]
- 102:../reference_generator.c **** 			break;
- 390              	 .loc 1 102 0
- 391 0124 1AE0     	 b .L4
- 392              	.L20:
- 103:../reference_generator.c **** 	case(REF_SPD):
- 104:../reference_generator.c **** 			spd_ref = reference - reference_old;
- 393              	 .loc 1 104 0
- 394 0126 134B     	 ldr r3,.L26+16
- 395 0128 93ED007A 	 flds s14,[r3]
- 396 012c 194B     	 ldr r3,.L26+48
- 397 012e D3ED007A 	 flds s15,[r3]
- 398 0132 77EE677A 	 fsubs s15,s14,s15
- 399 0136 184B     	 ldr r3,.L26+52
- 400 0138 C3ED007A 	 fsts s15,[r3]
- 105:../reference_generator.c **** 			reference_old = reference;
- 401              	 .loc 1 105 0
- 402 013c 0D4B     	 ldr r3,.L26+16
- 403 013e 1B68     	 ldr r3,[r3]
- 404 0140 144A     	 ldr r2,.L26+48
- 405 0142 1360     	 str r3,[r2]
- 106:../reference_generator.c **** 			break;
- 406              	 .loc 1 106 0
- 407 0144 0AE0     	 b .L4
- 408              	.L21:
- 107:../reference_generator.c **** 	case(REF_I):
- 108:../reference_generator.c **** 			i_q_ref = reference;
- 409              	 .loc 1 108 0
- 410 0146 0B4B     	 ldr r3,.L26+16
- 411 0148 1B68     	 ldr r3,[r3]
- 412 014a 144A     	 ldr r2,.L26+56
- 413 014c 1360     	 str r3,[r2]
- 109:../reference_generator.c **** 			break;
- 414              	 .loc 1 109 0
- 415 014e 05E0     	 b .L4
- 416              	.L22:
- 110:../reference_generator.c **** 	case(REF_U):
- 111:../reference_generator.c **** 			u_q_ref = reference;
- 417              	 .loc 1 111 0
- 418 0150 084B     	 ldr r3,.L26+16
- 419 0152 1B68     	 ldr r3,[r3]
- 420 0154 124A     	 ldr r2,.L26+60
- 421 0156 1360     	 str r3,[r2]
- 112:../reference_generator.c **** 			break;
- 422              	 .loc 1 112 0
- 423 0158 00E0     	 b .L4
- 424              	.L25:
- 113:../reference_generator.c **** 	default:
- 114:../reference_generator.c **** 		break;
- 425              	 .loc 1 114 0
- 426 015a 00BF     	 nop
- 427              	.L4:
- 115:../reference_generator.c **** 	}
- 116:../reference_generator.c **** 
- 117:../reference_generator.c **** }
- 428              	 .loc 1 117 0
- 429 015c BD46     	 mov sp,r7
- 430              	.LCFI6:
- 431              	 .cfi_def_cfa_register 13
- 432              	 
- 433 015e 5DF8047B 	 ldr r7,[sp],#4
- 434              	.LCFI7:
- 435              	 .cfi_restore 7
- 436              	 .cfi_def_cfa_offset 0
- 437 0162 7047     	 bx lr
- 438              	.L27:
- 439              	 .align 2
- 440              	.L26:
- 441 0164 00000000 	 .word ref_gen_status
- 442 0168 00000000 	 .word rise_time
- 443 016c 00000000 	 .word interrupt_counter_ref_gen
- 444 0170 00000000 	 .word rise_increment
- 445 0174 00000000 	 .word reference
- 446 0178 00000000 	 .word high_level_time
- 447 017c 00000000 	 .word fall_time
- 448 0180 00000000 	 .word fall_decrement
- 449 0184 00000000 	 .word low_level_time
- 450 0188 00000000 	 .word repeat_motion
- 451 018c 00000000 	 .word ref_type_select
- 452 0190 00000000 	 .word pos_ref
- 453 0194 00000000 	 .word reference_old
- 454 0198 00000000 	 .word spd_ref
- 455 019c 00000000 	 .word i_q_ref
- 456 01a0 00000000 	 .word u_q_ref
- 457              	 .cfi_endproc
- 458              	.LFE197:
- 460              	 .text
- 461              	.Letext0:
- 462              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 463              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 464              	 .file 5 "../reference_generator.h"
- 465              	 .file 6 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 466              	 .file 7 "../main.h"
- 467              	 .file 8 "../pi_regulator.h"
- 468              	 .file 9 "../transform.h"
+ 401              	 .loc 2 131 0
+ 402              	
+ 403 027a 62B6     	 cpsie i
+ 404              	
+ 405              	 .thumb
+ 406              	.LBE9:
+ 407              	.LBE8:
+  89:../reference_generator.c **** 	__enable_irq();
+  90:../reference_generator.c **** 	ref_gen_status = STATUS_1_RISE;
+ 408              	 .loc 1 90 0
+ 409 027c 194B     	 ldr r3,.L10+88
+ 410 027e 0122     	 movs r2,#1
+ 411 0280 1A70     	 strb r2,[r3]
+  91:../reference_generator.c **** }
+ 412              	 .loc 1 91 0
+ 413 0282 BD46     	 mov sp,r7
+ 414              	.LCFI2:
+ 415              	 .cfi_def_cfa_register 13
+ 416              	 
+ 417 0284 5DF8047B 	 ldr r7,[sp],#4
+ 418              	.LCFI3:
+ 419              	 .cfi_restore 7
+ 420              	 .cfi_def_cfa_offset 0
+ 421 0288 7047     	 bx lr
+ 422              	.L11:
+ 423 028a 00BF     	 .align 2
+ 424              	.L10:
+ 425 028c 00000000 	 .word ref_type_select
+ 426 0290 00000000 	 .word rotation_input
+ 427 0294 0000FA44 	 .word 1157234688
+ 428 0298 00000000 	 .word high_level
+ 429 029c 00000000 	 .word time_high_input_s
+ 430 02a0 00007A44 	 .word 1148846080
+ 431 02a4 00000000 	 .word high_level_time
+ 432 02a8 00000000 	 .word time_low_input_s
+ 433 02ac 00000000 	 .word low_level_time
+ 434 02b0 00000000 	 .word time_rise_input_s
+ 435 02b4 00000000 	 .word rise_time
+ 436 02b8 00000000 	 .word time_fall_input_s
+ 437 02bc 00000000 	 .word fall_time
+ 438 02c0 00000000 	 .word rpm_input
+ 439 02c4 00000000 	 .word current_input
+ 440 02c8 00000000 	 .word voltage_input
+ 441 02cc 00000000 	 .word reference
+ 442 02d0 00000000 	 .word u_q_ref
+ 443 02d4 00000000 	 .word rise_increment
+ 444 02d8 00000000 	 .word fall_decrement
+ 445 02dc 00000000 	 .word reference_old
+ 446 02e0 00000000 	 .word interrupt_counter_ref_gen
+ 447 02e4 00000000 	 .word ref_gen_status
+ 448              	 .cfi_endproc
+ 449              	.LFE196:
+ 451              	 .section .text.reference_generator,"ax",%progbits
+ 452              	 .align 2
+ 453              	 .global reference_generator
+ 454              	 .thumb
+ 455              	 .thumb_func
+ 457              	reference_generator:
+ 458              	.LFB197:
+  92:../reference_generator.c **** 
+  93:../reference_generator.c **** void reference_generator(void)
+  94:../reference_generator.c **** {
+ 459              	 .loc 1 94 0
+ 460              	 .cfi_startproc
+ 461              	 
+ 462              	 
+ 463              	 
+ 464 0000 80B4     	 push {r7}
+ 465              	.LCFI4:
+ 466              	 .cfi_def_cfa_offset 4
+ 467              	 .cfi_offset 7,-4
+ 468 0002 00AF     	 add r7,sp,#0
+ 469              	.LCFI5:
+ 470              	 .cfi_def_cfa_register 7
+  95:../reference_generator.c **** 	switch (ref_gen_status)
+ 471              	 .loc 1 95 0
+ 472 0004 4F4B     	 ldr r3,.L34
+ 473 0006 1B78     	 ldrb r3,[r3]
+ 474 0008 013B     	 subs r3,r3,#1
+ 475 000a 032B     	 cmp r3,#3
+ 476 000c 70D8     	 bhi .L32
+ 477 000e 01A2     	 adr r2,.L15
+ 478 0010 52F823F0 	 ldr pc,[r2,r3,lsl#2]
+ 479              	 .p2align 2
+ 480              	.L15:
+ 481 0014 25000000 	 .word .L14+1
+ 482 0018 57000000 	 .word .L16+1
+ 483 001c 75000000 	 .word .L17+1
+ 484 0020 A7000000 	 .word .L18+1
+ 485              	 .p2align 1
+ 486              	.L14:
+  96:../reference_generator.c **** 	{
+  97:../reference_generator.c **** 	case (STATUS_1_RISE):
+  98:../reference_generator.c **** 		if (interrupt_counter_ref_gen >= rise_time)
+ 487              	 .loc 1 98 0
+ 488 0024 484B     	 ldr r3,.L34+4
+ 489 0026 1B68     	 ldr r3,[r3]
+ 490 0028 1A46     	 mov r2,r3
+ 491 002a 484B     	 ldr r3,.L34+8
+ 492 002c 1B68     	 ldr r3,[r3]
+ 493 002e 9A42     	 cmp r2,r3
+ 494 0030 05D8     	 bhi .L19
+  99:../reference_generator.c **** 		{
+ 100:../reference_generator.c **** 			ref_gen_status = STATUS_2_HIGH_LEVEL;
+ 495              	 .loc 1 100 0
+ 496 0032 444B     	 ldr r3,.L34
+ 497 0034 0222     	 movs r2,#2
+ 498 0036 1A70     	 strb r2,[r3]
+ 101:../reference_generator.c **** 			interrupt_counter_ref_gen = 0;
+ 499              	 .loc 1 101 0
+ 500 0038 444B     	 ldr r3,.L34+8
+ 501 003a 0022     	 movs r2,#0
+ 502 003c 1A60     	 str r2,[r3]
+ 503              	.L19:
+ 102:../reference_generator.c **** 		}
+ 103:../reference_generator.c **** 		reference += rise_increment;
+ 504              	 .loc 1 103 0
+ 505 003e 444B     	 ldr r3,.L34+12
+ 506 0040 93ED007A 	 flds s14,[r3]
+ 507 0044 434B     	 ldr r3,.L34+16
+ 508 0046 D3ED007A 	 flds s15,[r3]
+ 509 004a 77EE277A 	 fadds s15,s14,s15
+ 510 004e 404B     	 ldr r3,.L34+12
+ 511 0050 C3ED007A 	 fsts s15,[r3]
+ 104:../reference_generator.c **** 
+ 105:../reference_generator.c **** 		break;
+ 512              	 .loc 1 105 0
+ 513 0054 4DE0     	 b .L20
+ 514              	.L16:
+ 106:../reference_generator.c **** 
+ 107:../reference_generator.c **** 	case (STATUS_2_HIGH_LEVEL):
+ 108:../reference_generator.c **** 		if (interrupt_counter_ref_gen >= high_level_time)
+ 515              	 .loc 1 108 0
+ 516 0056 404B     	 ldr r3,.L34+20
+ 517 0058 1B68     	 ldr r3,[r3]
+ 518 005a 1A46     	 mov r2,r3
+ 519 005c 3B4B     	 ldr r3,.L34+8
+ 520 005e 1B68     	 ldr r3,[r3]
+ 521 0060 9A42     	 cmp r2,r3
+ 522 0062 06D8     	 bhi .L21
+ 109:../reference_generator.c **** 		{
+ 110:../reference_generator.c **** 			ref_gen_status = STATUS_3_FALL;
+ 523              	 .loc 1 110 0
+ 524 0064 374B     	 ldr r3,.L34
+ 525 0066 0322     	 movs r2,#3
+ 526 0068 1A70     	 strb r2,[r3]
+ 111:../reference_generator.c **** 			interrupt_counter_ref_gen = 0;
+ 527              	 .loc 1 111 0
+ 528 006a 384B     	 ldr r3,.L34+8
+ 529 006c 0022     	 movs r2,#0
+ 530 006e 1A60     	 str r2,[r3]
+ 112:../reference_generator.c **** 		}
+ 113:../reference_generator.c **** 		break;
+ 531              	 .loc 1 113 0
+ 532 0070 3FE0     	 b .L20
+ 533              	.L21:
+ 534 0072 3EE0     	 b .L20
+ 535              	.L17:
+ 114:../reference_generator.c **** 
+ 115:../reference_generator.c **** 	case (STATUS_3_FALL):
+ 116:../reference_generator.c **** 	{
+ 117:../reference_generator.c **** 		if (interrupt_counter_ref_gen >= fall_time)
+ 536              	 .loc 1 117 0
+ 537 0074 394B     	 ldr r3,.L34+24
+ 538 0076 1B68     	 ldr r3,[r3]
+ 539 0078 1A46     	 mov r2,r3
+ 540 007a 344B     	 ldr r3,.L34+8
+ 541 007c 1B68     	 ldr r3,[r3]
+ 542 007e 9A42     	 cmp r2,r3
+ 543 0080 05D8     	 bhi .L22
+ 118:../reference_generator.c **** 		{
+ 119:../reference_generator.c **** 			ref_gen_status = STATUS_4_LOW_LEVEL;
+ 544              	 .loc 1 119 0
+ 545 0082 304B     	 ldr r3,.L34
+ 546 0084 0422     	 movs r2,#4
+ 547 0086 1A70     	 strb r2,[r3]
+ 120:../reference_generator.c **** 			interrupt_counter_ref_gen = 0;
+ 548              	 .loc 1 120 0
+ 549 0088 304B     	 ldr r3,.L34+8
+ 550 008a 0022     	 movs r2,#0
+ 551 008c 1A60     	 str r2,[r3]
+ 552              	.L22:
+ 121:../reference_generator.c **** 		}
+ 122:../reference_generator.c **** 		reference -= fall_decrement;
+ 553              	 .loc 1 122 0
+ 554 008e 304B     	 ldr r3,.L34+12
+ 555 0090 93ED007A 	 flds s14,[r3]
+ 556 0094 324B     	 ldr r3,.L34+28
+ 557 0096 D3ED007A 	 flds s15,[r3]
+ 558 009a 77EE677A 	 fsubs s15,s14,s15
+ 559 009e 2C4B     	 ldr r3,.L34+12
+ 560 00a0 C3ED007A 	 fsts s15,[r3]
+ 123:../reference_generator.c **** 	}
+ 124:../reference_generator.c **** 	break;
+ 561              	 .loc 1 124 0
+ 562 00a4 25E0     	 b .L20
+ 563              	.L18:
+ 125:../reference_generator.c **** 
+ 126:../reference_generator.c **** 	case (STATUS_4_LOW_LEVEL):
+ 127:../reference_generator.c **** 		if ((interrupt_counter_ref_gen >= low_level_time) && (repeat_motion == 0))
+ 564              	 .loc 1 127 0
+ 565 00a6 2F4B     	 ldr r3,.L34+32
+ 566 00a8 1B68     	 ldr r3,[r3]
+ 567 00aa 1A46     	 mov r2,r3
+ 568 00ac 274B     	 ldr r3,.L34+8
+ 569 00ae 1B68     	 ldr r3,[r3]
+ 570 00b0 9A42     	 cmp r2,r3
+ 571 00b2 0AD8     	 bhi .L23
+ 572              	 .loc 1 127 0 is_stmt 0 discriminator 1
+ 573 00b4 2C4B     	 ldr r3,.L34+36
+ 574 00b6 1B78     	 ldrb r3,[r3]
+ 575 00b8 002B     	 cmp r3,#0
+ 576 00ba 06D1     	 bne .L23
+ 128:../reference_generator.c **** 		{
+ 129:../reference_generator.c **** 			ref_gen_status = STATUS_0_DISABLED;
+ 577              	 .loc 1 129 0 is_stmt 1
+ 578 00bc 214B     	 ldr r3,.L34
+ 579 00be 0022     	 movs r2,#0
+ 580 00c0 1A70     	 strb r2,[r3]
+ 130:../reference_generator.c **** 			interrupt_counter_ref_gen = 0;
+ 581              	 .loc 1 130 0
+ 582 00c2 224B     	 ldr r3,.L34+8
+ 583 00c4 0022     	 movs r2,#0
+ 584 00c6 1A60     	 str r2,[r3]
+ 585 00c8 11E0     	 b .L24
+ 586              	.L23:
+ 131:../reference_generator.c **** 		}
+ 132:../reference_generator.c **** 		else if ((interrupt_counter_ref_gen >= low_level_time) && (repeat_motion == 1))
+ 587              	 .loc 1 132 0
+ 588 00ca 264B     	 ldr r3,.L34+32
+ 589 00cc 1B68     	 ldr r3,[r3]
+ 590 00ce 1A46     	 mov r2,r3
+ 591 00d0 1E4B     	 ldr r3,.L34+8
+ 592 00d2 1B68     	 ldr r3,[r3]
+ 593 00d4 9A42     	 cmp r2,r3
+ 594 00d6 0AD8     	 bhi .L24
+ 595              	 .loc 1 132 0 is_stmt 0 discriminator 1
+ 596 00d8 234B     	 ldr r3,.L34+36
+ 597 00da 1B78     	 ldrb r3,[r3]
+ 598 00dc 012B     	 cmp r3,#1
+ 599 00de 06D1     	 bne .L24
+ 133:../reference_generator.c **** 		{
+ 134:../reference_generator.c **** 			ref_gen_status = STATUS_1_RISE;
+ 600              	 .loc 1 134 0 is_stmt 1
+ 601 00e0 184B     	 ldr r3,.L34
+ 602 00e2 0122     	 movs r2,#1
+ 603 00e4 1A70     	 strb r2,[r3]
+ 135:../reference_generator.c **** 			interrupt_counter_ref_gen = 0;
+ 604              	 .loc 1 135 0
+ 605 00e6 194B     	 ldr r3,.L34+8
+ 606 00e8 0022     	 movs r2,#0
+ 607 00ea 1A60     	 str r2,[r3]
+ 136:../reference_generator.c **** 		}
+ 137:../reference_generator.c **** 		break;
+ 608              	 .loc 1 137 0
+ 609 00ec 01E0     	 b .L20
+ 610              	.L24:
+ 611 00ee 00E0     	 b .L20
+ 612              	.L32:
+ 138:../reference_generator.c **** 
+ 139:../reference_generator.c **** 	default:
+ 140:../reference_generator.c **** 		break;
+ 613              	 .loc 1 140 0
+ 614 00f0 00BF     	 nop
+ 615              	.L20:
+ 141:../reference_generator.c **** 	}
+ 142:../reference_generator.c **** 
+ 143:../reference_generator.c **** 	switch (ref_type_select)
+ 616              	 .loc 1 143 0
+ 617 00f2 1E4B     	 ldr r3,.L34+40
+ 618 00f4 1B78     	 ldrb r3,[r3]
+ 619 00f6 032B     	 cmp r3,#3
+ 620 00f8 1ED8     	 bhi .L33
+ 621 00fa 01A2     	 adr r2,.L27
+ 622 00fc 52F823F0 	 ldr pc,[r2,r3,lsl#2]
+ 623              	 .p2align 2
+ 624              	.L27:
+ 625 0100 11010000 	 .word .L26+1
+ 626 0104 1B010000 	 .word .L28+1
+ 627 0108 25010000 	 .word .L29+1
+ 628 010c 2F010000 	 .word .L30+1
+ 629              	 .p2align 1
+ 630              	.L26:
+ 144:../reference_generator.c **** 	{
+ 145:../reference_generator.c **** 	case (REF_POS):
+ 146:../reference_generator.c **** 		pos_ref = reference;
+ 631              	 .loc 1 146 0
+ 632 0110 0F4B     	 ldr r3,.L34+12
+ 633 0112 1B68     	 ldr r3,[r3]
+ 634 0114 164A     	 ldr r2,.L34+44
+ 635 0116 1360     	 str r3,[r2]
+ 147:../reference_generator.c **** 		break;
+ 636              	 .loc 1 147 0
+ 637 0118 0FE0     	 b .L12
+ 638              	.L28:
+ 148:../reference_generator.c **** 	case (REF_SPD):
+ 149:../reference_generator.c **** 		spd_ref = reference;
+ 639              	 .loc 1 149 0
+ 640 011a 0D4B     	 ldr r3,.L34+12
+ 641 011c 1B68     	 ldr r3,[r3]
+ 642 011e 154A     	 ldr r2,.L34+48
+ 643 0120 1360     	 str r3,[r2]
+ 150:../reference_generator.c **** 		break;
+ 644              	 .loc 1 150 0
+ 645 0122 0AE0     	 b .L12
+ 646              	.L29:
+ 151:../reference_generator.c **** 	case (REF_I):
+ 152:../reference_generator.c **** 		i_q_ref = reference;
+ 647              	 .loc 1 152 0
+ 648 0124 0A4B     	 ldr r3,.L34+12
+ 649 0126 1B68     	 ldr r3,[r3]
+ 650 0128 134A     	 ldr r2,.L34+52
+ 651 012a 1360     	 str r3,[r2]
+ 153:../reference_generator.c **** 		break;
+ 652              	 .loc 1 153 0
+ 653 012c 05E0     	 b .L12
+ 654              	.L30:
+ 154:../reference_generator.c **** 	case (REF_U):
+ 155:../reference_generator.c **** 		u_q_ref = reference;
+ 655              	 .loc 1 155 0
+ 656 012e 084B     	 ldr r3,.L34+12
+ 657 0130 1B68     	 ldr r3,[r3]
+ 658 0132 124A     	 ldr r2,.L34+56
+ 659 0134 1360     	 str r3,[r2]
+ 156:../reference_generator.c **** 		break;
+ 660              	 .loc 1 156 0
+ 661 0136 00E0     	 b .L12
+ 662              	.L33:
+ 157:../reference_generator.c **** 	default:
+ 158:../reference_generator.c **** 		break;
+ 663              	 .loc 1 158 0
+ 664 0138 00BF     	 nop
+ 665              	.L12:
+ 159:../reference_generator.c **** 	}
+ 160:../reference_generator.c **** }
+ 666              	 .loc 1 160 0
+ 667 013a BD46     	 mov sp,r7
+ 668              	.LCFI6:
+ 669              	 .cfi_def_cfa_register 13
+ 670              	 
+ 671 013c 5DF8047B 	 ldr r7,[sp],#4
+ 672              	.LCFI7:
+ 673              	 .cfi_restore 7
+ 674              	 .cfi_def_cfa_offset 0
+ 675 0140 7047     	 bx lr
+ 676              	.L35:
+ 677 0142 00BF     	 .align 2
+ 678              	.L34:
+ 679 0144 00000000 	 .word ref_gen_status
+ 680 0148 00000000 	 .word rise_time
+ 681 014c 00000000 	 .word interrupt_counter_ref_gen
+ 682 0150 00000000 	 .word reference
+ 683 0154 00000000 	 .word rise_increment
+ 684 0158 00000000 	 .word high_level_time
+ 685 015c 00000000 	 .word fall_time
+ 686 0160 00000000 	 .word fall_decrement
+ 687 0164 00000000 	 .word low_level_time
+ 688 0168 00000000 	 .word repeat_motion
+ 689 016c 00000000 	 .word ref_type_select
+ 690 0170 00000000 	 .word pos_ref
+ 691 0174 00000000 	 .word spd_ref
+ 692 0178 00000000 	 .word i_q_ref
+ 693 017c 00000000 	 .word u_q_ref
+ 694              	 .cfi_endproc
+ 695              	.LFE197:
+ 697              	 .text
+ 698              	.Letext0:
+ 699              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 700              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 701              	 .file 5 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
+ 702              	 .file 6 "../reference_generator.h"
+ 703              	 .file 7 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 704              	 .file 8 "../main.h"
+ 705              	 .file 9 "../pi_regulator.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 reference_generator.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
-                            *COM*:00000004 theta_fast
-    {standard input}:26     .bss.interrupt_counter_ref_gen:00000000 interrupt_counter_ref_gen
-    {standard input}:23     .bss.interrupt_counter_ref_gen:00000000 $d
-    {standard input}:32     .bss.ref_gen_status:00000000 ref_gen_status
-    {standard input}:33     .bss.ref_gen_status:00000000 $d
-    {standard input}:39     .data.high_level:00000000 high_level
-    {standard input}:36     .data.high_level:00000000 $d
-    {standard input}:46     .data.high_level_time:00000000 high_level_time
-    {standard input}:43     .data.high_level_time:00000000 $d
-    {standard input}:53     .data.rise_time:00000000 rise_time
-    {standard input}:50     .data.rise_time:00000000 $d
+    {standard input}:25     .bss.interrupt_counter_ref_gen:00000000 interrupt_counter_ref_gen
+    {standard input}:22     .bss.interrupt_counter_ref_gen:00000000 $d
+    {standard input}:31     .bss.ref_gen_status:00000000 ref_gen_status
+    {standard input}:32     .bss.ref_gen_status:00000000 $d
+                            *COM*:00000004 high_level
+                            *COM*:00000004 high_level_time
+                            *COM*:00000004 rise_time
                             *COM*:00000004 rise_increment
-    {standard input}:61     .data.fall_time:00000000 fall_time
-    {standard input}:58     .data.fall_time:00000000 $d
+                            *COM*:00000004 fall_time
                             *COM*:00000004 fall_decrement
-    {standard input}:69     .bss.low_level:00000000 low_level
-    {standard input}:66     .bss.low_level:00000000 $d
-    {standard input}:76     .data.low_level_time:00000000 low_level_time
-    {standard input}:73     .data.low_level_time:00000000 $d
-    {standard input}:82     .data.repeat_motion:00000000 repeat_motion
-    {standard input}:89     .bss.reference:00000000 reference
-    {standard input}:86     .bss.reference:00000000 $d
-    {standard input}:96     .bss.reference_old:00000000 reference_old
-    {standard input}:93     .bss.reference_old:00000000 $d
-    {standard input}:102    .bss.ref_type_select:00000000 ref_type_select
-    {standard input}:103    .bss.ref_type_select:00000000 $d
-    {standard input}:105    .text.reference_generator_compute:00000000 $t
-    {standard input}:110    .text.reference_generator_compute:00000000 reference_generator_compute
-    {standard input}:189    .text.reference_generator_compute:0000004c $d
-    {standard input}:202    .text.reference_generator:00000000 $t
-    {standard input}:207    .text.reference_generator:00000000 reference_generator
-    {standard input}:231    .text.reference_generator:00000014 $d
-    {standard input}:235    .text.reference_generator:00000024 $t
-    {standard input}:379    .text.reference_generator:0000010c $d
-    {standard input}:383    .text.reference_generator:0000011c $t
-    {standard input}:441    .text.reference_generator:00000164 $d
+                            *COM*:00000004 low_level
+                            *COM*:00000004 low_level_time
+    {standard input}:45     .data.repeat_motion:00000000 repeat_motion
+    {standard input}:52     .bss.time_rise_input_s:00000000 time_rise_input_s
+    {standard input}:49     .bss.time_rise_input_s:00000000 $d
+    {standard input}:59     .bss.time_fall_input_s:00000000 time_fall_input_s
+    {standard input}:56     .bss.time_fall_input_s:00000000 $d
+    {standard input}:66     .bss.time_high_input_s:00000000 time_high_input_s
+    {standard input}:63     .bss.time_high_input_s:00000000 $d
+    {standard input}:73     .bss.time_low_input_s:00000000 time_low_input_s
+    {standard input}:70     .bss.time_low_input_s:00000000 $d
+    {standard input}:80     .bss.current_input:00000000 current_input
+    {standard input}:77     .bss.current_input:00000000 $d
+    {standard input}:87     .bss.voltage_input:00000000 voltage_input
+    {standard input}:84     .bss.voltage_input:00000000 $d
+    {standard input}:94     .bss.rpm_input:00000000 rpm_input
+    {standard input}:91     .bss.rpm_input:00000000 $d
+    {standard input}:101    .bss.rotation_input:00000000 rotation_input
+    {standard input}:98     .bss.rotation_input:00000000 $d
+    {standard input}:108    .bss.reference:00000000 reference
+    {standard input}:105    .bss.reference:00000000 $d
+    {standard input}:115    .bss.reference_old:00000000 reference_old
+    {standard input}:112    .bss.reference_old:00000000 $d
+    {standard input}:121    .bss.ref_type_select:00000000 ref_type_select
+    {standard input}:122    .bss.ref_type_select:00000000 $d
+    {standard input}:124    .text.reference_generator_compute:00000000 $t
+    {standard input}:129    .text.reference_generator_compute:00000000 reference_generator_compute
+    {standard input}:153    .text.reference_generator_compute:00000014 $d
+    {standard input}:157    .text.reference_generator_compute:00000024 $t
+    {standard input}:425    .text.reference_generator_compute:0000028c $d
+    {standard input}:452    .text.reference_generator:00000000 $t
+    {standard input}:457    .text.reference_generator:00000000 reference_generator
+    {standard input}:481    .text.reference_generator:00000014 $d
+    {standard input}:485    .text.reference_generator:00000024 $t
+    {standard input}:625    .text.reference_generator:00000100 $d
+    {standard input}:629    .text.reference_generator:00000110 $t
+    {standard input}:679    .text.reference_generator:00000144 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
+u_q_ref
 pos_ref
 spd_ref
 i_q_ref
-u_q_ref

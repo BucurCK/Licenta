@@ -1,9 +1,3 @@
-/*
- * driver_pwm.h
- *
- *  Created on: Jul 23, 2019
- *      Author: student
- */
 #include "main.h"
 
 #ifndef DRIVER_PWM_H_
@@ -21,7 +15,7 @@ extern void motion_off(void);
 
 #define CCU8_CC8_PRS_PR_VALUE 	(3600UL)    // 20khz
 #define CCU8_CC8_CR1_CR1_VALUE 	(1800UL)    // 10khz
-#define CCU8_CC8_DC1R_Value		(8UL)	  // 100ns = 10Mhz = 14.4/2 = 7.2 ->gresit la mine ca am pus doar 50ns pe rising
+#define CCU8_CC8_DC1R_Value		(14UL)	    // 100ns = 10khz = 14.4
 #define GPIO_OUTPUT_ALTER_3		(0x13UL)
 #define PORT5_PC11_POS			(27UL)
 #define PORT5_PC8_POS			(3UL)

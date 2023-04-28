@@ -1,9 +1,3 @@
-/*
- * driver_pwm.h
- *
- *  Created on: Jul 23, 2019
- *      Author: student
- */
 #include "main.h"
 #ifndef DRIVER_ADC_H_
 #define DRIVER_ADC_H_
@@ -17,11 +11,10 @@ extern void compute_currents(void);
 extern void current_offset(void);
 
 extern int16_t ia, ib, ic;
-
-//extern float ia_a, ib_a, ic_a;
+extern uint8_t prot_status;
 
 //extern int16_t ia_test, ib_test; //testing
-//extern float signal_ia_test, signal_ib_test, sin_increment_2_pi, cos_increment_2_pi; //For testing
+//extern float_t signal_ia_test, signal_ib_test, sin_increment_2_pi, cos_increment_2_pi; //For testing
 
 
 #define PORT14_IOCR0_PC0_POS			(3UL)
@@ -54,8 +47,8 @@ extern int16_t ia, ib, ic;
 #define VADC_QMR0_ENGT_MSK				(0x1UL)
 #define VADC_QMR0_ENTR_MSK				(0x4UL)
 #define VADC_QCTRL0_GTWC_MSK			(0x800000UL)
-#define VADC_QCTRL0_GTSEL_POS			???????
-#define VADC_QCTRL0_GTSEL_POS			???????
+// #define VADC_QCTRL0_GTSEL_POS			???????
+// #define VADC_QCTRL0_GTSEL_POS			???????
 #define VADC_ARBPR_CSM0_MSK				(0x8UL)
 #define VADC_CHASS_ASSCH0_MSK			(0x1UL)
 #define VADC_CHASS_ASSCH6_POS			(6UL)

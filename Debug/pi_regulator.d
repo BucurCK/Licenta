@@ -12,7 +12,7 @@ pi_regulator.o pi_regulator.d pi_regulator.o: ../pi_regulator.c \
  C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_ccu8.h \
  C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_common.h \
  C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_ccu8_map.h \
- ../motor_data_update.h ../transform.h ../driver_adc.h
+ ../motor_data_update.h ../transform.h ../driver_adc.h ../state_machine.h
 
 ../pi_regulator.h:
 
@@ -49,3 +49,5 @@ C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_ccu8_map.h:
 ../transform.h:
 
 ../driver_adc.h:
+
+../state_machine.h:

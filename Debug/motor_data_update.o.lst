@@ -17,28 +17,32 @@
   17              	.Ltext0:
   18              	 .cfi_sections .debug_frame
   19              	 .comm CCU8_CC8_CR1_CR1_Value,4,4
-  20              	 .comm theta_fast,4,4
-  21              	 .global motor_spd
-  22              	 .section .bss.motor_spd,"aw",%nobits
-  23              	 .align 2
-  26              	motor_spd:
-  27 0000 00000000 	 .space 4
-  28              	 .global mechanical_position_old
-  29              	 .section .bss.mechanical_position_old,"aw",%nobits
-  30              	 .align 2
-  33              	mechanical_position_old:
-  34 0000 00000000 	 .space 4
-  35              	 .section .text.init_position,"ax",%progbits
-  36              	 .align 2
-  37              	 .global init_position
-  38              	 .thumb
-  39              	 .thumb_func
-  41              	init_position:
-  42              	.LFB196:
-  43              	 .file 1 "../motor_data_update.c"
+  20              	 .global motor_spd
+  21              	 .section .bss.motor_spd,"aw",%nobits
+  22              	 .align 2
+  25              	motor_spd:
+  26 0000 00000000 	 .space 4
+  27              	 .global timer_value_slow
+  28              	 .section .bss.timer_value_slow,"aw",%nobits
+  29              	 .align 1
+  32              	timer_value_slow:
+  33 0000 0000     	 .space 2
+  34              	 .global timer_value_old_slow
+  35              	 .section .bss.timer_value_old_slow,"aw",%nobits
+  36              	 .align 1
+  39              	timer_value_old_slow:
+  40 0000 0000     	 .space 2
+  41              	 .section .text.init_position,"ax",%progbits
+  42              	 .align 2
+  43              	 .global init_position
+  44              	 .thumb
+  45              	 .thumb_func
+  47              	init_position:
+  48              	.LFB196:
+  49              	 .file 1 "../motor_data_update.c"
    1:../motor_data_update.c **** #include <stdint.h>
    2:../motor_data_update.c **** #include <stdbool.h>
-   3:../motor_data_update.c **** //#include <xmc_common.h>
+   3:../motor_data_update.c **** // #include <xmc_common.h>
    4:../motor_data_update.c **** #include "driver_pwm.h"
    5:../motor_data_update.c **** #include "motor_data_update.h"
    6:../motor_data_update.c **** #include "transform.h"
@@ -48,173 +52,193 @@
   10:../motor_data_update.c **** #include "timer.h"
   11:../motor_data_update.c **** #include "driver_adc.h"
   12:../motor_data_update.c **** 
-  13:../motor_data_update.c **** int32_t	motor_spd = 0;
-  14:../motor_data_update.c **** int32_t	mechanical_position_old = 0;
-  15:../motor_data_update.c **** 
-  16:../motor_data_update.c **** /**
-  17:../motor_data_update.c ****  * Initialize position for motor
-  18:../motor_data_update.c ****  * 
-  19:../motor_data_update.c ****  */
-  20:../motor_data_update.c **** void init_position (void)
-  21:../motor_data_update.c **** {
-  44              	 .loc 1 21 0
-  45              	 .cfi_startproc
-  46              	 
-  47              	 
-  48 0000 80B5     	 push {r7,lr}
-  49              	.LCFI0:
-  50              	 .cfi_def_cfa_offset 8
-  51              	 .cfi_offset 7,-8
-  52              	 .cfi_offset 14,-4
-  53 0002 00AF     	 add r7,sp,#0
-  54              	.LCFI1:
-  55              	 .cfi_def_cfa_register 7
-  22:../motor_data_update.c **** 	motion_on();				//Enable PWM pins
-  56              	 .loc 1 22 0
-  57 0004 FFF7FEFF 	 bl motion_on
-  23:../motor_data_update.c **** 	pwm_update(0, 4000, 0);		//Apply voltage on the B Phase
-  58              	 .loc 1 23 0
-  59 0008 0020     	 movs r0,#0
-  60 000a 4FF47A61 	 mov r1,#4000
-  61 000e 0022     	 movs r2,#0
-  62 0010 FFF7FEFF 	 bl pwm_update
-  24:../motor_data_update.c **** 	delay_t(SECOND_1/2);		//Wait 0.5s
-  63              	 .loc 1 24 0
-  64 0014 41F28830 	 movw r0,#5000
-  65 0018 FFF7FEFF 	 bl delay_t
-  25:../motor_data_update.c **** 
-  26:../motor_data_update.c **** 	pwm_update(4000, 0, 0);		//Apply voltage on the A Phase
-  66              	 .loc 1 26 0
-  67 001c 4FF47A60 	 mov r0,#4000
-  68 0020 0021     	 movs r1,#0
-  69 0022 0022     	 movs r2,#0
-  70 0024 FFF7FEFF 	 bl pwm_update
-  27:../motor_data_update.c **** 	delay_t(SECOND_1/2);		//Wait 0.5s
-  71              	 .loc 1 27 0
-  72 0028 41F28830 	 movw r0,#5000
-  73 002c FFF7FEFF 	 bl delay_t
-  28:../motor_data_update.c **** 	motion_off();				//Disable PWM pin
-  74              	 .loc 1 28 0
-  75 0030 FFF7FEFF 	 bl motion_off
+  13:../motor_data_update.c **** int32_t motor_spd = 0;
+  14:../motor_data_update.c **** uint16_t timer_value_slow = 0;
+  15:../motor_data_update.c **** uint16_t timer_value_old_slow = 0;
+  16:../motor_data_update.c **** 
+  17:../motor_data_update.c **** /**
+  18:../motor_data_update.c ****  * Initialize position for motor
+  19:../motor_data_update.c ****  * Enable PWM output
+  20:../motor_data_update.c ****  * B High -> wait -> A High 0 -> wait
+  21:../motor_data_update.c ****  * Reset: Theta | Position | Timers_old
+  22:../motor_data_update.c ****  * Disable PWM output
+  23:../motor_data_update.c ****  */
+  24:../motor_data_update.c **** void init_position(void)
+  25:../motor_data_update.c **** {
+  50              	 .loc 1 25 0
+  51              	 .cfi_startproc
+  52              	 
+  53              	 
+  54 0000 80B5     	 push {r7,lr}
+  55              	.LCFI0:
+  56              	 .cfi_def_cfa_offset 8
+  57              	 .cfi_offset 7,-8
+  58              	 .cfi_offset 14,-4
+  59 0002 00AF     	 add r7,sp,#0
+  60              	.LCFI1:
+  61              	 .cfi_def_cfa_register 7
+  26:../motor_data_update.c **** 	motion_on();			// Enable PWM pins
+  62              	 .loc 1 26 0
+  63 0004 FFF7FEFF 	 bl motion_on
+  27:../motor_data_update.c **** 	pwm_update(0, 4000, 0); // Apply voltage on B Phase
+  64              	 .loc 1 27 0
+  65 0008 0020     	 movs r0,#0
+  66 000a 4FF47A61 	 mov r1,#4000
+  67 000e 0022     	 movs r2,#0
+  68 0010 FFF7FEFF 	 bl pwm_update
+  28:../motor_data_update.c **** 	delay_t(SECOND_1 / 2);	// Wait 0.5s
+  69              	 .loc 1 28 0
+  70 0014 41F28830 	 movw r0,#5000
+  71 0018 FFF7FEFF 	 bl delay_t
   29:../motor_data_update.c **** 
-  30:../motor_data_update.c **** 	theta_fast = 0;
-  76              	 .loc 1 30 0
-  77 0034 064B     	 ldr r3,.L2
-  78 0036 4FF00002 	 mov r2,#0
-  79 003a 1A60     	 str r2,[r3]
-  31:../motor_data_update.c **** 	mechanical_position_fast = 0;
-  80              	 .loc 1 31 0
-  81 003c 054B     	 ldr r3,.L2+4
-  82 003e 0022     	 movs r2,#0
-  83 0040 1A60     	 str r2,[r3]
-  32:../motor_data_update.c **** 	motor_spd = 0;
-  84              	 .loc 1 32 0
-  85 0042 054B     	 ldr r3,.L2+8
-  86 0044 0022     	 movs r2,#0
-  87 0046 1A60     	 str r2,[r3]
-  33:../motor_data_update.c **** 	mechanical_position_old = 0;
-  88              	 .loc 1 33 0
-  89 0048 044B     	 ldr r3,.L2+12
-  90 004a 0022     	 movs r2,#0
-  91 004c 1A60     	 str r2,[r3]
-  34:../motor_data_update.c **** }
-  92              	 .loc 1 34 0
-  93 004e 80BD     	 pop {r7,pc}
-  94              	.L3:
-  95              	 .align 2
-  96              	.L2:
-  97 0050 00000000 	 .word theta_fast
-  98 0054 00000000 	 .word mechanical_position_fast
-  99 0058 00000000 	 .word motor_spd
- 100 005c 00000000 	 .word mechanical_position_old
- 101              	 .cfi_endproc
- 102              	.LFE196:
- 104              	 .section .text.compute_speed,"ax",%progbits
- 105              	 .align 2
- 106              	 .global compute_speed
- 107              	 .thumb
- 108              	 .thumb_func
- 110              	compute_speed:
- 111              	.LFB197:
-  35:../motor_data_update.c **** 
-  36:../motor_data_update.c **** /**
-  37:../motor_data_update.c ****  * Compute current speed of motor
-  38:../motor_data_update.c ****  * 
-  39:../motor_data_update.c ****  */
-  40:../motor_data_update.c **** void compute_speed (void)
-  41:../motor_data_update.c **** {
- 112              	 .loc 1 41 0
- 113              	 .cfi_startproc
- 114              	 
- 115              	 
- 116              	 
- 117 0000 80B4     	 push {r7}
- 118              	.LCFI2:
- 119              	 .cfi_def_cfa_offset 4
- 120              	 .cfi_offset 7,-4
- 121 0002 00AF     	 add r7,sp,#0
- 122              	.LCFI3:
- 123              	 .cfi_def_cfa_register 7
-  42:../motor_data_update.c **** 	motor_spd = mechanical_position_fast - mechanical_position_old;
- 124              	 .loc 1 42 0
- 125 0004 074B     	 ldr r3,.L5
- 126 0006 1A68     	 ldr r2,[r3]
- 127 0008 074B     	 ldr r3,.L5+4
- 128 000a 1B68     	 ldr r3,[r3]
- 129 000c D31A     	 subs r3,r2,r3
- 130 000e 074A     	 ldr r2,.L5+8
- 131 0010 1360     	 str r3,[r2]
-  43:../motor_data_update.c **** 	mechanical_position_old = mechanical_position_fast;
- 132              	 .loc 1 43 0
- 133 0012 044B     	 ldr r3,.L5
- 134 0014 1B68     	 ldr r3,[r3]
- 135 0016 044A     	 ldr r2,.L5+4
- 136 0018 1360     	 str r3,[r2]
-  44:../motor_data_update.c **** }
- 137              	 .loc 1 44 0
- 138 001a BD46     	 mov sp,r7
- 139              	.LCFI4:
- 140              	 .cfi_def_cfa_register 13
- 141              	 
- 142 001c 5DF8047B 	 ldr r7,[sp],#4
- 143              	.LCFI5:
- 144              	 .cfi_restore 7
- 145              	 .cfi_def_cfa_offset 0
- 146 0020 7047     	 bx lr
- 147              	.L6:
- 148 0022 00BF     	 .align 2
- 149              	.L5:
- 150 0024 00000000 	 .word mechanical_position_fast
- 151 0028 00000000 	 .word mechanical_position_old
- 152 002c 00000000 	 .word motor_spd
- 153              	 .cfi_endproc
- 154              	.LFE197:
- 156              	 .text
- 157              	.Letext0:
- 158              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 159              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 160              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 161              	 .file 5 "../main.h"
- 162              	 .file 6 "../transform.h"
+  30:../motor_data_update.c **** 	pwm_update(4000, 0, 0); // Apply voltage on A Phase
+  72              	 .loc 1 30 0
+  73 001c 4FF47A60 	 mov r0,#4000
+  74 0020 0021     	 movs r1,#0
+  75 0022 0022     	 movs r2,#0
+  76 0024 FFF7FEFF 	 bl pwm_update
+  31:../motor_data_update.c **** 	delay_t(SECOND_1 / 2);	// Wait 0.5s
+  77              	 .loc 1 31 0
+  78 0028 41F28830 	 movw r0,#5000
+  79 002c FFF7FEFF 	 bl delay_t
+  32:../motor_data_update.c **** //	motion_off();			// Disable PWM pin			NEED TO CHECK if it still works
+  33:../motor_data_update.c **** 
+  34:../motor_data_update.c **** 	theta_fast = 0;
+  80              	 .loc 1 34 0
+  81 0030 084B     	 ldr r3,.L2
+  82 0032 4FF00002 	 mov r2,#0
+  83 0036 1A60     	 str r2,[r3]
+  35:../motor_data_update.c **** 	mechanical_position_fast = 0;
+  84              	 .loc 1 35 0
+  85 0038 074B     	 ldr r3,.L2+4
+  86 003a 0022     	 movs r2,#0
+  87 003c 1A60     	 str r2,[r3]
+  36:../motor_data_update.c **** 	timer_value_old_fast = CCU40_CC40->TIMER;
+  88              	 .loc 1 36 0
+  89 003e 074B     	 ldr r3,.L2+8
+  90 0040 1B6F     	 ldr r3,[r3,#112]
+  91 0042 9AB2     	 uxth r2,r3
+  92 0044 064B     	 ldr r3,.L2+12
+  93 0046 1A80     	 strh r2,[r3]
+  37:../motor_data_update.c **** 	timer_value_old_slow = CCU40_CC40->TIMER;
+  94              	 .loc 1 37 0
+  95 0048 044B     	 ldr r3,.L2+8
+  96 004a 1B6F     	 ldr r3,[r3,#112]
+  97 004c 9AB2     	 uxth r2,r3
+  98 004e 054B     	 ldr r3,.L2+16
+  99 0050 1A80     	 strh r2,[r3]
+  38:../motor_data_update.c **** }
+ 100              	 .loc 1 38 0
+ 101 0052 80BD     	 pop {r7,pc}
+ 102              	.L3:
+ 103              	 .align 2
+ 104              	.L2:
+ 105 0054 00000000 	 .word theta_fast
+ 106 0058 00000000 	 .word mechanical_position_fast
+ 107 005c 00C10040 	 .word 1073791232
+ 108 0060 00000000 	 .word timer_value_old_fast
+ 109 0064 00000000 	 .word timer_value_old_slow
+ 110              	 .cfi_endproc
+ 111              	.LFE196:
+ 113              	 .section .text.compute_speed,"ax",%progbits
+ 114              	 .align 2
+ 115              	 .global compute_speed
+ 116              	 .thumb
+ 117              	 .thumb_func
+ 119              	compute_speed:
+ 120              	.LFB197:
+  39:../motor_data_update.c **** 
+  40:../motor_data_update.c **** /*
+  41:../motor_data_update.c ****  * Compute current speed
+  42:../motor_data_update.c ****  * Slow loop
+  43:../motor_data_update.c ****  */
+  44:../motor_data_update.c **** void compute_speed(void)
+  45:../motor_data_update.c **** {
+ 121              	 .loc 1 45 0
+ 122              	 .cfi_startproc
+ 123              	 
+ 124              	 
+ 125              	 
+ 126 0000 80B4     	 push {r7}
+ 127              	.LCFI2:
+ 128              	 .cfi_def_cfa_offset 4
+ 129              	 .cfi_offset 7,-4
+ 130 0002 00AF     	 add r7,sp,#0
+ 131              	.LCFI3:
+ 132              	 .cfi_def_cfa_register 7
+  46:../motor_data_update.c **** 	timer_value_slow = CCU40_CC40->TIMER;
+ 133              	 .loc 1 46 0
+ 134 0004 0A4B     	 ldr r3,.L5
+ 135 0006 1B6F     	 ldr r3,[r3,#112]
+ 136 0008 9AB2     	 uxth r2,r3
+ 137 000a 0A4B     	 ldr r3,.L5+4
+ 138 000c 1A80     	 strh r2,[r3]
+  47:../motor_data_update.c **** 	motor_spd = timer_value_slow - timer_value_old_slow;
+ 139              	 .loc 1 47 0
+ 140 000e 094B     	 ldr r3,.L5+4
+ 141 0010 1B88     	 ldrh r3,[r3]
+ 142 0012 1A46     	 mov r2,r3
+ 143 0014 084B     	 ldr r3,.L5+8
+ 144 0016 1B88     	 ldrh r3,[r3]
+ 145 0018 D31A     	 subs r3,r2,r3
+ 146 001a 084A     	 ldr r2,.L5+12
+ 147 001c 1360     	 str r3,[r2]
+  48:../motor_data_update.c **** 	timer_value_old_slow = timer_value_slow;
+ 148              	 .loc 1 48 0
+ 149 001e 054B     	 ldr r3,.L5+4
+ 150 0020 1A88     	 ldrh r2,[r3]
+ 151 0022 054B     	 ldr r3,.L5+8
+ 152 0024 1A80     	 strh r2,[r3]
+  49:../motor_data_update.c **** }
+ 153              	 .loc 1 49 0
+ 154 0026 BD46     	 mov sp,r7
+ 155              	.LCFI4:
+ 156              	 .cfi_def_cfa_register 13
+ 157              	 
+ 158 0028 5DF8047B 	 ldr r7,[sp],#4
+ 159              	.LCFI5:
+ 160              	 .cfi_restore 7
+ 161              	 .cfi_def_cfa_offset 0
+ 162 002c 7047     	 bx lr
+ 163              	.L6:
+ 164 002e 00BF     	 .align 2
+ 165              	.L5:
+ 166 0030 00C10040 	 .word 1073791232
+ 167 0034 00000000 	 .word timer_value_slow
+ 168 0038 00000000 	 .word timer_value_old_slow
+ 169 003c 00000000 	 .word motor_spd
+ 170              	 .cfi_endproc
+ 171              	.LFE197:
+ 173              	 .text
+ 174              	.Letext0:
+ 175              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 176              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 177              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 178              	 .file 5 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
+ 179              	 .file 6 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 180              	 .file 7 "../main.h"
+ 181              	 .file 8 "../transform.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 motor_data_update.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
-                            *COM*:00000004 theta_fast
-    {standard input}:26     .bss.motor_spd:00000000 motor_spd
-    {standard input}:23     .bss.motor_spd:00000000 $d
-    {standard input}:33     .bss.mechanical_position_old:00000000 mechanical_position_old
-    {standard input}:30     .bss.mechanical_position_old:00000000 $d
-    {standard input}:36     .text.init_position:00000000 $t
-    {standard input}:41     .text.init_position:00000000 init_position
-    {standard input}:97     .text.init_position:00000050 $d
-    {standard input}:105    .text.compute_speed:00000000 $t
-    {standard input}:110    .text.compute_speed:00000000 compute_speed
-    {standard input}:150    .text.compute_speed:00000024 $d
+    {standard input}:25     .bss.motor_spd:00000000 motor_spd
+    {standard input}:22     .bss.motor_spd:00000000 $d
+    {standard input}:32     .bss.timer_value_slow:00000000 timer_value_slow
+    {standard input}:29     .bss.timer_value_slow:00000000 $d
+    {standard input}:39     .bss.timer_value_old_slow:00000000 timer_value_old_slow
+    {standard input}:36     .bss.timer_value_old_slow:00000000 $d
+    {standard input}:42     .text.init_position:00000000 $t
+    {standard input}:47     .text.init_position:00000000 init_position
+    {standard input}:105    .text.init_position:00000054 $d
+    {standard input}:114    .text.compute_speed:00000000 $t
+    {standard input}:119    .text.compute_speed:00000000 compute_speed
+    {standard input}:166    .text.compute_speed:00000030 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
 motion_on
 pwm_update
 delay_t
-motion_off
+theta_fast
 mechanical_position_fast
+timer_value_old_fast

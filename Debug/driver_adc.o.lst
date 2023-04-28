@@ -2019,32 +2019,35 @@
  207              	 .cfi_endproc
  208              	.LFE112:
  210              	 .comm CCU8_CC8_CR1_CR1_Value,4,4
- 211              	 .comm theta_fast,4,4
- 212              	 .comm u_mot_dig,4,4
- 213              	 .comm u_log_dig,4,4
- 214              	 .comm u_mot,4,4
- 215              	 .comm u_log,4,4
- 216              	 .comm offset_ia,4,4
- 217              	 .comm offset_ib,4,4
- 218              	 .comm offset_ic,4,4
- 219              	 .comm ia,2,2
- 220              	 .comm ib,2,2
- 221              	 .comm ic,2,2
- 222              	 .comm ia_a,4,4
- 223              	 .comm ib_a,4,4
- 224              	 .comm ic_a,4,4
- 225              	 .comm iq_a,4,4
- 226              	 .section .text.adc_init,"ax",%progbits
- 227              	 .align 2
- 228              	 .global adc_init
- 229              	 .thumb
- 230              	 .thumb_func
- 232              	adc_init:
- 233              	.LFB196:
- 234              	 .file 2 "../driver_adc.c"
+ 211              	 .comm u_mot_dig,4,4
+ 212              	 .comm u_log_dig,4,4
+ 213              	 .comm u_mot,4,4
+ 214              	 .comm u_log,4,4
+ 215              	 .comm offset_ia,4,4
+ 216              	 .comm offset_ib,4,4
+ 217              	 .comm offset_ic,4,4
+ 218              	 .comm ia,2,2
+ 219              	 .comm ib,2,2
+ 220              	 .comm ic,2,2
+ 221              	 .comm ia_a,4,4
+ 222              	 .comm ib_a,4,4
+ 223              	 .comm ic_a,4,4
+ 224              	 .comm iq_a,4,4
+ 225              	 .global prot_status
+ 226              	 .section .data.prot_status,"aw",%progbits
+ 229              	prot_status:
+ 230 0000 01       	 .byte 1
+ 231              	 .section .text.adc_init,"ax",%progbits
+ 232              	 .align 2
+ 233              	 .global adc_init
+ 234              	 .thumb
+ 235              	 .thumb_func
+ 237              	adc_init:
+ 238              	.LFB196:
+ 239              	 .file 2 "../driver_adc.c"
    1:../driver_adc.c **** #include <stdint.h>
    2:../driver_adc.c **** #include <stdbool.h>
-   3:../driver_adc.c **** #include <xmc_common.h>   // includes stdint stdbool stdef stdstring
+   3:../driver_adc.c **** #include <xmc_common.h> // includes stdint stdbool stdef stdstring
    4:../driver_adc.c **** #include "driver_pwm.h"
    5:../driver_adc.c **** #include "main.h"
    6:../driver_adc.c **** #include "motor_data_update.h"
@@ -2060,1475 +2063,1488 @@
   16:../driver_adc.c **** #include "reference_generator.h"
   17:../driver_adc.c **** #include "current_protection.h"
   18:../driver_adc.c **** 
-  19:../driver_adc.c **** int u_mot_dig, u_log_dig;								// saves the 12bit value read from VADC
-  20:../driver_adc.c **** float u_mot, u_log;										// The 12bit value converted into Volts
-  21:../driver_adc.c **** int32_t offset_ia, offset_ib, offset_ic;				// Current offsets for every phase
-  22:../driver_adc.c **** int16_t ia, ib, ic;										// Currents read from ADC in 16bit
-  23:../driver_adc.c **** float ia_a, ib_a, ic_a, iq_a;							// Float values for Micrium
-  24:../driver_adc.c **** // int32_t ia_32, ib_32, ic_32;							// Int32 values for Micrium(int16 is prone to error for oscil
-  25:../driver_adc.c **** 
-  26:../driver_adc.c **** /*
-  27:../driver_adc.c ****  * Main VADC interrupts
-  28:../driver_adc.c ****  */
-  29:../driver_adc.c **** void adc_init (void)
-  30:../driver_adc.c **** {
- 235              	 .loc 2 30 0
- 236              	 .cfi_startproc
- 237              	 
- 238              	 
- 239              	 
- 240 0000 80B4     	 push {r7}
- 241              	.LCFI18:
- 242              	 .cfi_def_cfa_offset 4
- 243              	 .cfi_offset 7,-4
- 244 0002 00AF     	 add r7,sp,#0
- 245              	.LCFI19:
- 246              	 .cfi_def_cfa_register 7
-  31:../driver_adc.c **** 	/*Pin setup - P14.0 P14.3 P14.4*/
-  32:../driver_adc.c **** 	PORT14->IOCR0 |= (INPUT_PULL_UP_MSK << PORT14_IOCR0_PC0_POS);	//P14.0 - G0CH0				-A
- 247              	 .loc 2 32 0
- 248 0004 C84A     	 ldr r2,.L17
- 249 0006 C84B     	 ldr r3,.L17
- 250 0008 1B69     	 ldr r3,[r3,#16]
- 251 000a 43F01003 	 orr r3,r3,#16
- 252 000e 1361     	 str r3,[r2,#16]
-  33:../driver_adc.c **** 	PORT14->IOCR0 |= (INPUT_PULL_UP_MSK << PORT14_IOCR0_PC3_POS);	//P14.3 - G1CH3(ALIAS CH0)	-B
- 253              	 .loc 2 33 0
- 254 0010 C54A     	 ldr r2,.L17
- 255 0012 C54B     	 ldr r3,.L17
- 256 0014 1B69     	 ldr r3,[r3,#16]
- 257 0016 43F08053 	 orr r3,r3,#268435456
- 258 001a 1361     	 str r3,[r2,#16]
-  34:../driver_adc.c **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC4_POS);	//P14.4 - G2CH0				-C
- 259              	 .loc 2 34 0
- 260 001c C24A     	 ldr r2,.L17
- 261 001e C24B     	 ldr r3,.L17
- 262 0020 5B69     	 ldr r3,[r3,#20]
- 263 0022 43F01003 	 orr r3,r3,#16
- 264 0026 5361     	 str r3,[r2,#20]
-  35:../driver_adc.c **** 
-  36:../driver_adc.c **** 	/*Disable Gating - enables the clock for VADC */
-  37:../driver_adc.c **** 	SCU_CLK->CGATCLR0 |= SCU_CGATCLR0_VADC_MSK;
- 265              	 .loc 2 37 0
- 266 0028 C04A     	 ldr r2,.L17+4
- 267 002a C04B     	 ldr r3,.L17+4
- 268 002c 9B6C     	 ldr r3,[r3,#72]
- 269 002e 43F00103 	 orr r3,r3,#1
- 270 0032 9364     	 str r3,[r2,#72]
-  38:../driver_adc.c **** 
-  39:../driver_adc.c **** 	/*Clear reset*/
-  40:../driver_adc.c **** //	SCU_RESET->PRSET0 |= SCU_PRCLR0_VADCRS_MSK
-  41:../driver_adc.c **** 	SCU_RESET->PRCLR0 |= SCU_PRCLR0_VADCRS_MSK;
- 271              	 .loc 2 41 0
- 272 0034 BE4A     	 ldr r2,.L17+8
- 273 0036 BE4B     	 ldr r3,.L17+8
- 274 0038 5B69     	 ldr r3,[r3,#20]
- 275 003a 43F00103 	 orr r3,r3,#1
- 276 003e 5361     	 str r3,[r2,#20]
-  42:../driver_adc.c **** 
-  43:../driver_adc.c **** 	/*Enable Module Clock - write 0 to enable*/
-  44:../driver_adc.c **** 	VADC->CLC &= ~VADC_CLC_DISR_MSK;
- 277              	 .loc 2 44 0
- 278 0040 4FF04022 	 mov r2,#1073758208
- 279 0044 4FF04023 	 mov r3,#1073758208
- 280 0048 1B68     	 ldr r3,[r3]
- 281 004a 23F00103 	 bic r3,r3,#1
- 282 004e 1360     	 str r3,[r2]
-  45:../driver_adc.c **** 
-  46:../driver_adc.c **** 	/*Set Frequency to 36MHz by dividing the F_ADC/4 -> 144/4=36 --- NEED TO ALSO WRITE INTO ENABLE BI
-  47:../driver_adc.c **** //	VADC->GLOBCFG = (uint32_t)((VADC_GLOBCGF_DIVA_4_MSK << VADC_GLOBCGF_DIVA_POS) | (VADC_GLOBCFG_DI
-  48:../driver_adc.c **** 
-  49:../driver_adc.c **** 	/*Configure Conversion resolution - 12BITS  --- GLOBAL*/
-  50:../driver_adc.c **** 	VADC->GLOBICLASS[0] &= ~(VADC_GLOBICLASS0_CMS_12_MSK << VADC_GLOBICLASS0_CMS_POS);
- 283              	 .loc 2 50 0
- 284 0050 4FF04022 	 mov r2,#1073758208
- 285 0054 4FF04023 	 mov r3,#1073758208
- 286 0058 D3F8A030 	 ldr r3,[r3,#160]
- 287 005c 23F4E063 	 bic r3,r3,#1792
- 288 0060 C2F8A030 	 str r3,[r2,#160]
-  51:../driver_adc.c **** 
-  52:../driver_adc.c **** 	/*Configure Sample and hold time - 5clocks --- GLOBAL*/
-  53:../driver_adc.c **** 	VADC->GLOBICLASS[0] |= (VADC_GLOBICLASS0_STCS_5_MSK << VADC_GLOBICLASS0_STCS_POS);
- 289              	 .loc 2 53 0
- 290 0064 4FF04022 	 mov r2,#1073758208
- 291 0068 4FF04023 	 mov r3,#1073758208
- 292 006c D3F8A030 	 ldr r3,[r3,#160]
- 293 0070 43F00503 	 orr r3,r3,#5
- 294 0074 C2F8A030 	 str r3,[r2,#160]
-  54:../driver_adc.c **** 
-  55:../driver_adc.c **** 	/*Power Up VADC G0/G1/G2 for calibration*/
-  56:../driver_adc.c **** 	/*Enable all Analog Converters*/
-  57:../driver_adc.c **** 	VADC_G0->ARBCFG |= VADC_ARBCFG_ANONC_MSK;
- 295              	 .loc 2 57 0
- 296 0078 AE4A     	 ldr r2,.L17+12
- 297 007a AE4B     	 ldr r3,.L17+12
- 298 007c D3F88030 	 ldr r3,[r3,#128]
- 299 0080 43F00303 	 orr r3,r3,#3
- 300 0084 C2F88030 	 str r3,[r2,#128]
-  58:../driver_adc.c **** 	VADC_G1->ARBCFG |= VADC_ARBCFG_ANONC_MSK;
- 301              	 .loc 2 58 0
- 302 0088 AB4A     	 ldr r2,.L17+16
- 303 008a AB4B     	 ldr r3,.L17+16
- 304 008c D3F88030 	 ldr r3,[r3,#128]
- 305 0090 43F00303 	 orr r3,r3,#3
- 306 0094 C2F88030 	 str r3,[r2,#128]
-  59:../driver_adc.c **** 	VADC_G2->ARBCFG |= VADC_ARBCFG_ANONC_MSK;
- 307              	 .loc 2 59 0
- 308 0098 A84A     	 ldr r2,.L17+20
- 309 009a A84B     	 ldr r3,.L17+20
- 310 009c D3F88030 	 ldr r3,[r3,#128]
- 311 00a0 43F00303 	 orr r3,r3,#3
- 312 00a4 C2F88030 	 str r3,[r2,#128]
-  60:../driver_adc.c **** 
-  61:../driver_adc.c **** 	/*StartUp Calibration*/
-  62:../driver_adc.c **** 	VADC->GLOBCFG |= ENABLE << VADC_GLOBCFG_SUCAL_POS;
- 313              	 .loc 2 62 0
- 314 00a8 4FF04022 	 mov r2,#1073758208
- 315 00ac 4FF04023 	 mov r3,#1073758208
- 316 00b0 D3F88030 	 ldr r3,[r3,#128]
- 317 00b4 43F00043 	 orr r3,r3,#-2147483648
- 318 00b8 C2F88030 	 str r3,[r2,#128]
-  63:../driver_adc.c **** 
-  64:../driver_adc.c **** 	/*Wait for calibration to finish*/
-  65:../driver_adc.c **** 	while((VADC_G0->ARBCFG & VADC_ARBCFG_CAL_MSK) && (VADC_G1->ARBCFG & VADC_ARBCFG_CAL_MSK) && (VADC_
- 319              	 .loc 2 65 0
- 320 00bc 00BF     	 nop
- 321              	.L16:
- 322              	 .loc 2 65 0 is_stmt 0 discriminator 3
- 323 00be 9D4B     	 ldr r3,.L17+12
- 324 00c0 D3F88030 	 ldr r3,[r3,#128]
- 325 00c4 03F08053 	 and r3,r3,#268435456
- 326 00c8 002B     	 cmp r3,#0
- 327 00ca 0DD0     	 beq .L15
- 328              	 .loc 2 65 0 discriminator 1
- 329 00cc 9A4B     	 ldr r3,.L17+16
- 330 00ce D3F88030 	 ldr r3,[r3,#128]
- 331 00d2 03F08053 	 and r3,r3,#268435456
- 332 00d6 002B     	 cmp r3,#0
- 333 00d8 06D0     	 beq .L15
- 334              	 .loc 2 65 0 discriminator 2
- 335 00da 984B     	 ldr r3,.L17+20
- 336 00dc D3F88030 	 ldr r3,[r3,#128]
- 337 00e0 03F08053 	 and r3,r3,#268435456
- 338 00e4 002B     	 cmp r3,#0
- 339 00e6 EAD1     	 bne .L16
- 340              	.L15:
-  66:../driver_adc.c **** 	{
-  67:../driver_adc.c **** 		//Wait for calibration
-  68:../driver_adc.c **** 	};
-  69:../driver_adc.c **** 
-  70:../driver_adc.c **** 	/*Configure the conversion kernel*/
-  71:../driver_adc.c **** 
-  72:../driver_adc.c **** 	/*Slave SetUp - G1/G2*/
-  73:../driver_adc.c **** 	/*Disable arbitration*/
-  74:../driver_adc.c **** 	VADC_G1->ARBPR &= ~(DISABLE << VADC_ARBPR_ASEN0_POS);
- 341              	 .loc 2 74 0 is_stmt 1
- 342 00e8 934A     	 ldr r2,.L17+16
- 343 00ea 934B     	 ldr r3,.L17+16
- 344 00ec D3F88430 	 ldr r3,[r3,#132]
- 345 00f0 23F08073 	 bic r3,r3,#16777216
- 346 00f4 C2F88430 	 str r3,[r2,#132]
-  75:../driver_adc.c **** 	VADC_G2->ARBPR &= ~(DISABLE << VADC_ARBPR_ASEN0_POS);
- 347              	 .loc 2 75 0
- 348 00f8 904A     	 ldr r2,.L17+20
- 349 00fa 904B     	 ldr r3,.L17+20
- 350 00fc D3F88430 	 ldr r3,[r3,#132]
- 351 0100 23F08073 	 bic r3,r3,#16777216
- 352 0104 C2F88430 	 str r3,[r2,#132]
-  76:../driver_adc.c **** 
-  77:../driver_adc.c **** 	/*Set maximum priority */
-  78:../driver_adc.c **** 	VADC_G1->ARBPR |= VADC_ARBPR_PRIO0_MAX_MSK;
- 353              	 .loc 2 78 0
- 354 0108 8B4A     	 ldr r2,.L17+16
- 355 010a 8B4B     	 ldr r3,.L17+16
- 356 010c D3F88430 	 ldr r3,[r3,#132]
- 357 0110 43F00303 	 orr r3,r3,#3
- 358 0114 C2F88430 	 str r3,[r2,#132]
-  79:../driver_adc.c **** 	VADC_G2->ARBPR |= VADC_ARBPR_PRIO0_MAX_MSK;
- 359              	 .loc 2 79 0
- 360 0118 884A     	 ldr r2,.L17+20
- 361 011a 884B     	 ldr r3,.L17+20
- 362 011c D3F88430 	 ldr r3,[r3,#132]
- 363 0120 43F00303 	 orr r3,r3,#3
- 364 0124 C2F88430 	 str r3,[r2,#132]
-  80:../driver_adc.c **** 
-  81:../driver_adc.c **** //	//GETS ALL THIS SETTINGS FROM MASTER - No need to set up slave settings
-  82:../driver_adc.c **** //	/*Enable writing in TMEN - Timer mode for equidistant sampling enabled*/
-  83:../driver_adc.c **** //	VADC_G1->QCTRL0 |= (ENABLE << VADC_QCTRL0_TMWC_POS) | (ENABLE << VADC_QCTRL0_TMEN_POS);
-  84:../driver_adc.c **** //	VADC_G2->QCTRL0 |= (ENABLE << VADC_QCTRL0_TMWC_POS) | (ENABLE << VADC_QCTRL0_TMEN_POS);
-  85:../driver_adc.c **** //
-  86:../driver_adc.c **** //	/*Enable writing in XTMODE and XTSEL */
-  87:../driver_adc.c **** //	/*Trigger Operating Mode - Trigger event upon any edge*/
-  88:../driver_adc.c **** //	VADC_G1->QCTRL0 |= (ENABLE << VADC_QCTRL0_XTWC_POS) | (VADC_QCTRL0_XTMODE_ANY_MSK << VADC_QCTRL0
-  89:../driver_adc.c **** //	VADC_G2->QCTRL0 |= (ENABLE << VADC_QCTRL0_XTWC_POS) | (VADC_QCTRL0_XTMODE_ANY_MSK << VADC_QCTRL0
-  90:../driver_adc.c **** //
-  91:../driver_adc.c **** //	/*External Trigger Input Selection - Trigger on Input J (CCU80.SR3)*/
-  92:../driver_adc.c **** //	VADC_G1->QCTRL0 |= (ENABLE << VADC_QCTRL0_XTWC_POS) | (VADC_QCTRL0_XTSEL_J_MSK << VADC_QCTRL0_XT
-  93:../driver_adc.c **** //	VADC_G2->QCTRL0 |= (ENABLE << VADC_QCTRL0_XTWC_POS) | (VADC_QCTRL0_XTSEL_J_MSK << VADC_QCTRL0_XT
-  94:../driver_adc.c **** 
-  95:../driver_adc.c **** 	/*Enable interruption of other running conversions*/
-  96:../driver_adc.c **** 	VADC_G1->ARBPR |= VADC_ARBPR_CSM0_MSK;
- 365              	 .loc 2 96 0
- 366 0128 834A     	 ldr r2,.L17+16
- 367 012a 834B     	 ldr r3,.L17+16
- 368 012c D3F88430 	 ldr r3,[r3,#132]
- 369 0130 43F00803 	 orr r3,r3,#8
- 370 0134 C2F88430 	 str r3,[r2,#132]
-  97:../driver_adc.c **** 	VADC_G2->ARBPR |= VADC_ARBPR_CSM0_MSK;
- 371              	 .loc 2 97 0
- 372 0138 804A     	 ldr r2,.L17+20
- 373 013a 804B     	 ldr r3,.L17+20
- 374 013c D3F88430 	 ldr r3,[r3,#132]
- 375 0140 43F00803 	 orr r3,r3,#8
- 376 0144 C2F88430 	 str r3,[r2,#132]
-  98:../driver_adc.c **** 
-  99:../driver_adc.c **** 	/*Enable arbitration*/
- 100:../driver_adc.c **** 	VADC_G1->ARBPR |= (ENABLE << VADC_ARBPR_ASEN0_POS);
- 377              	 .loc 2 100 0
- 378 0148 7B4A     	 ldr r2,.L17+16
- 379 014a 7B4B     	 ldr r3,.L17+16
- 380 014c D3F88430 	 ldr r3,[r3,#132]
- 381 0150 43F08073 	 orr r3,r3,#16777216
- 382 0154 C2F88430 	 str r3,[r2,#132]
- 101:../driver_adc.c **** 	VADC_G2->ARBPR |= (ENABLE << VADC_ARBPR_ASEN0_POS);
- 383              	 .loc 2 101 0
- 384 0158 784A     	 ldr r2,.L17+20
- 385 015a 784B     	 ldr r3,.L17+20
- 386 015c D3F88430 	 ldr r3,[r3,#132]
- 387 0160 43F08073 	 orr r3,r3,#16777216
- 388 0164 C2F88430 	 str r3,[r2,#132]
- 102:../driver_adc.c **** 
+  19:../driver_adc.c **** int32_t u_mot_dig, u_log_dig;			 // saves the 12bit value read from VADC
+  20:../driver_adc.c **** float_t u_mot, u_log;					 // The 12bit value converted into Volts
+  21:../driver_adc.c **** int32_t offset_ia, offset_ib, offset_ic; // Current offsets for every phase
+  22:../driver_adc.c **** int16_t ia, ib, ic;						 // Currents read from ADC in 16bit
+  23:../driver_adc.c **** float_t ia_a, ib_a, ic_a, iq_a;			 // Float values for Micrium
+  24:../driver_adc.c **** uint8_t prot_status = ON;				 // Status of Current protection -- OFF for offset computation
+  25:../driver_adc.c **** // int32_t ia_32, ib_32, ic_32;							// Int32 values for Micrium(int16 is prone to error for oscil
+  26:../driver_adc.c **** 
+  27:../driver_adc.c **** /*
+  28:../driver_adc.c **** 	Initialize VADC unit
+  29:../driver_adc.c **** */
+  30:../driver_adc.c **** void adc_init(void)
+  31:../driver_adc.c **** {
+ 240              	 .loc 2 31 0
+ 241              	 .cfi_startproc
+ 242              	 
+ 243              	 
+ 244              	 
+ 245 0000 80B4     	 push {r7}
+ 246              	.LCFI18:
+ 247              	 .cfi_def_cfa_offset 4
+ 248              	 .cfi_offset 7,-4
+ 249 0002 00AF     	 add r7,sp,#0
+ 250              	.LCFI19:
+ 251              	 .cfi_def_cfa_register 7
+  32:../driver_adc.c **** 	/*Pin setup - P14.0 P14.3 P14.4*/
+  33:../driver_adc.c **** 	PORT14->IOCR0 |= (INPUT_PULL_UP_MSK << PORT14_IOCR0_PC0_POS); // P14.0 - G0CH0				-A
+ 252              	 .loc 2 33 0
+ 253 0004 C84A     	 ldr r2,.L17
+ 254 0006 C84B     	 ldr r3,.L17
+ 255 0008 1B69     	 ldr r3,[r3,#16]
+ 256 000a 43F01003 	 orr r3,r3,#16
+ 257 000e 1361     	 str r3,[r2,#16]
+  34:../driver_adc.c **** 	PORT14->IOCR0 |= (INPUT_PULL_UP_MSK << PORT14_IOCR0_PC3_POS); // P14.3 - G1CH3(ALIAS CH0)	-B
+ 258              	 .loc 2 34 0
+ 259 0010 C54A     	 ldr r2,.L17
+ 260 0012 C54B     	 ldr r3,.L17
+ 261 0014 1B69     	 ldr r3,[r3,#16]
+ 262 0016 43F08053 	 orr r3,r3,#268435456
+ 263 001a 1361     	 str r3,[r2,#16]
+  35:../driver_adc.c **** 	PORT14->IOCR4 |= (INPUT_PULL_UP_MSK << PORT14_IOCR4_PC4_POS); // P14.4 - G2CH0				-C
+ 264              	 .loc 2 35 0
+ 265 001c C24A     	 ldr r2,.L17
+ 266 001e C24B     	 ldr r3,.L17
+ 267 0020 5B69     	 ldr r3,[r3,#20]
+ 268 0022 43F01003 	 orr r3,r3,#16
+ 269 0026 5361     	 str r3,[r2,#20]
+  36:../driver_adc.c **** 
+  37:../driver_adc.c **** 	/*Disable Gating - enables the clock for VADC */
+  38:../driver_adc.c **** 	SCU_CLK->CGATCLR0 |= SCU_CGATCLR0_VADC_MSK;
+ 270              	 .loc 2 38 0
+ 271 0028 C04A     	 ldr r2,.L17+4
+ 272 002a C04B     	 ldr r3,.L17+4
+ 273 002c 9B6C     	 ldr r3,[r3,#72]
+ 274 002e 43F00103 	 orr r3,r3,#1
+ 275 0032 9364     	 str r3,[r2,#72]
+  39:../driver_adc.c **** 
+  40:../driver_adc.c **** 	/*Clear reset*/
+  41:../driver_adc.c **** 	//	SCU_RESET->PRSET0 |= SCU_PRCLR0_VADCRS_MSK
+  42:../driver_adc.c **** 	SCU_RESET->PRCLR0 |= SCU_PRCLR0_VADCRS_MSK;
+ 276              	 .loc 2 42 0
+ 277 0034 BE4A     	 ldr r2,.L17+8
+ 278 0036 BE4B     	 ldr r3,.L17+8
+ 279 0038 5B69     	 ldr r3,[r3,#20]
+ 280 003a 43F00103 	 orr r3,r3,#1
+ 281 003e 5361     	 str r3,[r2,#20]
+  43:../driver_adc.c **** 
+  44:../driver_adc.c **** 	/*Enable Module Clock - write 0 to enable*/
+  45:../driver_adc.c **** 	VADC->CLC &= ~VADC_CLC_DISR_MSK;
+ 282              	 .loc 2 45 0
+ 283 0040 4FF04022 	 mov r2,#1073758208
+ 284 0044 4FF04023 	 mov r3,#1073758208
+ 285 0048 1B68     	 ldr r3,[r3]
+ 286 004a 23F00103 	 bic r3,r3,#1
+ 287 004e 1360     	 str r3,[r2]
+  46:../driver_adc.c **** 
+  47:../driver_adc.c **** 	/*Set Frequency to 36MHz by dividing the F_ADC/4 -> 144/4=36 --- NEED TO ALSO WRITE INTO ENABLE BI
+  48:../driver_adc.c **** 	//	VADC->GLOBCFG = (uint32_t)((VADC_GLOBCGF_DIVA_4_MSK << VADC_GLOBCGF_DIVA_POS) | (VADC_GLOBCFG_D
+  49:../driver_adc.c **** 
+  50:../driver_adc.c **** 	/*Configure Conversion resolution - 12BITS  --- GLOBAL*/
+  51:../driver_adc.c **** 	VADC->GLOBICLASS[0] &= ~(VADC_GLOBICLASS0_CMS_12_MSK << VADC_GLOBICLASS0_CMS_POS);
+ 288              	 .loc 2 51 0
+ 289 0050 4FF04022 	 mov r2,#1073758208
+ 290 0054 4FF04023 	 mov r3,#1073758208
+ 291 0058 D3F8A030 	 ldr r3,[r3,#160]
+ 292 005c 23F4E063 	 bic r3,r3,#1792
+ 293 0060 C2F8A030 	 str r3,[r2,#160]
+  52:../driver_adc.c **** 
+  53:../driver_adc.c **** 	/*Configure Sample and hold time - 5clocks --- GLOBAL*/
+  54:../driver_adc.c **** 	VADC->GLOBICLASS[0] |= (VADC_GLOBICLASS0_STCS_5_MSK << VADC_GLOBICLASS0_STCS_POS);
+ 294              	 .loc 2 54 0
+ 295 0064 4FF04022 	 mov r2,#1073758208
+ 296 0068 4FF04023 	 mov r3,#1073758208
+ 297 006c D3F8A030 	 ldr r3,[r3,#160]
+ 298 0070 43F00503 	 orr r3,r3,#5
+ 299 0074 C2F8A030 	 str r3,[r2,#160]
+  55:../driver_adc.c **** 
+  56:../driver_adc.c **** 	/*Power Up VADC G0/G1/G2 for calibration*/
+  57:../driver_adc.c **** 	/*Enable all Analog Converters*/
+  58:../driver_adc.c **** 	VADC_G0->ARBCFG |= VADC_ARBCFG_ANONC_MSK;
+ 300              	 .loc 2 58 0
+ 301 0078 AE4A     	 ldr r2,.L17+12
+ 302 007a AE4B     	 ldr r3,.L17+12
+ 303 007c D3F88030 	 ldr r3,[r3,#128]
+ 304 0080 43F00303 	 orr r3,r3,#3
+ 305 0084 C2F88030 	 str r3,[r2,#128]
+  59:../driver_adc.c **** 	VADC_G1->ARBCFG |= VADC_ARBCFG_ANONC_MSK;
+ 306              	 .loc 2 59 0
+ 307 0088 AB4A     	 ldr r2,.L17+16
+ 308 008a AB4B     	 ldr r3,.L17+16
+ 309 008c D3F88030 	 ldr r3,[r3,#128]
+ 310 0090 43F00303 	 orr r3,r3,#3
+ 311 0094 C2F88030 	 str r3,[r2,#128]
+  60:../driver_adc.c **** 	VADC_G2->ARBCFG |= VADC_ARBCFG_ANONC_MSK;
+ 312              	 .loc 2 60 0
+ 313 0098 A84A     	 ldr r2,.L17+20
+ 314 009a A84B     	 ldr r3,.L17+20
+ 315 009c D3F88030 	 ldr r3,[r3,#128]
+ 316 00a0 43F00303 	 orr r3,r3,#3
+ 317 00a4 C2F88030 	 str r3,[r2,#128]
+  61:../driver_adc.c **** 
+  62:../driver_adc.c **** 	/*StartUp Calibration*/
+  63:../driver_adc.c **** 	VADC->GLOBCFG |= ENABLE << VADC_GLOBCFG_SUCAL_POS;
+ 318              	 .loc 2 63 0
+ 319 00a8 4FF04022 	 mov r2,#1073758208
+ 320 00ac 4FF04023 	 mov r3,#1073758208
+ 321 00b0 D3F88030 	 ldr r3,[r3,#128]
+ 322 00b4 43F00043 	 orr r3,r3,#-2147483648
+ 323 00b8 C2F88030 	 str r3,[r2,#128]
+  64:../driver_adc.c **** 
+  65:../driver_adc.c **** 	/*Wait for calibration to finish*/
+  66:../driver_adc.c **** 	while ((VADC_G0->ARBCFG & VADC_ARBCFG_CAL_MSK) && (VADC_G1->ARBCFG & VADC_ARBCFG_CAL_MSK) && (VADC
+ 324              	 .loc 2 66 0
+ 325 00bc 00BF     	 nop
+ 326              	.L16:
+ 327              	 .loc 2 66 0 is_stmt 0 discriminator 3
+ 328 00be 9D4B     	 ldr r3,.L17+12
+ 329 00c0 D3F88030 	 ldr r3,[r3,#128]
+ 330 00c4 03F08053 	 and r3,r3,#268435456
+ 331 00c8 002B     	 cmp r3,#0
+ 332 00ca 0DD0     	 beq .L15
+ 333              	 .loc 2 66 0 discriminator 1
+ 334 00cc 9A4B     	 ldr r3,.L17+16
+ 335 00ce D3F88030 	 ldr r3,[r3,#128]
+ 336 00d2 03F08053 	 and r3,r3,#268435456
+ 337 00d6 002B     	 cmp r3,#0
+ 338 00d8 06D0     	 beq .L15
+ 339              	 .loc 2 66 0 discriminator 2
+ 340 00da 984B     	 ldr r3,.L17+20
+ 341 00dc D3F88030 	 ldr r3,[r3,#128]
+ 342 00e0 03F08053 	 and r3,r3,#268435456
+ 343 00e4 002B     	 cmp r3,#0
+ 344 00e6 EAD1     	 bne .L16
+ 345              	.L15:
+  67:../driver_adc.c **** 	{
+  68:../driver_adc.c **** 		// Wait for calibration
+  69:../driver_adc.c **** 	};
+  70:../driver_adc.c **** 
+  71:../driver_adc.c **** 	/*Configure the conversion kernel*/
+  72:../driver_adc.c **** 
+  73:../driver_adc.c **** 	/*Slave SetUp - G1/G2*/
+  74:../driver_adc.c **** 	/*Disable arbitration*/
+  75:../driver_adc.c **** 	VADC_G1->ARBPR &= ~(DISABLE << VADC_ARBPR_ASEN0_POS);
+ 346              	 .loc 2 75 0 is_stmt 1
+ 347 00e8 934A     	 ldr r2,.L17+16
+ 348 00ea 934B     	 ldr r3,.L17+16
+ 349 00ec D3F88430 	 ldr r3,[r3,#132]
+ 350 00f0 23F08073 	 bic r3,r3,#16777216
+ 351 00f4 C2F88430 	 str r3,[r2,#132]
+  76:../driver_adc.c **** 	VADC_G2->ARBPR &= ~(DISABLE << VADC_ARBPR_ASEN0_POS);
+ 352              	 .loc 2 76 0
+ 353 00f8 904A     	 ldr r2,.L17+20
+ 354 00fa 904B     	 ldr r3,.L17+20
+ 355 00fc D3F88430 	 ldr r3,[r3,#132]
+ 356 0100 23F08073 	 bic r3,r3,#16777216
+ 357 0104 C2F88430 	 str r3,[r2,#132]
+  77:../driver_adc.c **** 
+  78:../driver_adc.c **** 	/*Set maximum priority */
+  79:../driver_adc.c **** 	VADC_G1->ARBPR |= VADC_ARBPR_PRIO0_MAX_MSK;
+ 358              	 .loc 2 79 0
+ 359 0108 8B4A     	 ldr r2,.L17+16
+ 360 010a 8B4B     	 ldr r3,.L17+16
+ 361 010c D3F88430 	 ldr r3,[r3,#132]
+ 362 0110 43F00303 	 orr r3,r3,#3
+ 363 0114 C2F88430 	 str r3,[r2,#132]
+  80:../driver_adc.c **** 	VADC_G2->ARBPR |= VADC_ARBPR_PRIO0_MAX_MSK;
+ 364              	 .loc 2 80 0
+ 365 0118 884A     	 ldr r2,.L17+20
+ 366 011a 884B     	 ldr r3,.L17+20
+ 367 011c D3F88430 	 ldr r3,[r3,#132]
+ 368 0120 43F00303 	 orr r3,r3,#3
+ 369 0124 C2F88430 	 str r3,[r2,#132]
+  81:../driver_adc.c **** 
+  82:../driver_adc.c **** 	//	//GETS ALL THIS SETTINGS FROM MASTER - No need to set up slave settings
+  83:../driver_adc.c **** 	//	/*Enable writing in TMEN - Timer mode for equidistant sampling enabled*/
+  84:../driver_adc.c **** 	//	VADC_G1->QCTRL0 |= (ENABLE << VADC_QCTRL0_TMWC_POS) | (ENABLE << VADC_QCTRL0_TMEN_POS);
+  85:../driver_adc.c **** 	//	VADC_G2->QCTRL0 |= (ENABLE << VADC_QCTRL0_TMWC_POS) | (ENABLE << VADC_QCTRL0_TMEN_POS);
+  86:../driver_adc.c **** 	//
+  87:../driver_adc.c **** 	//	/*Enable writing in XTMODE and XTSEL */
+  88:../driver_adc.c **** 	//	/*Trigger Operating Mode - Trigger event upon any edge*/
+  89:../driver_adc.c **** 	//	VADC_G1->QCTRL0 |= (ENABLE << VADC_QCTRL0_XTWC_POS) | (VADC_QCTRL0_XTMODE_ANY_MSK << VADC_QCTRL
+  90:../driver_adc.c **** 	//	VADC_G2->QCTRL0 |= (ENABLE << VADC_QCTRL0_XTWC_POS) | (VADC_QCTRL0_XTMODE_ANY_MSK << VADC_QCTRL
+  91:../driver_adc.c **** 	//
+  92:../driver_adc.c **** 	//	/*External Trigger Input Selection - Trigger on Input J (CCU80.SR3)*/
+  93:../driver_adc.c **** 	//	VADC_G1->QCTRL0 |= (ENABLE << VADC_QCTRL0_XTWC_POS) | (VADC_QCTRL0_XTSEL_J_MSK << VADC_QCTRL0_X
+  94:../driver_adc.c **** 	//	VADC_G2->QCTRL0 |= (ENABLE << VADC_QCTRL0_XTWC_POS) | (VADC_QCTRL0_XTSEL_J_MSK << VADC_QCTRL0_X
+  95:../driver_adc.c **** 
+  96:../driver_adc.c **** 	/*Enable interruption of other running conversions*/
+  97:../driver_adc.c **** 	VADC_G1->ARBPR |= VADC_ARBPR_CSM0_MSK;
+ 370              	 .loc 2 97 0
+ 371 0128 834A     	 ldr r2,.L17+16
+ 372 012a 834B     	 ldr r3,.L17+16
+ 373 012c D3F88430 	 ldr r3,[r3,#132]
+ 374 0130 43F00803 	 orr r3,r3,#8
+ 375 0134 C2F88430 	 str r3,[r2,#132]
+  98:../driver_adc.c **** 	VADC_G2->ARBPR |= VADC_ARBPR_CSM0_MSK;
+ 376              	 .loc 2 98 0
+ 377 0138 804A     	 ldr r2,.L17+20
+ 378 013a 804B     	 ldr r3,.L17+20
+ 379 013c D3F88430 	 ldr r3,[r3,#132]
+ 380 0140 43F00803 	 orr r3,r3,#8
+ 381 0144 C2F88430 	 str r3,[r2,#132]
+  99:../driver_adc.c **** 
+ 100:../driver_adc.c **** 	/*Enable arbitration*/
+ 101:../driver_adc.c **** 	VADC_G1->ARBPR |= (ENABLE << VADC_ARBPR_ASEN0_POS);
+ 382              	 .loc 2 101 0
+ 383 0148 7B4A     	 ldr r2,.L17+16
+ 384 014a 7B4B     	 ldr r3,.L17+16
+ 385 014c D3F88430 	 ldr r3,[r3,#132]
+ 386 0150 43F08073 	 orr r3,r3,#16777216
+ 387 0154 C2F88430 	 str r3,[r2,#132]
+ 102:../driver_adc.c **** 	VADC_G2->ARBPR |= (ENABLE << VADC_ARBPR_ASEN0_POS);
+ 388              	 .loc 2 102 0
+ 389 0158 784A     	 ldr r2,.L17+20
+ 390 015a 784B     	 ldr r3,.L17+20
+ 391 015c D3F88430 	 ldr r3,[r3,#132]
+ 392 0160 43F08073 	 orr r3,r3,#16777216
+ 393 0164 C2F88430 	 str r3,[r2,#132]
  103:../driver_adc.c **** 
  104:../driver_adc.c **** 	/*Master SetUp - G0*/
  105:../driver_adc.c **** 	/*Disable arbitration*/
  106:../driver_adc.c **** 	VADC_G0->ARBPR &= ~(DISABLE << VADC_ARBPR_ASEN0_POS);
- 389              	 .loc 2 106 0
- 390 0168 724A     	 ldr r2,.L17+12
- 391 016a 724B     	 ldr r3,.L17+12
- 392 016c D3F88430 	 ldr r3,[r3,#132]
- 393 0170 23F08073 	 bic r3,r3,#16777216
- 394 0174 C2F88430 	 str r3,[r2,#132]
+ 394              	 .loc 2 106 0
+ 395 0168 724A     	 ldr r2,.L17+12
+ 396 016a 724B     	 ldr r3,.L17+12
+ 397 016c D3F88430 	 ldr r3,[r3,#132]
+ 398 0170 23F08073 	 bic r3,r3,#16777216
+ 399 0174 C2F88430 	 str r3,[r2,#132]
  107:../driver_adc.c **** 
  108:../driver_adc.c **** 	/*Set maximum priority */
  109:../driver_adc.c **** 	VADC_G0->ARBPR |= VADC_ARBPR_PRIO0_MAX_MSK;
- 395              	 .loc 2 109 0
- 396 0178 6E4A     	 ldr r2,.L17+12
- 397 017a 6E4B     	 ldr r3,.L17+12
- 398 017c D3F88430 	 ldr r3,[r3,#132]
- 399 0180 43F00303 	 orr r3,r3,#3
- 400 0184 C2F88430 	 str r3,[r2,#132]
+ 400              	 .loc 2 109 0
+ 401 0178 6E4A     	 ldr r2,.L17+12
+ 402 017a 6E4B     	 ldr r3,.L17+12
+ 403 017c D3F88430 	 ldr r3,[r3,#132]
+ 404 0180 43F00303 	 orr r3,r3,#3
+ 405 0184 C2F88430 	 str r3,[r2,#132]
  110:../driver_adc.c **** 
  111:../driver_adc.c **** 	/*Enable writing in TMEN - Timer mode for equidistant sampling enabled*/
  112:../driver_adc.c **** 	VADC_G0->QCTRL0 |= (ENABLE << VADC_QCTRL0_TMWC_POS) | (ENABLE << VADC_QCTRL0_TMEN_POS);
- 401              	 .loc 2 112 0
- 402 0188 6A4A     	 ldr r2,.L17+12
- 403 018a 6A4B     	 ldr r3,.L17+12
- 404 018c D3F80031 	 ldr r3,[r3,#256]
- 405 0190 43F01043 	 orr r3,r3,#-1879048192
- 406 0194 C2F80031 	 str r3,[r2,#256]
+ 406              	 .loc 2 112 0
+ 407 0188 6A4A     	 ldr r2,.L17+12
+ 408 018a 6A4B     	 ldr r3,.L17+12
+ 409 018c D3F80031 	 ldr r3,[r3,#256]
+ 410 0190 43F01043 	 orr r3,r3,#-1879048192
+ 411 0194 C2F80031 	 str r3,[r2,#256]
  113:../driver_adc.c **** 
  114:../driver_adc.c **** 	/*Enable writing in XTMODE and XTSEL */
  115:../driver_adc.c **** 	/*Trigger Operating Mode - Trigger event upon any edge*/
  116:../driver_adc.c **** 	VADC_G0->QCTRL0 |= (ENABLE << VADC_QCTRL0_XTWC_POS) | (VADC_QCTRL0_XTMODE_ANY_MSK << VADC_QCTRL0_X
- 407              	 .loc 2 116 0
- 408 0198 664A     	 ldr r2,.L17+12
- 409 019a 664B     	 ldr r3,.L17+12
- 410 019c D3F80031 	 ldr r3,[r3,#256]
- 411 01a0 43F46043 	 orr r3,r3,#57344
- 412 01a4 C2F80031 	 str r3,[r2,#256]
+ 412              	 .loc 2 116 0
+ 413 0198 664A     	 ldr r2,.L17+12
+ 414 019a 664B     	 ldr r3,.L17+12
+ 415 019c D3F80031 	 ldr r3,[r3,#256]
+ 416 01a0 43F46043 	 orr r3,r3,#57344
+ 417 01a4 C2F80031 	 str r3,[r2,#256]
  117:../driver_adc.c **** 
  118:../driver_adc.c **** 	/*External Trigger Input Selection - Trigger on Input J (CCU80.SR3)*/
  119:../driver_adc.c **** 	VADC_G0->QCTRL0 |= (ENABLE << VADC_QCTRL0_XTWC_POS) | (VADC_QCTRL0_XTSEL_J_MSK << VADC_QCTRL0_XTSE
- 413              	 .loc 2 119 0
- 414 01a8 624A     	 ldr r2,.L17+12
- 415 01aa 624B     	 ldr r3,.L17+12
- 416 01ac D3F80031 	 ldr r3,[r3,#256]
- 417 01b0 43F40943 	 orr r3,r3,#35072
- 418 01b4 C2F80031 	 str r3,[r2,#256]
+ 418              	 .loc 2 119 0
+ 419 01a8 624A     	 ldr r2,.L17+12
+ 420 01aa 624B     	 ldr r3,.L17+12
+ 421 01ac D3F80031 	 ldr r3,[r3,#256]
+ 422 01b0 43F40943 	 orr r3,r3,#35072
+ 423 01b4 C2F80031 	 str r3,[r2,#256]
  120:../driver_adc.c **** 
  121:../driver_adc.c **** 	/*Configure the Queue Mode*/
  122:../driver_adc.c **** 	/*Enable Gate - Conversion requests are issued if a valid conversion request is pending in the que
  123:../driver_adc.c **** 	VADC_G0->QMR0 |= VADC_QMR0_ENGT_MSK;
- 419              	 .loc 2 123 0
- 420 01b8 5E4A     	 ldr r2,.L17+12
- 421 01ba 5E4B     	 ldr r3,.L17+12
- 422 01bc D3F80431 	 ldr r3,[r3,#260]
- 423 01c0 43F00103 	 orr r3,r3,#1
- 424 01c4 C2F80431 	 str r3,[r2,#260]
+ 424              	 .loc 2 123 0
+ 425 01b8 5E4A     	 ldr r2,.L17+12
+ 426 01ba 5E4B     	 ldr r3,.L17+12
+ 427 01bc D3F80431 	 ldr r3,[r3,#260]
+ 428 01c0 43F00103 	 orr r3,r3,#1
+ 429 01c4 C2F80431 	 str r3,[r2,#260]
  124:../driver_adc.c **** 
  125:../driver_adc.c **** 	/*Enable External Trigger - The selected edge at the selected trigger input signal REQTR generates
  126:../driver_adc.c **** 	VADC_G0->QMR0 |= VADC_QMR0_ENTR_MSK;
- 425              	 .loc 2 126 0
- 426 01c8 5A4A     	 ldr r2,.L17+12
- 427 01ca 5A4B     	 ldr r3,.L17+12
- 428 01cc D3F80431 	 ldr r3,[r3,#260]
- 429 01d0 43F00403 	 orr r3,r3,#4
- 430 01d4 C2F80431 	 str r3,[r2,#260]
+ 430              	 .loc 2 126 0
+ 431 01c8 5A4A     	 ldr r2,.L17+12
+ 432 01ca 5A4B     	 ldr r3,.L17+12
+ 433 01cc D3F80431 	 ldr r3,[r3,#260]
+ 434 01d0 43F00403 	 orr r3,r3,#4
+ 435 01d4 C2F80431 	 str r3,[r2,#260]
  127:../driver_adc.c **** 
  128:../driver_adc.c **** 	/*Enable arbitration*/
  129:../driver_adc.c **** 	VADC_G0->ARBPR |= (ENABLE << VADC_ARBPR_ASEN0_POS);
- 431              	 .loc 2 129 0
- 432 01d8 564A     	 ldr r2,.L17+12
- 433 01da 564B     	 ldr r3,.L17+12
- 434 01dc D3F88430 	 ldr r3,[r3,#132]
- 435 01e0 43F08073 	 orr r3,r3,#16777216
- 436 01e4 C2F88430 	 str r3,[r2,#132]
+ 436              	 .loc 2 129 0
+ 437 01d8 564A     	 ldr r2,.L17+12
+ 438 01da 564B     	 ldr r3,.L17+12
+ 439 01dc D3F88430 	 ldr r3,[r3,#132]
+ 440 01e0 43F08073 	 orr r3,r3,#16777216
+ 441 01e4 C2F88430 	 str r3,[r2,#132]
  130:../driver_adc.c **** 
  131:../driver_adc.c **** 	/*Channel configuration*/
  132:../driver_adc.c **** 	/*Set Channel 0 as priority channel*/
  133:../driver_adc.c **** 	VADC_G0->CHASS |= VADC_CHASS_ASSCH0_MSK;
- 437              	 .loc 2 133 0
- 438 01e8 524A     	 ldr r2,.L17+12
- 439 01ea 524B     	 ldr r3,.L17+12
- 440 01ec D3F88830 	 ldr r3,[r3,#136]
- 441 01f0 43F00103 	 orr r3,r3,#1
- 442 01f4 C2F88830 	 str r3,[r2,#136]
+ 442              	 .loc 2 133 0
+ 443 01e8 524A     	 ldr r2,.L17+12
+ 444 01ea 524B     	 ldr r3,.L17+12
+ 445 01ec D3F88830 	 ldr r3,[r3,#136]
+ 446 01f0 43F00103 	 orr r3,r3,#1
+ 447 01f4 C2F88830 	 str r3,[r2,#136]
  134:../driver_adc.c **** 	VADC_G1->CHASS |= VADC_CHASS_ASSCH0_MSK;
- 443              	 .loc 2 134 0
- 444 01f8 4F4A     	 ldr r2,.L17+16
- 445 01fa 4F4B     	 ldr r3,.L17+16
- 446 01fc D3F88830 	 ldr r3,[r3,#136]
- 447 0200 43F00103 	 orr r3,r3,#1
- 448 0204 C2F88830 	 str r3,[r2,#136]
+ 448              	 .loc 2 134 0
+ 449 01f8 4F4A     	 ldr r2,.L17+16
+ 450 01fa 4F4B     	 ldr r3,.L17+16
+ 451 01fc D3F88830 	 ldr r3,[r3,#136]
+ 452 0200 43F00103 	 orr r3,r3,#1
+ 453 0204 C2F88830 	 str r3,[r2,#136]
  135:../driver_adc.c **** 	VADC_G2->CHASS |= VADC_CHASS_ASSCH0_MSK;
- 449              	 .loc 2 135 0
- 450 0208 4C4A     	 ldr r2,.L17+20
- 451 020a 4C4B     	 ldr r3,.L17+20
- 452 020c D3F88830 	 ldr r3,[r3,#136]
- 453 0210 43F00103 	 orr r3,r3,#1
- 454 0214 C2F88830 	 str r3,[r2,#136]
+ 454              	 .loc 2 135 0
+ 455 0208 4C4A     	 ldr r2,.L17+20
+ 456 020a 4C4B     	 ldr r3,.L17+20
+ 457 020c D3F88830 	 ldr r3,[r3,#136]
+ 458 0210 43F00103 	 orr r3,r3,#1
+ 459 0214 C2F88830 	 str r3,[r2,#136]
  136:../driver_adc.c **** 
  137:../driver_adc.c **** 	/*Convert G1CH3 into CH0 with ALIAS*/
  138:../driver_adc.c **** 	VADC_G1->ALIAS |= 3U << VADC_ALIAS_ALIAS0_POS;
- 455              	 .loc 2 138 0
- 456 0218 474A     	 ldr r2,.L17+16
- 457 021a 474B     	 ldr r3,.L17+16
- 458 021c D3F8B030 	 ldr r3,[r3,#176]
- 459 0220 43F00303 	 orr r3,r3,#3
- 460 0224 C2F8B030 	 str r3,[r2,#176]
+ 460              	 .loc 2 138 0
+ 461 0218 474A     	 ldr r2,.L17+16
+ 462 021a 474B     	 ldr r3,.L17+16
+ 463 021c D3F8B030 	 ldr r3,[r3,#176]
+ 464 0220 43F00303 	 orr r3,r3,#3
+ 465 0224 C2F8B030 	 str r3,[r2,#176]
  139:../driver_adc.c **** 
  140:../driver_adc.c **** 	/*Channel Control - Request a synchronized conversion of this channel (only taken into account for
  141:../driver_adc.c **** 	VADC_G0->CHCTR[0] |= VADC_CHCTR_SYNC_MSK;
- 461              	 .loc 2 141 0
- 462 0228 424A     	 ldr r2,.L17+12
- 463 022a 424B     	 ldr r3,.L17+12
- 464 022c D3F80032 	 ldr r3,[r3,#512]
- 465 0230 43F48063 	 orr r3,r3,#1024
- 466 0234 C2F80032 	 str r3,[r2,#512]
+ 466              	 .loc 2 141 0
+ 467 0228 424A     	 ldr r2,.L17+12
+ 468 022a 424B     	 ldr r3,.L17+12
+ 469 022c D3F80032 	 ldr r3,[r3,#512]
+ 470 0230 43F48063 	 orr r3,r3,#1024
+ 471 0234 C2F80032 	 str r3,[r2,#512]
  142:../driver_adc.c **** 
  143:../driver_adc.c **** 	/*Use GLOBAL class0 configuration*/
  144:../driver_adc.c **** 	VADC_G0->CHCTR[0] |= VADC_CHCTR_ICSEL_GLOBAL_0_MSK;
- 467              	 .loc 2 144 0
- 468 0238 3E4A     	 ldr r2,.L17+12
- 469 023a 3E4B     	 ldr r3,.L17+12
- 470 023c D3F80032 	 ldr r3,[r3,#512]
- 471 0240 43F00203 	 orr r3,r3,#2
- 472 0244 C2F80032 	 str r3,[r2,#512]
+ 472              	 .loc 2 144 0
+ 473 0238 3E4A     	 ldr r2,.L17+12
+ 474 023a 3E4B     	 ldr r3,.L17+12
+ 475 023c D3F80032 	 ldr r3,[r3,#512]
+ 476 0240 43F00203 	 orr r3,r3,#2
+ 477 0244 C2F80032 	 str r3,[r2,#512]
  145:../driver_adc.c **** 
  146:../driver_adc.c **** 	/*Register used to store results 0-15*/
  147:../driver_adc.c **** 	VADC_G0->CHCTR[0] |= (1U << VADC_G_CHCTR_RESREG_Pos);
- 473              	 .loc 2 147 0
- 474 0248 3A4A     	 ldr r2,.L17+12
- 475 024a 3A4B     	 ldr r3,.L17+12
- 476 024c D3F80032 	 ldr r3,[r3,#512]
- 477 0250 43F48033 	 orr r3,r3,#65536
- 478 0254 C2F80032 	 str r3,[r2,#512]
+ 478              	 .loc 2 147 0
+ 479 0248 3A4A     	 ldr r2,.L17+12
+ 480 024a 3A4B     	 ldr r3,.L17+12
+ 481 024c D3F80032 	 ldr r3,[r3,#512]
+ 482 0250 43F48033 	 orr r3,r3,#65536
+ 483 0254 C2F80032 	 str r3,[r2,#512]
  148:../driver_adc.c **** 	VADC_G1->CHCTR[0] |= (1U << VADC_G_CHCTR_RESREG_Pos);
- 479              	 .loc 2 148 0
- 480 0258 374A     	 ldr r2,.L17+16
- 481 025a 374B     	 ldr r3,.L17+16
- 482 025c D3F80032 	 ldr r3,[r3,#512]
- 483 0260 43F48033 	 orr r3,r3,#65536
- 484 0264 C2F80032 	 str r3,[r2,#512]
+ 484              	 .loc 2 148 0
+ 485 0258 374A     	 ldr r2,.L17+16
+ 486 025a 374B     	 ldr r3,.L17+16
+ 487 025c D3F80032 	 ldr r3,[r3,#512]
+ 488 0260 43F48033 	 orr r3,r3,#65536
+ 489 0264 C2F80032 	 str r3,[r2,#512]
  149:../driver_adc.c **** 	VADC_G2->CHCTR[0] |= (1U << VADC_G_CHCTR_RESREG_Pos);
- 485              	 .loc 2 149 0
- 486 0268 344A     	 ldr r2,.L17+20
- 487 026a 344B     	 ldr r3,.L17+20
- 488 026c D3F80032 	 ldr r3,[r3,#512]
- 489 0270 43F48033 	 orr r3,r3,#65536
- 490 0274 C2F80032 	 str r3,[r2,#512]
+ 490              	 .loc 2 149 0
+ 491 0268 344A     	 ldr r2,.L17+20
+ 492 026a 344B     	 ldr r3,.L17+20
+ 493 026c D3F80032 	 ldr r3,[r3,#512]
+ 494 0270 43F48033 	 orr r3,r3,#65536
+ 495 0274 C2F80032 	 str r3,[r2,#512]
  150:../driver_adc.c **** 
- 151:../driver_adc.c **** 	/*Configure the Result Input Queue for G0 Master*/
- 152:../driver_adc.c **** 	/*----Channel to be converted*/
- 153:../driver_adc.c **** 	/*Enable Source Interrupt - (x << VADC_G_QINR0_REQCHNR_Pos)*/
- 154:../driver_adc.c **** 	/*External Trigger - VADC_QINR0_EXTR_MSK*/
- 155:../driver_adc.c **** 	/*Automatic refill - VADC_QINR0_RF_MSK*/
- 156:../driver_adc.c **** 	/*End of conversion trigger - VADC_QINR0_ENSI_MSK*/
+ 151:../driver_adc.c **** 	/*Configure the Result Input Queue for G0 Master				*/
+ 152:../driver_adc.c **** 	/*----Channel to be converted									*/
+ 153:../driver_adc.c **** 	/*Enable Source Interrupt - (x << VADC_G_QINR0_REQCHNR_Pos)		*/
+ 154:../driver_adc.c **** 	/*External Trigger - VADC_QINR0_EXTR_MSK						*/
+ 155:../driver_adc.c **** 	/*Automatic refill - VADC_QINR0_RF_MSK							*/
+ 156:../driver_adc.c **** 	/*End of conversion trigger - VADC_QINR0_ENSI_MSK				*/
  157:../driver_adc.c **** 	VADC_G0->QINR0 |= (0U << VADC_G_QINR0_REQCHNR_Pos) | VADC_QINR0_RF_MSK | VADC_QINR0_EXTR_MSK | VAD
- 491              	 .loc 2 157 0
- 492 0278 2E4A     	 ldr r2,.L17+12
- 493 027a 2E4B     	 ldr r3,.L17+12
- 494 027c D3F81031 	 ldr r3,[r3,#272]
- 495 0280 43F0E003 	 orr r3,r3,#224
- 496 0284 C2F81031 	 str r3,[r2,#272]
- 158:../driver_adc.c **** 
- 159:../driver_adc.c **** 	/*Configure master and slave channels*/
- 160:../driver_adc.c **** 	/*Power down the VADC */
- 161:../driver_adc.c **** 	VADC_G0->ARBCFG &= ~VADC_ARBCFG_ANONC_MSK;
- 497              	 .loc 2 161 0
- 498 0288 2A4A     	 ldr r2,.L17+12
- 499 028a 2A4B     	 ldr r3,.L17+12
- 500 028c D3F88030 	 ldr r3,[r3,#128]
- 501 0290 23F00303 	 bic r3,r3,#3
- 502 0294 C2F88030 	 str r3,[r2,#128]
- 162:../driver_adc.c **** 	VADC_G1->ARBCFG &= ~VADC_ARBCFG_ANONC_MSK;
- 503              	 .loc 2 162 0
- 504 0298 274A     	 ldr r2,.L17+16
- 505 029a 274B     	 ldr r3,.L17+16
- 506 029c D3F88030 	 ldr r3,[r3,#128]
- 507 02a0 23F00303 	 bic r3,r3,#3
- 508 02a4 C2F88030 	 str r3,[r2,#128]
- 163:../driver_adc.c **** 	VADC_G2->ARBCFG &= ~VADC_ARBCFG_ANONC_MSK;
- 509              	 .loc 2 163 0
- 510 02a8 244A     	 ldr r2,.L17+20
- 511 02aa 244B     	 ldr r3,.L17+20
- 512 02ac D3F88030 	 ldr r3,[r3,#128]
- 513 02b0 23F00303 	 bic r3,r3,#3
- 514 02b4 C2F88030 	 str r3,[r2,#128]
- 164:../driver_adc.c **** 
- 165:../driver_adc.c **** 	/*G0 – master; G1, G2 – slaves */
- 166:../driver_adc.c **** 	VADC_G1->SYNCTR |= VADC_SYNCTR_STSEL_CL1_MSK;
- 515              	 .loc 2 166 0
- 516 02b8 1F4A     	 ldr r2,.L17+16
- 517 02ba 1F4B     	 ldr r3,.L17+16
- 518 02bc D3F8C030 	 ldr r3,[r3,#192]
- 519 02c0 43F00103 	 orr r3,r3,#1
- 520 02c4 C2F8C030 	 str r3,[r2,#192]
- 167:../driver_adc.c **** 	VADC_G2->SYNCTR |= VADC_SYNCTR_STSEL_CL1_MSK;
- 521              	 .loc 2 167 0
- 522 02c8 1C4A     	 ldr r2,.L17+20
- 523 02ca 1C4B     	 ldr r3,.L17+20
- 524 02cc D3F8C030 	 ldr r3,[r3,#192]
- 525 02d0 43F00103 	 orr r3,r3,#1
- 526 02d4 C2F8C030 	 str r3,[r2,#192]
- 168:../driver_adc.c **** 
- 169:../driver_adc.c **** 	/*Evaluate Ready Input Rx - EVALR1*/
- 170:../driver_adc.c **** 	VADC_G0->SYNCTR |= VADC_SYNCTR_EVALR1_MSK;
- 527              	 .loc 2 170 0
- 528 02d8 164A     	 ldr r2,.L17+12
- 529 02da 164B     	 ldr r3,.L17+12
- 530 02dc D3F8C030 	 ldr r3,[r3,#192]
- 531 02e0 43F01003 	 orr r3,r3,#16
- 532 02e4 C2F8C030 	 str r3,[r2,#192]
- 171:../driver_adc.c **** 	VADC_G1->SYNCTR |= VADC_SYNCTR_EVALR1_MSK;
- 533              	 .loc 2 171 0
- 534 02e8 134A     	 ldr r2,.L17+16
- 535 02ea 134B     	 ldr r3,.L17+16
- 536 02ec D3F8C030 	 ldr r3,[r3,#192]
- 537 02f0 43F01003 	 orr r3,r3,#16
- 538 02f4 C2F8C030 	 str r3,[r2,#192]
- 172:../driver_adc.c **** 	VADC_G2->SYNCTR |= VADC_SYNCTR_EVALR1_MSK;
- 539              	 .loc 2 172 0
- 540 02f8 104A     	 ldr r2,.L17+20
- 541 02fa 104B     	 ldr r3,.L17+20
- 542 02fc D3F8C030 	 ldr r3,[r3,#192]
- 543 0300 43F01003 	 orr r3,r3,#16
- 544 0304 C2F8C030 	 str r3,[r2,#192]
- 173:../driver_adc.c **** 
- 174:../driver_adc.c **** 	/*Power on the VADC*/
- 175:../driver_adc.c **** 	VADC_G0->ARBCFG |= VADC_ARBCFG_ANONC_MSK;
- 545              	 .loc 2 175 0
- 546 0308 0A4A     	 ldr r2,.L17+12
- 547 030a 0A4B     	 ldr r3,.L17+12
- 548 030c D3F88030 	 ldr r3,[r3,#128]
- 549 0310 43F00303 	 orr r3,r3,#3
- 550 0314 C2F88030 	 str r3,[r2,#128]
- 176:../driver_adc.c **** 
- 177:../driver_adc.c **** 	/*Result Register - Service Request Generation Enable*/
- 178:../driver_adc.c **** 	VADC_G0->RCR[1] = VADC_GxRCRy_SRGEN_MSK;
- 551              	 .loc 2 178 0
- 552 0318 064B     	 ldr r3,.L17+12
- 553 031a 4FF00042 	 mov r2,#-2147483648
- 554 031e C3F88422 	 str r2,[r3,#644]
- 179:../driver_adc.c **** 
- 180:../driver_adc.c **** 	/*Routes the corresponding event trigger from RESULT group to G0_CH2*/
- 181:../driver_adc.c **** 	VADC_G0->REVNP0 |= (VADC_REVNP0_REV0NP_L2G0_MSK << 4U);
- 555              	 .loc 2 181 0
- 556 0322 044A     	 ldr r2,.L17+12
- 557 0324 0CE0     	 b .L18
- 558              	.L19:
- 559 0326 00BF     	 .align 2
- 560              	.L17:
- 561 0328 008E0248 	 .word 1208126976
- 562 032c 00460050 	 .word 1342195200
- 563 0330 00440050 	 .word 1342194688
- 564 0334 00440040 	 .word 1073759232
- 565 0338 00480040 	 .word 1073760256
- 566 033c 004C0040 	 .word 1073761280
- 567              	.L18:
- 568 0340 354B     	 ldr r3,.L20
- 569 0342 D3F8B031 	 ldr r3,[r3,#432]
- 570 0346 43F02003 	 orr r3,r3,#32
- 571 034a C2F8B031 	 str r3,[r2,#432]
- 182:../driver_adc.c **** 
+ 496              	 .loc 2 157 0
+ 497 0278 2E4A     	 ldr r2,.L17+12
+ 498 027a 2E4B     	 ldr r3,.L17+12
+ 499 027c D3F81031 	 ldr r3,[r3,#272]
+ 500 0280 43F0E003 	 orr r3,r3,#224
+ 501 0284 C2F81031 	 str r3,[r2,#272]
+ 158:../driver_adc.c **** 	;
+ 159:../driver_adc.c **** 
+ 160:../driver_adc.c **** 	/*Configure master and slave channels*/
+ 161:../driver_adc.c **** 	/*Power down the VADC */
+ 162:../driver_adc.c **** 	VADC_G0->ARBCFG &= ~VADC_ARBCFG_ANONC_MSK;
+ 502              	 .loc 2 162 0
+ 503 0288 2A4A     	 ldr r2,.L17+12
+ 504 028a 2A4B     	 ldr r3,.L17+12
+ 505 028c D3F88030 	 ldr r3,[r3,#128]
+ 506 0290 23F00303 	 bic r3,r3,#3
+ 507 0294 C2F88030 	 str r3,[r2,#128]
+ 163:../driver_adc.c **** 	VADC_G1->ARBCFG &= ~VADC_ARBCFG_ANONC_MSK;
+ 508              	 .loc 2 163 0
+ 509 0298 274A     	 ldr r2,.L17+16
+ 510 029a 274B     	 ldr r3,.L17+16
+ 511 029c D3F88030 	 ldr r3,[r3,#128]
+ 512 02a0 23F00303 	 bic r3,r3,#3
+ 513 02a4 C2F88030 	 str r3,[r2,#128]
+ 164:../driver_adc.c **** 	VADC_G2->ARBCFG &= ~VADC_ARBCFG_ANONC_MSK;
+ 514              	 .loc 2 164 0
+ 515 02a8 244A     	 ldr r2,.L17+20
+ 516 02aa 244B     	 ldr r3,.L17+20
+ 517 02ac D3F88030 	 ldr r3,[r3,#128]
+ 518 02b0 23F00303 	 bic r3,r3,#3
+ 519 02b4 C2F88030 	 str r3,[r2,#128]
+ 165:../driver_adc.c **** 
+ 166:../driver_adc.c **** 	/*G0 – master; G1, G2 – slaves */
+ 167:../driver_adc.c **** 	VADC_G1->SYNCTR |= VADC_SYNCTR_STSEL_CL1_MSK;
+ 520              	 .loc 2 167 0
+ 521 02b8 1F4A     	 ldr r2,.L17+16
+ 522 02ba 1F4B     	 ldr r3,.L17+16
+ 523 02bc D3F8C030 	 ldr r3,[r3,#192]
+ 524 02c0 43F00103 	 orr r3,r3,#1
+ 525 02c4 C2F8C030 	 str r3,[r2,#192]
+ 168:../driver_adc.c **** 	VADC_G2->SYNCTR |= VADC_SYNCTR_STSEL_CL1_MSK;
+ 526              	 .loc 2 168 0
+ 527 02c8 1C4A     	 ldr r2,.L17+20
+ 528 02ca 1C4B     	 ldr r3,.L17+20
+ 529 02cc D3F8C030 	 ldr r3,[r3,#192]
+ 530 02d0 43F00103 	 orr r3,r3,#1
+ 531 02d4 C2F8C030 	 str r3,[r2,#192]
+ 169:../driver_adc.c **** 
+ 170:../driver_adc.c **** 	/*Evaluate Ready Input Rx - EVALR1*/
+ 171:../driver_adc.c **** 	VADC_G0->SYNCTR |= VADC_SYNCTR_EVALR1_MSK;
+ 532              	 .loc 2 171 0
+ 533 02d8 164A     	 ldr r2,.L17+12
+ 534 02da 164B     	 ldr r3,.L17+12
+ 535 02dc D3F8C030 	 ldr r3,[r3,#192]
+ 536 02e0 43F01003 	 orr r3,r3,#16
+ 537 02e4 C2F8C030 	 str r3,[r2,#192]
+ 172:../driver_adc.c **** 	VADC_G1->SYNCTR |= VADC_SYNCTR_EVALR1_MSK;
+ 538              	 .loc 2 172 0
+ 539 02e8 134A     	 ldr r2,.L17+16
+ 540 02ea 134B     	 ldr r3,.L17+16
+ 541 02ec D3F8C030 	 ldr r3,[r3,#192]
+ 542 02f0 43F01003 	 orr r3,r3,#16
+ 543 02f4 C2F8C030 	 str r3,[r2,#192]
+ 173:../driver_adc.c **** 	VADC_G2->SYNCTR |= VADC_SYNCTR_EVALR1_MSK;
+ 544              	 .loc 2 173 0
+ 545 02f8 104A     	 ldr r2,.L17+20
+ 546 02fa 104B     	 ldr r3,.L17+20
+ 547 02fc D3F8C030 	 ldr r3,[r3,#192]
+ 548 0300 43F01003 	 orr r3,r3,#16
+ 549 0304 C2F8C030 	 str r3,[r2,#192]
+ 174:../driver_adc.c **** 
+ 175:../driver_adc.c **** 	/*Power on the VADC*/
+ 176:../driver_adc.c **** 	VADC_G0->ARBCFG |= VADC_ARBCFG_ANONC_MSK;
+ 550              	 .loc 2 176 0
+ 551 0308 0A4A     	 ldr r2,.L17+12
+ 552 030a 0A4B     	 ldr r3,.L17+12
+ 553 030c D3F88030 	 ldr r3,[r3,#128]
+ 554 0310 43F00303 	 orr r3,r3,#3
+ 555 0314 C2F88030 	 str r3,[r2,#128]
+ 177:../driver_adc.c **** 
+ 178:../driver_adc.c **** 	/*Result Register - Service Request Generation Enable*/
+ 179:../driver_adc.c **** 	VADC_G0->RCR[1] = VADC_GxRCRy_SRGEN_MSK;
+ 556              	 .loc 2 179 0
+ 557 0318 064B     	 ldr r3,.L17+12
+ 558 031a 4FF00042 	 mov r2,#-2147483648
+ 559 031e C3F88422 	 str r2,[r3,#644]
+ 180:../driver_adc.c **** 
+ 181:../driver_adc.c **** 	/*Routes the corresponding event trigger from RESULT group to G0_CH2*/
+ 182:../driver_adc.c **** 	VADC_G0->REVNP0 |= (VADC_REVNP0_REV0NP_L2G0_MSK << 4U);
+ 560              	 .loc 2 182 0
+ 561 0322 044A     	 ldr r2,.L17+12
+ 562 0324 0CE0     	 b .L18
+ 563              	.L19:
+ 564 0326 00BF     	 .align 2
+ 565              	.L17:
+ 566 0328 008E0248 	 .word 1208126976
+ 567 032c 00460050 	 .word 1342195200
+ 568 0330 00440050 	 .word 1342194688
+ 569 0334 00440040 	 .word 1073759232
+ 570 0338 00480040 	 .word 1073760256
+ 571 033c 004C0040 	 .word 1073761280
+ 572              	.L18:
+ 573 0340 354B     	 ldr r3,.L20
+ 574 0342 D3F8B031 	 ldr r3,[r3,#432]
+ 575 0346 43F02003 	 orr r3,r3,#32
+ 576 034a C2F8B031 	 str r3,[r2,#432]
  183:../driver_adc.c **** 
  184:../driver_adc.c **** 	/*AutoScan for V_mot & V_log*/
  185:../driver_adc.c **** 
  186:../driver_adc.c **** 	/*Pin Set up*/
- 187:../driver_adc.c **** 	PORT15->IOCR4 |= (INPUT_PULL_UP_MSK << PORT15_IOCR4_PC6_Pos);   //P15.6 - G2CH6				-Vmot
- 572              	 .loc 2 187 0
- 573 034e 334A     	 ldr r2,.L20+4
- 574 0350 324B     	 ldr r3,.L20+4
- 575 0352 5B69     	 ldr r3,[r3,#20]
- 576 0354 43F48013 	 orr r3,r3,#1048576
- 577 0358 5361     	 str r3,[r2,#20]
- 188:../driver_adc.c **** 	PORT14->IOCR12 |=(INPUT_PULL_UP_MSK << PORT14_IOCR12_PC14_Pos);	//P14.14- G1CH6				-Vlog
- 578              	 .loc 2 188 0
- 579 035a 314A     	 ldr r2,.L20+8
- 580 035c 304B     	 ldr r3,.L20+8
- 581 035e DB69     	 ldr r3,[r3,#28]
- 582 0360 43F48013 	 orr r3,r3,#1048576
- 583 0364 D361     	 str r3,[r2,#28]
+ 187:../driver_adc.c **** 	PORT15->IOCR4 |= (INPUT_PULL_UP_MSK << PORT15_IOCR4_PC6_Pos);	 // P15.6 - G2CH6				-Vmot
+ 577              	 .loc 2 187 0
+ 578 034e 334A     	 ldr r2,.L20+4
+ 579 0350 324B     	 ldr r3,.L20+4
+ 580 0352 5B69     	 ldr r3,[r3,#20]
+ 581 0354 43F48013 	 orr r3,r3,#1048576
+ 582 0358 5361     	 str r3,[r2,#20]
+ 188:../driver_adc.c **** 	PORT14->IOCR12 |= (INPUT_PULL_UP_MSK << PORT14_IOCR12_PC14_Pos); // P14.14- G1CH6				-Vlog
+ 583              	 .loc 2 188 0
+ 584 035a 314A     	 ldr r2,.L20+8
+ 585 035c 304B     	 ldr r3,.L20+8
+ 586 035e DB69     	 ldr r3,[r3,#28]
+ 587 0360 43F48013 	 orr r3,r3,#1048576
+ 588 0364 D361     	 str r3,[r2,#28]
  189:../driver_adc.c **** 
  190:../driver_adc.c **** 	/*Channel Select*/
  191:../driver_adc.c **** 	VADC_G1->ASSEL |= (ENABLE << VADC_ASSEL_CHSEL6_POS);
- 584              	 .loc 2 191 0
- 585 0366 2F4A     	 ldr r2,.L20+12
- 586 0368 2E4B     	 ldr r3,.L20+12
- 587 036a D3F82831 	 ldr r3,[r3,#296]
- 588 036e 43F04003 	 orr r3,r3,#64
- 589 0372 C2F82831 	 str r3,[r2,#296]
+ 589              	 .loc 2 191 0
+ 590 0366 2F4A     	 ldr r2,.L20+12
+ 591 0368 2E4B     	 ldr r3,.L20+12
+ 592 036a D3F82831 	 ldr r3,[r3,#296]
+ 593 036e 43F04003 	 orr r3,r3,#64
+ 594 0372 C2F82831 	 str r3,[r2,#296]
  192:../driver_adc.c **** 	VADC_G2->ASSEL |= (ENABLE << VADC_ASSEL_CHSEL6_POS);
- 590              	 .loc 2 192 0
- 591 0376 2C4A     	 ldr r2,.L20+16
- 592 0378 2B4B     	 ldr r3,.L20+16
- 593 037a D3F82831 	 ldr r3,[r3,#296]
- 594 037e 43F04003 	 orr r3,r3,#64
- 595 0382 C2F82831 	 str r3,[r2,#296]
+ 595              	 .loc 2 192 0
+ 596 0376 2C4A     	 ldr r2,.L20+16
+ 597 0378 2B4B     	 ldr r3,.L20+16
+ 598 037a D3F82831 	 ldr r3,[r3,#296]
+ 599 037e 43F04003 	 orr r3,r3,#64
+ 600 0382 C2F82831 	 str r3,[r2,#296]
  193:../driver_adc.c **** 
  194:../driver_adc.c **** 	/*Define load event*/
  195:../driver_adc.c **** 	VADC_G1->ASMR |= VADC_ASMR_SCAN_MSK | VADC_ASMR_ENGT_MSK | VADC_ASMR_LDEV_MSK;
- 596              	 .loc 2 195 0
- 597 0386 274A     	 ldr r2,.L20+12
- 598 0388 264B     	 ldr r3,.L20+12
- 599 038a D3F82431 	 ldr r3,[r3,#292]
- 600 038e 43F40473 	 orr r3,r3,#528
- 601 0392 43F00103 	 orr r3,r3,#1
- 602 0396 C2F82431 	 str r3,[r2,#292]
- 196:../driver_adc.c **** 	VADC_G2->ASMR |= VADC_ASMR_SCAN_MSK | VADC_ASMR_ENGT_MSK | VADC_ASMR_LDEV_MSK;;
- 603              	 .loc 2 196 0
- 604 039a 234A     	 ldr r2,.L20+16
- 605 039c 224B     	 ldr r3,.L20+16
- 606 039e D3F82431 	 ldr r3,[r3,#292]
- 607 03a2 43F40473 	 orr r3,r3,#528
- 608 03a6 43F00103 	 orr r3,r3,#1
- 609 03aa C2F82431 	 str r3,[r2,#292]
+ 601              	 .loc 2 195 0
+ 602 0386 274A     	 ldr r2,.L20+12
+ 603 0388 264B     	 ldr r3,.L20+12
+ 604 038a D3F82431 	 ldr r3,[r3,#292]
+ 605 038e 43F40473 	 orr r3,r3,#528
+ 606 0392 43F00103 	 orr r3,r3,#1
+ 607 0396 C2F82431 	 str r3,[r2,#292]
+ 196:../driver_adc.c **** 	VADC_G2->ASMR |= VADC_ASMR_SCAN_MSK | VADC_ASMR_ENGT_MSK | VADC_ASMR_LDEV_MSK;
+ 608              	 .loc 2 196 0
+ 609 039a 234A     	 ldr r2,.L20+16
+ 610 039c 224B     	 ldr r3,.L20+16
+ 611 039e D3F82431 	 ldr r3,[r3,#292]
+ 612 03a2 43F40473 	 orr r3,r3,#528
+ 613 03a6 43F00103 	 orr r3,r3,#1
+ 614 03aa C2F82431 	 str r3,[r2,#292]
  197:../driver_adc.c **** 
  198:../driver_adc.c **** 	/*Conversion configuration to use global 0 settings*/
  199:../driver_adc.c **** 	VADC_G1->CHCTR[6] |= VADC_CHCTR_ICSEL_GLOBAL_0_MSK;
- 610              	 .loc 2 199 0
- 611 03ae 1D4A     	 ldr r2,.L20+12
- 612 03b0 1C4B     	 ldr r3,.L20+12
- 613 03b2 D3F81832 	 ldr r3,[r3,#536]
- 614 03b6 43F00203 	 orr r3,r3,#2
- 615 03ba C2F81832 	 str r3,[r2,#536]
+ 615              	 .loc 2 199 0
+ 616 03ae 1D4A     	 ldr r2,.L20+12
+ 617 03b0 1C4B     	 ldr r3,.L20+12
+ 618 03b2 D3F81832 	 ldr r3,[r3,#536]
+ 619 03b6 43F00203 	 orr r3,r3,#2
+ 620 03ba C2F81832 	 str r3,[r2,#536]
  200:../driver_adc.c **** 	VADC_G2->CHCTR[6] |= VADC_CHCTR_ICSEL_GLOBAL_0_MSK;
- 616              	 .loc 2 200 0
- 617 03be 1A4A     	 ldr r2,.L20+16
- 618 03c0 194B     	 ldr r3,.L20+16
- 619 03c2 D3F81832 	 ldr r3,[r3,#536]
- 620 03c6 43F00203 	 orr r3,r3,#2
- 621 03ca C2F81832 	 str r3,[r2,#536]
+ 621              	 .loc 2 200 0
+ 622 03be 1A4A     	 ldr r2,.L20+16
+ 623 03c0 194B     	 ldr r3,.L20+16
+ 624 03c2 D3F81832 	 ldr r3,[r3,#536]
+ 625 03c6 43F00203 	 orr r3,r3,#2
+ 626 03ca C2F81832 	 str r3,[r2,#536]
  201:../driver_adc.c **** 
  202:../driver_adc.c **** 	/*Enable Arbitration*/
  203:../driver_adc.c **** 	VADC_G1->ARBPR |= (ENABLE << VADC_ARBPR_ASEN1_POS);
- 622              	 .loc 2 203 0
- 623 03ce 154A     	 ldr r2,.L20+12
- 624 03d0 144B     	 ldr r3,.L20+12
- 625 03d2 D3F88430 	 ldr r3,[r3,#132]
- 626 03d6 43F00073 	 orr r3,r3,#33554432
- 627 03da C2F88430 	 str r3,[r2,#132]
+ 627              	 .loc 2 203 0
+ 628 03ce 154A     	 ldr r2,.L20+12
+ 629 03d0 144B     	 ldr r3,.L20+12
+ 630 03d2 D3F88430 	 ldr r3,[r3,#132]
+ 631 03d6 43F00073 	 orr r3,r3,#33554432
+ 632 03da C2F88430 	 str r3,[r2,#132]
  204:../driver_adc.c **** 	VADC_G2->ARBPR |= (ENABLE << VADC_ARBPR_ASEN1_POS);
- 628              	 .loc 2 204 0
- 629 03de 124A     	 ldr r2,.L20+16
- 630 03e0 114B     	 ldr r3,.L20+16
- 631 03e2 D3F88430 	 ldr r3,[r3,#132]
- 632 03e6 43F00073 	 orr r3,r3,#33554432
- 633 03ea C2F88430 	 str r3,[r2,#132]
+ 633              	 .loc 2 204 0
+ 634 03de 124A     	 ldr r2,.L20+16
+ 635 03e0 114B     	 ldr r3,.L20+16
+ 636 03e2 D3F88430 	 ldr r3,[r3,#132]
+ 637 03e6 43F00073 	 orr r3,r3,#33554432
+ 638 03ea C2F88430 	 str r3,[r2,#132]
  205:../driver_adc.c **** 
  206:../driver_adc.c **** 	/*Registers to store results 0-15*/
  207:../driver_adc.c **** 	VADC_G1->CHCTR[6] |= (14U << VADC_G_CHCTR_RESREG_Pos);
- 634              	 .loc 2 207 0
- 635 03ee 0D4A     	 ldr r2,.L20+12
- 636 03f0 0C4B     	 ldr r3,.L20+12
- 637 03f2 D3F81832 	 ldr r3,[r3,#536]
- 638 03f6 43F46023 	 orr r3,r3,#917504
- 639 03fa C2F81832 	 str r3,[r2,#536]
+ 639              	 .loc 2 207 0
+ 640 03ee 0D4A     	 ldr r2,.L20+12
+ 641 03f0 0C4B     	 ldr r3,.L20+12
+ 642 03f2 D3F81832 	 ldr r3,[r3,#536]
+ 643 03f6 43F46023 	 orr r3,r3,#917504
+ 644 03fa C2F81832 	 str r3,[r2,#536]
  208:../driver_adc.c **** 	VADC_G2->CHCTR[6] |= (14U << VADC_G_CHCTR_RESREG_Pos);
- 640              	 .loc 2 208 0
- 641 03fe 0A4A     	 ldr r2,.L20+16
- 642 0400 094B     	 ldr r3,.L20+16
- 643 0402 D3F81832 	 ldr r3,[r3,#536]
- 644 0406 43F46023 	 orr r3,r3,#917504
- 645 040a C2F81832 	 str r3,[r2,#536]
- 209:../driver_adc.c **** 
- 210:../driver_adc.c **** }
- 646              	 .loc 2 210 0
- 647 040e BD46     	 mov sp,r7
- 648              	.LCFI20:
- 649              	 .cfi_def_cfa_register 13
- 650              	 
- 651 0410 5DF8047B 	 ldr r7,[sp],#4
- 652              	.LCFI21:
- 653              	 .cfi_restore 7
- 654              	 .cfi_def_cfa_offset 0
- 655 0414 7047     	 bx lr
- 656              	.L21:
- 657 0416 00BF     	 .align 2
- 658              	.L20:
- 659 0418 00440040 	 .word 1073759232
- 660 041c 008F0248 	 .word 1208127232
- 661 0420 008E0248 	 .word 1208126976
- 662 0424 00480040 	 .word 1073760256
- 663 0428 004C0040 	 .word 1073761280
- 664              	 .cfi_endproc
- 665              	.LFE196:
- 667              	 .section .text.interrupt_vadc_init,"ax",%progbits
- 668              	 .align 2
- 669              	 .global interrupt_vadc_init
- 670              	 .thumb
- 671              	 .thumb_func
- 673              	interrupt_vadc_init:
- 674              	.LFB197:
- 211:../driver_adc.c **** 
- 212:../driver_adc.c **** void interrupt_vadc_init(void)
- 213:../driver_adc.c **** {
- 675              	 .loc 2 213 0
- 676              	 .cfi_startproc
- 677              	 
- 678              	 
- 679 0000 80B5     	 push {r7,lr}
- 680              	.LCFI22:
- 681              	 .cfi_def_cfa_offset 8
- 682              	 .cfi_offset 7,-8
- 683              	 .cfi_offset 14,-4
- 684 0002 00AF     	 add r7,sp,#0
- 685              	.LCFI23:
- 686              	 .cfi_def_cfa_register 7
- 214:../driver_adc.c **** 	/*  Reset CCU80 */
- 215:../driver_adc.c **** 	SCU_RESET->PRSET0 |= SCU_RESET_PRSET0_CCU80RS_Msk ;
- 687              	 .loc 2 215 0
- 688 0004 3D4A     	 ldr r2,.L23
- 689 0006 3D4B     	 ldr r3,.L23
- 690 0008 1B69     	 ldr r3,[r3,#16]
- 691 000a 43F08003 	 orr r3,r3,#128
- 692 000e 1361     	 str r3,[r2,#16]
- 216:../driver_adc.c **** 
- 217:../driver_adc.c **** 	/* Clear reset of CCU80 */
- 218:../driver_adc.c **** 	SCU_RESET->PRCLR0 |= SCU_RESET_PRCLR0_CCU80RS_Msk ;
- 693              	 .loc 2 218 0
- 694 0010 3A4A     	 ldr r2,.L23
- 695 0012 3A4B     	 ldr r3,.L23
- 696 0014 5B69     	 ldr r3,[r3,#20]
- 697 0016 43F08003 	 orr r3,r3,#128
- 698 001a 5361     	 str r3,[r2,#20]
- 219:../driver_adc.c **** 
- 220:../driver_adc.c **** 	/* Enable CCU8 via clkset */
- 221:../driver_adc.c **** 	SCU_CLK->CLKSET |= SCU_CLK_CLKSET_CCUCEN_Msk ;
- 699              	 .loc 2 221 0
- 700 001c 384A     	 ldr r2,.L23+4
- 701 001e 384B     	 ldr r3,.L23+4
- 702 0020 5B68     	 ldr r3,[r3,#4]
- 703 0022 43F01003 	 orr r3,r3,#16
- 704 0026 5360     	 str r3,[r2,#4]
- 222:../driver_adc.c **** 
- 223:../driver_adc.c **** 	/* Enable prescaler */
- 224:../driver_adc.c **** 	CCU80->GIDLC |= CCU8_GIDLC_SPRB_Msk;
- 705              	 .loc 2 224 0
- 706 0028 364A     	 ldr r2,.L23+8
- 707 002a 364B     	 ldr r3,.L23+8
- 708 002c DB68     	 ldr r3,[r3,#12]
- 709 002e 43F48073 	 orr r3,r3,#256
- 710 0032 D360     	 str r3,[r2,#12]
- 225:../driver_adc.c **** 
- 226:../driver_adc.c **** 	/*Set timer to center aligned mode */
- 227:../driver_adc.c **** 	CCU80_CC83->TC |= (uint32_t)(CCU8_CC8_TC_TCM_Msk);
- 711              	 .loc 2 227 0
- 712 0034 344A     	 ldr r2,.L23+12
- 713 0036 344B     	 ldr r3,.L23+12
- 714 0038 5B69     	 ldr r3,[r3,#20]
- 715 003a 43F00103 	 orr r3,r3,#1
- 716 003e 5361     	 str r3,[r2,#20]
- 228:../driver_adc.c **** 
- 229:../driver_adc.c **** 	/*SHADOW:Define the period value of Compare Channel 1 */
- 230:../driver_adc.c **** 	CCU80_CC83->PRS|= (uint32_t)(CCU8_CC8_PRS_PR_Value << CCU8_CC8_PR_PR_Pos);
- 717              	 .loc 2 230 0
- 718 0040 314A     	 ldr r2,.L23+12
- 719 0042 314B     	 ldr r3,.L23+12
- 720 0044 5B6B     	 ldr r3,[r3,#52]
- 721 0046 43F46163 	 orr r3,r3,#3600
- 722 004a 5363     	 str r3,[r2,#52]
- 231:../driver_adc.c **** 
- 232:../driver_adc.c **** 	/*SHADOW:Define the compare value of Compare Channel 1 */
- 233:../driver_adc.c **** 	CCU80_CC83->CR1S |= (uint32_t)(CCU80_CC83_CR_Value << CCU8_CC8_CR1_CR1_Pos);
- 723              	 .loc 2 233 0
- 724 004c 2E4A     	 ldr r2,.L23+12
- 725 004e 2E4B     	 ldr r3,.L23+12
- 726 0050 DB6B     	 ldr r3,[r3,#60]
- 727 0052 43F03203 	 orr r3,r3,#50
- 728 0056 D363     	 str r3,[r2,#60]
- 234:../driver_adc.c **** 
- 235:../driver_adc.c **** 	/*Request shadow transfer  */
- 236:../driver_adc.c **** 	CCU80->GCSS |= (CCU8_GCSS_S3SE_Msk);
- 729              	 .loc 2 236 0
- 730 0058 2A4A     	 ldr r2,.L23+8
- 731 005a 2A4B     	 ldr r3,.L23+8
- 732 005c 1B69     	 ldr r3,[r3,#16]
- 733 005e 43F48053 	 orr r3,r3,#4096
- 734 0062 1361     	 str r3,[r2,#16]
- 237:../driver_adc.c **** 
- 238:../driver_adc.c **** 	/*Enable CC80*/
- 239:../driver_adc.c **** 	CCU80->GIDLC |= (CCU8_GIDLC_CS3I_Msk) ;
- 735              	 .loc 2 239 0
- 736 0064 274A     	 ldr r2,.L23+8
- 737 0066 274B     	 ldr r3,.L23+8
- 738 0068 DB68     	 ldr r3,[r3,#12]
- 739 006a 43F00803 	 orr r3,r3,#8
- 740 006e D360     	 str r3,[r2,#12]
- 240:../driver_adc.c **** 
- 241:../driver_adc.c **** 	/*Clear the timer run bit(TRBC) and timer (TCC) */
- 242:../driver_adc.c **** 	CCU80_CC83->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_Msk);
- 741              	 .loc 2 242 0
- 742 0070 254A     	 ldr r2,.L23+12
- 743 0072 254B     	 ldr r3,.L23+12
- 744 0074 1B69     	 ldr r3,[r3,#16]
- 745 0076 43F00103 	 orr r3,r3,#1
- 746 007a 1361     	 str r3,[r2,#16]
- 243:../driver_adc.c **** 	CCU80_CC83->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_Msk);
- 747              	 .loc 2 243 0
- 748 007c 224A     	 ldr r2,.L23+12
- 749 007e 224B     	 ldr r3,.L23+12
- 750 0080 1B69     	 ldr r3,[r3,#16]
- 751 0082 43F00203 	 orr r3,r3,#2
- 752 0086 1361     	 str r3,[r2,#16]
- 244:../driver_adc.c **** 
- 245:../driver_adc.c **** 	/* Use IN_H for Event 0 on Rising edge
- 246:../driver_adc.c **** 	 * Set start on EVENT 0 on Rising edge
- 247:../driver_adc.c **** 	 */
- 248:../driver_adc.c **** 	CCU80_CC83->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_Pos;
- 753              	 .loc 2 248 0
- 754 0088 1F4A     	 ldr r2,.L23+12
- 755 008a 1F4B     	 ldr r3,.L23+12
- 756 008c 1B68     	 ldr r3,[r3]
- 757 008e 43F00703 	 orr r3,r3,#7
- 758 0092 1360     	 str r3,[r2]
- 249:../driver_adc.c **** 	CCU80_CC83->INS |= ACTIVE_ON_RISING_EDGE << CCU8_CC8_INS_EV0EM_Pos;
- 759              	 .loc 2 249 0
- 760 0094 1C4A     	 ldr r2,.L23+12
- 761 0096 1C4B     	 ldr r3,.L23+12
- 762 0098 1B68     	 ldr r3,[r3]
- 763 009a 43F48033 	 orr r3,r3,#65536
- 764 009e 1360     	 str r3,[r2]
- 250:../driver_adc.c **** 	CCU80_CC83->CMC |= ENABLE << CCU8_CC8_CMC_STRTS_Pos;
- 765              	 .loc 2 250 0
- 766 00a0 194A     	 ldr r2,.L23+12
- 767 00a2 194B     	 ldr r3,.L23+12
- 768 00a4 5B68     	 ldr r3,[r3,#4]
- 769 00a6 43F00103 	 orr r3,r3,#1
- 770 00aa 5360     	 str r3,[r2,#4]
- 251:../driver_adc.c **** 
- 252:../driver_adc.c **** //	/*Configure the timer CCU8 to generate  a service request when matching compare channel 1 while 
- 253:../driver_adc.c **** //	CCU80_CC83->INS  |=  15 << CCU8_CC8_INS_EV2IS_Pos;   		//which input is used -> input CC80.IN3P
- 254:../driver_adc.c **** //	CCU80_CC83->INS  &=  ~CCU8_CC8_INS_EV2EM_Msk;	 			// clear event active on rising edge
- 255:../driver_adc.c **** //	CCU80_CC83->INS  |=  ENABLE  << CCU8_CC8_INS_EV2EM_Pos;	 	// set event active on rising edge
- 256:../driver_adc.c **** 
- 257:../driver_adc.c **** 	/*Enables the Channel 1 compare match while counting down interrupt*/
- 258:../driver_adc.c **** 	CCU80_CC83->INTE |= ENABLE << CCU8_CC8_INTE_CMD1E_Pos;
- 771              	 .loc 2 258 0
- 772 00ac 164A     	 ldr r2,.L23+12
- 773 00ae 164B     	 ldr r3,.L23+12
- 774 00b0 D3F8A430 	 ldr r3,[r3,#164]
- 775 00b4 43F00803 	 orr r3,r3,#8
- 776 00b8 C2F8A430 	 str r3,[r2,#164]
- 259:../driver_adc.c **** 
- 260:../driver_adc.c **** 	/*The interrupt generated by compare match of channel 1 is forwarded to CC8ySR3*/
- 261:../driver_adc.c **** 	CCU80_CC83->SRS  |= CCU8_SRS_CM1SR_SR3_MSK << CCU8_SRS_CM1SR_POS;
- 777              	 .loc 2 261 0
- 778 00bc 124A     	 ldr r2,.L23+12
- 779 00be 124B     	 ldr r3,.L23+12
- 780 00c0 D3F8A830 	 ldr r3,[r3,#168]
- 781 00c4 43F00C03 	 orr r3,r3,#12
- 782 00c8 C2F8A830 	 str r3,[r2,#168]
- 262:../driver_adc.c **** 
- 263:../driver_adc.c **** 	/*Enable the VADC G0 Line 2 interrupt*/
- 264:../driver_adc.c **** 	NVIC_ClearPendingIRQ(VADC0_G0_2_IRQn);
- 783              	 .loc 2 264 0
- 784 00cc 1420     	 movs r0,#20
- 785 00ce FFF7FEFF 	 bl __NVIC_ClearPendingIRQ
- 265:../driver_adc.c **** 	NVIC_EnableIRQ(VADC0_G0_2_IRQn);
- 786              	 .loc 2 265 0
- 787 00d2 1420     	 movs r0,#20
- 788 00d4 FFF7FEFF 	 bl __NVIC_EnableIRQ
- 266:../driver_adc.c **** 
- 267:../driver_adc.c **** 	/*Set priority level for VADC to 1(second highest)*/
- 268:../driver_adc.c **** 	NVIC_SetPriority(VADC0_G0_2_IRQn, 1U);
- 789              	 .loc 2 268 0
- 790 00d8 1420     	 movs r0,#20
- 791 00da 0121     	 movs r1,#1
- 792 00dc FFF7FEFF 	 bl __NVIC_SetPriority
- 269:../driver_adc.c **** 
- 270:../driver_adc.c **** //	/*Enable the VADC G2 Line 2 interrupt*/
- 271:../driver_adc.c **** //	NVIC_ClearPendingIRQ(VADC0_G2_2_IRQn);
- 272:../driver_adc.c **** //	NVIC_EnableIRQ(VADC0_G2_2_IRQn);
- 273:../driver_adc.c **** //
- 274:../driver_adc.c **** //	/*Set priority level for VADC to 1(second highest)*/
- 275:../driver_adc.c **** //	NVIC_SetPriority(VADC0_G2_2_IRQn, 10U);
- 276:../driver_adc.c **** 
- 277:../driver_adc.c **** 	SCU_GENERAL->CCUCON |= SCU_GENERAL_CCUCON_GSC80_Msk;
- 793              	 .loc 2 277 0
- 794 00e0 0A4A     	 ldr r2,.L23+16
- 795 00e2 0A4B     	 ldr r3,.L23+16
- 796 00e4 DB6C     	 ldr r3,[r3,#76]
- 797 00e6 43F48073 	 orr r3,r3,#256
- 798 00ea D364     	 str r3,[r2,#76]
- 278:../driver_adc.c **** 	SCU_GENERAL->CCUCON &= ~SCU_GENERAL_CCUCON_GSC80_Msk;
- 799              	 .loc 2 278 0
- 800 00ec 074A     	 ldr r2,.L23+16
- 801 00ee 074B     	 ldr r3,.L23+16
- 802 00f0 DB6C     	 ldr r3,[r3,#76]
- 803 00f2 23F48073 	 bic r3,r3,#256
- 804 00f6 D364     	 str r3,[r2,#76]
+ 645              	 .loc 2 208 0
+ 646 03fe 0A4A     	 ldr r2,.L20+16
+ 647 0400 094B     	 ldr r3,.L20+16
+ 648 0402 D3F81832 	 ldr r3,[r3,#536]
+ 649 0406 43F46023 	 orr r3,r3,#917504
+ 650 040a C2F81832 	 str r3,[r2,#536]
+ 209:../driver_adc.c **** }
+ 651              	 .loc 2 209 0
+ 652 040e BD46     	 mov sp,r7
+ 653              	.LCFI20:
+ 654              	 .cfi_def_cfa_register 13
+ 655              	 
+ 656 0410 5DF8047B 	 ldr r7,[sp],#4
+ 657              	.LCFI21:
+ 658              	 .cfi_restore 7
+ 659              	 .cfi_def_cfa_offset 0
+ 660 0414 7047     	 bx lr
+ 661              	.L21:
+ 662 0416 00BF     	 .align 2
+ 663              	.L20:
+ 664 0418 00440040 	 .word 1073759232
+ 665 041c 008F0248 	 .word 1208127232
+ 666 0420 008E0248 	 .word 1208126976
+ 667 0424 00480040 	 .word 1073760256
+ 668 0428 004C0040 	 .word 1073761280
+ 669              	 .cfi_endproc
+ 670              	.LFE196:
+ 672              	 .section .text.interrupt_vadc_init,"ax",%progbits
+ 673              	 .align 2
+ 674              	 .global interrupt_vadc_init
+ 675              	 .thumb
+ 676              	 .thumb_func
+ 678              	interrupt_vadc_init:
+ 679              	.LFB197:
+ 210:../driver_adc.c **** 
+ 211:../driver_adc.c **** void interrupt_vadc_init(void)
+ 212:../driver_adc.c **** {
+ 680              	 .loc 2 212 0
+ 681              	 .cfi_startproc
+ 682              	 
+ 683              	 
+ 684 0000 80B5     	 push {r7,lr}
+ 685              	.LCFI22:
+ 686              	 .cfi_def_cfa_offset 8
+ 687              	 .cfi_offset 7,-8
+ 688              	 .cfi_offset 14,-4
+ 689 0002 00AF     	 add r7,sp,#0
+ 690              	.LCFI23:
+ 691              	 .cfi_def_cfa_register 7
+ 213:../driver_adc.c **** 	/*  Reset CCU80 */
+ 214:../driver_adc.c **** 	SCU_RESET->PRSET0 |= SCU_RESET_PRSET0_CCU80RS_Msk;
+ 692              	 .loc 2 214 0
+ 693 0004 3D4A     	 ldr r2,.L23
+ 694 0006 3D4B     	 ldr r3,.L23
+ 695 0008 1B69     	 ldr r3,[r3,#16]
+ 696 000a 43F08003 	 orr r3,r3,#128
+ 697 000e 1361     	 str r3,[r2,#16]
+ 215:../driver_adc.c **** 
+ 216:../driver_adc.c **** 	/* Clear reset of CCU80 */
+ 217:../driver_adc.c **** 	SCU_RESET->PRCLR0 |= SCU_RESET_PRCLR0_CCU80RS_Msk;
+ 698              	 .loc 2 217 0
+ 699 0010 3A4A     	 ldr r2,.L23
+ 700 0012 3A4B     	 ldr r3,.L23
+ 701 0014 5B69     	 ldr r3,[r3,#20]
+ 702 0016 43F08003 	 orr r3,r3,#128
+ 703 001a 5361     	 str r3,[r2,#20]
+ 218:../driver_adc.c **** 
+ 219:../driver_adc.c **** 	/* Enable CCU8 via clkset */
+ 220:../driver_adc.c **** 	SCU_CLK->CLKSET |= SCU_CLK_CLKSET_CCUCEN_Msk;
+ 704              	 .loc 2 220 0
+ 705 001c 384A     	 ldr r2,.L23+4
+ 706 001e 384B     	 ldr r3,.L23+4
+ 707 0020 5B68     	 ldr r3,[r3,#4]
+ 708 0022 43F01003 	 orr r3,r3,#16
+ 709 0026 5360     	 str r3,[r2,#4]
+ 221:../driver_adc.c **** 
+ 222:../driver_adc.c **** 	/* Enable prescaler */
+ 223:../driver_adc.c **** 	CCU80->GIDLC |= CCU8_GIDLC_SPRB_Msk;
+ 710              	 .loc 2 223 0
+ 711 0028 364A     	 ldr r2,.L23+8
+ 712 002a 364B     	 ldr r3,.L23+8
+ 713 002c DB68     	 ldr r3,[r3,#12]
+ 714 002e 43F48073 	 orr r3,r3,#256
+ 715 0032 D360     	 str r3,[r2,#12]
+ 224:../driver_adc.c **** 
+ 225:../driver_adc.c **** 	/*Set timer to center aligned mode */
+ 226:../driver_adc.c **** 	CCU80_CC83->TC |= (uint32_t)(CCU8_CC8_TC_TCM_Msk);
+ 716              	 .loc 2 226 0
+ 717 0034 344A     	 ldr r2,.L23+12
+ 718 0036 344B     	 ldr r3,.L23+12
+ 719 0038 5B69     	 ldr r3,[r3,#20]
+ 720 003a 43F00103 	 orr r3,r3,#1
+ 721 003e 5361     	 str r3,[r2,#20]
+ 227:../driver_adc.c **** 
+ 228:../driver_adc.c **** 	/*SHADOW:Define the period value of Compare Channel 1 */
+ 229:../driver_adc.c **** 	CCU80_CC83->PRS |= (uint32_t)(CCU8_CC8_PRS_PR_Value << CCU8_CC8_PR_PR_Pos);
+ 722              	 .loc 2 229 0
+ 723 0040 314A     	 ldr r2,.L23+12
+ 724 0042 314B     	 ldr r3,.L23+12
+ 725 0044 5B6B     	 ldr r3,[r3,#52]
+ 726 0046 43F46163 	 orr r3,r3,#3600
+ 727 004a 5363     	 str r3,[r2,#52]
+ 230:../driver_adc.c **** 
+ 231:../driver_adc.c **** 	/*SHADOW:Define the compare value of Compare Channel 1 */
+ 232:../driver_adc.c **** 	CCU80_CC83->CR1S |= (uint32_t)(CCU80_CC83_CR_Value << CCU8_CC8_CR1_CR1_Pos);
+ 728              	 .loc 2 232 0
+ 729 004c 2E4A     	 ldr r2,.L23+12
+ 730 004e 2E4B     	 ldr r3,.L23+12
+ 731 0050 DB6B     	 ldr r3,[r3,#60]
+ 732 0052 43F03203 	 orr r3,r3,#50
+ 733 0056 D363     	 str r3,[r2,#60]
+ 233:../driver_adc.c **** 
+ 234:../driver_adc.c **** 	/*Request shadow transfer  */
+ 235:../driver_adc.c **** 	CCU80->GCSS |= (CCU8_GCSS_S3SE_Msk);
+ 734              	 .loc 2 235 0
+ 735 0058 2A4A     	 ldr r2,.L23+8
+ 736 005a 2A4B     	 ldr r3,.L23+8
+ 737 005c 1B69     	 ldr r3,[r3,#16]
+ 738 005e 43F48053 	 orr r3,r3,#4096
+ 739 0062 1361     	 str r3,[r2,#16]
+ 236:../driver_adc.c **** 
+ 237:../driver_adc.c **** 	/*Enable CC80*/
+ 238:../driver_adc.c **** 	CCU80->GIDLC |= (CCU8_GIDLC_CS3I_Msk);
+ 740              	 .loc 2 238 0
+ 741 0064 274A     	 ldr r2,.L23+8
+ 742 0066 274B     	 ldr r3,.L23+8
+ 743 0068 DB68     	 ldr r3,[r3,#12]
+ 744 006a 43F00803 	 orr r3,r3,#8
+ 745 006e D360     	 str r3,[r2,#12]
+ 239:../driver_adc.c **** 
+ 240:../driver_adc.c **** 	/*Clear the timer run bit(TRBC) and timer (TCC) */
+ 241:../driver_adc.c **** 	CCU80_CC83->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_Msk);
+ 746              	 .loc 2 241 0
+ 747 0070 254A     	 ldr r2,.L23+12
+ 748 0072 254B     	 ldr r3,.L23+12
+ 749 0074 1B69     	 ldr r3,[r3,#16]
+ 750 0076 43F00103 	 orr r3,r3,#1
+ 751 007a 1361     	 str r3,[r2,#16]
+ 242:../driver_adc.c **** 	CCU80_CC83->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_Msk);
+ 752              	 .loc 2 242 0
+ 753 007c 224A     	 ldr r2,.L23+12
+ 754 007e 224B     	 ldr r3,.L23+12
+ 755 0080 1B69     	 ldr r3,[r3,#16]
+ 756 0082 43F00203 	 orr r3,r3,#2
+ 757 0086 1361     	 str r3,[r2,#16]
+ 243:../driver_adc.c **** 
+ 244:../driver_adc.c **** 	/* Use IN_H for Event 0 on Rising edge
+ 245:../driver_adc.c **** 	 * Set start on EVENT 0 on Rising edge
+ 246:../driver_adc.c **** 	 */
+ 247:../driver_adc.c **** 	CCU80_CC83->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_Pos;
+ 758              	 .loc 2 247 0
+ 759 0088 1F4A     	 ldr r2,.L23+12
+ 760 008a 1F4B     	 ldr r3,.L23+12
+ 761 008c 1B68     	 ldr r3,[r3]
+ 762 008e 43F00703 	 orr r3,r3,#7
+ 763 0092 1360     	 str r3,[r2]
+ 248:../driver_adc.c **** 	CCU80_CC83->INS |= ACTIVE_ON_RISING_EDGE << CCU8_CC8_INS_EV0EM_Pos;
+ 764              	 .loc 2 248 0
+ 765 0094 1C4A     	 ldr r2,.L23+12
+ 766 0096 1C4B     	 ldr r3,.L23+12
+ 767 0098 1B68     	 ldr r3,[r3]
+ 768 009a 43F48033 	 orr r3,r3,#65536
+ 769 009e 1360     	 str r3,[r2]
+ 249:../driver_adc.c **** 	CCU80_CC83->CMC |= ENABLE << CCU8_CC8_CMC_STRTS_Pos;
+ 770              	 .loc 2 249 0
+ 771 00a0 194A     	 ldr r2,.L23+12
+ 772 00a2 194B     	 ldr r3,.L23+12
+ 773 00a4 5B68     	 ldr r3,[r3,#4]
+ 774 00a6 43F00103 	 orr r3,r3,#1
+ 775 00aa 5360     	 str r3,[r2,#4]
+ 250:../driver_adc.c **** 
+ 251:../driver_adc.c **** 	//	/*Configure the timer CCU8 to generate  a service request when matching compare channel 1 while
+ 252:../driver_adc.c **** 	//	CCU80_CC83->INS  |=  15 << CCU8_CC8_INS_EV2IS_Pos;   		//which input is used -> input CC80.IN3P
+ 253:../driver_adc.c **** 	//	CCU80_CC83->INS  &=  ~CCU8_CC8_INS_EV2EM_Msk;	 			// clear event active on rising edge
+ 254:../driver_adc.c **** 	//	CCU80_CC83->INS  |=  ENABLE  << CCU8_CC8_INS_EV2EM_Pos;	 	// set event active on rising edge
+ 255:../driver_adc.c **** 
+ 256:../driver_adc.c **** 	/*Enables the Channel 1 compare match while counting down interrupt*/
+ 257:../driver_adc.c **** 	CCU80_CC83->INTE |= ENABLE << CCU8_CC8_INTE_CMD1E_Pos;
+ 776              	 .loc 2 257 0
+ 777 00ac 164A     	 ldr r2,.L23+12
+ 778 00ae 164B     	 ldr r3,.L23+12
+ 779 00b0 D3F8A430 	 ldr r3,[r3,#164]
+ 780 00b4 43F00803 	 orr r3,r3,#8
+ 781 00b8 C2F8A430 	 str r3,[r2,#164]
+ 258:../driver_adc.c **** 
+ 259:../driver_adc.c **** 	/*The interrupt generated by compare match of channel 1 is forwarded to CC8ySR3*/
+ 260:../driver_adc.c **** 	CCU80_CC83->SRS |= CCU8_SRS_CM1SR_SR3_MSK << CCU8_SRS_CM1SR_POS;
+ 782              	 .loc 2 260 0
+ 783 00bc 124A     	 ldr r2,.L23+12
+ 784 00be 124B     	 ldr r3,.L23+12
+ 785 00c0 D3F8A830 	 ldr r3,[r3,#168]
+ 786 00c4 43F00C03 	 orr r3,r3,#12
+ 787 00c8 C2F8A830 	 str r3,[r2,#168]
+ 261:../driver_adc.c **** 
+ 262:../driver_adc.c **** 	/*Enable the VADC G0 Line 2 interrupt*/
+ 263:../driver_adc.c **** 	NVIC_ClearPendingIRQ(VADC0_G0_2_IRQn);
+ 788              	 .loc 2 263 0
+ 789 00cc 1420     	 movs r0,#20
+ 790 00ce FFF7FEFF 	 bl __NVIC_ClearPendingIRQ
+ 264:../driver_adc.c **** 	NVIC_EnableIRQ(VADC0_G0_2_IRQn);
+ 791              	 .loc 2 264 0
+ 792 00d2 1420     	 movs r0,#20
+ 793 00d4 FFF7FEFF 	 bl __NVIC_EnableIRQ
+ 265:../driver_adc.c **** 
+ 266:../driver_adc.c **** 	/*Set priority level for VADC to 1(second highest)*/
+ 267:../driver_adc.c **** 	NVIC_SetPriority(VADC0_G0_2_IRQn, 1U);
+ 794              	 .loc 2 267 0
+ 795 00d8 1420     	 movs r0,#20
+ 796 00da 0121     	 movs r1,#1
+ 797 00dc FFF7FEFF 	 bl __NVIC_SetPriority
+ 268:../driver_adc.c **** 
+ 269:../driver_adc.c **** 	//	/*Enable the VADC G2 Line 2 interrupt*/
+ 270:../driver_adc.c **** 	//	NVIC_ClearPendingIRQ(VADC0_G2_2_IRQn);
+ 271:../driver_adc.c **** 	//	NVIC_EnableIRQ(VADC0_G2_2_IRQn);
+ 272:../driver_adc.c **** 	//
+ 273:../driver_adc.c **** 	//	/*Set priority level for VADC to 1(second highest)*/
+ 274:../driver_adc.c **** 	//	NVIC_SetPriority(VADC0_G2_2_IRQn, 10U);
+ 275:../driver_adc.c **** 
+ 276:../driver_adc.c **** 	SCU_GENERAL->CCUCON |= SCU_GENERAL_CCUCON_GSC80_Msk;
+ 798              	 .loc 2 276 0
+ 799 00e0 0A4A     	 ldr r2,.L23+16
+ 800 00e2 0A4B     	 ldr r3,.L23+16
+ 801 00e4 DB6C     	 ldr r3,[r3,#76]
+ 802 00e6 43F48073 	 orr r3,r3,#256
+ 803 00ea D364     	 str r3,[r2,#76]
+ 277:../driver_adc.c **** 	SCU_GENERAL->CCUCON &= ~SCU_GENERAL_CCUCON_GSC80_Msk;
+ 804              	 .loc 2 277 0
+ 805 00ec 074A     	 ldr r2,.L23+16
+ 806 00ee 074B     	 ldr r3,.L23+16
+ 807 00f0 DB6C     	 ldr r3,[r3,#76]
+ 808 00f2 23F48073 	 bic r3,r3,#256
+ 809 00f6 D364     	 str r3,[r2,#76]
+ 278:../driver_adc.c **** }
+ 810              	 .loc 2 278 0
+ 811 00f8 80BD     	 pop {r7,pc}
+ 812              	.L24:
+ 813 00fa 00BF     	 .align 2
+ 814              	.L23:
+ 815 00fc 00440050 	 .word 1342194688
+ 816 0100 00460050 	 .word 1342195200
+ 817 0104 00000240 	 .word 1073872896
+ 818 0108 00040240 	 .word 1073873920
+ 819 010c 00400050 	 .word 1342193664
+ 820              	 .cfi_endproc
+ 821              	.LFE197:
+ 823              	 .section .text.read_currents,"ax",%progbits
+ 824              	 .align 2
+ 825              	 .global read_currents
+ 826              	 .thumb
+ 827              	 .thumb_func
+ 829              	read_currents:
+ 830              	.LFB198:
  279:../driver_adc.c **** 
- 280:../driver_adc.c **** }
- 805              	 .loc 2 280 0
- 806 00f8 80BD     	 pop {r7,pc}
- 807              	.L24:
- 808 00fa 00BF     	 .align 2
- 809              	.L23:
- 810 00fc 00440050 	 .word 1342194688
- 811 0100 00460050 	 .word 1342195200
- 812 0104 00000240 	 .word 1073872896
- 813 0108 00040240 	 .word 1073873920
- 814 010c 00400050 	 .word 1342193664
- 815              	 .cfi_endproc
- 816              	.LFE197:
- 818              	 .section .text.read_currents,"ax",%progbits
- 819              	 .align 2
- 820              	 .global read_currents
- 821              	 .thumb
- 822              	 .thumb_func
- 824              	read_currents:
- 825              	.LFB198:
- 281:../driver_adc.c **** 
- 282:../driver_adc.c **** void read_currents (void)
- 283:../driver_adc.c **** {
- 826              	 .loc 2 283 0
- 827              	 .cfi_startproc
- 828              	 
- 829              	 
- 830              	 
- 831 0000 80B4     	 push {r7}
- 832              	.LCFI24:
- 833              	 .cfi_def_cfa_offset 4
- 834              	 .cfi_offset 7,-4
- 835 0002 00AF     	 add r7,sp,#0
- 836              	.LCFI25:
- 837              	 .cfi_def_cfa_register 7
- 284:../driver_adc.c **** 	ia = (VADC_G0->RES[1] & 0xFFFF) * 16 - offset_ia;		//16 bit value -- INVERSED 
- 838              	 .loc 2 284 0
- 839 0004 234B     	 ldr r3,.L26
- 840 0006 D3F80433 	 ldr r3,[r3,#772]
- 841 000a 9BB2     	 uxth r3,r3
- 842 000c 1B01     	 lsls r3,r3,#4
- 843 000e 9AB2     	 uxth r2,r3
- 844 0010 214B     	 ldr r3,.L26+4
- 845 0012 1B68     	 ldr r3,[r3]
- 846 0014 9BB2     	 uxth r3,r3
- 847 0016 D31A     	 subs r3,r2,r3
- 848 0018 9BB2     	 uxth r3,r3
- 849 001a 9AB2     	 uxth r2,r3
- 850 001c 1F4B     	 ldr r3,.L26+8
- 851 001e 1A80     	 strh r2,[r3]
- 285:../driver_adc.c **** 	ib = (VADC_G1->RES[1] & 0xFFFF) * 16 - offset_ib;		//16 bit value
- 852              	 .loc 2 285 0
- 853 0020 1F4B     	 ldr r3,.L26+12
- 854 0022 D3F80433 	 ldr r3,[r3,#772]
- 855 0026 9BB2     	 uxth r3,r3
- 856 0028 1B01     	 lsls r3,r3,#4
- 857 002a 9AB2     	 uxth r2,r3
- 858 002c 1D4B     	 ldr r3,.L26+16
- 859 002e 1B68     	 ldr r3,[r3]
- 860 0030 9BB2     	 uxth r3,r3
- 861 0032 D31A     	 subs r3,r2,r3
- 862 0034 9BB2     	 uxth r3,r3
- 863 0036 9AB2     	 uxth r2,r3
- 864 0038 1B4B     	 ldr r3,.L26+20
- 865 003a 1A80     	 strh r2,[r3]
- 286:../driver_adc.c **** 	ic = (VADC_G2->RES[1] & 0xFFFF) * 16 - offset_ic;		//16 bit value
- 866              	 .loc 2 286 0
- 867 003c 1B4B     	 ldr r3,.L26+24
- 868 003e D3F80433 	 ldr r3,[r3,#772]
- 869 0042 9BB2     	 uxth r3,r3
- 870 0044 1B01     	 lsls r3,r3,#4
- 871 0046 9AB2     	 uxth r2,r3
- 872 0048 194B     	 ldr r3,.L26+28
- 873 004a 1B68     	 ldr r3,[r3]
- 874 004c 9BB2     	 uxth r3,r3
- 875 004e D31A     	 subs r3,r2,r3
- 876 0050 9BB2     	 uxth r3,r3
- 877 0052 9AB2     	 uxth r2,r3
- 878 0054 174B     	 ldr r3,.L26+32
- 879 0056 1A80     	 strh r2,[r3]
- 287:../driver_adc.c **** 	ia = (-ib-ic);											//TOO NOISY
- 880              	 .loc 2 287 0
- 881 0058 134B     	 ldr r3,.L26+20
- 882 005a 1B88     	 ldrh r3,[r3]
- 883 005c 9BB2     	 uxth r3,r3
- 884 005e 5B42     	 negs r3,r3
- 885 0060 9AB2     	 uxth r2,r3
- 886 0062 144B     	 ldr r3,.L26+32
- 887 0064 1B88     	 ldrh r3,[r3]
- 888 0066 9BB2     	 uxth r3,r3
- 889 0068 D31A     	 subs r3,r2,r3
- 890 006a 9BB2     	 uxth r3,r3
- 891 006c 9AB2     	 uxth r2,r3
- 892 006e 0B4B     	 ldr r3,.L26+8
- 893 0070 1A80     	 strh r2,[r3]
- 288:../driver_adc.c **** 
- 289:../driver_adc.c **** 	u_mot_dig = (VADC_G2->RES[14] & 0xFFFF);	//12 bit value
- 894              	 .loc 2 289 0
- 895 0072 0E4B     	 ldr r3,.L26+24
- 896 0074 D3F83833 	 ldr r3,[r3,#824]
- 897 0078 9BB2     	 uxth r3,r3
- 898 007a 0F4A     	 ldr r2,.L26+36
- 899 007c 1360     	 str r3,[r2]
- 290:../driver_adc.c **** 	u_log_dig = (VADC_G1->RES[14] & 0xFFFF);	//12 bit value
- 900              	 .loc 2 290 0
- 901 007e 084B     	 ldr r3,.L26+12
- 902 0080 D3F83833 	 ldr r3,[r3,#824]
- 903 0084 9BB2     	 uxth r3,r3
- 904 0086 0D4A     	 ldr r2,.L26+40
- 905 0088 1360     	 str r3,[r2]
+ 280:../driver_adc.c **** /*
+ 281:../driver_adc.c **** 	Read currents from VADC
+ 282:../driver_adc.c **** 	abc RES[1] | u_mot u_log RES[14]
+ 283:../driver_adc.c **** 	'a' is too noisy => computed form 'bc'
+ 284:../driver_adc.c **** */
+ 285:../driver_adc.c **** void read_currents(void)
+ 286:../driver_adc.c **** {
+ 831              	 .loc 2 286 0
+ 832              	 .cfi_startproc
+ 833              	 
+ 834              	 
+ 835              	 
+ 836 0000 80B4     	 push {r7}
+ 837              	.LCFI24:
+ 838              	 .cfi_def_cfa_offset 4
+ 839              	 .cfi_offset 7,-4
+ 840 0002 00AF     	 add r7,sp,#0
+ 841              	.LCFI25:
+ 842              	 .cfi_def_cfa_register 7
+ 287:../driver_adc.c **** 	ia = (VADC_G0->RES[1] & 0xFFFF) * 16 - offset_ia; // 16 bit value -- INVERTED
+ 843              	 .loc 2 287 0
+ 844 0004 234B     	 ldr r3,.L26
+ 845 0006 D3F80433 	 ldr r3,[r3,#772]
+ 846 000a 9BB2     	 uxth r3,r3
+ 847 000c 1B01     	 lsls r3,r3,#4
+ 848 000e 9AB2     	 uxth r2,r3
+ 849 0010 214B     	 ldr r3,.L26+4
+ 850 0012 1B68     	 ldr r3,[r3]
+ 851 0014 9BB2     	 uxth r3,r3
+ 852 0016 D31A     	 subs r3,r2,r3
+ 853 0018 9BB2     	 uxth r3,r3
+ 854 001a 9AB2     	 uxth r2,r3
+ 855 001c 1F4B     	 ldr r3,.L26+8
+ 856 001e 1A80     	 strh r2,[r3]
+ 288:../driver_adc.c **** 	ib = (VADC_G1->RES[1] & 0xFFFF) * 16 - offset_ib; // 16 bit value
+ 857              	 .loc 2 288 0
+ 858 0020 1F4B     	 ldr r3,.L26+12
+ 859 0022 D3F80433 	 ldr r3,[r3,#772]
+ 860 0026 9BB2     	 uxth r3,r3
+ 861 0028 1B01     	 lsls r3,r3,#4
+ 862 002a 9AB2     	 uxth r2,r3
+ 863 002c 1D4B     	 ldr r3,.L26+16
+ 864 002e 1B68     	 ldr r3,[r3]
+ 865 0030 9BB2     	 uxth r3,r3
+ 866 0032 D31A     	 subs r3,r2,r3
+ 867 0034 9BB2     	 uxth r3,r3
+ 868 0036 9AB2     	 uxth r2,r3
+ 869 0038 1B4B     	 ldr r3,.L26+20
+ 870 003a 1A80     	 strh r2,[r3]
+ 289:../driver_adc.c **** 	ic = (VADC_G2->RES[1] & 0xFFFF) * 16 - offset_ic; // 16 bit value
+ 871              	 .loc 2 289 0
+ 872 003c 1B4B     	 ldr r3,.L26+24
+ 873 003e D3F80433 	 ldr r3,[r3,#772]
+ 874 0042 9BB2     	 uxth r3,r3
+ 875 0044 1B01     	 lsls r3,r3,#4
+ 876 0046 9AB2     	 uxth r2,r3
+ 877 0048 194B     	 ldr r3,.L26+28
+ 878 004a 1B68     	 ldr r3,[r3]
+ 879 004c 9BB2     	 uxth r3,r3
+ 880 004e D31A     	 subs r3,r2,r3
+ 881 0050 9BB2     	 uxth r3,r3
+ 882 0052 9AB2     	 uxth r2,r3
+ 883 0054 174B     	 ldr r3,.L26+32
+ 884 0056 1A80     	 strh r2,[r3]
+ 290:../driver_adc.c **** 	ia = (-ib - ic);								  // TOO NOISY
+ 885              	 .loc 2 290 0
+ 886 0058 134B     	 ldr r3,.L26+20
+ 887 005a 1B88     	 ldrh r3,[r3]
+ 888 005c 9BB2     	 uxth r3,r3
+ 889 005e 5B42     	 negs r3,r3
+ 890 0060 9AB2     	 uxth r2,r3
+ 891 0062 144B     	 ldr r3,.L26+32
+ 892 0064 1B88     	 ldrh r3,[r3]
+ 893 0066 9BB2     	 uxth r3,r3
+ 894 0068 D31A     	 subs r3,r2,r3
+ 895 006a 9BB2     	 uxth r3,r3
+ 896 006c 9AB2     	 uxth r2,r3
+ 897 006e 0B4B     	 ldr r3,.L26+8
+ 898 0070 1A80     	 strh r2,[r3]
  291:../driver_adc.c **** 
- 292:../driver_adc.c **** 	// ia_32 = ia;
- 293:../driver_adc.c **** 	// ib_32 = ib;
- 294:../driver_adc.c **** 	// ic_32 = ic;
- 295:../driver_adc.c **** }
- 906              	 .loc 2 295 0
- 907 008a BD46     	 mov sp,r7
- 908              	.LCFI26:
- 909              	 .cfi_def_cfa_register 13
- 910              	 
- 911 008c 5DF8047B 	 ldr r7,[sp],#4
- 912              	.LCFI27:
- 913              	 .cfi_restore 7
- 914              	 .cfi_def_cfa_offset 0
- 915 0090 7047     	 bx lr
- 916              	.L27:
- 917 0092 00BF     	 .align 2
- 918              	.L26:
- 919 0094 00440040 	 .word 1073759232
- 920 0098 00000000 	 .word offset_ia
- 921 009c 00000000 	 .word ia
- 922 00a0 00480040 	 .word 1073760256
- 923 00a4 00000000 	 .word offset_ib
- 924 00a8 00000000 	 .word ib
- 925 00ac 004C0040 	 .word 1073761280
- 926 00b0 00000000 	 .word offset_ic
- 927 00b4 00000000 	 .word ic
- 928 00b8 00000000 	 .word u_mot_dig
- 929 00bc 00000000 	 .word u_log_dig
- 930              	 .cfi_endproc
- 931              	.LFE198:
- 933              	 .section .text.current_offset,"ax",%progbits
- 934              	 .align 2
- 935              	 .global current_offset
- 936              	 .thumb
- 937              	 .thumb_func
- 939              	current_offset:
- 940              	.LFB199:
- 296:../driver_adc.c **** /**
- 297:../driver_adc.c ****  * Compute the current offset for every phase
- 298:../driver_adc.c ****  */
- 299:../driver_adc.c **** void current_offset (void)
- 300:../driver_adc.c **** {
- 941              	 .loc 2 300 0
- 942              	 .cfi_startproc
- 943              	 
- 944              	 
- 945 0000 80B5     	 push {r7,lr}
- 946              	.LCFI28:
- 947              	 .cfi_def_cfa_offset 8
- 948              	 .cfi_offset 7,-8
- 949              	 .cfi_offset 14,-4
- 950 0002 82B0     	 sub sp,sp,#8
- 951              	.LCFI29:
- 952              	 .cfi_def_cfa_offset 16
- 953 0004 00AF     	 add r7,sp,#0
- 954              	.LCFI30:
- 955              	 .cfi_def_cfa_register 7
- 301:../driver_adc.c **** 	offset_ia = 0;
- 956              	 .loc 2 301 0
- 957 0006 2A4B     	 ldr r3,.L34
- 958 0008 0022     	 movs r2,#0
- 959 000a 1A60     	 str r2,[r3]
- 302:../driver_adc.c **** 	offset_ib = 0;
- 960              	 .loc 2 302 0
- 961 000c 294B     	 ldr r3,.L34+4
- 962 000e 0022     	 movs r2,#0
- 963 0010 1A60     	 str r2,[r3]
- 303:../driver_adc.c **** 	offset_ic = 0;
- 964              	 .loc 2 303 0
- 965 0012 294B     	 ldr r3,.L34+8
- 966 0014 0022     	 movs r2,#0
- 967 0016 1A60     	 str r2,[r3]
- 968              	.LBB2:
- 304:../driver_adc.c **** 
- 305:../driver_adc.c **** 	for(int i = 0; i < 16; ++i){
- 969              	 .loc 2 305 0
- 970 0018 0023     	 movs r3,#0
- 971 001a 7B60     	 str r3,[r7,#4]
- 972 001c 26E0     	 b .L29
- 973              	.L30:
- 306:../driver_adc.c **** 		delay_t(3);
- 974              	 .loc 2 306 0 discriminator 3
- 975 001e 0320     	 movs r0,#3
- 976 0020 FFF7FEFF 	 bl delay_t
- 307:../driver_adc.c **** 		offset_ia += ((VADC_G0->RES[1] & 0xFFFF) * 16);
- 977              	 .loc 2 307 0 discriminator 3
- 978 0024 254B     	 ldr r3,.L34+12
- 979 0026 D3F80433 	 ldr r3,[r3,#772]
- 980 002a 9BB2     	 uxth r3,r3
- 981 002c 1B01     	 lsls r3,r3,#4
- 982 002e 204A     	 ldr r2,.L34
- 983 0030 1268     	 ldr r2,[r2]
- 984 0032 1344     	 add r3,r3,r2
- 985 0034 1A46     	 mov r2,r3
- 986 0036 1E4B     	 ldr r3,.L34
- 987 0038 1A60     	 str r2,[r3]
- 308:../driver_adc.c **** 		offset_ib += ((VADC_G1->RES[1] & 0xFFFF) * 16);
- 988              	 .loc 2 308 0 discriminator 3
- 989 003a 214B     	 ldr r3,.L34+16
- 990 003c D3F80433 	 ldr r3,[r3,#772]
- 991 0040 9BB2     	 uxth r3,r3
- 992 0042 1B01     	 lsls r3,r3,#4
- 993 0044 1B4A     	 ldr r2,.L34+4
- 994 0046 1268     	 ldr r2,[r2]
- 995 0048 1344     	 add r3,r3,r2
- 996 004a 1A46     	 mov r2,r3
- 997 004c 194B     	 ldr r3,.L34+4
- 998 004e 1A60     	 str r2,[r3]
- 309:../driver_adc.c **** 		offset_ic += ((VADC_G2->RES[1] & 0xFFFF) * 16);
- 999              	 .loc 2 309 0 discriminator 3
- 1000 0050 1C4B     	 ldr r3,.L34+20
- 1001 0052 D3F80433 	 ldr r3,[r3,#772]
- 1002 0056 9BB2     	 uxth r3,r3
- 1003 0058 1B01     	 lsls r3,r3,#4
- 1004 005a 174A     	 ldr r2,.L34+8
- 1005 005c 1268     	 ldr r2,[r2]
- 1006 005e 1344     	 add r3,r3,r2
- 1007 0060 1A46     	 mov r2,r3
- 1008 0062 154B     	 ldr r3,.L34+8
- 1009 0064 1A60     	 str r2,[r3]
- 305:../driver_adc.c **** 		delay_t(3);
- 1010              	 .loc 2 305 0 discriminator 3
- 1011 0066 7B68     	 ldr r3,[r7,#4]
- 1012 0068 0133     	 adds r3,r3,#1
- 1013 006a 7B60     	 str r3,[r7,#4]
- 1014              	.L29:
- 305:../driver_adc.c **** 		delay_t(3);
- 1015              	 .loc 2 305 0 is_stmt 0 discriminator 1
- 1016 006c 7B68     	 ldr r3,[r7,#4]
- 1017 006e 0F2B     	 cmp r3,#15
- 1018 0070 D5DD     	 ble .L30
- 1019              	.LBE2:
- 310:../driver_adc.c **** 
- 311:../driver_adc.c **** 	}
- 312:../driver_adc.c **** 
- 313:../driver_adc.c **** 	offset_ia = offset_ia/16;
- 1020              	 .loc 2 313 0 is_stmt 1
- 1021 0072 0F4B     	 ldr r3,.L34
- 1022 0074 1B68     	 ldr r3,[r3]
- 1023 0076 002B     	 cmp r3,#0
- 1024 0078 00DA     	 bge .L31
- 1025 007a 0F33     	 adds r3,r3,#15
- 1026              	.L31:
- 1027 007c 1B11     	 asrs r3,r3,#4
- 1028 007e 1A46     	 mov r2,r3
- 1029 0080 0B4B     	 ldr r3,.L34
- 1030 0082 1A60     	 str r2,[r3]
- 314:../driver_adc.c **** 	offset_ib = offset_ib/16;
- 1031              	 .loc 2 314 0
- 1032 0084 0B4B     	 ldr r3,.L34+4
- 1033 0086 1B68     	 ldr r3,[r3]
- 1034 0088 002B     	 cmp r3,#0
- 1035 008a 00DA     	 bge .L32
- 1036 008c 0F33     	 adds r3,r3,#15
- 1037              	.L32:
- 1038 008e 1B11     	 asrs r3,r3,#4
- 1039 0090 1A46     	 mov r2,r3
- 1040 0092 084B     	 ldr r3,.L34+4
- 1041 0094 1A60     	 str r2,[r3]
- 315:../driver_adc.c **** 	offset_ic = offset_ic/16;
- 1042              	 .loc 2 315 0
- 1043 0096 084B     	 ldr r3,.L34+8
- 1044 0098 1B68     	 ldr r3,[r3]
- 1045 009a 002B     	 cmp r3,#0
- 1046 009c 00DA     	 bge .L33
- 1047 009e 0F33     	 adds r3,r3,#15
- 1048              	.L33:
- 1049 00a0 1B11     	 asrs r3,r3,#4
- 1050 00a2 1A46     	 mov r2,r3
- 1051 00a4 044B     	 ldr r3,.L34+8
- 1052 00a6 1A60     	 str r2,[r3]
+ 292:../driver_adc.c **** 	u_mot_dig = (VADC_G2->RES[14] & 0xFFFF); // 12 bit value
+ 899              	 .loc 2 292 0
+ 900 0072 0E4B     	 ldr r3,.L26+24
+ 901 0074 D3F83833 	 ldr r3,[r3,#824]
+ 902 0078 9BB2     	 uxth r3,r3
+ 903 007a 0F4A     	 ldr r2,.L26+36
+ 904 007c 1360     	 str r3,[r2]
+ 293:../driver_adc.c **** 	u_log_dig = (VADC_G1->RES[14] & 0xFFFF); // 12 bit value
+ 905              	 .loc 2 293 0
+ 906 007e 084B     	 ldr r3,.L26+12
+ 907 0080 D3F83833 	 ldr r3,[r3,#824]
+ 908 0084 9BB2     	 uxth r3,r3
+ 909 0086 0D4A     	 ldr r2,.L26+40
+ 910 0088 1360     	 str r3,[r2]
+ 294:../driver_adc.c **** 
+ 295:../driver_adc.c **** 	// ia_32 = ia;
+ 296:../driver_adc.c **** 	// ib_32 = ib;
+ 297:../driver_adc.c **** 	// ic_32 = ic;
+ 298:../driver_adc.c **** }
+ 911              	 .loc 2 298 0
+ 912 008a BD46     	 mov sp,r7
+ 913              	.LCFI26:
+ 914              	 .cfi_def_cfa_register 13
+ 915              	 
+ 916 008c 5DF8047B 	 ldr r7,[sp],#4
+ 917              	.LCFI27:
+ 918              	 .cfi_restore 7
+ 919              	 .cfi_def_cfa_offset 0
+ 920 0090 7047     	 bx lr
+ 921              	.L27:
+ 922 0092 00BF     	 .align 2
+ 923              	.L26:
+ 924 0094 00440040 	 .word 1073759232
+ 925 0098 00000000 	 .word offset_ia
+ 926 009c 00000000 	 .word ia
+ 927 00a0 00480040 	 .word 1073760256
+ 928 00a4 00000000 	 .word offset_ib
+ 929 00a8 00000000 	 .word ib
+ 930 00ac 004C0040 	 .word 1073761280
+ 931 00b0 00000000 	 .word offset_ic
+ 932 00b4 00000000 	 .word ic
+ 933 00b8 00000000 	 .word u_mot_dig
+ 934 00bc 00000000 	 .word u_log_dig
+ 935              	 .cfi_endproc
+ 936              	.LFE198:
+ 938              	 .section .text.current_offset,"ax",%progbits
+ 939              	 .align 2
+ 940              	 .global current_offset
+ 941              	 .thumb
+ 942              	 .thumb_func
+ 944              	current_offset:
+ 945              	.LFB199:
+ 299:../driver_adc.c **** /**
+ 300:../driver_adc.c ****  * Compute current offset for every phase
+ 301:../driver_adc.c ****  */
+ 302:../driver_adc.c **** void current_offset(void)
+ 303:../driver_adc.c **** {
+ 946              	 .loc 2 303 0
+ 947              	 .cfi_startproc
+ 948              	 
+ 949              	 
+ 950 0000 80B5     	 push {r7,lr}
+ 951              	.LCFI28:
+ 952              	 .cfi_def_cfa_offset 8
+ 953              	 .cfi_offset 7,-8
+ 954              	 .cfi_offset 14,-4
+ 955 0002 82B0     	 sub sp,sp,#8
+ 956              	.LCFI29:
+ 957              	 .cfi_def_cfa_offset 16
+ 958 0004 00AF     	 add r7,sp,#0
+ 959              	.LCFI30:
+ 960              	 .cfi_def_cfa_register 7
+ 304:../driver_adc.c **** 	prot_status = OFF; //Turn Current protection OFF
+ 961              	 .loc 2 304 0
+ 962 0006 2D4B     	 ldr r3,.L34
+ 963 0008 0022     	 movs r2,#0
+ 964 000a 1A70     	 strb r2,[r3]
+ 305:../driver_adc.c **** 	offset_ia = 0;
+ 965              	 .loc 2 305 0
+ 966 000c 2C4B     	 ldr r3,.L34+4
+ 967 000e 0022     	 movs r2,#0
+ 968 0010 1A60     	 str r2,[r3]
+ 306:../driver_adc.c **** 	offset_ib = 0;
+ 969              	 .loc 2 306 0
+ 970 0012 2C4B     	 ldr r3,.L34+8
+ 971 0014 0022     	 movs r2,#0
+ 972 0016 1A60     	 str r2,[r3]
+ 307:../driver_adc.c **** 	offset_ic = 0;
+ 973              	 .loc 2 307 0
+ 974 0018 2B4B     	 ldr r3,.L34+12
+ 975 001a 0022     	 movs r2,#0
+ 976 001c 1A60     	 str r2,[r3]
+ 977              	.LBB2:
+ 308:../driver_adc.c **** 
+ 309:../driver_adc.c **** 	for (int i = 0; i < 16; ++i)
+ 978              	 .loc 2 309 0
+ 979 001e 0023     	 movs r3,#0
+ 980 0020 7B60     	 str r3,[r7,#4]
+ 981 0022 26E0     	 b .L29
+ 982              	.L30:
+ 310:../driver_adc.c **** 	{
+ 311:../driver_adc.c **** 		delay_t(3);
+ 983              	 .loc 2 311 0 discriminator 3
+ 984 0024 0320     	 movs r0,#3
+ 985 0026 FFF7FEFF 	 bl delay_t
+ 312:../driver_adc.c **** 		offset_ia += ((VADC_G0->RES[1] & 0xFFFF) * 16);
+ 986              	 .loc 2 312 0 discriminator 3
+ 987 002a 284B     	 ldr r3,.L34+16
+ 988 002c D3F80433 	 ldr r3,[r3,#772]
+ 989 0030 9BB2     	 uxth r3,r3
+ 990 0032 1B01     	 lsls r3,r3,#4
+ 991 0034 224A     	 ldr r2,.L34+4
+ 992 0036 1268     	 ldr r2,[r2]
+ 993 0038 1344     	 add r3,r3,r2
+ 994 003a 1A46     	 mov r2,r3
+ 995 003c 204B     	 ldr r3,.L34+4
+ 996 003e 1A60     	 str r2,[r3]
+ 313:../driver_adc.c **** 		offset_ib += ((VADC_G1->RES[1] & 0xFFFF) * 16);
+ 997              	 .loc 2 313 0 discriminator 3
+ 998 0040 234B     	 ldr r3,.L34+20
+ 999 0042 D3F80433 	 ldr r3,[r3,#772]
+ 1000 0046 9BB2     	 uxth r3,r3
+ 1001 0048 1B01     	 lsls r3,r3,#4
+ 1002 004a 1E4A     	 ldr r2,.L34+8
+ 1003 004c 1268     	 ldr r2,[r2]
+ 1004 004e 1344     	 add r3,r3,r2
+ 1005 0050 1A46     	 mov r2,r3
+ 1006 0052 1C4B     	 ldr r3,.L34+8
+ 1007 0054 1A60     	 str r2,[r3]
+ 314:../driver_adc.c **** 		offset_ic += ((VADC_G2->RES[1] & 0xFFFF) * 16);
+ 1008              	 .loc 2 314 0 discriminator 3
+ 1009 0056 1F4B     	 ldr r3,.L34+24
+ 1010 0058 D3F80433 	 ldr r3,[r3,#772]
+ 1011 005c 9BB2     	 uxth r3,r3
+ 1012 005e 1B01     	 lsls r3,r3,#4
+ 1013 0060 194A     	 ldr r2,.L34+12
+ 1014 0062 1268     	 ldr r2,[r2]
+ 1015 0064 1344     	 add r3,r3,r2
+ 1016 0066 1A46     	 mov r2,r3
+ 1017 0068 174B     	 ldr r3,.L34+12
+ 1018 006a 1A60     	 str r2,[r3]
+ 309:../driver_adc.c **** 	{
+ 1019              	 .loc 2 309 0 discriminator 3
+ 1020 006c 7B68     	 ldr r3,[r7,#4]
+ 1021 006e 0133     	 adds r3,r3,#1
+ 1022 0070 7B60     	 str r3,[r7,#4]
+ 1023              	.L29:
+ 309:../driver_adc.c **** 	{
+ 1024              	 .loc 2 309 0 is_stmt 0 discriminator 1
+ 1025 0072 7B68     	 ldr r3,[r7,#4]
+ 1026 0074 0F2B     	 cmp r3,#15
+ 1027 0076 D5DD     	 ble .L30
+ 1028              	.LBE2:
+ 315:../driver_adc.c **** 	}
  316:../driver_adc.c **** 
- 317:../driver_adc.c **** }
- 1053              	 .loc 2 317 0
- 1054 00a8 0837     	 adds r7,r7,#8
- 1055              	.LCFI31:
- 1056              	 .cfi_def_cfa_offset 8
- 1057 00aa BD46     	 mov sp,r7
- 1058              	.LCFI32:
- 1059              	 .cfi_def_cfa_register 13
- 1060              	 
- 1061 00ac 80BD     	 pop {r7,pc}
- 1062              	.L35:
- 1063 00ae 00BF     	 .align 2
- 1064              	.L34:
- 1065 00b0 00000000 	 .word offset_ia
- 1066 00b4 00000000 	 .word offset_ib
- 1067 00b8 00000000 	 .word offset_ic
- 1068 00bc 00440040 	 .word 1073759232
- 1069 00c0 00480040 	 .word 1073760256
- 1070 00c4 004C0040 	 .word 1073761280
- 1071              	 .cfi_endproc
- 1072              	.LFE199:
- 1074              	 .global __aeabi_i2d
- 1075              	 .global __aeabi_dmul
- 1076              	 .global __aeabi_d2f
- 1077              	 .section .text.compute_u_mot,"ax",%progbits
- 1078              	 .align 2
- 1079              	 .global compute_u_mot
- 1080              	 .thumb
- 1081              	 .thumb_func
- 1083              	compute_u_mot:
- 1084              	.LFB200:
- 318:../driver_adc.c **** 
- 319:../driver_adc.c **** /*
- 320:../driver_adc.c ****  * Just for Micrium read
- 321:../driver_adc.c ****  * Compute the 12bit value of u_mot into volts
- 322:../driver_adc.c ****  * u_mot_max = 100V
- 323:../driver_adc.c ****  */
- 324:../driver_adc.c **** void compute_u_mot (void)
- 325:../driver_adc.c **** {
- 1085              	 .loc 2 325 0
- 1086              	 .cfi_startproc
- 1087              	 
- 1088              	 
- 1089 0000 80B5     	 push {r7,lr}
- 1090              	.LCFI33:
- 1091              	 .cfi_def_cfa_offset 8
- 1092              	 .cfi_offset 7,-8
- 1093              	 .cfi_offset 14,-4
- 1094 0002 00AF     	 add r7,sp,#0
- 1095              	.LCFI34:
- 1096              	 .cfi_def_cfa_register 7
- 326:../driver_adc.c **** 	u_mot = u_mot_dig * 0.0245;
- 1097              	 .loc 2 326 0
- 1098 0004 0E4B     	 ldr r3,.L37+8
- 1099 0006 1B68     	 ldr r3,[r3]
- 1100 0008 1846     	 mov r0,r3
- 1101 000a FFF7FEFF 	 bl __aeabi_i2d
- 1102 000e 0246     	 mov r2,r0
- 1103 0010 0B46     	 mov r3,r1
- 1104 0012 1046     	 mov r0,r2
- 1105 0014 1946     	 mov r1,r3
- 1106 0016 08A3     	 adr r3,.L37
- 1107 0018 D3E90023 	 ldrd r2,[r3]
- 1108 001c FFF7FEFF 	 bl __aeabi_dmul
- 1109 0020 0246     	 mov r2,r0
- 1110 0022 0B46     	 mov r3,r1
- 1111 0024 1046     	 mov r0,r2
- 1112 0026 1946     	 mov r1,r3
- 1113 0028 FFF7FEFF 	 bl __aeabi_d2f
- 1114 002c 0246     	 mov r2,r0
- 1115 002e 054B     	 ldr r3,.L37+12
- 1116 0030 1A60     	 str r2,[r3]
- 327:../driver_adc.c **** }
- 1117              	 .loc 2 327 0
- 1118 0032 80BD     	 pop {r7,pc}
- 1119              	.L38:
- 1120 0034 AFF30080 	 .align 3
- 1121              	.L37:
- 1122 0038 4A0C022B 	 .word 721554506
- 1123 003c 8716993F 	 .word 1066997383
- 1124 0040 00000000 	 .word u_mot_dig
- 1125 0044 00000000 	 .word u_mot
- 1126              	 .cfi_endproc
- 1127              	.LFE200:
- 1129              	 .section .text.compute_u_log,"ax",%progbits
- 1130              	 .align 2
- 1131              	 .global compute_u_log
- 1132              	 .thumb
- 1133              	 .thumb_func
- 1135              	compute_u_log:
- 1136              	.LFB201:
- 328:../driver_adc.c **** 
- 329:../driver_adc.c **** /*
- 330:../driver_adc.c ****  * Just for Micrium read
- 331:../driver_adc.c ****  * Compute the 12bit value of u_log into volts
- 332:../driver_adc.c ****  * u_log_max = 50V
- 333:../driver_adc.c ****  */
- 334:../driver_adc.c **** void compute_u_log (void)
- 335:../driver_adc.c **** {
- 1137              	 .loc 2 335 0
- 1138              	 .cfi_startproc
- 1139              	 
- 1140              	 
- 1141 0000 80B5     	 push {r7,lr}
- 1142              	.LCFI35:
- 1143              	 .cfi_def_cfa_offset 8
- 1144              	 .cfi_offset 7,-8
- 1145              	 .cfi_offset 14,-4
- 1146 0002 00AF     	 add r7,sp,#0
- 1147              	.LCFI36:
- 1148              	 .cfi_def_cfa_register 7
- 336:../driver_adc.c **** 	u_log = u_log_dig * 0.01327;
- 1149              	 .loc 2 336 0
- 1150 0004 0E4B     	 ldr r3,.L40+8
- 1151 0006 1B68     	 ldr r3,[r3]
- 1152 0008 1846     	 mov r0,r3
- 1153 000a FFF7FEFF 	 bl __aeabi_i2d
- 1154 000e 0246     	 mov r2,r0
- 1155 0010 0B46     	 mov r3,r1
- 1156 0012 1046     	 mov r0,r2
- 1157 0014 1946     	 mov r1,r3
- 1158 0016 08A3     	 adr r3,.L40
- 1159 0018 D3E90023 	 ldrd r2,[r3]
- 1160 001c FFF7FEFF 	 bl __aeabi_dmul
- 1161 0020 0246     	 mov r2,r0
- 1162 0022 0B46     	 mov r3,r1
- 1163 0024 1046     	 mov r0,r2
- 1164 0026 1946     	 mov r1,r3
- 1165 0028 FFF7FEFF 	 bl __aeabi_d2f
- 1166 002c 0246     	 mov r2,r0
- 1167 002e 054B     	 ldr r3,.L40+12
- 1168 0030 1A60     	 str r2,[r3]
- 337:../driver_adc.c **** }
- 1169              	 .loc 2 337 0
- 1170 0032 80BD     	 pop {r7,pc}
- 1171              	.L41:
- 1172 0034 AFF30080 	 .align 3
- 1173              	.L40:
- 1174 0038 3EB32440 	 .word 1076147006
- 1175 003c 4D2D8B3F 	 .word 1066085709
- 1176 0040 00000000 	 .word u_log_dig
- 1177 0044 00000000 	 .word u_log
- 1178              	 .cfi_endproc
- 1179              	.LFE201:
- 1181              	 .global __aeabi_f2d
- 1182              	 .global __aeabi_ddiv
- 1183              	 .global __aeabi_dsub
- 1184              	 .section .text.compute_currents,"ax",%progbits
- 1185              	 .align 2
- 1186              	 .global compute_currents
- 1187              	 .thumb
- 1188              	 .thumb_func
- 1190              	compute_currents:
- 1191              	.LFB202:
- 338:../driver_adc.c **** 
- 339:../driver_adc.c **** /*
- 340:../driver_adc.c ****  * Just for Micrium read
- 341:../driver_adc.c ****  * I_pos = 40A | I_neg = -40A
- 342:../driver_adc.c ****  */
- 343:../driver_adc.c **** void compute_currents (void)
- 344:../driver_adc.c **** {
- 1192              	 .loc 2 344 0
- 1193              	 .cfi_startproc
- 1194              	 
- 1195              	 
- 1196 0000 80B5     	 push {r7,lr}
- 1197              	.LCFI37:
- 1198              	 .cfi_def_cfa_offset 8
- 1199              	 .cfi_offset 7,-8
- 1200              	 .cfi_offset 14,-4
- 1201 0002 00AF     	 add r7,sp,#0
- 1202              	.LCFI38:
- 1203              	 .cfi_def_cfa_register 7
- 345:../driver_adc.c **** 	ia_a = (float)(ia+32768)/65535.0 * 80.0 - 40.0;
- 1204              	 .loc 2 345 0
- 1205 0004 644B     	 ldr r3,.L43+8
- 1206 0006 1B88     	 ldrh r3,[r3]
- 1207 0008 1BB2     	 sxth r3,r3
- 1208 000a 03F50043 	 add r3,r3,#32768
- 1209 000e 07EE903A 	 fmsr s15,r3
- 1210 0012 F8EEE77A 	 fsitos s15,s15
- 1211 0016 17EE900A 	 fmrs r0,s15
- 1212 001a FFF7FEFF 	 bl __aeabi_f2d
- 1213 001e 0246     	 mov r2,r0
- 1214 0020 0B46     	 mov r3,r1
- 1215 0022 1046     	 mov r0,r2
- 1216 0024 1946     	 mov r1,r3
- 1217 0026 5AA3     	 adr r3,.L43
- 1218 0028 D3E90023 	 ldrd r2,[r3]
- 1219 002c FFF7FEFF 	 bl __aeabi_ddiv
- 1220 0030 0246     	 mov r2,r0
- 1221 0032 0B46     	 mov r3,r1
- 1222 0034 1046     	 mov r0,r2
- 1223 0036 1946     	 mov r1,r3
- 1224 0038 4FF00002 	 mov r2,#0
- 1225 003c 574B     	 ldr r3,.L43+12
- 1226 003e FFF7FEFF 	 bl __aeabi_dmul
- 1227 0042 0246     	 mov r2,r0
- 1228 0044 0B46     	 mov r3,r1
- 1229 0046 1046     	 mov r0,r2
- 1230 0048 1946     	 mov r1,r3
- 1231 004a 4FF00002 	 mov r2,#0
- 1232 004e 544B     	 ldr r3,.L43+16
- 1233 0050 FFF7FEFF 	 bl __aeabi_dsub
- 1234 0054 0246     	 mov r2,r0
- 1235 0056 0B46     	 mov r3,r1
- 1236 0058 1046     	 mov r0,r2
- 1237 005a 1946     	 mov r1,r3
- 1238 005c FFF7FEFF 	 bl __aeabi_d2f
- 1239 0060 0246     	 mov r2,r0
- 1240 0062 504B     	 ldr r3,.L43+20
- 1241 0064 1A60     	 str r2,[r3]
- 346:../driver_adc.c **** 	ib_a = (float)(ib+32768)/65535.0 * 80.0 - 40.0;
- 1242              	 .loc 2 346 0
- 1243 0066 504B     	 ldr r3,.L43+24
- 1244 0068 1B88     	 ldrh r3,[r3]
- 1245 006a 1BB2     	 sxth r3,r3
- 1246 006c 03F50043 	 add r3,r3,#32768
- 1247 0070 07EE903A 	 fmsr s15,r3
- 1248 0074 F8EEE77A 	 fsitos s15,s15
- 1249 0078 17EE900A 	 fmrs r0,s15
- 1250 007c FFF7FEFF 	 bl __aeabi_f2d
- 1251 0080 0246     	 mov r2,r0
- 1252 0082 0B46     	 mov r3,r1
- 1253 0084 1046     	 mov r0,r2
- 1254 0086 1946     	 mov r1,r3
- 1255 0088 41A3     	 adr r3,.L43
- 1256 008a D3E90023 	 ldrd r2,[r3]
- 1257 008e FFF7FEFF 	 bl __aeabi_ddiv
- 1258 0092 0246     	 mov r2,r0
- 1259 0094 0B46     	 mov r3,r1
- 1260 0096 1046     	 mov r0,r2
- 1261 0098 1946     	 mov r1,r3
- 1262 009a 4FF00002 	 mov r2,#0
- 1263 009e 3F4B     	 ldr r3,.L43+12
- 1264 00a0 FFF7FEFF 	 bl __aeabi_dmul
- 1265 00a4 0246     	 mov r2,r0
- 1266 00a6 0B46     	 mov r3,r1
- 1267 00a8 1046     	 mov r0,r2
- 1268 00aa 1946     	 mov r1,r3
- 1269 00ac 4FF00002 	 mov r2,#0
- 1270 00b0 3B4B     	 ldr r3,.L43+16
- 1271 00b2 FFF7FEFF 	 bl __aeabi_dsub
- 1272 00b6 0246     	 mov r2,r0
- 1273 00b8 0B46     	 mov r3,r1
- 1274 00ba 1046     	 mov r0,r2
- 1275 00bc 1946     	 mov r1,r3
- 1276 00be FFF7FEFF 	 bl __aeabi_d2f
- 1277 00c2 0246     	 mov r2,r0
- 1278 00c4 394B     	 ldr r3,.L43+28
- 1279 00c6 1A60     	 str r2,[r3]
- 347:../driver_adc.c **** 	ic_a = (float)(ic+32768)/65535.0 * 80.0 - 40.0;
- 1280              	 .loc 2 347 0
- 1281 00c8 394B     	 ldr r3,.L43+32
- 1282 00ca 1B88     	 ldrh r3,[r3]
- 1283 00cc 1BB2     	 sxth r3,r3
- 1284 00ce 03F50043 	 add r3,r3,#32768
- 1285 00d2 07EE903A 	 fmsr s15,r3
- 1286 00d6 F8EEE77A 	 fsitos s15,s15
- 1287 00da 17EE900A 	 fmrs r0,s15
- 1288 00de FFF7FEFF 	 bl __aeabi_f2d
- 1289 00e2 0246     	 mov r2,r0
- 1290 00e4 0B46     	 mov r3,r1
- 1291 00e6 1046     	 mov r0,r2
- 1292 00e8 1946     	 mov r1,r3
- 1293 00ea 29A3     	 adr r3,.L43
- 1294 00ec D3E90023 	 ldrd r2,[r3]
- 1295 00f0 FFF7FEFF 	 bl __aeabi_ddiv
- 1296 00f4 0246     	 mov r2,r0
- 1297 00f6 0B46     	 mov r3,r1
- 1298 00f8 1046     	 mov r0,r2
- 1299 00fa 1946     	 mov r1,r3
- 1300 00fc 4FF00002 	 mov r2,#0
- 1301 0100 264B     	 ldr r3,.L43+12
- 1302 0102 FFF7FEFF 	 bl __aeabi_dmul
- 1303 0106 0246     	 mov r2,r0
- 1304 0108 0B46     	 mov r3,r1
- 1305 010a 1046     	 mov r0,r2
- 1306 010c 1946     	 mov r1,r3
- 1307 010e 4FF00002 	 mov r2,#0
- 1308 0112 234B     	 ldr r3,.L43+16
- 1309 0114 FFF7FEFF 	 bl __aeabi_dsub
- 1310 0118 0246     	 mov r2,r0
- 1311 011a 0B46     	 mov r3,r1
- 1312 011c 1046     	 mov r0,r2
- 1313 011e 1946     	 mov r1,r3
- 1314 0120 FFF7FEFF 	 bl __aeabi_d2f
- 1315 0124 0246     	 mov r2,r0
- 1316 0126 234B     	 ldr r3,.L43+36
- 1317 0128 1A60     	 str r2,[r3]
- 348:../driver_adc.c **** 	iq_a = (float)(i_q+32768)/65535.0 * 80.0 - 40.0;
- 1318              	 .loc 2 348 0
- 1319 012a 234B     	 ldr r3,.L43+40
- 1320 012c D3ED007A 	 flds s15,[r3]
- 1321 0130 9FED227A 	 flds s14,.L43+44
- 1322 0134 77EE877A 	 fadds s15,s15,s14
- 1323 0138 17EE900A 	 fmrs r0,s15
- 1324 013c FFF7FEFF 	 bl __aeabi_f2d
- 1325 0140 0246     	 mov r2,r0
- 1326 0142 0B46     	 mov r3,r1
- 1327 0144 1046     	 mov r0,r2
- 1328 0146 1946     	 mov r1,r3
- 1329 0148 11A3     	 adr r3,.L43
- 1330 014a D3E90023 	 ldrd r2,[r3]
- 1331 014e FFF7FEFF 	 bl __aeabi_ddiv
- 1332 0152 0246     	 mov r2,r0
- 1333 0154 0B46     	 mov r3,r1
- 1334 0156 1046     	 mov r0,r2
- 1335 0158 1946     	 mov r1,r3
- 1336 015a 4FF00002 	 mov r2,#0
- 1337 015e 0F4B     	 ldr r3,.L43+12
- 1338 0160 FFF7FEFF 	 bl __aeabi_dmul
- 1339 0164 0246     	 mov r2,r0
- 1340 0166 0B46     	 mov r3,r1
- 1341 0168 1046     	 mov r0,r2
- 1342 016a 1946     	 mov r1,r3
- 1343 016c 4FF00002 	 mov r2,#0
- 1344 0170 0B4B     	 ldr r3,.L43+16
- 1345 0172 FFF7FEFF 	 bl __aeabi_dsub
- 1346 0176 0246     	 mov r2,r0
- 1347 0178 0B46     	 mov r3,r1
- 1348 017a 1046     	 mov r0,r2
- 1349 017c 1946     	 mov r1,r3
- 1350 017e FFF7FEFF 	 bl __aeabi_d2f
- 1351 0182 0246     	 mov r2,r0
- 1352 0184 0E4B     	 ldr r3,.L43+48
- 1353 0186 1A60     	 str r2,[r3]
- 349:../driver_adc.c **** 
- 350:../driver_adc.c **** }
- 1354              	 .loc 2 350 0
- 1355 0188 80BD     	 pop {r7,pc}
- 1356              	.L44:
- 1357 018a 00BFAFF3 	 .align 3
- 1357      0080
- 1358              	.L43:
- 1359 0190 00000000 	 .word 0
- 1360 0194 E0FFEF40 	 .word 1089470432
- 1361 0198 00000000 	 .word ia
- 1362 019c 00005440 	 .word 1079246848
- 1363 01a0 00004440 	 .word 1078198272
- 1364 01a4 00000000 	 .word ia_a
- 1365 01a8 00000000 	 .word ib
- 1366 01ac 00000000 	 .word ib_a
- 1367 01b0 00000000 	 .word ic
- 1368 01b4 00000000 	 .word ic_a
- 1369 01b8 00000000 	 .word i_q
- 1370 01bc 00000047 	 .word 1191182336
- 1371 01c0 00000000 	 .word iq_a
- 1372              	 .cfi_endproc
- 1373              	.LFE202:
- 1375 01c4 AFF30080 	 .text
- 1376              	.Letext0:
- 1377              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 1378              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 1379              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
- 1380              	 .file 6 "../main.h"
- 1381              	 .file 7 "../transform.h"
+ 317:../driver_adc.c **** 	offset_ia = offset_ia / 16;
+ 1029              	 .loc 2 317 0 is_stmt 1
+ 1030 0078 114B     	 ldr r3,.L34+4
+ 1031 007a 1B68     	 ldr r3,[r3]
+ 1032 007c 002B     	 cmp r3,#0
+ 1033 007e 00DA     	 bge .L31
+ 1034 0080 0F33     	 adds r3,r3,#15
+ 1035              	.L31:
+ 1036 0082 1B11     	 asrs r3,r3,#4
+ 1037 0084 1A46     	 mov r2,r3
+ 1038 0086 0E4B     	 ldr r3,.L34+4
+ 1039 0088 1A60     	 str r2,[r3]
+ 318:../driver_adc.c **** 	offset_ib = offset_ib / 16;
+ 1040              	 .loc 2 318 0
+ 1041 008a 0E4B     	 ldr r3,.L34+8
+ 1042 008c 1B68     	 ldr r3,[r3]
+ 1043 008e 002B     	 cmp r3,#0
+ 1044 0090 00DA     	 bge .L32
+ 1045 0092 0F33     	 adds r3,r3,#15
+ 1046              	.L32:
+ 1047 0094 1B11     	 asrs r3,r3,#4
+ 1048 0096 1A46     	 mov r2,r3
+ 1049 0098 0A4B     	 ldr r3,.L34+8
+ 1050 009a 1A60     	 str r2,[r3]
+ 319:../driver_adc.c **** 	offset_ic = offset_ic / 16;
+ 1051              	 .loc 2 319 0
+ 1052 009c 0A4B     	 ldr r3,.L34+12
+ 1053 009e 1B68     	 ldr r3,[r3]
+ 1054 00a0 002B     	 cmp r3,#0
+ 1055 00a2 00DA     	 bge .L33
+ 1056 00a4 0F33     	 adds r3,r3,#15
+ 1057              	.L33:
+ 1058 00a6 1B11     	 asrs r3,r3,#4
+ 1059 00a8 1A46     	 mov r2,r3
+ 1060 00aa 074B     	 ldr r3,.L34+12
+ 1061 00ac 1A60     	 str r2,[r3]
+ 320:../driver_adc.c **** 	prot_status = ON; //Turn Current protection ON
+ 1062              	 .loc 2 320 0
+ 1063 00ae 034B     	 ldr r3,.L34
+ 1064 00b0 0122     	 movs r2,#1
+ 1065 00b2 1A70     	 strb r2,[r3]
+ 321:../driver_adc.c **** }
+ 1066              	 .loc 2 321 0
+ 1067 00b4 0837     	 adds r7,r7,#8
+ 1068              	.LCFI31:
+ 1069              	 .cfi_def_cfa_offset 8
+ 1070 00b6 BD46     	 mov sp,r7
+ 1071              	.LCFI32:
+ 1072              	 .cfi_def_cfa_register 13
+ 1073              	 
+ 1074 00b8 80BD     	 pop {r7,pc}
+ 1075              	.L35:
+ 1076 00ba 00BF     	 .align 2
+ 1077              	.L34:
+ 1078 00bc 00000000 	 .word prot_status
+ 1079 00c0 00000000 	 .word offset_ia
+ 1080 00c4 00000000 	 .word offset_ib
+ 1081 00c8 00000000 	 .word offset_ic
+ 1082 00cc 00440040 	 .word 1073759232
+ 1083 00d0 00480040 	 .word 1073760256
+ 1084 00d4 004C0040 	 .word 1073761280
+ 1085              	 .cfi_endproc
+ 1086              	.LFE199:
+ 1088              	 .global __aeabi_i2d
+ 1089              	 .global __aeabi_dmul
+ 1090              	 .global __aeabi_d2f
+ 1091              	 .section .text.compute_u_mot,"ax",%progbits
+ 1092              	 .align 2
+ 1093              	 .global compute_u_mot
+ 1094              	 .thumb
+ 1095              	 .thumb_func
+ 1097              	compute_u_mot:
+ 1098              	.LFB200:
+ 322:../driver_adc.c **** 
+ 323:../driver_adc.c **** /*
+ 324:../driver_adc.c ****  * For Micrium display
+ 325:../driver_adc.c ****  * Compute 12bit value of u_mot into volts
+ 326:../driver_adc.c ****  * u_mot_max = 100V
+ 327:../driver_adc.c ****  */
+ 328:../driver_adc.c **** void compute_u_mot(void)
+ 329:../driver_adc.c **** {
+ 1099              	 .loc 2 329 0
+ 1100              	 .cfi_startproc
+ 1101              	 
+ 1102              	 
+ 1103 0000 80B5     	 push {r7,lr}
+ 1104              	.LCFI33:
+ 1105              	 .cfi_def_cfa_offset 8
+ 1106              	 .cfi_offset 7,-8
+ 1107              	 .cfi_offset 14,-4
+ 1108 0002 00AF     	 add r7,sp,#0
+ 1109              	.LCFI34:
+ 1110              	 .cfi_def_cfa_register 7
+ 330:../driver_adc.c **** 	u_mot = u_mot_dig * 0.0245;
+ 1111              	 .loc 2 330 0
+ 1112 0004 0E4B     	 ldr r3,.L37+8
+ 1113 0006 1B68     	 ldr r3,[r3]
+ 1114 0008 1846     	 mov r0,r3
+ 1115 000a FFF7FEFF 	 bl __aeabi_i2d
+ 1116 000e 0246     	 mov r2,r0
+ 1117 0010 0B46     	 mov r3,r1
+ 1118 0012 1046     	 mov r0,r2
+ 1119 0014 1946     	 mov r1,r3
+ 1120 0016 08A3     	 adr r3,.L37
+ 1121 0018 D3E90023 	 ldrd r2,[r3]
+ 1122 001c FFF7FEFF 	 bl __aeabi_dmul
+ 1123 0020 0246     	 mov r2,r0
+ 1124 0022 0B46     	 mov r3,r1
+ 1125 0024 1046     	 mov r0,r2
+ 1126 0026 1946     	 mov r1,r3
+ 1127 0028 FFF7FEFF 	 bl __aeabi_d2f
+ 1128 002c 0246     	 mov r2,r0
+ 1129 002e 054B     	 ldr r3,.L37+12
+ 1130 0030 1A60     	 str r2,[r3]
+ 331:../driver_adc.c **** }
+ 1131              	 .loc 2 331 0
+ 1132 0032 80BD     	 pop {r7,pc}
+ 1133              	.L38:
+ 1134 0034 AFF30080 	 .align 3
+ 1135              	.L37:
+ 1136 0038 4A0C022B 	 .word 721554506
+ 1137 003c 8716993F 	 .word 1066997383
+ 1138 0040 00000000 	 .word u_mot_dig
+ 1139 0044 00000000 	 .word u_mot
+ 1140              	 .cfi_endproc
+ 1141              	.LFE200:
+ 1143              	 .section .text.compute_u_log,"ax",%progbits
+ 1144              	 .align 2
+ 1145              	 .global compute_u_log
+ 1146              	 .thumb
+ 1147              	 .thumb_func
+ 1149              	compute_u_log:
+ 1150              	.LFB201:
+ 332:../driver_adc.c **** 
+ 333:../driver_adc.c **** /*
+ 334:../driver_adc.c ****  * For Micrium display
+ 335:../driver_adc.c ****  * Compute the 12bit value of u_log into volts
+ 336:../driver_adc.c ****  * u_log_max = 50V
+ 337:../driver_adc.c ****  */
+ 338:../driver_adc.c **** void compute_u_log(void)
+ 339:../driver_adc.c **** {
+ 1151              	 .loc 2 339 0
+ 1152              	 .cfi_startproc
+ 1153              	 
+ 1154              	 
+ 1155 0000 80B5     	 push {r7,lr}
+ 1156              	.LCFI35:
+ 1157              	 .cfi_def_cfa_offset 8
+ 1158              	 .cfi_offset 7,-8
+ 1159              	 .cfi_offset 14,-4
+ 1160 0002 00AF     	 add r7,sp,#0
+ 1161              	.LCFI36:
+ 1162              	 .cfi_def_cfa_register 7
+ 340:../driver_adc.c **** 	u_log = u_log_dig * 0.01327;
+ 1163              	 .loc 2 340 0
+ 1164 0004 0E4B     	 ldr r3,.L40+8
+ 1165 0006 1B68     	 ldr r3,[r3]
+ 1166 0008 1846     	 mov r0,r3
+ 1167 000a FFF7FEFF 	 bl __aeabi_i2d
+ 1168 000e 0246     	 mov r2,r0
+ 1169 0010 0B46     	 mov r3,r1
+ 1170 0012 1046     	 mov r0,r2
+ 1171 0014 1946     	 mov r1,r3
+ 1172 0016 08A3     	 adr r3,.L40
+ 1173 0018 D3E90023 	 ldrd r2,[r3]
+ 1174 001c FFF7FEFF 	 bl __aeabi_dmul
+ 1175 0020 0246     	 mov r2,r0
+ 1176 0022 0B46     	 mov r3,r1
+ 1177 0024 1046     	 mov r0,r2
+ 1178 0026 1946     	 mov r1,r3
+ 1179 0028 FFF7FEFF 	 bl __aeabi_d2f
+ 1180 002c 0246     	 mov r2,r0
+ 1181 002e 054B     	 ldr r3,.L40+12
+ 1182 0030 1A60     	 str r2,[r3]
+ 341:../driver_adc.c **** }
+ 1183              	 .loc 2 341 0
+ 1184 0032 80BD     	 pop {r7,pc}
+ 1185              	.L41:
+ 1186 0034 AFF30080 	 .align 3
+ 1187              	.L40:
+ 1188 0038 3EB32440 	 .word 1076147006
+ 1189 003c 4D2D8B3F 	 .word 1066085709
+ 1190 0040 00000000 	 .word u_log_dig
+ 1191 0044 00000000 	 .word u_log
+ 1192              	 .cfi_endproc
+ 1193              	.LFE201:
+ 1195              	 .global __aeabi_f2d
+ 1196              	 .global __aeabi_ddiv
+ 1197              	 .global __aeabi_dsub
+ 1198              	 .section .text.compute_currents,"ax",%progbits
+ 1199              	 .align 2
+ 1200              	 .global compute_currents
+ 1201              	 .thumb
+ 1202              	 .thumb_func
+ 1204              	compute_currents:
+ 1205              	.LFB202:
+ 342:../driver_adc.c **** 
+ 343:../driver_adc.c **** /*
+ 344:../driver_adc.c ****  * For Micrium read
+ 345:../driver_adc.c ****  * I_pos = 40A | I_neg = -40A
+ 346:../driver_adc.c ****  */
+ 347:../driver_adc.c **** void compute_currents(void)
+ 348:../driver_adc.c **** {
+ 1206              	 .loc 2 348 0
+ 1207              	 .cfi_startproc
+ 1208              	 
+ 1209              	 
+ 1210 0000 80B5     	 push {r7,lr}
+ 1211              	.LCFI37:
+ 1212              	 .cfi_def_cfa_offset 8
+ 1213              	 .cfi_offset 7,-8
+ 1214              	 .cfi_offset 14,-4
+ 1215 0002 00AF     	 add r7,sp,#0
+ 1216              	.LCFI38:
+ 1217              	 .cfi_def_cfa_register 7
+ 349:../driver_adc.c **** 	ia_a = (float_t)(ia + 32768) / 65535.0 * 80.0 - 40.0;
+ 1218              	 .loc 2 349 0
+ 1219 0004 644B     	 ldr r3,.L43+8
+ 1220 0006 1B88     	 ldrh r3,[r3]
+ 1221 0008 1BB2     	 sxth r3,r3
+ 1222 000a 03F50043 	 add r3,r3,#32768
+ 1223 000e 07EE903A 	 fmsr s15,r3
+ 1224 0012 F8EEE77A 	 fsitos s15,s15
+ 1225 0016 17EE900A 	 fmrs r0,s15
+ 1226 001a FFF7FEFF 	 bl __aeabi_f2d
+ 1227 001e 0246     	 mov r2,r0
+ 1228 0020 0B46     	 mov r3,r1
+ 1229 0022 1046     	 mov r0,r2
+ 1230 0024 1946     	 mov r1,r3
+ 1231 0026 5AA3     	 adr r3,.L43
+ 1232 0028 D3E90023 	 ldrd r2,[r3]
+ 1233 002c FFF7FEFF 	 bl __aeabi_ddiv
+ 1234 0030 0246     	 mov r2,r0
+ 1235 0032 0B46     	 mov r3,r1
+ 1236 0034 1046     	 mov r0,r2
+ 1237 0036 1946     	 mov r1,r3
+ 1238 0038 4FF00002 	 mov r2,#0
+ 1239 003c 574B     	 ldr r3,.L43+12
+ 1240 003e FFF7FEFF 	 bl __aeabi_dmul
+ 1241 0042 0246     	 mov r2,r0
+ 1242 0044 0B46     	 mov r3,r1
+ 1243 0046 1046     	 mov r0,r2
+ 1244 0048 1946     	 mov r1,r3
+ 1245 004a 4FF00002 	 mov r2,#0
+ 1246 004e 544B     	 ldr r3,.L43+16
+ 1247 0050 FFF7FEFF 	 bl __aeabi_dsub
+ 1248 0054 0246     	 mov r2,r0
+ 1249 0056 0B46     	 mov r3,r1
+ 1250 0058 1046     	 mov r0,r2
+ 1251 005a 1946     	 mov r1,r3
+ 1252 005c FFF7FEFF 	 bl __aeabi_d2f
+ 1253 0060 0246     	 mov r2,r0
+ 1254 0062 504B     	 ldr r3,.L43+20
+ 1255 0064 1A60     	 str r2,[r3]
+ 350:../driver_adc.c **** 	ib_a = (float_t)(ib + 32768) / 65535.0 * 80.0 - 40.0;
+ 1256              	 .loc 2 350 0
+ 1257 0066 504B     	 ldr r3,.L43+24
+ 1258 0068 1B88     	 ldrh r3,[r3]
+ 1259 006a 1BB2     	 sxth r3,r3
+ 1260 006c 03F50043 	 add r3,r3,#32768
+ 1261 0070 07EE903A 	 fmsr s15,r3
+ 1262 0074 F8EEE77A 	 fsitos s15,s15
+ 1263 0078 17EE900A 	 fmrs r0,s15
+ 1264 007c FFF7FEFF 	 bl __aeabi_f2d
+ 1265 0080 0246     	 mov r2,r0
+ 1266 0082 0B46     	 mov r3,r1
+ 1267 0084 1046     	 mov r0,r2
+ 1268 0086 1946     	 mov r1,r3
+ 1269 0088 41A3     	 adr r3,.L43
+ 1270 008a D3E90023 	 ldrd r2,[r3]
+ 1271 008e FFF7FEFF 	 bl __aeabi_ddiv
+ 1272 0092 0246     	 mov r2,r0
+ 1273 0094 0B46     	 mov r3,r1
+ 1274 0096 1046     	 mov r0,r2
+ 1275 0098 1946     	 mov r1,r3
+ 1276 009a 4FF00002 	 mov r2,#0
+ 1277 009e 3F4B     	 ldr r3,.L43+12
+ 1278 00a0 FFF7FEFF 	 bl __aeabi_dmul
+ 1279 00a4 0246     	 mov r2,r0
+ 1280 00a6 0B46     	 mov r3,r1
+ 1281 00a8 1046     	 mov r0,r2
+ 1282 00aa 1946     	 mov r1,r3
+ 1283 00ac 4FF00002 	 mov r2,#0
+ 1284 00b0 3B4B     	 ldr r3,.L43+16
+ 1285 00b2 FFF7FEFF 	 bl __aeabi_dsub
+ 1286 00b6 0246     	 mov r2,r0
+ 1287 00b8 0B46     	 mov r3,r1
+ 1288 00ba 1046     	 mov r0,r2
+ 1289 00bc 1946     	 mov r1,r3
+ 1290 00be FFF7FEFF 	 bl __aeabi_d2f
+ 1291 00c2 0246     	 mov r2,r0
+ 1292 00c4 394B     	 ldr r3,.L43+28
+ 1293 00c6 1A60     	 str r2,[r3]
+ 351:../driver_adc.c **** 	ic_a = (float_t)(ic + 32768) / 65535.0 * 80.0 - 40.0;
+ 1294              	 .loc 2 351 0
+ 1295 00c8 394B     	 ldr r3,.L43+32
+ 1296 00ca 1B88     	 ldrh r3,[r3]
+ 1297 00cc 1BB2     	 sxth r3,r3
+ 1298 00ce 03F50043 	 add r3,r3,#32768
+ 1299 00d2 07EE903A 	 fmsr s15,r3
+ 1300 00d6 F8EEE77A 	 fsitos s15,s15
+ 1301 00da 17EE900A 	 fmrs r0,s15
+ 1302 00de FFF7FEFF 	 bl __aeabi_f2d
+ 1303 00e2 0246     	 mov r2,r0
+ 1304 00e4 0B46     	 mov r3,r1
+ 1305 00e6 1046     	 mov r0,r2
+ 1306 00e8 1946     	 mov r1,r3
+ 1307 00ea 29A3     	 adr r3,.L43
+ 1308 00ec D3E90023 	 ldrd r2,[r3]
+ 1309 00f0 FFF7FEFF 	 bl __aeabi_ddiv
+ 1310 00f4 0246     	 mov r2,r0
+ 1311 00f6 0B46     	 mov r3,r1
+ 1312 00f8 1046     	 mov r0,r2
+ 1313 00fa 1946     	 mov r1,r3
+ 1314 00fc 4FF00002 	 mov r2,#0
+ 1315 0100 264B     	 ldr r3,.L43+12
+ 1316 0102 FFF7FEFF 	 bl __aeabi_dmul
+ 1317 0106 0246     	 mov r2,r0
+ 1318 0108 0B46     	 mov r3,r1
+ 1319 010a 1046     	 mov r0,r2
+ 1320 010c 1946     	 mov r1,r3
+ 1321 010e 4FF00002 	 mov r2,#0
+ 1322 0112 234B     	 ldr r3,.L43+16
+ 1323 0114 FFF7FEFF 	 bl __aeabi_dsub
+ 1324 0118 0246     	 mov r2,r0
+ 1325 011a 0B46     	 mov r3,r1
+ 1326 011c 1046     	 mov r0,r2
+ 1327 011e 1946     	 mov r1,r3
+ 1328 0120 FFF7FEFF 	 bl __aeabi_d2f
+ 1329 0124 0246     	 mov r2,r0
+ 1330 0126 234B     	 ldr r3,.L43+36
+ 1331 0128 1A60     	 str r2,[r3]
+ 352:../driver_adc.c **** 	iq_a = (float_t)(i_q + 32768) / 65535.0 * 80.0 - 40.0;
+ 1332              	 .loc 2 352 0
+ 1333 012a 234B     	 ldr r3,.L43+40
+ 1334 012c D3ED007A 	 flds s15,[r3]
+ 1335 0130 9FED227A 	 flds s14,.L43+44
+ 1336 0134 77EE877A 	 fadds s15,s15,s14
+ 1337 0138 17EE900A 	 fmrs r0,s15
+ 1338 013c FFF7FEFF 	 bl __aeabi_f2d
+ 1339 0140 0246     	 mov r2,r0
+ 1340 0142 0B46     	 mov r3,r1
+ 1341 0144 1046     	 mov r0,r2
+ 1342 0146 1946     	 mov r1,r3
+ 1343 0148 11A3     	 adr r3,.L43
+ 1344 014a D3E90023 	 ldrd r2,[r3]
+ 1345 014e FFF7FEFF 	 bl __aeabi_ddiv
+ 1346 0152 0246     	 mov r2,r0
+ 1347 0154 0B46     	 mov r3,r1
+ 1348 0156 1046     	 mov r0,r2
+ 1349 0158 1946     	 mov r1,r3
+ 1350 015a 4FF00002 	 mov r2,#0
+ 1351 015e 0F4B     	 ldr r3,.L43+12
+ 1352 0160 FFF7FEFF 	 bl __aeabi_dmul
+ 1353 0164 0246     	 mov r2,r0
+ 1354 0166 0B46     	 mov r3,r1
+ 1355 0168 1046     	 mov r0,r2
+ 1356 016a 1946     	 mov r1,r3
+ 1357 016c 4FF00002 	 mov r2,#0
+ 1358 0170 0B4B     	 ldr r3,.L43+16
+ 1359 0172 FFF7FEFF 	 bl __aeabi_dsub
+ 1360 0176 0246     	 mov r2,r0
+ 1361 0178 0B46     	 mov r3,r1
+ 1362 017a 1046     	 mov r0,r2
+ 1363 017c 1946     	 mov r1,r3
+ 1364 017e FFF7FEFF 	 bl __aeabi_d2f
+ 1365 0182 0246     	 mov r2,r0
+ 1366 0184 0E4B     	 ldr r3,.L43+48
+ 1367 0186 1A60     	 str r2,[r3]
+ 353:../driver_adc.c **** }
+ 1368              	 .loc 2 353 0
+ 1369 0188 80BD     	 pop {r7,pc}
+ 1370              	.L44:
+ 1371 018a 00BFAFF3 	 .align 3
+ 1371      0080
+ 1372              	.L43:
+ 1373 0190 00000000 	 .word 0
+ 1374 0194 E0FFEF40 	 .word 1089470432
+ 1375 0198 00000000 	 .word ia
+ 1376 019c 00005440 	 .word 1079246848
+ 1377 01a0 00004440 	 .word 1078198272
+ 1378 01a4 00000000 	 .word ia_a
+ 1379 01a8 00000000 	 .word ib
+ 1380 01ac 00000000 	 .word ib_a
+ 1381 01b0 00000000 	 .word ic
+ 1382 01b4 00000000 	 .word ic_a
+ 1383 01b8 00000000 	 .word i_q
+ 1384 01bc 00000047 	 .word 1191182336
+ 1385 01c0 00000000 	 .word iq_a
+ 1386              	 .cfi_endproc
+ 1387              	.LFE202:
+ 1389 01c4 AFF30080 	 .text
+ 1390              	.Letext0:
+ 1391              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1392              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 1393              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 1394              	 .file 6 "../main.h"
+ 1395              	 .file 7 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
+ 1396              	 .file 8 "../transform.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 driver_adc.c
     {standard input}:20     .text.__NVIC_EnableIRQ:00000000 $t
@@ -3541,7 +3557,6 @@ DEFINED SYMBOLS
     {standard input}:142    .text.__NVIC_SetPriority:00000000 __NVIC_SetPriority
     {standard input}:205    .text.__NVIC_SetPriority:0000004c $d
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
-                            *COM*:00000004 theta_fast
                             *COM*:00000004 u_mot_dig
                             *COM*:00000004 u_log_dig
                             *COM*:00000004 u_mot
@@ -3556,31 +3571,32 @@ DEFINED SYMBOLS
                             *COM*:00000004 ib_a
                             *COM*:00000004 ic_a
                             *COM*:00000004 iq_a
-    {standard input}:227    .text.adc_init:00000000 $t
-    {standard input}:232    .text.adc_init:00000000 adc_init
-    {standard input}:561    .text.adc_init:00000328 $d
-    {standard input}:568    .text.adc_init:00000340 $t
-    {standard input}:659    .text.adc_init:00000418 $d
-    {standard input}:668    .text.interrupt_vadc_init:00000000 $t
-    {standard input}:673    .text.interrupt_vadc_init:00000000 interrupt_vadc_init
-    {standard input}:810    .text.interrupt_vadc_init:000000fc $d
-    {standard input}:819    .text.read_currents:00000000 $t
-    {standard input}:824    .text.read_currents:00000000 read_currents
-    {standard input}:919    .text.read_currents:00000094 $d
-    {standard input}:934    .text.current_offset:00000000 $t
-    {standard input}:939    .text.current_offset:00000000 current_offset
-    {standard input}:1065   .text.current_offset:000000b0 $d
-    {standard input}:1078   .text.compute_u_mot:00000000 $t
-    {standard input}:1083   .text.compute_u_mot:00000000 compute_u_mot
-    {standard input}:1122   .text.compute_u_mot:00000038 $d
-    {standard input}:1130   .text.compute_u_log:00000000 $t
-    {standard input}:1135   .text.compute_u_log:00000000 compute_u_log
-    {standard input}:1174   .text.compute_u_log:00000038 $d
-    {standard input}:1185   .text.compute_currents:00000000 $t
-    {standard input}:1190   .text.compute_currents:00000000 compute_currents
-    {standard input}:1359   .text.compute_currents:00000190 $d
+    {standard input}:229    .data.prot_status:00000000 prot_status
+    {standard input}:232    .text.adc_init:00000000 $t
+    {standard input}:237    .text.adc_init:00000000 adc_init
+    {standard input}:566    .text.adc_init:00000328 $d
+    {standard input}:573    .text.adc_init:00000340 $t
+    {standard input}:664    .text.adc_init:00000418 $d
+    {standard input}:673    .text.interrupt_vadc_init:00000000 $t
+    {standard input}:678    .text.interrupt_vadc_init:00000000 interrupt_vadc_init
+    {standard input}:815    .text.interrupt_vadc_init:000000fc $d
+    {standard input}:824    .text.read_currents:00000000 $t
+    {standard input}:829    .text.read_currents:00000000 read_currents
+    {standard input}:924    .text.read_currents:00000094 $d
+    {standard input}:939    .text.current_offset:00000000 $t
+    {standard input}:944    .text.current_offset:00000000 current_offset
+    {standard input}:1078   .text.current_offset:000000bc $d
+    {standard input}:1092   .text.compute_u_mot:00000000 $t
+    {standard input}:1097   .text.compute_u_mot:00000000 compute_u_mot
+    {standard input}:1136   .text.compute_u_mot:00000038 $d
+    {standard input}:1144   .text.compute_u_log:00000000 $t
+    {standard input}:1149   .text.compute_u_log:00000000 compute_u_log
+    {standard input}:1188   .text.compute_u_log:00000038 $d
+    {standard input}:1199   .text.compute_currents:00000000 $t
+    {standard input}:1204   .text.compute_currents:00000000 compute_currents
+    {standard input}:1373   .text.compute_currents:00000190 $d
                      .debug_frame:00000010 $d
-    {standard input}:1375   .text.compute_currents:000001c4 $t
+    {standard input}:1389   .text.compute_currents:000001c4 $t
 
 UNDEFINED SYMBOLS
 delay_t
