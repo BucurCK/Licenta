@@ -18,7 +18,7 @@ extern uint16_t timer_value_old_fast;
 extern float_t theta_fast;
 
 
-extern void abc_dq_test(void);
+// extern void abc_dq_test(void);
 
 #define MAX_UINT_16		(32767)
 #define MIN_UINT_16		(-32768)

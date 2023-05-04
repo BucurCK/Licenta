@@ -2049,7 +2049,7 @@
  229 0002 00AF     	 add r7,sp,#0
  230              	.LCFI19:
  231              	 .cfi_def_cfa_register 7
-  11:../timer.c    **** 	/*  Reset CCU80*/
+  11:../timer.c    **** 	/*  Reset CCU81*/
   12:../timer.c    **** 	SCU_RESET->PRSET0 |= SCU_RESET_PRSET0_CCU81RS_Msk;
  232              	 .loc 2 12 0
  233 0004 364A     	 ldr r2,.L15
@@ -2058,7 +2058,7 @@
  236 000a 43F48073 	 orr r3,r3,#256
  237 000e 1361     	 str r3,[r2,#16]
   13:../timer.c    **** 
-  14:../timer.c    **** 	/* Clear reset of CCU80 */
+  14:../timer.c    **** 	/* Clear reset of CCU81 */
   15:../timer.c    **** 	SCU_RESET->PRCLR0 |= SCU_RESET_PRCLR0_CCU81RS_Msk;
  238              	 .loc 2 15 0
  239 0010 334A     	 ldr r2,.L15

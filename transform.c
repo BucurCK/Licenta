@@ -21,7 +21,7 @@ uint16_t timer_value_fast = 0;				 // Stored value of CCU40 timer for encoder
 uint16_t timer_value_old_fast = 0;			 //*Last* read of timer value for speed computation
 int16_t speed_value_fast = 0;				 // Speed value based on 2 timer values
 int16_t encoder_resolution = 2000;			 // Resolution of encoder | 4*500
-int8_t pp = 4;								 // Number of electric poles
+int8_t pp = 50;								 // Number of electric poles
 int16_t electrical_resolution = 0;			 // Electrical resolution based on encoder resolution and number of electric poles | 2000/4 = 500
 float_t u_a_ref, u_b_ref, u_c_ref;			 // abc voltage | -32768 -- 32,767
 float_t i_d, i_q;							 // dq voltage																   *
@@ -35,7 +35,8 @@ void abc_dq(void)
 {
 	// The Clarke Transformation
 	i_alpha = ia;
-	i_beta = F_1_SQRT_3 * (float_t)(ia + (float_t)(2 * ib));
+//	i_beta = F_1_SQRT_3 * (float_t)(ia + (float_t)(2 * ib));
+	i_beta = ib;
 
 	// The Park Transformation
 	i_d = i_alpha * cos_theta_fast + i_beta * sin_theta_fast;
@@ -54,8 +55,9 @@ void dq_abc(void)
 
 	// The Inverse Clarke Transformation
 	u_a_ref = u_alpha;
-	u_b_ref = (-u_alpha + SQRT_3 * u_beta) / 2;
-	u_c_ref = (-u_alpha - SQRT_3 * u_beta) / 2;
+	u_b_ref = u_beta;
+//	u_b_ref = (-u_alpha + SQRT_3 * u_beta) / 2;
+//	u_c_ref = (-u_alpha - SQRT_3 * u_beta) / 2;
 
 	/*
 	 * Keeps the values in range of int16_t
@@ -79,14 +81,14 @@ void dq_abc(void)
 		u_a_ref = MIN_UINT_16;
 	}
 
-	if (u_c_ref > MAX_UINT_16)
-	{
-		u_a_ref = MAX_UINT_16;
-	}
-	else if (u_c_ref < MIN_UINT_16)
-	{
-		u_c_ref = MIN_UINT_16;
-	}
+//	if (u_c_ref > MAX_UINT_16)
+//	{
+//		u_a_ref = MAX_UINT_16;
+//	}
+//	else if (u_c_ref < MIN_UINT_16)
+//	{
+//		u_c_ref = MIN_UINT_16;
+//	}
 }
 
 /*
@@ -95,7 +97,8 @@ void dq_abc(void)
 void compute_fast_speed(void)
 {
 	timer_value_fast = CCU40_CC40->TIMER;
-	speed_value_fast = timer_value_fast - timer_value_old_fast;
+//	speed_value_fast = timer_value_fast - timer_value_old_fast;
+	speed_value_fast = 1;
 	timer_value_old_fast = timer_value_fast;
 }
 /*

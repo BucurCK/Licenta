@@ -8,10 +8,10 @@
  */
 void init_timer(void)
 {
-	/*  Reset CCU80*/
+	/*  Reset CCU81*/
 	SCU_RESET->PRSET0 |= SCU_RESET_PRSET0_CCU81RS_Msk;
 
-	/* Clear reset of CCU80 */
+	/* Clear reset of CCU81 */
 	SCU_RESET->PRCLR0 |= SCU_RESET_PRCLR0_CCU81RS_Msk;
 
 	/* Enable CCU8 via clkset */

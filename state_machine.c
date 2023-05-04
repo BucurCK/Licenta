@@ -139,7 +139,7 @@ void drive_on(void)
 	ref_gen_status = STATUS_0_DISABLED;
 	motion_config = OFF;
 
-	pwm_update(0, 0, 0); // PWM(50%)
+	pwm_update(0, 0); // PWM(50%)
 	motion_on();
 	current_offset();
 	init_position();		//NEED TO CHECK if it still works !!!!

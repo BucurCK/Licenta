@@ -6,7 +6,7 @@
 extern void posif_init_encoder (void);
 extern void posif_init_hall (void);
 extern void pwm_init (void);
-extern void pwm_update (int16_t ,int16_t ,int16_t);
+extern void pwm_update (int16_t ,int16_t);
 extern void pwm_timer_start (void);
 extern void pwm_timer_stop (void);
 extern void motion_on(void);
@@ -57,6 +57,7 @@ extern void motion_off(void);
 #define SCU_GENERAL_CCUCON_GSC80_MSK 	(0x100UL)
 #define PWM_VALUE				(3600)
 #define DISABLE_OUTPUT			(0x1FUL)
+#define SCU_GENERAL_CCUCON_GSC80_GSC81_MSK	(0x300UL)
 
 
 #endif /* DRIVER_PWM_H_ */

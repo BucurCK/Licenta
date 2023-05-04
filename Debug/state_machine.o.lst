@@ -615,53 +615,52 @@
  444 0004 FFF7FEFF 	 bl motion_off
  138:../state_machine.c **** 	loop_control = LOOP_CONTROL_OFF;
  445              	 .loc 1 138 0
- 446 0008 0A4B     	 ldr r3,.L25
+ 446 0008 094B     	 ldr r3,.L25
  447 000a 0022     	 movs r2,#0
  448 000c 1A70     	 strb r2,[r3]
  139:../state_machine.c **** 	ref_gen_status = STATUS_0_DISABLED;
  449              	 .loc 1 139 0
- 450 000e 0A4B     	 ldr r3,.L25+4
+ 450 000e 094B     	 ldr r3,.L25+4
  451 0010 0022     	 movs r2,#0
  452 0012 1A70     	 strb r2,[r3]
  140:../state_machine.c **** 	motion_config = OFF;
  453              	 .loc 1 140 0
- 454 0014 094B     	 ldr r3,.L25+8
+ 454 0014 084B     	 ldr r3,.L25+8
  455 0016 0022     	 movs r2,#0
  456 0018 1A70     	 strb r2,[r3]
  141:../state_machine.c **** 
- 142:../state_machine.c **** 	pwm_update(0, 0, 0); // PWM(50%)
+ 142:../state_machine.c **** 	pwm_update(0, 0); // PWM(50%)
  457              	 .loc 1 142 0
  458 001a 0020     	 movs r0,#0
  459 001c 0021     	 movs r1,#0
- 460 001e 0022     	 movs r2,#0
- 461 0020 FFF7FEFF 	 bl pwm_update
+ 460 001e FFF7FEFF 	 bl pwm_update
  143:../state_machine.c **** 	motion_on();
- 462              	 .loc 1 143 0
- 463 0024 FFF7FEFF 	 bl motion_on
+ 461              	 .loc 1 143 0
+ 462 0022 FFF7FEFF 	 bl motion_on
  144:../state_machine.c **** 	current_offset();
- 464              	 .loc 1 144 0
- 465 0028 FFF7FEFF 	 bl current_offset
+ 463              	 .loc 1 144 0
+ 464 0026 FFF7FEFF 	 bl current_offset
  145:../state_machine.c **** 	init_position();		//NEED TO CHECK if it still works !!!!
- 466              	 .loc 1 145 0
- 467 002c FFF7FEFF 	 bl init_position
+ 465              	 .loc 1 145 0
+ 466 002a FFF7FEFF 	 bl init_position
  146:../state_machine.c **** }
- 468              	 .loc 1 146 0
- 469 0030 80BD     	 pop {r7,pc}
- 470              	.L26:
- 471 0032 00BF     	 .align 2
- 472              	.L25:
- 473 0034 00000000 	 .word loop_control
- 474 0038 00000000 	 .word ref_gen_status
- 475 003c 00000000 	 .word motion_config
- 476              	 .cfi_endproc
- 477              	.LFE198:
- 479              	 .section .text.operation_enabled,"ax",%progbits
- 480              	 .align 2
- 481              	 .global operation_enabled
- 482              	 .thumb
- 483              	 .thumb_func
- 485              	operation_enabled:
- 486              	.LFB199:
+ 467              	 .loc 1 146 0
+ 468 002e 80BD     	 pop {r7,pc}
+ 469              	.L26:
+ 470              	 .align 2
+ 471              	.L25:
+ 472 0030 00000000 	 .word loop_control
+ 473 0034 00000000 	 .word ref_gen_status
+ 474 0038 00000000 	 .word motion_config
+ 475              	 .cfi_endproc
+ 476              	.LFE198:
+ 478              	 .section .text.operation_enabled,"ax",%progbits
+ 479              	 .align 2
+ 480              	 .global operation_enabled
+ 481              	 .thumb
+ 482              	 .thumb_func
+ 484              	operation_enabled:
+ 485              	.LFB199:
  147:../state_machine.c **** 
  148:../state_machine.c **** /*
  149:../state_machine.c **** 	CONTROL_LOOPS = OFF
@@ -669,89 +668,89 @@
  151:../state_machine.c **** */
  152:../state_machine.c **** void operation_enabled(void)
  153:../state_machine.c **** {
- 487              	 .loc 1 153 0
- 488              	 .cfi_startproc
+ 486              	 .loc 1 153 0
+ 487              	 .cfi_startproc
+ 488              	 
  489              	 
  490              	 
- 491              	 
- 492 0000 80B4     	 push {r7}
- 493              	.LCFI6:
- 494              	 .cfi_def_cfa_offset 4
- 495              	 .cfi_offset 7,-4
- 496 0002 00AF     	 add r7,sp,#0
- 497              	.LCFI7:
- 498              	 .cfi_def_cfa_register 7
+ 491 0000 80B4     	 push {r7}
+ 492              	.LCFI6:
+ 493              	 .cfi_def_cfa_offset 4
+ 494              	 .cfi_offset 7,-4
+ 495 0002 00AF     	 add r7,sp,#0
+ 496              	.LCFI7:
+ 497              	 .cfi_def_cfa_register 7
  154:../state_machine.c **** 	loop_control = LOOP_CONTROL_OFF;
- 499              	 .loc 1 154 0
- 500 0004 034B     	 ldr r3,.L28
- 501 0006 0022     	 movs r2,#0
- 502 0008 1A70     	 strb r2,[r3]
+ 498              	 .loc 1 154 0
+ 499 0004 034B     	 ldr r3,.L28
+ 500 0006 0022     	 movs r2,#0
+ 501 0008 1A70     	 strb r2,[r3]
  155:../state_machine.c **** }
- 503              	 .loc 1 155 0
- 504 000a BD46     	 mov sp,r7
- 505              	.LCFI8:
- 506              	 .cfi_def_cfa_register 13
- 507              	 
- 508 000c 5DF8047B 	 ldr r7,[sp],#4
- 509              	.LCFI9:
- 510              	 .cfi_restore 7
- 511              	 .cfi_def_cfa_offset 0
- 512 0010 7047     	 bx lr
- 513              	.L29:
- 514 0012 00BF     	 .align 2
- 515              	.L28:
- 516 0014 00000000 	 .word loop_control
- 517              	 .cfi_endproc
- 518              	.LFE199:
- 520              	 .section .text.compute_motion,"ax",%progbits
- 521              	 .align 2
- 522              	 .global compute_motion
- 523              	 .thumb
- 524              	 .thumb_func
- 526              	compute_motion:
- 527              	.LFB200:
+ 502              	 .loc 1 155 0
+ 503 000a BD46     	 mov sp,r7
+ 504              	.LCFI8:
+ 505              	 .cfi_def_cfa_register 13
+ 506              	 
+ 507 000c 5DF8047B 	 ldr r7,[sp],#4
+ 508              	.LCFI9:
+ 509              	 .cfi_restore 7
+ 510              	 .cfi_def_cfa_offset 0
+ 511 0010 7047     	 bx lr
+ 512              	.L29:
+ 513 0012 00BF     	 .align 2
+ 514              	.L28:
+ 515 0014 00000000 	 .word loop_control
+ 516              	 .cfi_endproc
+ 517              	.LFE199:
+ 519              	 .section .text.compute_motion,"ax",%progbits
+ 520              	 .align 2
+ 521              	 .global compute_motion
+ 522              	 .thumb
+ 523              	 .thumb_func
+ 525              	compute_motion:
+ 526              	.LFB200:
  156:../state_machine.c **** 
  157:../state_machine.c **** /*
  158:../state_machine.c **** 	During OPERATION_ENABLE start computation function
  159:../state_machine.c **** */
  160:../state_machine.c **** void compute_motion(void)
  161:../state_machine.c **** {
- 528              	 .loc 1 161 0
- 529              	 .cfi_startproc
+ 527              	 .loc 1 161 0
+ 528              	 .cfi_startproc
+ 529              	 
  530              	 
- 531              	 
- 532 0000 80B5     	 push {r7,lr}
- 533              	.LCFI10:
- 534              	 .cfi_def_cfa_offset 8
- 535              	 .cfi_offset 7,-8
- 536              	 .cfi_offset 14,-4
- 537 0002 00AF     	 add r7,sp,#0
- 538              	.LCFI11:
- 539              	 .cfi_def_cfa_register 7
+ 531 0000 80B5     	 push {r7,lr}
+ 532              	.LCFI10:
+ 533              	 .cfi_def_cfa_offset 8
+ 534              	 .cfi_offset 7,-8
+ 535              	 .cfi_offset 14,-4
+ 536 0002 00AF     	 add r7,sp,#0
+ 537              	.LCFI11:
+ 538              	 .cfi_def_cfa_register 7
  162:../state_machine.c **** 	reference_generator_compute();
- 540              	 .loc 1 162 0
- 541 0004 FFF7FEFF 	 bl reference_generator_compute
+ 539              	 .loc 1 162 0
+ 540 0004 FFF7FEFF 	 bl reference_generator_compute
  163:../state_machine.c **** 	motion_config = ON;
- 542              	 .loc 1 163 0
- 543 0008 014B     	 ldr r3,.L31
- 544 000a 0122     	 movs r2,#1
- 545 000c 1A70     	 strb r2,[r3]
+ 541              	 .loc 1 163 0
+ 542 0008 014B     	 ldr r3,.L31
+ 543 000a 0122     	 movs r2,#1
+ 544 000c 1A70     	 strb r2,[r3]
  164:../state_machine.c **** }
- 546              	 .loc 1 164 0
- 547 000e 80BD     	 pop {r7,pc}
- 548              	.L32:
- 549              	 .align 2
- 550              	.L31:
- 551 0010 00000000 	 .word motion_config
- 552              	 .cfi_endproc
- 553              	.LFE200:
- 555              	 .text
- 556              	.Letext0:
- 557              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 558              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 559              	 .file 4 "../reference_generator.h"
- 560              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
- 561              	 .file 6 "../main.h"
+ 545              	 .loc 1 164 0
+ 546 000e 80BD     	 pop {r7,pc}
+ 547              	.L32:
+ 548              	 .align 2
+ 549              	.L31:
+ 550 0010 00000000 	 .word motion_config
+ 551              	 .cfi_endproc
+ 552              	.LFE200:
+ 554              	 .text
+ 555              	.Letext0:
+ 556              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 557              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 558              	 .file 4 "../reference_generator.h"
+ 559              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
+ 560              	 .file 6 "../main.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 state_machine.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
@@ -768,18 +767,18 @@ DEFINED SYMBOLS
     {standard input}:54     .text.state_machine:00000000 $t
     {standard input}:59     .text.state_machine:00000000 state_machine
     {standard input}:429    .text.drive_on:00000000 drive_on
-    {standard input}:485    .text.operation_enabled:00000000 operation_enabled
+    {standard input}:484    .text.operation_enabled:00000000 operation_enabled
     {standard input}:384    .text.drive_disabled:00000000 drive_disabled
-    {standard input}:526    .text.compute_motion:00000000 compute_motion
+    {standard input}:525    .text.compute_motion:00000000 compute_motion
     {standard input}:370    .text.state_machine:0000020c $d
     {standard input}:379    .text.drive_disabled:00000000 $t
     {standard input}:417    .text.drive_disabled:0000001c $d
     {standard input}:424    .text.drive_on:00000000 $t
-    {standard input}:473    .text.drive_on:00000034 $d
-    {standard input}:480    .text.operation_enabled:00000000 $t
-    {standard input}:516    .text.operation_enabled:00000014 $d
-    {standard input}:521    .text.compute_motion:00000000 $t
-    {standard input}:551    .text.compute_motion:00000010 $d
+    {standard input}:472    .text.drive_on:00000030 $d
+    {standard input}:479    .text.operation_enabled:00000000 $t
+    {standard input}:515    .text.operation_enabled:00000014 $d
+    {standard input}:520    .text.compute_motion:00000000 $t
+    {standard input}:550    .text.compute_motion:00000010 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

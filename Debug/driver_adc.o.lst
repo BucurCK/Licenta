@@ -2932,293 +2932,279 @@
  842              	 .cfi_def_cfa_register 7
  287:../driver_adc.c **** 	ia = (VADC_G0->RES[1] & 0xFFFF) * 16 - offset_ia; // 16 bit value -- INVERTED
  843              	 .loc 2 287 0
- 844 0004 234B     	 ldr r3,.L26
+ 844 0004 1C4B     	 ldr r3,.L26
  845 0006 D3F80433 	 ldr r3,[r3,#772]
  846 000a 9BB2     	 uxth r3,r3
  847 000c 1B01     	 lsls r3,r3,#4
  848 000e 9AB2     	 uxth r2,r3
- 849 0010 214B     	 ldr r3,.L26+4
+ 849 0010 1A4B     	 ldr r3,.L26+4
  850 0012 1B68     	 ldr r3,[r3]
  851 0014 9BB2     	 uxth r3,r3
  852 0016 D31A     	 subs r3,r2,r3
  853 0018 9BB2     	 uxth r3,r3
  854 001a 9AB2     	 uxth r2,r3
- 855 001c 1F4B     	 ldr r3,.L26+8
+ 855 001c 184B     	 ldr r3,.L26+8
  856 001e 1A80     	 strh r2,[r3]
  288:../driver_adc.c **** 	ib = (VADC_G1->RES[1] & 0xFFFF) * 16 - offset_ib; // 16 bit value
  857              	 .loc 2 288 0
- 858 0020 1F4B     	 ldr r3,.L26+12
+ 858 0020 184B     	 ldr r3,.L26+12
  859 0022 D3F80433 	 ldr r3,[r3,#772]
  860 0026 9BB2     	 uxth r3,r3
  861 0028 1B01     	 lsls r3,r3,#4
  862 002a 9AB2     	 uxth r2,r3
- 863 002c 1D4B     	 ldr r3,.L26+16
+ 863 002c 164B     	 ldr r3,.L26+16
  864 002e 1B68     	 ldr r3,[r3]
  865 0030 9BB2     	 uxth r3,r3
  866 0032 D31A     	 subs r3,r2,r3
  867 0034 9BB2     	 uxth r3,r3
  868 0036 9AB2     	 uxth r2,r3
- 869 0038 1B4B     	 ldr r3,.L26+20
+ 869 0038 144B     	 ldr r3,.L26+20
  870 003a 1A80     	 strh r2,[r3]
  289:../driver_adc.c **** 	ic = (VADC_G2->RES[1] & 0xFFFF) * 16 - offset_ic; // 16 bit value
  871              	 .loc 2 289 0
- 872 003c 1B4B     	 ldr r3,.L26+24
+ 872 003c 144B     	 ldr r3,.L26+24
  873 003e D3F80433 	 ldr r3,[r3,#772]
  874 0042 9BB2     	 uxth r3,r3
  875 0044 1B01     	 lsls r3,r3,#4
  876 0046 9AB2     	 uxth r2,r3
- 877 0048 194B     	 ldr r3,.L26+28
+ 877 0048 124B     	 ldr r3,.L26+28
  878 004a 1B68     	 ldr r3,[r3]
  879 004c 9BB2     	 uxth r3,r3
  880 004e D31A     	 subs r3,r2,r3
  881 0050 9BB2     	 uxth r3,r3
  882 0052 9AB2     	 uxth r2,r3
- 883 0054 174B     	 ldr r3,.L26+32
+ 883 0054 104B     	 ldr r3,.L26+32
  884 0056 1A80     	 strh r2,[r3]
- 290:../driver_adc.c **** 	ia = (-ib - ic);								  // TOO NOISY
- 885              	 .loc 2 290 0
- 886 0058 134B     	 ldr r3,.L26+20
- 887 005a 1B88     	 ldrh r3,[r3]
- 888 005c 9BB2     	 uxth r3,r3
- 889 005e 5B42     	 negs r3,r3
- 890 0060 9AB2     	 uxth r2,r3
- 891 0062 144B     	 ldr r3,.L26+32
- 892 0064 1B88     	 ldrh r3,[r3]
- 893 0066 9BB2     	 uxth r3,r3
- 894 0068 D31A     	 subs r3,r2,r3
- 895 006a 9BB2     	 uxth r3,r3
- 896 006c 9AB2     	 uxth r2,r3
- 897 006e 0B4B     	 ldr r3,.L26+8
- 898 0070 1A80     	 strh r2,[r3]
+ 290:../driver_adc.c **** //	ia = (-ib - ic);								  // TOO NOISY
  291:../driver_adc.c **** 
  292:../driver_adc.c **** 	u_mot_dig = (VADC_G2->RES[14] & 0xFFFF); // 12 bit value
- 899              	 .loc 2 292 0
- 900 0072 0E4B     	 ldr r3,.L26+24
- 901 0074 D3F83833 	 ldr r3,[r3,#824]
- 902 0078 9BB2     	 uxth r3,r3
- 903 007a 0F4A     	 ldr r2,.L26+36
- 904 007c 1360     	 str r3,[r2]
+ 885              	 .loc 2 292 0
+ 886 0058 0D4B     	 ldr r3,.L26+24
+ 887 005a D3F83833 	 ldr r3,[r3,#824]
+ 888 005e 9BB2     	 uxth r3,r3
+ 889 0060 0E4A     	 ldr r2,.L26+36
+ 890 0062 1360     	 str r3,[r2]
  293:../driver_adc.c **** 	u_log_dig = (VADC_G1->RES[14] & 0xFFFF); // 12 bit value
- 905              	 .loc 2 293 0
- 906 007e 084B     	 ldr r3,.L26+12
- 907 0080 D3F83833 	 ldr r3,[r3,#824]
- 908 0084 9BB2     	 uxth r3,r3
- 909 0086 0D4A     	 ldr r2,.L26+40
- 910 0088 1360     	 str r3,[r2]
+ 891              	 .loc 2 293 0
+ 892 0064 074B     	 ldr r3,.L26+12
+ 893 0066 D3F83833 	 ldr r3,[r3,#824]
+ 894 006a 9BB2     	 uxth r3,r3
+ 895 006c 0C4A     	 ldr r2,.L26+40
+ 896 006e 1360     	 str r3,[r2]
  294:../driver_adc.c **** 
  295:../driver_adc.c **** 	// ia_32 = ia;
  296:../driver_adc.c **** 	// ib_32 = ib;
  297:../driver_adc.c **** 	// ic_32 = ic;
  298:../driver_adc.c **** }
- 911              	 .loc 2 298 0
- 912 008a BD46     	 mov sp,r7
- 913              	.LCFI26:
- 914              	 .cfi_def_cfa_register 13
- 915              	 
- 916 008c 5DF8047B 	 ldr r7,[sp],#4
- 917              	.LCFI27:
- 918              	 .cfi_restore 7
- 919              	 .cfi_def_cfa_offset 0
- 920 0090 7047     	 bx lr
- 921              	.L27:
- 922 0092 00BF     	 .align 2
- 923              	.L26:
- 924 0094 00440040 	 .word 1073759232
- 925 0098 00000000 	 .word offset_ia
- 926 009c 00000000 	 .word ia
- 927 00a0 00480040 	 .word 1073760256
- 928 00a4 00000000 	 .word offset_ib
- 929 00a8 00000000 	 .word ib
- 930 00ac 004C0040 	 .word 1073761280
- 931 00b0 00000000 	 .word offset_ic
- 932 00b4 00000000 	 .word ic
- 933 00b8 00000000 	 .word u_mot_dig
- 934 00bc 00000000 	 .word u_log_dig
- 935              	 .cfi_endproc
- 936              	.LFE198:
- 938              	 .section .text.current_offset,"ax",%progbits
- 939              	 .align 2
- 940              	 .global current_offset
- 941              	 .thumb
- 942              	 .thumb_func
- 944              	current_offset:
- 945              	.LFB199:
+ 897              	 .loc 2 298 0
+ 898 0070 BD46     	 mov sp,r7
+ 899              	.LCFI26:
+ 900              	 .cfi_def_cfa_register 13
+ 901              	 
+ 902 0072 5DF8047B 	 ldr r7,[sp],#4
+ 903              	.LCFI27:
+ 904              	 .cfi_restore 7
+ 905              	 .cfi_def_cfa_offset 0
+ 906 0076 7047     	 bx lr
+ 907              	.L27:
+ 908              	 .align 2
+ 909              	.L26:
+ 910 0078 00440040 	 .word 1073759232
+ 911 007c 00000000 	 .word offset_ia
+ 912 0080 00000000 	 .word ia
+ 913 0084 00480040 	 .word 1073760256
+ 914 0088 00000000 	 .word offset_ib
+ 915 008c 00000000 	 .word ib
+ 916 0090 004C0040 	 .word 1073761280
+ 917 0094 00000000 	 .word offset_ic
+ 918 0098 00000000 	 .word ic
+ 919 009c 00000000 	 .word u_mot_dig
+ 920 00a0 00000000 	 .word u_log_dig
+ 921              	 .cfi_endproc
+ 922              	.LFE198:
+ 924              	 .section .text.current_offset,"ax",%progbits
+ 925              	 .align 2
+ 926              	 .global current_offset
+ 927              	 .thumb
+ 928              	 .thumb_func
+ 930              	current_offset:
+ 931              	.LFB199:
  299:../driver_adc.c **** /**
  300:../driver_adc.c ****  * Compute current offset for every phase
  301:../driver_adc.c ****  */
  302:../driver_adc.c **** void current_offset(void)
  303:../driver_adc.c **** {
- 946              	 .loc 2 303 0
- 947              	 .cfi_startproc
- 948              	 
- 949              	 
- 950 0000 80B5     	 push {r7,lr}
- 951              	.LCFI28:
- 952              	 .cfi_def_cfa_offset 8
- 953              	 .cfi_offset 7,-8
- 954              	 .cfi_offset 14,-4
- 955 0002 82B0     	 sub sp,sp,#8
- 956              	.LCFI29:
- 957              	 .cfi_def_cfa_offset 16
- 958 0004 00AF     	 add r7,sp,#0
- 959              	.LCFI30:
- 960              	 .cfi_def_cfa_register 7
+ 932              	 .loc 2 303 0
+ 933              	 .cfi_startproc
+ 934              	 
+ 935              	 
+ 936 0000 80B5     	 push {r7,lr}
+ 937              	.LCFI28:
+ 938              	 .cfi_def_cfa_offset 8
+ 939              	 .cfi_offset 7,-8
+ 940              	 .cfi_offset 14,-4
+ 941 0002 82B0     	 sub sp,sp,#8
+ 942              	.LCFI29:
+ 943              	 .cfi_def_cfa_offset 16
+ 944 0004 00AF     	 add r7,sp,#0
+ 945              	.LCFI30:
+ 946              	 .cfi_def_cfa_register 7
  304:../driver_adc.c **** 	prot_status = OFF; //Turn Current protection OFF
- 961              	 .loc 2 304 0
- 962 0006 2D4B     	 ldr r3,.L34
- 963 0008 0022     	 movs r2,#0
- 964 000a 1A70     	 strb r2,[r3]
+ 947              	 .loc 2 304 0
+ 948 0006 2D4B     	 ldr r3,.L34
+ 949 0008 0022     	 movs r2,#0
+ 950 000a 1A70     	 strb r2,[r3]
  305:../driver_adc.c **** 	offset_ia = 0;
- 965              	 .loc 2 305 0
- 966 000c 2C4B     	 ldr r3,.L34+4
- 967 000e 0022     	 movs r2,#0
- 968 0010 1A60     	 str r2,[r3]
+ 951              	 .loc 2 305 0
+ 952 000c 2C4B     	 ldr r3,.L34+4
+ 953 000e 0022     	 movs r2,#0
+ 954 0010 1A60     	 str r2,[r3]
  306:../driver_adc.c **** 	offset_ib = 0;
- 969              	 .loc 2 306 0
- 970 0012 2C4B     	 ldr r3,.L34+8
- 971 0014 0022     	 movs r2,#0
- 972 0016 1A60     	 str r2,[r3]
+ 955              	 .loc 2 306 0
+ 956 0012 2C4B     	 ldr r3,.L34+8
+ 957 0014 0022     	 movs r2,#0
+ 958 0016 1A60     	 str r2,[r3]
  307:../driver_adc.c **** 	offset_ic = 0;
- 973              	 .loc 2 307 0
- 974 0018 2B4B     	 ldr r3,.L34+12
- 975 001a 0022     	 movs r2,#0
- 976 001c 1A60     	 str r2,[r3]
- 977              	.LBB2:
+ 959              	 .loc 2 307 0
+ 960 0018 2B4B     	 ldr r3,.L34+12
+ 961 001a 0022     	 movs r2,#0
+ 962 001c 1A60     	 str r2,[r3]
+ 963              	.LBB2:
  308:../driver_adc.c **** 
  309:../driver_adc.c **** 	for (int i = 0; i < 16; ++i)
- 978              	 .loc 2 309 0
- 979 001e 0023     	 movs r3,#0
- 980 0020 7B60     	 str r3,[r7,#4]
- 981 0022 26E0     	 b .L29
- 982              	.L30:
+ 964              	 .loc 2 309 0
+ 965 001e 0023     	 movs r3,#0
+ 966 0020 7B60     	 str r3,[r7,#4]
+ 967 0022 26E0     	 b .L29
+ 968              	.L30:
  310:../driver_adc.c **** 	{
  311:../driver_adc.c **** 		delay_t(3);
- 983              	 .loc 2 311 0 discriminator 3
- 984 0024 0320     	 movs r0,#3
- 985 0026 FFF7FEFF 	 bl delay_t
+ 969              	 .loc 2 311 0 discriminator 3
+ 970 0024 0320     	 movs r0,#3
+ 971 0026 FFF7FEFF 	 bl delay_t
  312:../driver_adc.c **** 		offset_ia += ((VADC_G0->RES[1] & 0xFFFF) * 16);
- 986              	 .loc 2 312 0 discriminator 3
- 987 002a 284B     	 ldr r3,.L34+16
- 988 002c D3F80433 	 ldr r3,[r3,#772]
- 989 0030 9BB2     	 uxth r3,r3
- 990 0032 1B01     	 lsls r3,r3,#4
- 991 0034 224A     	 ldr r2,.L34+4
- 992 0036 1268     	 ldr r2,[r2]
- 993 0038 1344     	 add r3,r3,r2
- 994 003a 1A46     	 mov r2,r3
- 995 003c 204B     	 ldr r3,.L34+4
- 996 003e 1A60     	 str r2,[r3]
+ 972              	 .loc 2 312 0 discriminator 3
+ 973 002a 284B     	 ldr r3,.L34+16
+ 974 002c D3F80433 	 ldr r3,[r3,#772]
+ 975 0030 9BB2     	 uxth r3,r3
+ 976 0032 1B01     	 lsls r3,r3,#4
+ 977 0034 224A     	 ldr r2,.L34+4
+ 978 0036 1268     	 ldr r2,[r2]
+ 979 0038 1344     	 add r3,r3,r2
+ 980 003a 1A46     	 mov r2,r3
+ 981 003c 204B     	 ldr r3,.L34+4
+ 982 003e 1A60     	 str r2,[r3]
  313:../driver_adc.c **** 		offset_ib += ((VADC_G1->RES[1] & 0xFFFF) * 16);
- 997              	 .loc 2 313 0 discriminator 3
- 998 0040 234B     	 ldr r3,.L34+20
- 999 0042 D3F80433 	 ldr r3,[r3,#772]
- 1000 0046 9BB2     	 uxth r3,r3
- 1001 0048 1B01     	 lsls r3,r3,#4
- 1002 004a 1E4A     	 ldr r2,.L34+8
- 1003 004c 1268     	 ldr r2,[r2]
- 1004 004e 1344     	 add r3,r3,r2
- 1005 0050 1A46     	 mov r2,r3
- 1006 0052 1C4B     	 ldr r3,.L34+8
- 1007 0054 1A60     	 str r2,[r3]
+ 983              	 .loc 2 313 0 discriminator 3
+ 984 0040 234B     	 ldr r3,.L34+20
+ 985 0042 D3F80433 	 ldr r3,[r3,#772]
+ 986 0046 9BB2     	 uxth r3,r3
+ 987 0048 1B01     	 lsls r3,r3,#4
+ 988 004a 1E4A     	 ldr r2,.L34+8
+ 989 004c 1268     	 ldr r2,[r2]
+ 990 004e 1344     	 add r3,r3,r2
+ 991 0050 1A46     	 mov r2,r3
+ 992 0052 1C4B     	 ldr r3,.L34+8
+ 993 0054 1A60     	 str r2,[r3]
  314:../driver_adc.c **** 		offset_ic += ((VADC_G2->RES[1] & 0xFFFF) * 16);
- 1008              	 .loc 2 314 0 discriminator 3
- 1009 0056 1F4B     	 ldr r3,.L34+24
- 1010 0058 D3F80433 	 ldr r3,[r3,#772]
- 1011 005c 9BB2     	 uxth r3,r3
- 1012 005e 1B01     	 lsls r3,r3,#4
- 1013 0060 194A     	 ldr r2,.L34+12
- 1014 0062 1268     	 ldr r2,[r2]
- 1015 0064 1344     	 add r3,r3,r2
- 1016 0066 1A46     	 mov r2,r3
- 1017 0068 174B     	 ldr r3,.L34+12
- 1018 006a 1A60     	 str r2,[r3]
+ 994              	 .loc 2 314 0 discriminator 3
+ 995 0056 1F4B     	 ldr r3,.L34+24
+ 996 0058 D3F80433 	 ldr r3,[r3,#772]
+ 997 005c 9BB2     	 uxth r3,r3
+ 998 005e 1B01     	 lsls r3,r3,#4
+ 999 0060 194A     	 ldr r2,.L34+12
+ 1000 0062 1268     	 ldr r2,[r2]
+ 1001 0064 1344     	 add r3,r3,r2
+ 1002 0066 1A46     	 mov r2,r3
+ 1003 0068 174B     	 ldr r3,.L34+12
+ 1004 006a 1A60     	 str r2,[r3]
  309:../driver_adc.c **** 	{
- 1019              	 .loc 2 309 0 discriminator 3
- 1020 006c 7B68     	 ldr r3,[r7,#4]
- 1021 006e 0133     	 adds r3,r3,#1
- 1022 0070 7B60     	 str r3,[r7,#4]
- 1023              	.L29:
+ 1005              	 .loc 2 309 0 discriminator 3
+ 1006 006c 7B68     	 ldr r3,[r7,#4]
+ 1007 006e 0133     	 adds r3,r3,#1
+ 1008 0070 7B60     	 str r3,[r7,#4]
+ 1009              	.L29:
  309:../driver_adc.c **** 	{
- 1024              	 .loc 2 309 0 is_stmt 0 discriminator 1
- 1025 0072 7B68     	 ldr r3,[r7,#4]
- 1026 0074 0F2B     	 cmp r3,#15
- 1027 0076 D5DD     	 ble .L30
- 1028              	.LBE2:
+ 1010              	 .loc 2 309 0 is_stmt 0 discriminator 1
+ 1011 0072 7B68     	 ldr r3,[r7,#4]
+ 1012 0074 0F2B     	 cmp r3,#15
+ 1013 0076 D5DD     	 ble .L30
+ 1014              	.LBE2:
  315:../driver_adc.c **** 	}
  316:../driver_adc.c **** 
  317:../driver_adc.c **** 	offset_ia = offset_ia / 16;
- 1029              	 .loc 2 317 0 is_stmt 1
- 1030 0078 114B     	 ldr r3,.L34+4
- 1031 007a 1B68     	 ldr r3,[r3]
- 1032 007c 002B     	 cmp r3,#0
- 1033 007e 00DA     	 bge .L31
- 1034 0080 0F33     	 adds r3,r3,#15
- 1035              	.L31:
- 1036 0082 1B11     	 asrs r3,r3,#4
- 1037 0084 1A46     	 mov r2,r3
- 1038 0086 0E4B     	 ldr r3,.L34+4
- 1039 0088 1A60     	 str r2,[r3]
+ 1015              	 .loc 2 317 0 is_stmt 1
+ 1016 0078 114B     	 ldr r3,.L34+4
+ 1017 007a 1B68     	 ldr r3,[r3]
+ 1018 007c 002B     	 cmp r3,#0
+ 1019 007e 00DA     	 bge .L31
+ 1020 0080 0F33     	 adds r3,r3,#15
+ 1021              	.L31:
+ 1022 0082 1B11     	 asrs r3,r3,#4
+ 1023 0084 1A46     	 mov r2,r3
+ 1024 0086 0E4B     	 ldr r3,.L34+4
+ 1025 0088 1A60     	 str r2,[r3]
  318:../driver_adc.c **** 	offset_ib = offset_ib / 16;
- 1040              	 .loc 2 318 0
- 1041 008a 0E4B     	 ldr r3,.L34+8
- 1042 008c 1B68     	 ldr r3,[r3]
- 1043 008e 002B     	 cmp r3,#0
- 1044 0090 00DA     	 bge .L32
- 1045 0092 0F33     	 adds r3,r3,#15
- 1046              	.L32:
- 1047 0094 1B11     	 asrs r3,r3,#4
- 1048 0096 1A46     	 mov r2,r3
- 1049 0098 0A4B     	 ldr r3,.L34+8
- 1050 009a 1A60     	 str r2,[r3]
+ 1026              	 .loc 2 318 0
+ 1027 008a 0E4B     	 ldr r3,.L34+8
+ 1028 008c 1B68     	 ldr r3,[r3]
+ 1029 008e 002B     	 cmp r3,#0
+ 1030 0090 00DA     	 bge .L32
+ 1031 0092 0F33     	 adds r3,r3,#15
+ 1032              	.L32:
+ 1033 0094 1B11     	 asrs r3,r3,#4
+ 1034 0096 1A46     	 mov r2,r3
+ 1035 0098 0A4B     	 ldr r3,.L34+8
+ 1036 009a 1A60     	 str r2,[r3]
  319:../driver_adc.c **** 	offset_ic = offset_ic / 16;
- 1051              	 .loc 2 319 0
- 1052 009c 0A4B     	 ldr r3,.L34+12
- 1053 009e 1B68     	 ldr r3,[r3]
- 1054 00a0 002B     	 cmp r3,#0
- 1055 00a2 00DA     	 bge .L33
- 1056 00a4 0F33     	 adds r3,r3,#15
- 1057              	.L33:
- 1058 00a6 1B11     	 asrs r3,r3,#4
- 1059 00a8 1A46     	 mov r2,r3
- 1060 00aa 074B     	 ldr r3,.L34+12
- 1061 00ac 1A60     	 str r2,[r3]
+ 1037              	 .loc 2 319 0
+ 1038 009c 0A4B     	 ldr r3,.L34+12
+ 1039 009e 1B68     	 ldr r3,[r3]
+ 1040 00a0 002B     	 cmp r3,#0
+ 1041 00a2 00DA     	 bge .L33
+ 1042 00a4 0F33     	 adds r3,r3,#15
+ 1043              	.L33:
+ 1044 00a6 1B11     	 asrs r3,r3,#4
+ 1045 00a8 1A46     	 mov r2,r3
+ 1046 00aa 074B     	 ldr r3,.L34+12
+ 1047 00ac 1A60     	 str r2,[r3]
  320:../driver_adc.c **** 	prot_status = ON; //Turn Current protection ON
- 1062              	 .loc 2 320 0
- 1063 00ae 034B     	 ldr r3,.L34
- 1064 00b0 0122     	 movs r2,#1
- 1065 00b2 1A70     	 strb r2,[r3]
+ 1048              	 .loc 2 320 0
+ 1049 00ae 034B     	 ldr r3,.L34
+ 1050 00b0 0122     	 movs r2,#1
+ 1051 00b2 1A70     	 strb r2,[r3]
  321:../driver_adc.c **** }
- 1066              	 .loc 2 321 0
- 1067 00b4 0837     	 adds r7,r7,#8
- 1068              	.LCFI31:
- 1069              	 .cfi_def_cfa_offset 8
- 1070 00b6 BD46     	 mov sp,r7
- 1071              	.LCFI32:
- 1072              	 .cfi_def_cfa_register 13
- 1073              	 
- 1074 00b8 80BD     	 pop {r7,pc}
- 1075              	.L35:
- 1076 00ba 00BF     	 .align 2
- 1077              	.L34:
- 1078 00bc 00000000 	 .word prot_status
- 1079 00c0 00000000 	 .word offset_ia
- 1080 00c4 00000000 	 .word offset_ib
- 1081 00c8 00000000 	 .word offset_ic
- 1082 00cc 00440040 	 .word 1073759232
- 1083 00d0 00480040 	 .word 1073760256
- 1084 00d4 004C0040 	 .word 1073761280
- 1085              	 .cfi_endproc
- 1086              	.LFE199:
- 1088              	 .global __aeabi_i2d
- 1089              	 .global __aeabi_dmul
- 1090              	 .global __aeabi_d2f
- 1091              	 .section .text.compute_u_mot,"ax",%progbits
- 1092              	 .align 2
- 1093              	 .global compute_u_mot
- 1094              	 .thumb
- 1095              	 .thumb_func
- 1097              	compute_u_mot:
- 1098              	.LFB200:
+ 1052              	 .loc 2 321 0
+ 1053 00b4 0837     	 adds r7,r7,#8
+ 1054              	.LCFI31:
+ 1055              	 .cfi_def_cfa_offset 8
+ 1056 00b6 BD46     	 mov sp,r7
+ 1057              	.LCFI32:
+ 1058              	 .cfi_def_cfa_register 13
+ 1059              	 
+ 1060 00b8 80BD     	 pop {r7,pc}
+ 1061              	.L35:
+ 1062 00ba 00BF     	 .align 2
+ 1063              	.L34:
+ 1064 00bc 00000000 	 .word prot_status
+ 1065 00c0 00000000 	 .word offset_ia
+ 1066 00c4 00000000 	 .word offset_ib
+ 1067 00c8 00000000 	 .word offset_ic
+ 1068 00cc 00440040 	 .word 1073759232
+ 1069 00d0 00480040 	 .word 1073760256
+ 1070 00d4 004C0040 	 .word 1073761280
+ 1071              	 .cfi_endproc
+ 1072              	.LFE199:
+ 1074              	 .global __aeabi_i2d
+ 1075              	 .global __aeabi_dmul
+ 1076              	 .global __aeabi_d2f
+ 1077              	 .section .text.compute_u_mot,"ax",%progbits
+ 1078              	 .align 2
+ 1079              	 .global compute_u_mot
+ 1080              	 .thumb
+ 1081              	 .thumb_func
+ 1083              	compute_u_mot:
+ 1084              	.LFB200:
  322:../driver_adc.c **** 
  323:../driver_adc.c **** /*
  324:../driver_adc.c ****  * For Micrium display
@@ -3227,58 +3213,58 @@
  327:../driver_adc.c ****  */
  328:../driver_adc.c **** void compute_u_mot(void)
  329:../driver_adc.c **** {
- 1099              	 .loc 2 329 0
- 1100              	 .cfi_startproc
- 1101              	 
- 1102              	 
- 1103 0000 80B5     	 push {r7,lr}
- 1104              	.LCFI33:
- 1105              	 .cfi_def_cfa_offset 8
- 1106              	 .cfi_offset 7,-8
- 1107              	 .cfi_offset 14,-4
- 1108 0002 00AF     	 add r7,sp,#0
- 1109              	.LCFI34:
- 1110              	 .cfi_def_cfa_register 7
+ 1085              	 .loc 2 329 0
+ 1086              	 .cfi_startproc
+ 1087              	 
+ 1088              	 
+ 1089 0000 80B5     	 push {r7,lr}
+ 1090              	.LCFI33:
+ 1091              	 .cfi_def_cfa_offset 8
+ 1092              	 .cfi_offset 7,-8
+ 1093              	 .cfi_offset 14,-4
+ 1094 0002 00AF     	 add r7,sp,#0
+ 1095              	.LCFI34:
+ 1096              	 .cfi_def_cfa_register 7
  330:../driver_adc.c **** 	u_mot = u_mot_dig * 0.0245;
- 1111              	 .loc 2 330 0
- 1112 0004 0E4B     	 ldr r3,.L37+8
- 1113 0006 1B68     	 ldr r3,[r3]
- 1114 0008 1846     	 mov r0,r3
- 1115 000a FFF7FEFF 	 bl __aeabi_i2d
- 1116 000e 0246     	 mov r2,r0
- 1117 0010 0B46     	 mov r3,r1
- 1118 0012 1046     	 mov r0,r2
- 1119 0014 1946     	 mov r1,r3
- 1120 0016 08A3     	 adr r3,.L37
- 1121 0018 D3E90023 	 ldrd r2,[r3]
- 1122 001c FFF7FEFF 	 bl __aeabi_dmul
- 1123 0020 0246     	 mov r2,r0
- 1124 0022 0B46     	 mov r3,r1
- 1125 0024 1046     	 mov r0,r2
- 1126 0026 1946     	 mov r1,r3
- 1127 0028 FFF7FEFF 	 bl __aeabi_d2f
- 1128 002c 0246     	 mov r2,r0
- 1129 002e 054B     	 ldr r3,.L37+12
- 1130 0030 1A60     	 str r2,[r3]
+ 1097              	 .loc 2 330 0
+ 1098 0004 0E4B     	 ldr r3,.L37+8
+ 1099 0006 1B68     	 ldr r3,[r3]
+ 1100 0008 1846     	 mov r0,r3
+ 1101 000a FFF7FEFF 	 bl __aeabi_i2d
+ 1102 000e 0246     	 mov r2,r0
+ 1103 0010 0B46     	 mov r3,r1
+ 1104 0012 1046     	 mov r0,r2
+ 1105 0014 1946     	 mov r1,r3
+ 1106 0016 08A3     	 adr r3,.L37
+ 1107 0018 D3E90023 	 ldrd r2,[r3]
+ 1108 001c FFF7FEFF 	 bl __aeabi_dmul
+ 1109 0020 0246     	 mov r2,r0
+ 1110 0022 0B46     	 mov r3,r1
+ 1111 0024 1046     	 mov r0,r2
+ 1112 0026 1946     	 mov r1,r3
+ 1113 0028 FFF7FEFF 	 bl __aeabi_d2f
+ 1114 002c 0246     	 mov r2,r0
+ 1115 002e 054B     	 ldr r3,.L37+12
+ 1116 0030 1A60     	 str r2,[r3]
  331:../driver_adc.c **** }
- 1131              	 .loc 2 331 0
- 1132 0032 80BD     	 pop {r7,pc}
- 1133              	.L38:
- 1134 0034 AFF30080 	 .align 3
- 1135              	.L37:
- 1136 0038 4A0C022B 	 .word 721554506
- 1137 003c 8716993F 	 .word 1066997383
- 1138 0040 00000000 	 .word u_mot_dig
- 1139 0044 00000000 	 .word u_mot
- 1140              	 .cfi_endproc
- 1141              	.LFE200:
- 1143              	 .section .text.compute_u_log,"ax",%progbits
- 1144              	 .align 2
- 1145              	 .global compute_u_log
- 1146              	 .thumb
- 1147              	 .thumb_func
- 1149              	compute_u_log:
- 1150              	.LFB201:
+ 1117              	 .loc 2 331 0
+ 1118 0032 80BD     	 pop {r7,pc}
+ 1119              	.L38:
+ 1120 0034 AFF30080 	 .align 3
+ 1121              	.L37:
+ 1122 0038 4A0C022B 	 .word 721554506
+ 1123 003c 8716993F 	 .word 1066997383
+ 1124 0040 00000000 	 .word u_mot_dig
+ 1125 0044 00000000 	 .word u_mot
+ 1126              	 .cfi_endproc
+ 1127              	.LFE200:
+ 1129              	 .section .text.compute_u_log,"ax",%progbits
+ 1130              	 .align 2
+ 1131              	 .global compute_u_log
+ 1132              	 .thumb
+ 1133              	 .thumb_func
+ 1135              	compute_u_log:
+ 1136              	.LFB201:
  332:../driver_adc.c **** 
  333:../driver_adc.c **** /*
  334:../driver_adc.c ****  * For Micrium display
@@ -3287,61 +3273,61 @@
  337:../driver_adc.c ****  */
  338:../driver_adc.c **** void compute_u_log(void)
  339:../driver_adc.c **** {
- 1151              	 .loc 2 339 0
- 1152              	 .cfi_startproc
- 1153              	 
- 1154              	 
- 1155 0000 80B5     	 push {r7,lr}
- 1156              	.LCFI35:
- 1157              	 .cfi_def_cfa_offset 8
- 1158              	 .cfi_offset 7,-8
- 1159              	 .cfi_offset 14,-4
- 1160 0002 00AF     	 add r7,sp,#0
- 1161              	.LCFI36:
- 1162              	 .cfi_def_cfa_register 7
+ 1137              	 .loc 2 339 0
+ 1138              	 .cfi_startproc
+ 1139              	 
+ 1140              	 
+ 1141 0000 80B5     	 push {r7,lr}
+ 1142              	.LCFI35:
+ 1143              	 .cfi_def_cfa_offset 8
+ 1144              	 .cfi_offset 7,-8
+ 1145              	 .cfi_offset 14,-4
+ 1146 0002 00AF     	 add r7,sp,#0
+ 1147              	.LCFI36:
+ 1148              	 .cfi_def_cfa_register 7
  340:../driver_adc.c **** 	u_log = u_log_dig * 0.01327;
- 1163              	 .loc 2 340 0
- 1164 0004 0E4B     	 ldr r3,.L40+8
- 1165 0006 1B68     	 ldr r3,[r3]
- 1166 0008 1846     	 mov r0,r3
- 1167 000a FFF7FEFF 	 bl __aeabi_i2d
- 1168 000e 0246     	 mov r2,r0
- 1169 0010 0B46     	 mov r3,r1
- 1170 0012 1046     	 mov r0,r2
- 1171 0014 1946     	 mov r1,r3
- 1172 0016 08A3     	 adr r3,.L40
- 1173 0018 D3E90023 	 ldrd r2,[r3]
- 1174 001c FFF7FEFF 	 bl __aeabi_dmul
- 1175 0020 0246     	 mov r2,r0
- 1176 0022 0B46     	 mov r3,r1
- 1177 0024 1046     	 mov r0,r2
- 1178 0026 1946     	 mov r1,r3
- 1179 0028 FFF7FEFF 	 bl __aeabi_d2f
- 1180 002c 0246     	 mov r2,r0
- 1181 002e 054B     	 ldr r3,.L40+12
- 1182 0030 1A60     	 str r2,[r3]
+ 1149              	 .loc 2 340 0
+ 1150 0004 0E4B     	 ldr r3,.L40+8
+ 1151 0006 1B68     	 ldr r3,[r3]
+ 1152 0008 1846     	 mov r0,r3
+ 1153 000a FFF7FEFF 	 bl __aeabi_i2d
+ 1154 000e 0246     	 mov r2,r0
+ 1155 0010 0B46     	 mov r3,r1
+ 1156 0012 1046     	 mov r0,r2
+ 1157 0014 1946     	 mov r1,r3
+ 1158 0016 08A3     	 adr r3,.L40
+ 1159 0018 D3E90023 	 ldrd r2,[r3]
+ 1160 001c FFF7FEFF 	 bl __aeabi_dmul
+ 1161 0020 0246     	 mov r2,r0
+ 1162 0022 0B46     	 mov r3,r1
+ 1163 0024 1046     	 mov r0,r2
+ 1164 0026 1946     	 mov r1,r3
+ 1165 0028 FFF7FEFF 	 bl __aeabi_d2f
+ 1166 002c 0246     	 mov r2,r0
+ 1167 002e 054B     	 ldr r3,.L40+12
+ 1168 0030 1A60     	 str r2,[r3]
  341:../driver_adc.c **** }
- 1183              	 .loc 2 341 0
- 1184 0032 80BD     	 pop {r7,pc}
- 1185              	.L41:
- 1186 0034 AFF30080 	 .align 3
- 1187              	.L40:
- 1188 0038 3EB32440 	 .word 1076147006
- 1189 003c 4D2D8B3F 	 .word 1066085709
- 1190 0040 00000000 	 .word u_log_dig
- 1191 0044 00000000 	 .word u_log
- 1192              	 .cfi_endproc
- 1193              	.LFE201:
- 1195              	 .global __aeabi_f2d
- 1196              	 .global __aeabi_ddiv
- 1197              	 .global __aeabi_dsub
- 1198              	 .section .text.compute_currents,"ax",%progbits
- 1199              	 .align 2
- 1200              	 .global compute_currents
- 1201              	 .thumb
- 1202              	 .thumb_func
- 1204              	compute_currents:
- 1205              	.LFB202:
+ 1169              	 .loc 2 341 0
+ 1170 0032 80BD     	 pop {r7,pc}
+ 1171              	.L41:
+ 1172 0034 AFF30080 	 .align 3
+ 1173              	.L40:
+ 1174 0038 3EB32440 	 .word 1076147006
+ 1175 003c 4D2D8B3F 	 .word 1066085709
+ 1176 0040 00000000 	 .word u_log_dig
+ 1177 0044 00000000 	 .word u_log
+ 1178              	 .cfi_endproc
+ 1179              	.LFE201:
+ 1181              	 .global __aeabi_f2d
+ 1182              	 .global __aeabi_ddiv
+ 1183              	 .global __aeabi_dsub
+ 1184              	 .section .text.compute_currents,"ax",%progbits
+ 1185              	 .align 2
+ 1186              	 .global compute_currents
+ 1187              	 .thumb
+ 1188              	 .thumb_func
+ 1190              	compute_currents:
+ 1191              	.LFB202:
  342:../driver_adc.c **** 
  343:../driver_adc.c **** /*
  344:../driver_adc.c ****  * For Micrium read
@@ -3349,202 +3335,202 @@
  346:../driver_adc.c ****  */
  347:../driver_adc.c **** void compute_currents(void)
  348:../driver_adc.c **** {
- 1206              	 .loc 2 348 0
- 1207              	 .cfi_startproc
- 1208              	 
- 1209              	 
- 1210 0000 80B5     	 push {r7,lr}
- 1211              	.LCFI37:
- 1212              	 .cfi_def_cfa_offset 8
- 1213              	 .cfi_offset 7,-8
- 1214              	 .cfi_offset 14,-4
- 1215 0002 00AF     	 add r7,sp,#0
- 1216              	.LCFI38:
- 1217              	 .cfi_def_cfa_register 7
+ 1192              	 .loc 2 348 0
+ 1193              	 .cfi_startproc
+ 1194              	 
+ 1195              	 
+ 1196 0000 80B5     	 push {r7,lr}
+ 1197              	.LCFI37:
+ 1198              	 .cfi_def_cfa_offset 8
+ 1199              	 .cfi_offset 7,-8
+ 1200              	 .cfi_offset 14,-4
+ 1201 0002 00AF     	 add r7,sp,#0
+ 1202              	.LCFI38:
+ 1203              	 .cfi_def_cfa_register 7
  349:../driver_adc.c **** 	ia_a = (float_t)(ia + 32768) / 65535.0 * 80.0 - 40.0;
- 1218              	 .loc 2 349 0
- 1219 0004 644B     	 ldr r3,.L43+8
- 1220 0006 1B88     	 ldrh r3,[r3]
- 1221 0008 1BB2     	 sxth r3,r3
- 1222 000a 03F50043 	 add r3,r3,#32768
- 1223 000e 07EE903A 	 fmsr s15,r3
- 1224 0012 F8EEE77A 	 fsitos s15,s15
- 1225 0016 17EE900A 	 fmrs r0,s15
- 1226 001a FFF7FEFF 	 bl __aeabi_f2d
- 1227 001e 0246     	 mov r2,r0
- 1228 0020 0B46     	 mov r3,r1
- 1229 0022 1046     	 mov r0,r2
- 1230 0024 1946     	 mov r1,r3
- 1231 0026 5AA3     	 adr r3,.L43
- 1232 0028 D3E90023 	 ldrd r2,[r3]
- 1233 002c FFF7FEFF 	 bl __aeabi_ddiv
- 1234 0030 0246     	 mov r2,r0
- 1235 0032 0B46     	 mov r3,r1
- 1236 0034 1046     	 mov r0,r2
- 1237 0036 1946     	 mov r1,r3
- 1238 0038 4FF00002 	 mov r2,#0
- 1239 003c 574B     	 ldr r3,.L43+12
- 1240 003e FFF7FEFF 	 bl __aeabi_dmul
- 1241 0042 0246     	 mov r2,r0
- 1242 0044 0B46     	 mov r3,r1
- 1243 0046 1046     	 mov r0,r2
- 1244 0048 1946     	 mov r1,r3
- 1245 004a 4FF00002 	 mov r2,#0
- 1246 004e 544B     	 ldr r3,.L43+16
- 1247 0050 FFF7FEFF 	 bl __aeabi_dsub
- 1248 0054 0246     	 mov r2,r0
- 1249 0056 0B46     	 mov r3,r1
- 1250 0058 1046     	 mov r0,r2
- 1251 005a 1946     	 mov r1,r3
- 1252 005c FFF7FEFF 	 bl __aeabi_d2f
- 1253 0060 0246     	 mov r2,r0
- 1254 0062 504B     	 ldr r3,.L43+20
- 1255 0064 1A60     	 str r2,[r3]
+ 1204              	 .loc 2 349 0
+ 1205 0004 644B     	 ldr r3,.L43+8
+ 1206 0006 1B88     	 ldrh r3,[r3]
+ 1207 0008 1BB2     	 sxth r3,r3
+ 1208 000a 03F50043 	 add r3,r3,#32768
+ 1209 000e 07EE903A 	 fmsr s15,r3
+ 1210 0012 F8EEE77A 	 fsitos s15,s15
+ 1211 0016 17EE900A 	 fmrs r0,s15
+ 1212 001a FFF7FEFF 	 bl __aeabi_f2d
+ 1213 001e 0246     	 mov r2,r0
+ 1214 0020 0B46     	 mov r3,r1
+ 1215 0022 1046     	 mov r0,r2
+ 1216 0024 1946     	 mov r1,r3
+ 1217 0026 5AA3     	 adr r3,.L43
+ 1218 0028 D3E90023 	 ldrd r2,[r3]
+ 1219 002c FFF7FEFF 	 bl __aeabi_ddiv
+ 1220 0030 0246     	 mov r2,r0
+ 1221 0032 0B46     	 mov r3,r1
+ 1222 0034 1046     	 mov r0,r2
+ 1223 0036 1946     	 mov r1,r3
+ 1224 0038 4FF00002 	 mov r2,#0
+ 1225 003c 574B     	 ldr r3,.L43+12
+ 1226 003e FFF7FEFF 	 bl __aeabi_dmul
+ 1227 0042 0246     	 mov r2,r0
+ 1228 0044 0B46     	 mov r3,r1
+ 1229 0046 1046     	 mov r0,r2
+ 1230 0048 1946     	 mov r1,r3
+ 1231 004a 4FF00002 	 mov r2,#0
+ 1232 004e 544B     	 ldr r3,.L43+16
+ 1233 0050 FFF7FEFF 	 bl __aeabi_dsub
+ 1234 0054 0246     	 mov r2,r0
+ 1235 0056 0B46     	 mov r3,r1
+ 1236 0058 1046     	 mov r0,r2
+ 1237 005a 1946     	 mov r1,r3
+ 1238 005c FFF7FEFF 	 bl __aeabi_d2f
+ 1239 0060 0246     	 mov r2,r0
+ 1240 0062 504B     	 ldr r3,.L43+20
+ 1241 0064 1A60     	 str r2,[r3]
  350:../driver_adc.c **** 	ib_a = (float_t)(ib + 32768) / 65535.0 * 80.0 - 40.0;
- 1256              	 .loc 2 350 0
- 1257 0066 504B     	 ldr r3,.L43+24
- 1258 0068 1B88     	 ldrh r3,[r3]
- 1259 006a 1BB2     	 sxth r3,r3
- 1260 006c 03F50043 	 add r3,r3,#32768
- 1261 0070 07EE903A 	 fmsr s15,r3
- 1262 0074 F8EEE77A 	 fsitos s15,s15
- 1263 0078 17EE900A 	 fmrs r0,s15
- 1264 007c FFF7FEFF 	 bl __aeabi_f2d
- 1265 0080 0246     	 mov r2,r0
- 1266 0082 0B46     	 mov r3,r1
- 1267 0084 1046     	 mov r0,r2
- 1268 0086 1946     	 mov r1,r3
- 1269 0088 41A3     	 adr r3,.L43
- 1270 008a D3E90023 	 ldrd r2,[r3]
- 1271 008e FFF7FEFF 	 bl __aeabi_ddiv
- 1272 0092 0246     	 mov r2,r0
- 1273 0094 0B46     	 mov r3,r1
- 1274 0096 1046     	 mov r0,r2
- 1275 0098 1946     	 mov r1,r3
- 1276 009a 4FF00002 	 mov r2,#0
- 1277 009e 3F4B     	 ldr r3,.L43+12
- 1278 00a0 FFF7FEFF 	 bl __aeabi_dmul
- 1279 00a4 0246     	 mov r2,r0
- 1280 00a6 0B46     	 mov r3,r1
- 1281 00a8 1046     	 mov r0,r2
- 1282 00aa 1946     	 mov r1,r3
- 1283 00ac 4FF00002 	 mov r2,#0
- 1284 00b0 3B4B     	 ldr r3,.L43+16
- 1285 00b2 FFF7FEFF 	 bl __aeabi_dsub
- 1286 00b6 0246     	 mov r2,r0
- 1287 00b8 0B46     	 mov r3,r1
- 1288 00ba 1046     	 mov r0,r2
- 1289 00bc 1946     	 mov r1,r3
- 1290 00be FFF7FEFF 	 bl __aeabi_d2f
- 1291 00c2 0246     	 mov r2,r0
- 1292 00c4 394B     	 ldr r3,.L43+28
- 1293 00c6 1A60     	 str r2,[r3]
+ 1242              	 .loc 2 350 0
+ 1243 0066 504B     	 ldr r3,.L43+24
+ 1244 0068 1B88     	 ldrh r3,[r3]
+ 1245 006a 1BB2     	 sxth r3,r3
+ 1246 006c 03F50043 	 add r3,r3,#32768
+ 1247 0070 07EE903A 	 fmsr s15,r3
+ 1248 0074 F8EEE77A 	 fsitos s15,s15
+ 1249 0078 17EE900A 	 fmrs r0,s15
+ 1250 007c FFF7FEFF 	 bl __aeabi_f2d
+ 1251 0080 0246     	 mov r2,r0
+ 1252 0082 0B46     	 mov r3,r1
+ 1253 0084 1046     	 mov r0,r2
+ 1254 0086 1946     	 mov r1,r3
+ 1255 0088 41A3     	 adr r3,.L43
+ 1256 008a D3E90023 	 ldrd r2,[r3]
+ 1257 008e FFF7FEFF 	 bl __aeabi_ddiv
+ 1258 0092 0246     	 mov r2,r0
+ 1259 0094 0B46     	 mov r3,r1
+ 1260 0096 1046     	 mov r0,r2
+ 1261 0098 1946     	 mov r1,r3
+ 1262 009a 4FF00002 	 mov r2,#0
+ 1263 009e 3F4B     	 ldr r3,.L43+12
+ 1264 00a0 FFF7FEFF 	 bl __aeabi_dmul
+ 1265 00a4 0246     	 mov r2,r0
+ 1266 00a6 0B46     	 mov r3,r1
+ 1267 00a8 1046     	 mov r0,r2
+ 1268 00aa 1946     	 mov r1,r3
+ 1269 00ac 4FF00002 	 mov r2,#0
+ 1270 00b0 3B4B     	 ldr r3,.L43+16
+ 1271 00b2 FFF7FEFF 	 bl __aeabi_dsub
+ 1272 00b6 0246     	 mov r2,r0
+ 1273 00b8 0B46     	 mov r3,r1
+ 1274 00ba 1046     	 mov r0,r2
+ 1275 00bc 1946     	 mov r1,r3
+ 1276 00be FFF7FEFF 	 bl __aeabi_d2f
+ 1277 00c2 0246     	 mov r2,r0
+ 1278 00c4 394B     	 ldr r3,.L43+28
+ 1279 00c6 1A60     	 str r2,[r3]
  351:../driver_adc.c **** 	ic_a = (float_t)(ic + 32768) / 65535.0 * 80.0 - 40.0;
- 1294              	 .loc 2 351 0
- 1295 00c8 394B     	 ldr r3,.L43+32
- 1296 00ca 1B88     	 ldrh r3,[r3]
- 1297 00cc 1BB2     	 sxth r3,r3
- 1298 00ce 03F50043 	 add r3,r3,#32768
- 1299 00d2 07EE903A 	 fmsr s15,r3
- 1300 00d6 F8EEE77A 	 fsitos s15,s15
- 1301 00da 17EE900A 	 fmrs r0,s15
- 1302 00de FFF7FEFF 	 bl __aeabi_f2d
- 1303 00e2 0246     	 mov r2,r0
- 1304 00e4 0B46     	 mov r3,r1
- 1305 00e6 1046     	 mov r0,r2
- 1306 00e8 1946     	 mov r1,r3
- 1307 00ea 29A3     	 adr r3,.L43
- 1308 00ec D3E90023 	 ldrd r2,[r3]
- 1309 00f0 FFF7FEFF 	 bl __aeabi_ddiv
- 1310 00f4 0246     	 mov r2,r0
- 1311 00f6 0B46     	 mov r3,r1
- 1312 00f8 1046     	 mov r0,r2
- 1313 00fa 1946     	 mov r1,r3
- 1314 00fc 4FF00002 	 mov r2,#0
- 1315 0100 264B     	 ldr r3,.L43+12
- 1316 0102 FFF7FEFF 	 bl __aeabi_dmul
- 1317 0106 0246     	 mov r2,r0
- 1318 0108 0B46     	 mov r3,r1
- 1319 010a 1046     	 mov r0,r2
- 1320 010c 1946     	 mov r1,r3
- 1321 010e 4FF00002 	 mov r2,#0
- 1322 0112 234B     	 ldr r3,.L43+16
- 1323 0114 FFF7FEFF 	 bl __aeabi_dsub
- 1324 0118 0246     	 mov r2,r0
- 1325 011a 0B46     	 mov r3,r1
- 1326 011c 1046     	 mov r0,r2
- 1327 011e 1946     	 mov r1,r3
- 1328 0120 FFF7FEFF 	 bl __aeabi_d2f
- 1329 0124 0246     	 mov r2,r0
- 1330 0126 234B     	 ldr r3,.L43+36
- 1331 0128 1A60     	 str r2,[r3]
+ 1280              	 .loc 2 351 0
+ 1281 00c8 394B     	 ldr r3,.L43+32
+ 1282 00ca 1B88     	 ldrh r3,[r3]
+ 1283 00cc 1BB2     	 sxth r3,r3
+ 1284 00ce 03F50043 	 add r3,r3,#32768
+ 1285 00d2 07EE903A 	 fmsr s15,r3
+ 1286 00d6 F8EEE77A 	 fsitos s15,s15
+ 1287 00da 17EE900A 	 fmrs r0,s15
+ 1288 00de FFF7FEFF 	 bl __aeabi_f2d
+ 1289 00e2 0246     	 mov r2,r0
+ 1290 00e4 0B46     	 mov r3,r1
+ 1291 00e6 1046     	 mov r0,r2
+ 1292 00e8 1946     	 mov r1,r3
+ 1293 00ea 29A3     	 adr r3,.L43
+ 1294 00ec D3E90023 	 ldrd r2,[r3]
+ 1295 00f0 FFF7FEFF 	 bl __aeabi_ddiv
+ 1296 00f4 0246     	 mov r2,r0
+ 1297 00f6 0B46     	 mov r3,r1
+ 1298 00f8 1046     	 mov r0,r2
+ 1299 00fa 1946     	 mov r1,r3
+ 1300 00fc 4FF00002 	 mov r2,#0
+ 1301 0100 264B     	 ldr r3,.L43+12
+ 1302 0102 FFF7FEFF 	 bl __aeabi_dmul
+ 1303 0106 0246     	 mov r2,r0
+ 1304 0108 0B46     	 mov r3,r1
+ 1305 010a 1046     	 mov r0,r2
+ 1306 010c 1946     	 mov r1,r3
+ 1307 010e 4FF00002 	 mov r2,#0
+ 1308 0112 234B     	 ldr r3,.L43+16
+ 1309 0114 FFF7FEFF 	 bl __aeabi_dsub
+ 1310 0118 0246     	 mov r2,r0
+ 1311 011a 0B46     	 mov r3,r1
+ 1312 011c 1046     	 mov r0,r2
+ 1313 011e 1946     	 mov r1,r3
+ 1314 0120 FFF7FEFF 	 bl __aeabi_d2f
+ 1315 0124 0246     	 mov r2,r0
+ 1316 0126 234B     	 ldr r3,.L43+36
+ 1317 0128 1A60     	 str r2,[r3]
  352:../driver_adc.c **** 	iq_a = (float_t)(i_q + 32768) / 65535.0 * 80.0 - 40.0;
- 1332              	 .loc 2 352 0
- 1333 012a 234B     	 ldr r3,.L43+40
- 1334 012c D3ED007A 	 flds s15,[r3]
- 1335 0130 9FED227A 	 flds s14,.L43+44
- 1336 0134 77EE877A 	 fadds s15,s15,s14
- 1337 0138 17EE900A 	 fmrs r0,s15
- 1338 013c FFF7FEFF 	 bl __aeabi_f2d
- 1339 0140 0246     	 mov r2,r0
- 1340 0142 0B46     	 mov r3,r1
- 1341 0144 1046     	 mov r0,r2
- 1342 0146 1946     	 mov r1,r3
- 1343 0148 11A3     	 adr r3,.L43
- 1344 014a D3E90023 	 ldrd r2,[r3]
- 1345 014e FFF7FEFF 	 bl __aeabi_ddiv
- 1346 0152 0246     	 mov r2,r0
- 1347 0154 0B46     	 mov r3,r1
- 1348 0156 1046     	 mov r0,r2
- 1349 0158 1946     	 mov r1,r3
- 1350 015a 4FF00002 	 mov r2,#0
- 1351 015e 0F4B     	 ldr r3,.L43+12
- 1352 0160 FFF7FEFF 	 bl __aeabi_dmul
- 1353 0164 0246     	 mov r2,r0
- 1354 0166 0B46     	 mov r3,r1
- 1355 0168 1046     	 mov r0,r2
- 1356 016a 1946     	 mov r1,r3
- 1357 016c 4FF00002 	 mov r2,#0
- 1358 0170 0B4B     	 ldr r3,.L43+16
- 1359 0172 FFF7FEFF 	 bl __aeabi_dsub
- 1360 0176 0246     	 mov r2,r0
- 1361 0178 0B46     	 mov r3,r1
- 1362 017a 1046     	 mov r0,r2
- 1363 017c 1946     	 mov r1,r3
- 1364 017e FFF7FEFF 	 bl __aeabi_d2f
- 1365 0182 0246     	 mov r2,r0
- 1366 0184 0E4B     	 ldr r3,.L43+48
- 1367 0186 1A60     	 str r2,[r3]
+ 1318              	 .loc 2 352 0
+ 1319 012a 234B     	 ldr r3,.L43+40
+ 1320 012c D3ED007A 	 flds s15,[r3]
+ 1321 0130 9FED227A 	 flds s14,.L43+44
+ 1322 0134 77EE877A 	 fadds s15,s15,s14
+ 1323 0138 17EE900A 	 fmrs r0,s15
+ 1324 013c FFF7FEFF 	 bl __aeabi_f2d
+ 1325 0140 0246     	 mov r2,r0
+ 1326 0142 0B46     	 mov r3,r1
+ 1327 0144 1046     	 mov r0,r2
+ 1328 0146 1946     	 mov r1,r3
+ 1329 0148 11A3     	 adr r3,.L43
+ 1330 014a D3E90023 	 ldrd r2,[r3]
+ 1331 014e FFF7FEFF 	 bl __aeabi_ddiv
+ 1332 0152 0246     	 mov r2,r0
+ 1333 0154 0B46     	 mov r3,r1
+ 1334 0156 1046     	 mov r0,r2
+ 1335 0158 1946     	 mov r1,r3
+ 1336 015a 4FF00002 	 mov r2,#0
+ 1337 015e 0F4B     	 ldr r3,.L43+12
+ 1338 0160 FFF7FEFF 	 bl __aeabi_dmul
+ 1339 0164 0246     	 mov r2,r0
+ 1340 0166 0B46     	 mov r3,r1
+ 1341 0168 1046     	 mov r0,r2
+ 1342 016a 1946     	 mov r1,r3
+ 1343 016c 4FF00002 	 mov r2,#0
+ 1344 0170 0B4B     	 ldr r3,.L43+16
+ 1345 0172 FFF7FEFF 	 bl __aeabi_dsub
+ 1346 0176 0246     	 mov r2,r0
+ 1347 0178 0B46     	 mov r3,r1
+ 1348 017a 1046     	 mov r0,r2
+ 1349 017c 1946     	 mov r1,r3
+ 1350 017e FFF7FEFF 	 bl __aeabi_d2f
+ 1351 0182 0246     	 mov r2,r0
+ 1352 0184 0E4B     	 ldr r3,.L43+48
+ 1353 0186 1A60     	 str r2,[r3]
  353:../driver_adc.c **** }
- 1368              	 .loc 2 353 0
- 1369 0188 80BD     	 pop {r7,pc}
- 1370              	.L44:
- 1371 018a 00BFAFF3 	 .align 3
- 1371      0080
- 1372              	.L43:
- 1373 0190 00000000 	 .word 0
- 1374 0194 E0FFEF40 	 .word 1089470432
- 1375 0198 00000000 	 .word ia
- 1376 019c 00005440 	 .word 1079246848
- 1377 01a0 00004440 	 .word 1078198272
- 1378 01a4 00000000 	 .word ia_a
- 1379 01a8 00000000 	 .word ib
- 1380 01ac 00000000 	 .word ib_a
- 1381 01b0 00000000 	 .word ic
- 1382 01b4 00000000 	 .word ic_a
- 1383 01b8 00000000 	 .word i_q
- 1384 01bc 00000047 	 .word 1191182336
- 1385 01c0 00000000 	 .word iq_a
- 1386              	 .cfi_endproc
- 1387              	.LFE202:
- 1389 01c4 AFF30080 	 .text
- 1390              	.Letext0:
- 1391              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 1392              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 1393              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
- 1394              	 .file 6 "../main.h"
- 1395              	 .file 7 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
- 1396              	 .file 8 "../transform.h"
+ 1354              	 .loc 2 353 0
+ 1355 0188 80BD     	 pop {r7,pc}
+ 1356              	.L44:
+ 1357 018a 00BFAFF3 	 .align 3
+ 1357      0080
+ 1358              	.L43:
+ 1359 0190 00000000 	 .word 0
+ 1360 0194 E0FFEF40 	 .word 1089470432
+ 1361 0198 00000000 	 .word ia
+ 1362 019c 00005440 	 .word 1079246848
+ 1363 01a0 00004440 	 .word 1078198272
+ 1364 01a4 00000000 	 .word ia_a
+ 1365 01a8 00000000 	 .word ib
+ 1366 01ac 00000000 	 .word ib_a
+ 1367 01b0 00000000 	 .word ic
+ 1368 01b4 00000000 	 .word ic_a
+ 1369 01b8 00000000 	 .word i_q
+ 1370 01bc 00000047 	 .word 1191182336
+ 1371 01c0 00000000 	 .word iq_a
+ 1372              	 .cfi_endproc
+ 1373              	.LFE202:
+ 1375 01c4 AFF30080 	 .text
+ 1376              	.Letext0:
+ 1377              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1378              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 1379              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 1380              	 .file 6 "../main.h"
+ 1381              	 .file 7 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
+ 1382              	 .file 8 "../transform.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 driver_adc.c
     {standard input}:20     .text.__NVIC_EnableIRQ:00000000 $t
@@ -3582,21 +3568,21 @@ DEFINED SYMBOLS
     {standard input}:815    .text.interrupt_vadc_init:000000fc $d
     {standard input}:824    .text.read_currents:00000000 $t
     {standard input}:829    .text.read_currents:00000000 read_currents
-    {standard input}:924    .text.read_currents:00000094 $d
-    {standard input}:939    .text.current_offset:00000000 $t
-    {standard input}:944    .text.current_offset:00000000 current_offset
-    {standard input}:1078   .text.current_offset:000000bc $d
-    {standard input}:1092   .text.compute_u_mot:00000000 $t
-    {standard input}:1097   .text.compute_u_mot:00000000 compute_u_mot
-    {standard input}:1136   .text.compute_u_mot:00000038 $d
-    {standard input}:1144   .text.compute_u_log:00000000 $t
-    {standard input}:1149   .text.compute_u_log:00000000 compute_u_log
-    {standard input}:1188   .text.compute_u_log:00000038 $d
-    {standard input}:1199   .text.compute_currents:00000000 $t
-    {standard input}:1204   .text.compute_currents:00000000 compute_currents
-    {standard input}:1373   .text.compute_currents:00000190 $d
+    {standard input}:910    .text.read_currents:00000078 $d
+    {standard input}:925    .text.current_offset:00000000 $t
+    {standard input}:930    .text.current_offset:00000000 current_offset
+    {standard input}:1064   .text.current_offset:000000bc $d
+    {standard input}:1078   .text.compute_u_mot:00000000 $t
+    {standard input}:1083   .text.compute_u_mot:00000000 compute_u_mot
+    {standard input}:1122   .text.compute_u_mot:00000038 $d
+    {standard input}:1130   .text.compute_u_log:00000000 $t
+    {standard input}:1135   .text.compute_u_log:00000000 compute_u_log
+    {standard input}:1174   .text.compute_u_log:00000038 $d
+    {standard input}:1185   .text.compute_currents:00000000 $t
+    {standard input}:1190   .text.compute_currents:00000000 compute_currents
+    {standard input}:1359   .text.compute_currents:00000190 $d
                      .debug_frame:00000010 $d
-    {standard input}:1389   .text.compute_currents:000001c4 $t
+    {standard input}:1375   .text.compute_currents:000001c4 $t
 
 UNDEFINED SYMBOLS
 delay_t

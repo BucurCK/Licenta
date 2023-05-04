@@ -11,7 +11,7 @@ regulator current_d;
 regulator speed;
 float_t err_old_pos;
 
-float_t i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref;
+float_t i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 1000, u_d_ref = 0;	//TEST
 
 void pi_regulator_i_q(void) // i_q -> u_q_ref
 {
