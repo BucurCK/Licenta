@@ -1,3 +1,3 @@
-# Licenta - BLDC Motor Drive
+# STEPPER DRIVE
 
 TO DO
