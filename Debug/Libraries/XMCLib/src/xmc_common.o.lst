@@ -22,270 +22,270 @@
   22              	 .thumb_func
   24              	XMC_PRIOARRAY_GetHead:
   25              	.LFB131:
-  26              	 .file 1 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_common.h"
-   1:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /**
-   2:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * @file xmc_common.h
-   3:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * @date 2019-05-29
-   4:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-   5:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * @cond
-   6:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   *************************************************************************************************
-   7:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * XMClib v2.1.22 - XMC Peripheral Driver Library 
-   8:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-   9:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * Copyright (c) 2015-2019, Infineon Technologies AG
-  10:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * All rights reserved.                        
-  11:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *                                             
-  12:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
-  13:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * following conditions are met:   
-  14:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *                                                                              
-  15:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
-  16:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * disclaimer.                        
-  17:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 
-  18:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
-  19:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
-  20:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 
-  21:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
-  22:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * products derived from this software without specific prior written permission.                  
-  23:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *                                                                              
-  24:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
-  25:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
-  26:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
-  27:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
-  28:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
-  29:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
-  30:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
-  31:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *                                                                              
-  32:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
-  33:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
-  34:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  **************************************************************************************************
-  35:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  36:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * Change History
-  37:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * --------------
-  38:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  39:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 2015-06-20:
-  40:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Initial
-  41:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Brief section updated
-  42:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Added XMC_LIB_VERSION macro
-  43:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  44:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 2016-02-26:
-  45:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.6
-  46:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *      
-  47:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 2016-05-30:
-  48:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.8
-  49:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  50:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 2016-11-18:
-  51:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.10
-  52:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Changed type of size in XMC_PRIOARRAY_t to fix compilation warnings
-  53:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  54:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 2017-04-04:
-  55:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.12
-  56:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  57:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 2017-06-24:
-  58:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.14
-  59:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  60:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 2017-08-03:
-  61:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.16
-  62:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Added __RAM_FUNC macro
-  63:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  64:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 2018-06-29:
-  65:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.20
-  66:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  67:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * 2019-05-29:
-  68:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.22
-  69:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  70:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * @endcond 
-  71:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
-  72:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
-  73:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
-  74:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #ifndef XMC_COMMON_H
-  75:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_COMMON_H
-  76:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
-  77:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #include <stddef.h>
-  78:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #include <stdint.h>
-  79:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #include <stdbool.h>
-  80:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #include <string.h>
-  81:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
-  82:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #include "xmc_device.h"
-  83:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
-  84:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /**
-  85:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * @addtogroup XMClib XMC Peripheral Library
-  86:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * @{
-  87:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
-  88:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
-  89:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /**
-  90:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * @addtogroup COMMON
-  91:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * @brief Common APIs to all peripherals for XMC microcontroller family 
-  92:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * @{
-  93:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
-  94:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
-  95:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /**************************************************************************************************
-  96:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * MACROS
-  97:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  **************************************************************************************************
-  98:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_LIB_MAJOR_VERSION	(2U)
-  99:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_LIB_MINOR_VERSION	(1U)
- 100:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_LIB_PATCH_VERSION	(22U)
- 101:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  
- 102:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_LIB_VERSION         ((XMC_LIB_MAJOR_VERSION << 16U) + (XMC_LIB_MINOR_VERSION << 8U) + X
- 103:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 104:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /* Define WEAK attribute */
- 105:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #if !defined(__WEAK)
- 106:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #if defined ( __CC_ARM )
- 107:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define __WEAK __attribute__ ((weak))
- 108:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
- 109:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define __WEAK __attribute__ ((weak))
- 110:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __ICCARM__ )
- 111:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define __WEAK __weak
- 112:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __GNUC__ )
- 113:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define __WEAK __attribute__ ((weak))
- 114:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __TASKING__ )
- 115:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define __WEAK __attribute__ ((weak))
- 116:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #endif
- 117:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #endif
- 118:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 119:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #if !defined(__RAM_FUNC)
- 120:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #if defined ( __CC_ARM )
- 121:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** // http://www.keil.com/support/docs/3723.htm
- 122:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define __RAM_FUNC __attribute__((section("RAMCODESECTION")))
- 123:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
- 124:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define __RAM_FUNC __attribute__((section("RAMCODESECTION")))
- 125:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __ICCARM__ )
- 126:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** // https://www.iar.com/support/tech-notes/linker/controlling-placement-of-the-section-where-__ramfu
- 127:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define __RAM_FUNC __ramfunc
- 128:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __GNUC__ )
- 129:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define __RAM_FUNC __attribute__((section(".ram_code"), long_call))
- 130:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __TASKING__ )
- 131:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define __RAM_FUNC __attribute__((section(".ram_code")))
- 132:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #endif
- 133:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #endif
- 134:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 135:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #ifdef XMC_ASSERT_ENABLE
- 136:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  #define XMC_ASSERT(msg, exp) { if(!(exp)) {XMC_AssertHandler(msg, __FILE__, __LINE__);} }
- 137:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #else
- 138:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  #define XMC_ASSERT(msg, exp) { ; }
- 139:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #endif
- 140:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 141:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #ifdef XMC_DEBUG_ENABLE
- 142:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  #include <stdio.h>
- 143:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  #define XMC_DEBUG(...) { printf(__VA_ARGS__); }
- 144:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #else
- 145:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  #define XMC_DEBUG(...) { ; }
- 146:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #endif
- 147:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 148:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_UNUSED_ARG(x) (void)x
- 149:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 150:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_STRUCT_INIT(m) memset(&m, 0, sizeof(m))
- 151:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 152:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_PRIOARRAY_DEF(name, size) \
- 153:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** XMC_PRIOARRAY_ITEM_t prioarray_m_##name[size + 2]; \
- 154:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** XMC_PRIOARRAY_t prioarray_def_##name = {(size), (prioarray_m_##name)};
- 155:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 156:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_PRIOARRAY(name) \
- 157:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** &prioarray_def_##name
- 158:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 159:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /**************************************************************************************************
- 160:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * DATA STRUCTURES
- 161:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  **************************************************************************************************
- 162:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 163:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 164:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 165:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** typedef struct XMC_DRIVER_VERSION 
- 166:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** {
- 167:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   uint8_t major;
- 168:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   uint8_t minor;
- 169:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   uint8_t patch;
- 170:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** } XMC_DRIVER_VERSION_t;
- 171:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 172:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 173:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 174:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 175:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** typedef void *XMC_LIST_t;
- 176:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 177:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 178:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 179:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 180:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** typedef struct XMC_PRIOARRAY_ITEM
- 181:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** {
- 182:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   int32_t priority;
- 183:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   int32_t previous;
- 184:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   int32_t next;
- 185:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** } XMC_PRIOARRAY_ITEM_t;
- 186:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 187:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 188:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 189:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 190:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** typedef struct XMC_PRIOARRAY
- 191:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** {
- 192:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   int32_t size;
- 193:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   XMC_PRIOARRAY_ITEM_t *items;
- 194:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** } XMC_PRIOARRAY_t;
- 195:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 196:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /**************************************************************************************************
- 197:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  * API PROTOTYPES
- 198:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  **************************************************************************************************
- 199:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 200:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #ifdef __cplusplus
- 201:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** extern "C" {
- 202:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** #endif
- 203:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 204:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 205:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 206:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 207:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** void XMC_AssertHandler(const char *const msg, const char *const file, uint32_t line);
- 208:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 209:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 210:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 211:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 212:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** void XMC_LIST_Init(XMC_LIST_t *list);
- 213:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 214:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 215:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 216:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 217:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** void XMC_LIST_Add(XMC_LIST_t *list, void *const item);
- 218:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 219:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 220:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 221:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 222:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** void XMC_LIST_Remove(XMC_LIST_t *list, void *const item);
- 223:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 224:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 225:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 226:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 227:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** uint32_t XMC_LIST_GetLength(XMC_LIST_t *list);
- 228:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 229:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 230:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 231:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 232:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** void *XMC_LIST_GetHead(XMC_LIST_t *list);
- 233:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 234:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 235:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 236:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 237:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** void *XMC_LIST_GetTail(XMC_LIST_t *list);
- 238:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 239:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 240:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 241:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 242:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** void XMC_LIST_Insert(XMC_LIST_t *list, void *prev_item, void *new_item);
- 243:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 244:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 245:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 246:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 247:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** void XMC_PRIOARRAY_Init(XMC_PRIOARRAY_t *prioarray);
- 248:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 249:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 250:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 251:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 252:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** void XMC_PRIOARRAY_Add(XMC_PRIOARRAY_t *prioarray, int32_t item, int32_t priority);
- 253:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 254:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 255:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 256:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 257:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** void XMC_PRIOARRAY_Remove(XMC_PRIOARRAY_t *prioarray, int32_t item);
- 258:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 259:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 260:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 261:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 262:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetHead(XMC_PRIOARRAY_t *prioarray)
- 263:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** {
+  26              	 .file 1 "C:/GitHub/Stepper_drive/Libraries/XMCLib/inc/xmc_common.h"
+   1:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /**
+   2:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * @file xmc_common.h
+   3:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * @date 2019-05-29
+   4:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+   5:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * @cond
+   6:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   *************************************************************************************************
+   7:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * XMClib v2.1.22 - XMC Peripheral Driver Library 
+   8:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+   9:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * Copyright (c) 2015-2019, Infineon Technologies AG
+  10:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * All rights reserved.                        
+  11:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *                                             
+  12:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * following conditions are met:   
+  14:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *                                                                              
+  15:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * disclaimer.                        
+  17:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 
+  18:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 
+  21:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * products derived from this software without specific prior written permission.                  
+  23:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *                                                                              
+  24:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *                                                                              
+  32:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  **************************************************************************************************
+  35:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  36:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * Change History
+  37:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * --------------
+  38:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  39:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 2015-06-20:
+  40:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Initial
+  41:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Brief section updated
+  42:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Added XMC_LIB_VERSION macro
+  43:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  44:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 2016-02-26:
+  45:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.6
+  46:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *      
+  47:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 2016-05-30:
+  48:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.8
+  49:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  50:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 2016-11-18:
+  51:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.10
+  52:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Changed type of size in XMC_PRIOARRAY_t to fix compilation warnings
+  53:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  54:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 2017-04-04:
+  55:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.12
+  56:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  57:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 2017-06-24:
+  58:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.14
+  59:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  60:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 2017-08-03:
+  61:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.16
+  62:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Added __RAM_FUNC macro
+  63:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  64:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 2018-06-29:
+  65:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.20
+  66:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  67:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * 2019-05-29:
+  68:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.22
+  69:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  70:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * @endcond 
+  71:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+  72:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+  73:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+  74:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #ifndef XMC_COMMON_H
+  75:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_COMMON_H
+  76:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+  77:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #include <stddef.h>
+  78:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #include <stdint.h>
+  79:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #include <stdbool.h>
+  80:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #include <string.h>
+  81:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+  82:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #include "xmc_device.h"
+  83:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+  84:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /**
+  85:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * @addtogroup XMClib XMC Peripheral Library
+  86:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * @{
+  87:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+  88:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+  89:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /**
+  90:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * @addtogroup COMMON
+  91:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * @brief Common APIs to all peripherals for XMC microcontroller family 
+  92:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * @{
+  93:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+  94:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+  95:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /**************************************************************************************************
+  96:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * MACROS
+  97:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  **************************************************************************************************
+  98:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_LIB_MAJOR_VERSION	(2U)
+  99:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_LIB_MINOR_VERSION	(1U)
+ 100:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_LIB_PATCH_VERSION	(22U)
+ 101:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  
+ 102:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_LIB_VERSION         ((XMC_LIB_MAJOR_VERSION << 16U) + (XMC_LIB_MINOR_VERSION << 8U) + X
+ 103:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 104:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /* Define WEAK attribute */
+ 105:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #if !defined(__WEAK)
+ 106:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #if defined ( __CC_ARM )
+ 107:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define __WEAK __attribute__ ((weak))
+ 108:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+ 109:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define __WEAK __attribute__ ((weak))
+ 110:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __ICCARM__ )
+ 111:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define __WEAK __weak
+ 112:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __GNUC__ )
+ 113:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define __WEAK __attribute__ ((weak))
+ 114:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __TASKING__ )
+ 115:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define __WEAK __attribute__ ((weak))
+ 116:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #endif
+ 117:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #endif
+ 118:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 119:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #if !defined(__RAM_FUNC)
+ 120:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #if defined ( __CC_ARM )
+ 121:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** // http://www.keil.com/support/docs/3723.htm
+ 122:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define __RAM_FUNC __attribute__((section("RAMCODESECTION")))
+ 123:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+ 124:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define __RAM_FUNC __attribute__((section("RAMCODESECTION")))
+ 125:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __ICCARM__ )
+ 126:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** // https://www.iar.com/support/tech-notes/linker/controlling-placement-of-the-section-where-__ramfu
+ 127:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define __RAM_FUNC __ramfunc
+ 128:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __GNUC__ )
+ 129:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define __RAM_FUNC __attribute__((section(".ram_code"), long_call))
+ 130:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #elif defined ( __TASKING__ )
+ 131:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define __RAM_FUNC __attribute__((section(".ram_code")))
+ 132:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #endif
+ 133:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #endif
+ 134:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 135:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #ifdef XMC_ASSERT_ENABLE
+ 136:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  #define XMC_ASSERT(msg, exp) { if(!(exp)) {XMC_AssertHandler(msg, __FILE__, __LINE__);} }
+ 137:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #else
+ 138:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  #define XMC_ASSERT(msg, exp) { ; }
+ 139:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #endif
+ 140:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 141:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #ifdef XMC_DEBUG_ENABLE
+ 142:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  #include <stdio.h>
+ 143:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  #define XMC_DEBUG(...) { printf(__VA_ARGS__); }
+ 144:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #else
+ 145:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  #define XMC_DEBUG(...) { ; }
+ 146:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #endif
+ 147:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 148:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_UNUSED_ARG(x) (void)x
+ 149:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 150:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_STRUCT_INIT(m) memset(&m, 0, sizeof(m))
+ 151:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 152:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_PRIOARRAY_DEF(name, size) \
+ 153:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** XMC_PRIOARRAY_ITEM_t prioarray_m_##name[size + 2]; \
+ 154:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** XMC_PRIOARRAY_t prioarray_def_##name = {(size), (prioarray_m_##name)};
+ 155:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 156:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #define XMC_PRIOARRAY(name) \
+ 157:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** &prioarray_def_##name
+ 158:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 159:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /**************************************************************************************************
+ 160:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * DATA STRUCTURES
+ 161:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  **************************************************************************************************
+ 162:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 163:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 164:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 165:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** typedef struct XMC_DRIVER_VERSION 
+ 166:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** {
+ 167:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   uint8_t major;
+ 168:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   uint8_t minor;
+ 169:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   uint8_t patch;
+ 170:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** } XMC_DRIVER_VERSION_t;
+ 171:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 172:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 173:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 174:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 175:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** typedef void *XMC_LIST_t;
+ 176:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 177:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 178:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 179:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 180:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** typedef struct XMC_PRIOARRAY_ITEM
+ 181:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** {
+ 182:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   int32_t priority;
+ 183:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   int32_t previous;
+ 184:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   int32_t next;
+ 185:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** } XMC_PRIOARRAY_ITEM_t;
+ 186:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 187:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 188:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 189:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 190:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** typedef struct XMC_PRIOARRAY
+ 191:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** {
+ 192:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   int32_t size;
+ 193:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   XMC_PRIOARRAY_ITEM_t *items;
+ 194:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** } XMC_PRIOARRAY_t;
+ 195:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 196:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /**************************************************************************************************
+ 197:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  * API PROTOTYPES
+ 198:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  **************************************************************************************************
+ 199:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 200:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #ifdef __cplusplus
+ 201:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** extern "C" {
+ 202:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** #endif
+ 203:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 204:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 205:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 206:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 207:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** void XMC_AssertHandler(const char *const msg, const char *const file, uint32_t line);
+ 208:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 209:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 210:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 211:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 212:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** void XMC_LIST_Init(XMC_LIST_t *list);
+ 213:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 214:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 215:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 216:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 217:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** void XMC_LIST_Add(XMC_LIST_t *list, void *const item);
+ 218:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 219:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 220:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 221:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 222:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** void XMC_LIST_Remove(XMC_LIST_t *list, void *const item);
+ 223:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 224:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 225:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 226:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 227:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** uint32_t XMC_LIST_GetLength(XMC_LIST_t *list);
+ 228:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 229:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 230:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 231:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 232:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** void *XMC_LIST_GetHead(XMC_LIST_t *list);
+ 233:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 234:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 235:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 236:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 237:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** void *XMC_LIST_GetTail(XMC_LIST_t *list);
+ 238:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 239:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 240:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 241:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 242:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** void XMC_LIST_Insert(XMC_LIST_t *list, void *prev_item, void *new_item);
+ 243:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 244:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 245:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 246:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 247:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** void XMC_PRIOARRAY_Init(XMC_PRIOARRAY_t *prioarray);
+ 248:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 249:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 250:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 251:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 252:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** void XMC_PRIOARRAY_Add(XMC_PRIOARRAY_t *prioarray, int32_t item, int32_t priority);
+ 253:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 254:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 255:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 256:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 257:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** void XMC_PRIOARRAY_Remove(XMC_PRIOARRAY_t *prioarray, int32_t item);
+ 258:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 259:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 260:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 261:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 262:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetHead(XMC_PRIOARRAY_t *prioarray)
+ 263:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** {
   27              	 .loc 1 263 0
   28              	 .cfi_startproc
   29              	 
@@ -302,8 +302,8 @@
   40              	.LCFI2:
   41              	 .cfi_def_cfa_register 7
   42 0006 7860     	 str r0,[r7,#4]
- 264:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_Init: NULL pointer", prioarray != NULL);
- 265:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   return prioarray->items[prioarray->size].next;
+ 264:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_Init: NULL pointer", prioarray != NULL);
+ 265:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   return prioarray->items[prioarray->size].next;
   43              	 .loc 1 265 0
   44 0008 7B68     	 ldr r3,[r7,#4]
   45 000a 5A68     	 ldr r2,[r3,#4]
@@ -316,7 +316,7 @@
   52 0018 9B00     	 lsls r3,r3,#2
   53 001a 1344     	 add r3,r3,r2
   54 001c 9B68     	 ldr r3,[r3,#8]
- 266:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** }
+ 266:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** }
   55              	 .loc 1 266 0
   56 001e 1846     	 mov r0,r3
   57 0020 0C37     	 adds r7,r7,#12
@@ -339,21 +339,21 @@
   75              	 .thumb_func
   77              	XMC_PRIOARRAY_GetItemPriority:
   78              	.LFB133:
- 267:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 268:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 269:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 270:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 271:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetTail(XMC_PRIOARRAY_t *prioarray)
- 272:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** {
- 273:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_Init: NULL pointer", prioarray != NULL);
- 274:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   return prioarray->items[prioarray->size + 1].previous;
- 275:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** }
- 276:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 277:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 278:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 279:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 280:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetItemPriority(XMC_PRIOARRAY_t *prioarray, int32_t item)
- 281:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** {
+ 267:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 268:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 269:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 270:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 271:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetTail(XMC_PRIOARRAY_t *prioarray)
+ 272:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** {
+ 273:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_Init: NULL pointer", prioarray != NULL);
+ 274:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   return prioarray->items[prioarray->size + 1].previous;
+ 275:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** }
+ 276:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 277:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 278:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 279:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 280:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetItemPriority(XMC_PRIOARRAY_t *prioarray, int32_t item)
+ 281:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** {
   79              	 .loc 1 281 0
   80              	 .cfi_startproc
   81              	 
@@ -371,8 +371,8 @@
   93              	 .cfi_def_cfa_register 7
   94 0006 7860     	 str r0,[r7,#4]
   95 0008 3960     	 str r1,[r7]
- 282:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_GetItemPriority: item out of range", (item >= 0) && (item < prioarray->
- 283:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   return prioarray->items[item].priority;
+ 282:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_GetItemPriority: item out of range", (item >= 0) && (item < prioarray->
+ 283:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   return prioarray->items[item].priority;
   96              	 .loc 1 283 0
   97 000a 7B68     	 ldr r3,[r7,#4]
   98 000c 5968     	 ldr r1,[r3,#4]
@@ -383,7 +383,7 @@
  103 0016 9B00     	 lsls r3,r3,#2
  104 0018 0B44     	 add r3,r3,r1
  105 001a 1B68     	 ldr r3,[r3]
- 284:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** }
+ 284:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** }
  106              	 .loc 1 284 0
  107 001c 1846     	 mov r0,r3
  108 001e 0C37     	 adds r7,r7,#12
@@ -406,12 +406,12 @@
  126              	 .thumb_func
  128              	XMC_PRIOARRAY_GetItemNext:
  129              	.LFB134:
- 285:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** 
- 286:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** /*
- 287:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  *
- 288:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****  */
- 289:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetItemNext(XMC_PRIOARRAY_t *prioarray, int32_t item)
- 290:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** {
+ 285:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** 
+ 286:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** /*
+ 287:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  *
+ 288:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****  */
+ 289:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetItemNext(XMC_PRIOARRAY_t *prioarray, int32_t item)
+ 290:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** {
  130              	 .loc 1 290 0
  131              	 .cfi_startproc
  132              	 
@@ -429,8 +429,8 @@
  144              	 .cfi_def_cfa_register 7
  145 0006 7860     	 str r0,[r7,#4]
  146 0008 3960     	 str r1,[r7]
- 291:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_GetItemNext: item out of range", (item >= 0) && (item < prioarray->size
- 292:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h ****   return prioarray->items[item].next;
+ 291:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_GetItemNext: item out of range", (item >= 0) && (item < prioarray->size
+ 292:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h ****   return prioarray->items[item].next;
  147              	 .loc 1 292 0
  148 000a 7B68     	 ldr r3,[r7,#4]
  149 000c 5968     	 ldr r1,[r3,#4]
@@ -441,7 +441,7 @@
  154 0016 9B00     	 lsls r3,r3,#2
  155 0018 0B44     	 add r3,r3,r1
  156 001a 9B68     	 ldr r3,[r3,#8]
- 293:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_common.h **** }
+ 293:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_common.h **** }
  157              	 .loc 1 293 0
  158 001c 1846     	 mov r0,r3
  159 001e 0C37     	 adds r7,r7,#12
@@ -1378,7 +1378,7 @@
  889              	.Letext0:
  890              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  891              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 892              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 892              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 xmc_common.c
     {standard input}:20     .text.XMC_PRIOARRAY_GetHead:00000000 $t

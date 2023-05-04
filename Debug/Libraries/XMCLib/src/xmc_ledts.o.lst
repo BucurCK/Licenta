@@ -1422,11 +1422,11 @@
  1074              	.Letext0:
  1075              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  1076              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 1077              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
- 1078              	 .file 5 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_scu.h"
- 1079              	 .file 6 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_ledts.h"
- 1080              	 .file 7 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 1081              	 .file 8 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
+ 1077              	 .file 4 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 1078              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/XMCLib/inc/xmc4_scu.h"
+ 1079              	 .file 6 "C:/GitHub/Stepper_drive/Libraries/XMCLib/inc/xmc_ledts.h"
+ 1080              	 .file 7 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
+ 1081              	 .file 8 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 xmc_ledts.c
     {standard input}:20     .text.XMC_LEDTS_InitGlobal:00000000 $t

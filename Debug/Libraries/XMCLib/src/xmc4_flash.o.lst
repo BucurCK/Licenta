@@ -2396,9 +2396,9 @@
  1886              	.Letext0:
  1887              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  1888              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 1889              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
- 1890              	 .file 5 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_flash.h"
- 1891              	 .file 6 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 1889              	 .file 4 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 1890              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/XMCLib/inc/xmc4_flash.h"
+ 1891              	 .file 6 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 xmc4_flash.c
     {standard input}:20     .text.XMC_FLASH_lEnterPageModeCommand:00000000 $t

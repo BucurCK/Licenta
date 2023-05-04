@@ -970,11 +970,11 @@
  772              	.Letext0:
  773              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  774              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 775              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
- 776              	 .file 5 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_ecat.h"
- 777              	 .file 6 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_scu.h"
- 778              	 .file 7 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 779              	 .file 8 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
+ 775              	 .file 4 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 776              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/XMCLib/inc/xmc_ecat.h"
+ 777              	 .file 6 "C:/GitHub/Stepper_drive/Libraries/XMCLib/inc/xmc4_scu.h"
+ 778              	 .file 7 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
+ 779              	 .file 8 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 xmc_ecat.c
     {standard input}:20     .text.XMC_ECAT_lRequestPhyAccessToMII:00000000 $t

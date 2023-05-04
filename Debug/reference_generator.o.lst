@@ -440,149 +440,149 @@
  384 0270 1A60     	 str r2,[r3]
  385              	.LBB6:
  386              	.LBB7:
- 387              	 .file 2 "C:/CODE/Licenta/Libraries/CMSIS/Include/cmsis_gcc.h"
-   1:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**************************************************************************//**
-   2:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @file     cmsis_gcc.h
-   3:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
-   4:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @version  V5.1.0
-   5:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @date     20. December 2018
-   6:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  ******************************************************************************/
-   7:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /*
-   8:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
-   9:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
-  10:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
-  11:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
-  12:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
-  13:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * not use this file except in compliance with the License.
-  14:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * You may obtain a copy of the License at
-  15:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
-  16:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
-  17:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
-  18:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
-  19:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
-  20:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  21:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * See the License for the specific language governing permissions and
-  22:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * limitations under the License.
-  23:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
-  24:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
-  25:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
-  26:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_H
-  27:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
-  28:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ignore some GCC warnings */
-  29:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic push
-  30:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
-  31:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
-  32:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
-  33:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
-  34:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Fallback for __has_builtin */
-  35:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __has_builtin
-  36:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __has_builtin(x) (0)
-  37:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  38:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
-  39:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* CMSIS compiler specific defines */
-  40:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ASM
-  41:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ASM                                  __asm
-  42:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  43:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __INLINE
-  44:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __INLINE                               inline
-  45:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  46:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_INLINE
-  47:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
-  48:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  49:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
-  50:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
-  51:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif                                           
-  52:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __NO_RETURN
-  53:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
-  54:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  55:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __USED
-  56:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
-  57:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  58:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __WEAK
-  59:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
-  60:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  61:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED
-  62:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
-  63:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  64:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
-  65:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
-  66:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  67:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_UNION
-  68:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
-  69:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  70:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
-  71:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
-  72:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-  73:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
-  74:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
-  75:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
-  76:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
-  77:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  78:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
-  79:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
-  80:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-  81:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
-  82:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
-  83:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
-  84:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
-  85:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  86:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
-  87:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
-  88:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-  89:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
-  90:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
-  91:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
-  92:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
-  93:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  94:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
-  95:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
-  96:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-  97:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
-  98:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
-  99:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
- 100:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
- 101:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 102:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
- 103:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
- 104:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
- 105:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
- 106:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
- 107:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
- 108:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
- 109:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 110:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ALIGNED
- 111:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
- 112:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 113:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __RESTRICT
- 114:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __RESTRICT                             __restrict
- 115:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 116:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 117:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 118:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
- 119:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
- 120:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
- 121:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
- 122:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 123:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 124:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 125:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
- 126:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
- 127:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
- 128:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 129:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
- 130:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 131:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
- 132:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 133:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 134:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 135:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 136:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
- 137:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
- 138:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
- 139:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 140:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
- 141:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 142:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+ 387              	 .file 2 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/cmsis_gcc.h"
+   1:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**************************************************************************//**
+   2:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
+   4:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @version  V5.1.0
+   5:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @date     20. December 2018
+   6:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  ******************************************************************************/
+   7:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /*
+   8:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
+   9:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  10:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
+  11:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  12:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
+  13:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * not use this file except in compliance with the License.
+  14:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * You may obtain a copy of the License at
+  15:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  16:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
+  17:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  18:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
+  19:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  20:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  21:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * See the License for the specific language governing permissions and
+  22:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * limitations under the License.
+  23:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+  24:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  25:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  26:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_H
+  27:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  28:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ignore some GCC warnings */
+  29:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic push
+  30:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  31:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  32:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  33:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  34:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Fallback for __has_builtin */
+  35:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __has_builtin
+  36:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __has_builtin(x) (0)
+  37:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  38:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  39:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /* CMSIS compiler specific defines */
+  40:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ASM
+  41:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ASM                                  __asm
+  42:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  43:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __INLINE
+  44:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __INLINE                               inline
+  45:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  46:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_INLINE
+  47:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
+  48:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  49:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
+  50:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
+  51:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif                                           
+  52:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __NO_RETURN
+  53:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
+  54:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  55:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __USED
+  56:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
+  57:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  58:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __WEAK
+  59:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
+  60:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  61:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED
+  62:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
+  63:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  64:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
+  65:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
+  66:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  67:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_UNION
+  68:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
+  69:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  70:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
+  71:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  72:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  73:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  74:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
+  75:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  76:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+  77:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  78:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
+  79:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  80:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  81:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  82:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+  83:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  84:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
+  85:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  86:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
+  87:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  88:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  89:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  90:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+  91:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  92:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
+  93:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  94:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
+  95:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  96:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  97:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  98:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+  99:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 100:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
+ 101:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 102:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
+ 103:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+ 104:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+ 105:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+ 106:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+ 107:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 108:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
+ 109:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 110:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ALIGNED
+ 111:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
+ 112:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 113:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __RESTRICT
+ 114:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __RESTRICT                             __restrict
+ 115:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 116:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 117:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 118:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+ 119:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+ 120:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+ 121:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
+ 122:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 123:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 124:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 125:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+ 126:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+ 127:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 128:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 129:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
+ 130:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 131:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+ 132:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 133:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 134:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 135:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 136:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+ 137:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+ 138:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 139:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 140:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
+ 141:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 142:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
  388              	 .loc 2 142 0
  389              	
  390 0272 72B6     	 cpsid i
@@ -599,7 +599,7 @@
  398 0278 1A60     	 str r2,[r3]
  399              	.LBB8:
  400              	.LBB9:
- 131:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 131:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
  401              	 .loc 2 131 0
  402              	
  403 027a 62B6     	 cpsie i
@@ -971,7 +971,7 @@
  700              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
  701              	 .file 5 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
  702              	 .file 6 "../reference_generator.h"
- 703              	 .file 7 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
+ 703              	 .file 7 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
  704              	 .file 8 "../main.h"
  705              	 .file 9 "../pi_regulator.h"
 DEFINED SYMBOLS

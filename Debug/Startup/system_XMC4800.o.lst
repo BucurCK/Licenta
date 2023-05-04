@@ -564,149 +564,149 @@
  155              	 .cfi_def_cfa_register 7
  156              	.LBB8:
  157              	.LBB9:
- 158              	 .file 2 "C:/CODE/Licenta/Libraries/CMSIS/Include/cmsis_gcc.h"
-   1:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**************************************************************************//**
-   2:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @file     cmsis_gcc.h
-   3:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
-   4:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @version  V5.1.0
-   5:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @date     20. December 2018
-   6:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  ******************************************************************************/
-   7:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /*
-   8:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
-   9:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
-  10:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
-  11:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
-  12:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
-  13:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * not use this file except in compliance with the License.
-  14:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * You may obtain a copy of the License at
-  15:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
-  16:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
-  17:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
-  18:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
-  19:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
-  20:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  21:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * See the License for the specific language governing permissions and
-  22:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * limitations under the License.
-  23:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
-  24:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
-  25:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
-  26:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_H
-  27:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
-  28:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ignore some GCC warnings */
-  29:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic push
-  30:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
-  31:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
-  32:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
-  33:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
-  34:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Fallback for __has_builtin */
-  35:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __has_builtin
-  36:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __has_builtin(x) (0)
-  37:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  38:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
-  39:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* CMSIS compiler specific defines */
-  40:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ASM
-  41:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ASM                                  __asm
-  42:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  43:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __INLINE
-  44:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __INLINE                               inline
-  45:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  46:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_INLINE
-  47:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
-  48:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  49:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
-  50:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
-  51:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif                                           
-  52:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __NO_RETURN
-  53:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
-  54:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  55:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __USED
-  56:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
-  57:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  58:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __WEAK
-  59:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
-  60:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  61:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED
-  62:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
-  63:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  64:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
-  65:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
-  66:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  67:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_UNION
-  68:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
-  69:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  70:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
-  71:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
-  72:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-  73:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
-  74:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
-  75:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
-  76:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
-  77:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  78:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
-  79:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
-  80:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-  81:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
-  82:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
-  83:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
-  84:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
-  85:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  86:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
-  87:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
-  88:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-  89:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
-  90:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
-  91:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
-  92:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
-  93:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
-  94:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
-  95:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
-  96:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-  97:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
-  98:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
-  99:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
- 100:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
- 101:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 102:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
- 103:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
- 104:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
- 105:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
- 106:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
- 107:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
- 108:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
- 109:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 110:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ALIGNED
- 111:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
- 112:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 113:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __RESTRICT
- 114:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __RESTRICT                             __restrict
- 115:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 116:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 117:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 118:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
- 119:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
- 120:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
- 121:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
- 122:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 123:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 124:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 125:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
- 126:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
- 127:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
- 128:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 129:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
- 130:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 131:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
- 132:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 133:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 134:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 135:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 136:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
- 137:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
- 138:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
- 139:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 140:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
- 141:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 142:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+ 158              	 .file 2 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/cmsis_gcc.h"
+   1:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**************************************************************************//**
+   2:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
+   4:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @version  V5.1.0
+   5:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @date     20. December 2018
+   6:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  ******************************************************************************/
+   7:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /*
+   8:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
+   9:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  10:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
+  11:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  12:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
+  13:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * not use this file except in compliance with the License.
+  14:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * You may obtain a copy of the License at
+  15:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  16:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
+  17:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  *
+  18:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
+  19:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  20:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  21:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * See the License for the specific language governing permissions and
+  22:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * limitations under the License.
+  23:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+  24:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  25:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  26:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_H
+  27:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  28:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ignore some GCC warnings */
+  29:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic push
+  30:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  31:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  32:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  33:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  34:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Fallback for __has_builtin */
+  35:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __has_builtin
+  36:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __has_builtin(x) (0)
+  37:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  38:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  39:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /* CMSIS compiler specific defines */
+  40:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ASM
+  41:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ASM                                  __asm
+  42:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  43:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __INLINE
+  44:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __INLINE                               inline
+  45:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  46:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_INLINE
+  47:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
+  48:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  49:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
+  50:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
+  51:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif                                           
+  52:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __NO_RETURN
+  53:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
+  54:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  55:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __USED
+  56:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
+  57:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  58:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __WEAK
+  59:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
+  60:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  61:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED
+  62:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
+  63:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  64:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
+  65:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
+  66:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  67:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __PACKED_UNION
+  68:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
+  69:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  70:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
+  71:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  72:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  73:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  74:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
+  75:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  76:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+  77:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  78:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
+  79:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  80:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  81:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  82:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+  83:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  84:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
+  85:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  86:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
+  87:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  88:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  89:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  90:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+  91:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  92:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
+  93:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  94:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
+  95:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+  96:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  97:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  98:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+  99:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 100:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
+ 101:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 102:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
+ 103:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic push
+ 104:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+ 105:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+ 106:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+ 107:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 108:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
+ 109:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 110:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __ALIGNED
+ 111:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
+ 112:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 113:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef   __RESTRICT
+ 114:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   #define __RESTRICT                             __restrict
+ 115:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 116:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 117:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 118:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+ 119:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+ 120:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+ 121:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
+ 122:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 123:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 124:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 125:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+ 126:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+ 127:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 128:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 129:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
+ 130:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 131:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+ 132:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 133:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 134:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 135:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 136:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+ 137:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+ 138:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 139:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 140:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
+ 141:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 142:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
  159              	 .loc 2 142 0
  160              	
  161 0006 72B6     	 cpsid i
@@ -725,743 +725,743 @@
  169 000c 9A60     	 str r2,[r3,#8]
  170              	.LBB10:
  171              	.LBB11:
- 143:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 144:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 145:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 146:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 147:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Control Register
- 148:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the Control Register.
- 149:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Control Register value
- 150:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 151:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_CONTROL(void)
- 152:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 153:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 154:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 155:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, control" : "=r" (result) );
- 156:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 157:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 158:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 159:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 160:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 161:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 162:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Control Register (non-secure)
- 163:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the non-secure Control Register when in secure mode.
- 164:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               non-secure Control Register value
- 165:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 166:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_CONTROL_NS(void)
- 167:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 168:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 169:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 170:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, control_ns" : "=r" (result) );
- 171:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 172:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 173:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 174:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 175:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 176:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 177:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Control Register
- 178:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Writes the given value to the Control Register.
- 179:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    control  Control Register value to set
- 180:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 181:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_CONTROL(uint32_t control)
- 182:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 183:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR control, %0" : : "r" (control) : "memory");
- 184:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 185:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 186:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 187:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 188:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 189:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Control Register (non-secure)
- 190:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Writes the given value to the non-secure Control Register when in secure state.
- 191:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    control  Control Register value to set
- 192:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 193:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_CONTROL_NS(uint32_t control)
- 194:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 195:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR control_ns, %0" : : "r" (control) : "memory");
- 196:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 197:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 198:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 199:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 200:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 201:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get IPSR Register
- 202:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the IPSR Register.
- 203:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               IPSR Register value
- 204:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 205:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_IPSR(void)
- 206:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 207:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 208:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 209:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
- 210:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 211:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 212:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 213:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 214:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 215:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get APSR Register
- 216:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the APSR Register.
- 217:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               APSR Register value
- 218:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 219:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_APSR(void)
- 220:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 221:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 222:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 223:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, apsr" : "=r" (result) );
- 224:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 225:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 226:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 227:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 228:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 229:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get xPSR Register
- 230:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the xPSR Register.
- 231:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               xPSR Register value
- 232:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 233:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_xPSR(void)
- 234:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 235:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 236:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 237:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, xpsr" : "=r" (result) );
- 238:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 239:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 240:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 241:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 242:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 243:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer
- 244:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Process Stack Pointer (PSP).
- 245:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSP Register value
- 246:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 247:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_PSP(void)
- 248:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 249:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 250:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 251:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psp"  : "=r" (result) );
- 252:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 253:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 254:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 255:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 256:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 257:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 258:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer (non-secure)
- 259:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Process Stack Pointer (PSP) when in secure s
- 260:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSP Register value
- 261:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 262:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_PSP_NS(void)
- 263:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 264:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 265:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 266:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psp_ns"  : "=r" (result) );
- 267:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 268:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 269:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 270:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 271:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 272:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 273:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer
- 274:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Process Stack Pointer (PSP).
- 275:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfProcStack  Process Stack Pointer value to set
- 276:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 277:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PSP(uint32_t topOfProcStack)
- 278:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 279:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psp, %0" : : "r" (topOfProcStack) : );
- 280:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 281:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 282:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 283:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 284:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 285:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer (non-secure)
- 286:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Process Stack Pointer (PSP) when in secure sta
- 287:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfProcStack  Process Stack Pointer value to set
- 288:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 289:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_PSP_NS(uint32_t topOfProcStack)
- 290:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 291:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psp_ns, %0" : : "r" (topOfProcStack) : );
- 292:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 293:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 294:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 295:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 296:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 297:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer
- 298:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer (MSP).
- 299:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSP Register value
- 300:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 301:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_MSP(void)
- 302:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 303:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 304:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 305:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msp" : "=r" (result) );
- 306:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 307:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 308:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 309:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 310:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 311:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 312:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer (non-secure)
- 313:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Main Stack Pointer (MSP) when in secure stat
- 314:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSP Register value
- 315:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 316:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_MSP_NS(void)
- 317:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 318:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 319:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 320:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msp_ns" : "=r" (result) );
- 321:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 322:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 323:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 324:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 325:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 326:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 327:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer
- 328:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Main Stack Pointer (MSP).
- 329:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfMainStack  Main Stack Pointer value to set
- 330:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 331:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_MSP(uint32_t topOfMainStack)
- 332:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 333:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msp, %0" : : "r" (topOfMainStack) : );
- 334:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 335:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 336:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 337:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 338:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 339:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer (non-secure)
- 340:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Main Stack Pointer (MSP) when in secure state.
- 341:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfMainStack  Main Stack Pointer value to set
- 342:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 343:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_MSP_NS(uint32_t topOfMainStack)
- 344:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 345:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msp_ns, %0" : : "r" (topOfMainStack) : );
- 346:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 347:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 348:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 349:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 350:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 351:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 352:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Stack Pointer (non-secure)
- 353:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Stack Pointer (SP) when in secure state.
- 354:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               SP Register value
- 355:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 356:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_SP_NS(void)
- 357:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 358:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 359:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 360:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, sp_ns" : "=r" (result) );
- 361:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 362:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 363:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 364:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 365:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 366:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Stack Pointer (non-secure)
- 367:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Stack Pointer (SP) when in secure state.
- 368:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfStack  Stack Pointer value to set
- 369:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 370:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_SP_NS(uint32_t topOfStack)
- 371:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 372:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR sp_ns, %0" : : "r" (topOfStack) : );
- 373:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 374:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 375:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 376:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 377:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 378:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Priority Mask
- 379:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current state of the priority mask bit from the Priority Mask Register.
- 380:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Priority Mask value
- 381:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 382:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_PRIMASK(void)
- 383:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 384:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 385:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 386:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, primask" : "=r" (result) :: "memory");
- 387:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 388:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 389:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 390:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 391:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 392:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 393:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Priority Mask (non-secure)
- 394:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current state of the non-secure priority mask bit from the Priority Mask Reg
- 395:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Priority Mask value
- 396:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 397:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_PRIMASK_NS(void)
- 398:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 399:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 400:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 401:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, primask_ns" : "=r" (result) :: "memory");
- 402:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 403:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 404:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 405:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 406:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 407:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 408:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Priority Mask
- 409:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Priority Mask Register.
- 410:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    priMask  Priority Mask
- 411:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 412:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PRIMASK(uint32_t priMask)
- 413:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 414:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR primask, %0" : : "r" (priMask) : "memory");
- 415:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 416:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 417:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 418:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 419:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 420:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Priority Mask (non-secure)
- 421:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Priority Mask Register when in secure state.
- 422:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    priMask  Priority Mask
- 423:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 424:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_PRIMASK_NS(uint32_t priMask)
- 425:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 426:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR primask_ns, %0" : : "r" (priMask) : "memory");
- 427:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 428:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 429:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 430:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 431:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__ARM_ARCH_7M__      ) && (__ARM_ARCH_7M__      == 1)) || \
- 432:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__ARM_ARCH_7EM__     ) && (__ARM_ARCH_7EM__     == 1)) || \
- 433:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1))    )
- 434:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 435:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable FIQ
- 436:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables FIQ interrupts by clearing the F-bit in the CPSR.
- 437:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
- 438:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 439:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_fault_irq(void)
- 440:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 441:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie f" : : : "memory");
- 442:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 443:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 444:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 445:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 446:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable FIQ
- 447:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables FIQ interrupts by setting the F-bit in the CPSR.
- 448:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
- 449:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 450:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_fault_irq(void)
- 451:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 452:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid f" : : : "memory");
- 453:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 454:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 455:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 456:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 457:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Base Priority
- 458:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Base Priority register.
- 459:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Base Priority register value
- 460:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 461:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_BASEPRI(void)
- 462:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 463:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 464:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 465:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, basepri" : "=r" (result) );
- 466:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 467:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 468:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 469:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 470:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 471:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 472:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Base Priority (non-secure)
- 473:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Base Priority register when in secure state.
- 474:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Base Priority register value
- 475:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 476:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_BASEPRI_NS(void)
- 477:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 478:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 479:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 480:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, basepri_ns" : "=r" (result) );
- 481:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 482:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 483:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 484:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 485:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 486:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 487:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority
- 488:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register.
- 489:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
- 490:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 491:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_BASEPRI(uint32_t basePri)
- 492:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 493:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri, %0" : : "r" (basePri) : "memory");
- 494:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 495:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 496:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 497:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 498:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 499:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority (non-secure)
- 500:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Base Priority register when in secure state.
- 501:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
- 502:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 503:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_BASEPRI_NS(uint32_t basePri)
- 504:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 505:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri_ns, %0" : : "r" (basePri) : "memory");
- 506:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 507:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 508:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 509:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 510:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 511:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority with condition
- 512:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register only if BASEPRI masking is disable
- 513:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            or the new value increases the BASEPRI priority level.
- 514:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
- 515:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 516:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_BASEPRI_MAX(uint32_t basePri)
- 517:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 518:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri_max, %0" : : "r" (basePri) : "memory");
- 519:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 520:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 521:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 522:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 523:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Fault Mask
- 524:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Fault Mask register.
- 525:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Fault Mask register value
- 526:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 527:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_FAULTMASK(void)
- 528:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 529:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 530:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 531:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, faultmask" : "=r" (result) );
- 532:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 533:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 534:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 535:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 536:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 537:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 538:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Fault Mask (non-secure)
- 539:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Fault Mask register when in secure state.
- 540:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Fault Mask register value
- 541:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 542:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_FAULTMASK_NS(void)
- 543:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 544:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 545:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 546:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, faultmask_ns" : "=r" (result) );
- 547:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 548:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 549:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 550:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 551:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 552:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 553:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Fault Mask
- 554:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Fault Mask register.
- 555:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    faultMask  Fault Mask value to set
- 556:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 557:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_FAULTMASK(uint32_t faultMask)
- 558:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 559:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR faultmask, %0" : : "r" (faultMask) : "memory");
- 560:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 561:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 562:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 563:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
- 564:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 565:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Fault Mask (non-secure)
- 566:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Fault Mask register when in secure state.
- 567:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    faultMask  Fault Mask value to set
- 568:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 569:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_FAULTMASK_NS(uint32_t faultMask)
- 570:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 571:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR faultmask_ns, %0" : : "r" (faultMask) : "memory");
- 572:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 573:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 574:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 575:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif /* ((defined (__ARM_ARCH_7M__      ) && (__ARM_ARCH_7M__      == 1)) || \
- 576:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            (defined (__ARM_ARCH_7EM__     ) && (__ARM_ARCH_7EM__     == 1)) || \
- 577:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            (defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1))    ) */
- 578:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 579:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 580:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) || \
- 581:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__ARM_ARCH_8M_BASE__ ) && (__ARM_ARCH_8M_BASE__ == 1))    )
- 582:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 583:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 584:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer Limit
- 585:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
- 586:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always in non-secure
- 587:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
- 588:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   
- 589:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Process Stack Pointer Limit (PSPLIM).
- 590:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSPLIM Register value
- 591:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 592:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_PSPLIM(void)
- 593:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 594:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
- 595:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
- 596:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     // without main extensions, the non-secure PSPLIM is RAZ/WI
- 597:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
- 598:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 599:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 600:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psplim"  : "=r" (result) );
- 601:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
- 602:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 603:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 604:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 605:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3))
- 606:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 607:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer Limit (non-secure)
- 608:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
- 609:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always.
- 610:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 611:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Process Stack Pointer Limit (PSPLIM) when in
- 612:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSPLIM Register value
- 613:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 614:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_PSPLIM_NS(void)
- 615:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 616:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
- 617:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure PSPLIM is RAZ/WI
- 618:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
- 619:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 620:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 621:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psplim_ns"  : "=r" (result) );
- 622:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
- 623:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 624:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 625:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 626:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 627:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 628:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 629:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer Limit
- 630:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
- 631:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored in non-secure
- 632:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
- 633:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   
- 634:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Process Stack Pointer Limit (PSPLIM).
- 635:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    ProcStackPtrLimit  Process Stack Pointer Limit value to set
- 636:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 637:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PSPLIM(uint32_t ProcStackPtrLimit)
- 638:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 639:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
- 640:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
- 641:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure PSPLIM is RAZ/WI
- 642:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)ProcStackPtrLimit;
- 643:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 644:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psplim, %0" : : "r" (ProcStackPtrLimit));
- 645:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 646:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 647:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 648:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 649:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE  ) && (__ARM_FEATURE_CMSE   == 3))
- 650:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 651:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer (non-secure)
- 652:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
- 653:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored.
- 654:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 655:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Process Stack Pointer Limit (PSPLIM) when in s
- 656:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    ProcStackPtrLimit  Process Stack Pointer Limit value to set
- 657:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 658:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_PSPLIM_NS(uint32_t ProcStackPtrLimit)
- 659:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 660:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
- 661:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure PSPLIM is RAZ/WI
- 662:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)ProcStackPtrLimit;
- 663:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 664:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psplim_ns, %0\n" : : "r" (ProcStackPtrLimit));
- 665:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 666:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 667:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 668:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 669:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 670:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 671:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer Limit
- 672:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
- 673:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always in non-secure
- 674:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
- 675:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 676:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer Limit (MSPLIM).
- 677:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSPLIM Register value
- 678:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 679:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_MSPLIM(void)
- 680:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 681:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
- 682:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
- 683:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
- 684:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
- 685:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 686:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 687:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msplim" : "=r" (result) );
- 688:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
- 689:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 690:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 691:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 692:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 693:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE  ) && (__ARM_FEATURE_CMSE   == 3))
- 694:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 695:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer Limit (non-secure)
- 696:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
- 697:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always.
- 698:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 699:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Main Stack Pointer Limit(MSPLIM) when in sec
- 700:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSPLIM Register value
- 701:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 702:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_MSPLIM_NS(void)
- 703:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 704:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
- 705:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
- 706:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
- 707:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 708:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 709:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msplim_ns" : "=r" (result) );
- 710:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
- 711:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 712:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 713:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 714:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 715:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 716:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 717:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer Limit
- 718:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
- 719:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored in non-secure
- 720:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
- 721:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 722:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Main Stack Pointer Limit (MSPLIM).
- 723:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    MainStackPtrLimit  Main Stack Pointer Limit value to set
- 724:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 725:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_MSPLIM(uint32_t MainStackPtrLimit)
- 726:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 727:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
- 728:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
- 729:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
- 730:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)MainStackPtrLimit;
- 731:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 732:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msplim, %0" : : "r" (MainStackPtrLimit));
- 733:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 734:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 735:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 736:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 737:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE  ) && (__ARM_FEATURE_CMSE   == 3))
- 738:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 739:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer Limit (non-secure)
- 740:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
- 741:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored.
- 742:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 743:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Main Stack Pointer Limit (MSPLIM) when in secu
- 744:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    MainStackPtrLimit  Main Stack Pointer value to set
- 745:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 746:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_MSPLIM_NS(uint32_t MainStackPtrLimit)
- 747:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 748:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
- 749:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
- 750:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)MainStackPtrLimit;
- 751:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 752:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msplim_ns, %0" : : "r" (MainStackPtrLimit));
- 753:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 754:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 755:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 756:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 757:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif /* ((defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) || \
- 758:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            (defined (__ARM_ARCH_8M_BASE__ ) && (__ARM_ARCH_8M_BASE__ == 1))    ) */
- 759:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 760:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 761:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 762:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get FPSCR
- 763:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Floating Point Status/Control register.
- 764:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Floating Point Status/Control register value
- 765:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 766:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_FPSCR(void)
- 767:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 768:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
- 769:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__FPU_USED   ) && (__FPU_USED    == 1U))     )
- 770:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if __has_builtin(__builtin_arm_get_fpscr) 
- 771:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** // Re-enable using built-in when GCC has been fixed
- 772:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** // || (__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 2)
- 773:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   /* see https://gcc.gnu.org/ml/gcc-patches/2017-04/msg00443.html */
- 774:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return __builtin_arm_get_fpscr();
- 775:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 776:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
- 777:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 778:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("VMRS %0, fpscr" : "=r" (result) );
- 779:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
- 780:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 781:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 782:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(0U);
- 783:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 784:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 785:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 786:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 787:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 788:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set FPSCR
- 789:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Floating Point Status/Control register.
- 790:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    fpscr  Floating Point Status/Control value to set
- 791:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 792:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_FPSCR(uint32_t fpscr)
- 793:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 794:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
- 795:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__FPU_USED   ) && (__FPU_USED    == 1U))     )
- 796:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if __has_builtin(__builtin_arm_set_fpscr)
- 797:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** // Re-enable using built-in when GCC has been fixed
- 798:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** // || (__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 2)
- 799:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   /* see https://gcc.gnu.org/ml/gcc-patches/2017-04/msg00443.html */
- 800:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __builtin_arm_set_fpscr(fpscr);
- 801:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 802:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("VMSR fpscr, %0" : : "r" (fpscr) : "vfpcc", "memory");
- 803:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 804:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 805:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)fpscr;
- 806:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 807:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 808:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 809:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 810:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /*@} end of CMSIS_Core_RegAccFunctions */
- 811:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 812:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 813:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ##########################  Core Instruction Access  ######################### */
- 814:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \defgroup CMSIS_Core_InstructionInterface CMSIS Core Instruction Interface
- 815:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   Access to dedicated instructions
- 816:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
- 817:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** */
- 818:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 819:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Define macros for porting to both thumb1 and thumb2.
- 820:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * For thumb1, use low register (r0-r7), specified by constraint "l"
- 821:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Otherwise, use general registers, specified by constraint "r" */
- 822:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #if defined (__thumb__) && !defined (__thumb2__)
- 823:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=l" (r)
- 824:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_RW_REG(r) "+l" (r)
- 825:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "l" (r)
- 826:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
- 827:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=r" (r)
- 828:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_RW_REG(r) "+r" (r)
- 829:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "r" (r)
- 830:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
- 831:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 832:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 833:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   No Operation
- 834:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details No Operation does nothing. This instruction can be used for code alignment purposes.
- 835:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 836:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __NOP()                             __ASM volatile ("nop")
- 837:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 838:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 839:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Wait For Interrupt
- 840:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Wait For Interrupt is a hint instruction that suspends execution until one of a number o
- 841:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 842:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __WFI()                             __ASM volatile ("wfi")
- 843:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 844:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 845:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 846:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Wait For Event
- 847:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Wait For Event is a hint instruction that permits the processor to enter
- 848:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            a low-power state until one of a number of events occurs.
- 849:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 850:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __WFE()                             __ASM volatile ("wfe")
- 851:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 852:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 853:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 854:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Send Event
- 855:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Send Event is a hint instruction. It causes an event to be signaled to the CPU.
- 856:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 857:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __SEV()                             __ASM volatile ("sev")
- 858:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 859:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 860:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 861:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Instruction Synchronization Barrier
- 862:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Instruction Synchronization Barrier flushes the pipeline in the processor,
- 863:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            so that all instructions following the ISB are fetched from cache or memory,
- 864:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            after the instruction has been completed.
- 865:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 866:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __ISB(void)
- 867:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 868:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("isb 0xF":::"memory");
- 869:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
- 870:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 871:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** 
- 872:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
- 873:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Data Synchronization Barrier
- 874:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Acts as a special kind of Data Memory Barrier.
- 875:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****            It completes when all explicit memory accesses before this instruction complete.
- 876:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
- 877:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __DSB(void)
- 878:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** {
- 879:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("dsb 0xF":::"memory");
+ 143:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 144:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 145:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 146:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 147:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Control Register
+ 148:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the Control Register.
+ 149:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Control Register value
+ 150:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 151:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_CONTROL(void)
+ 152:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 153:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 154:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 155:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, control" : "=r" (result) );
+ 156:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 157:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 158:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 159:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 160:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 161:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 162:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Control Register (non-secure)
+ 163:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the non-secure Control Register when in secure mode.
+ 164:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               non-secure Control Register value
+ 165:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 166:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_CONTROL_NS(void)
+ 167:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 168:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 169:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 170:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, control_ns" : "=r" (result) );
+ 171:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 172:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 173:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 174:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 175:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 176:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 177:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Control Register
+ 178:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Writes the given value to the Control Register.
+ 179:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    control  Control Register value to set
+ 180:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 181:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_CONTROL(uint32_t control)
+ 182:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 183:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR control, %0" : : "r" (control) : "memory");
+ 184:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 185:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 186:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 187:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 188:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 189:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Control Register (non-secure)
+ 190:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Writes the given value to the non-secure Control Register when in secure state.
+ 191:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    control  Control Register value to set
+ 192:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 193:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_CONTROL_NS(uint32_t control)
+ 194:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 195:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR control_ns, %0" : : "r" (control) : "memory");
+ 196:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 197:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 198:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 199:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 200:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 201:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get IPSR Register
+ 202:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the IPSR Register.
+ 203:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               IPSR Register value
+ 204:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 205:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_IPSR(void)
+ 206:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 207:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 208:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 209:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
+ 210:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 211:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 212:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 213:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 214:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 215:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get APSR Register
+ 216:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the APSR Register.
+ 217:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               APSR Register value
+ 218:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 219:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_APSR(void)
+ 220:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 221:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 222:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 223:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, apsr" : "=r" (result) );
+ 224:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 225:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 226:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 227:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 228:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 229:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get xPSR Register
+ 230:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the xPSR Register.
+ 231:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               xPSR Register value
+ 232:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 233:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_xPSR(void)
+ 234:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 235:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 236:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 237:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, xpsr" : "=r" (result) );
+ 238:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 239:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 240:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 241:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 242:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 243:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer
+ 244:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Process Stack Pointer (PSP).
+ 245:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSP Register value
+ 246:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 247:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_PSP(void)
+ 248:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 249:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 250:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 251:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psp"  : "=r" (result) );
+ 252:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 253:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 254:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 255:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 256:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 257:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 258:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer (non-secure)
+ 259:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Process Stack Pointer (PSP) when in secure s
+ 260:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSP Register value
+ 261:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 262:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_PSP_NS(void)
+ 263:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 264:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 265:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 266:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psp_ns"  : "=r" (result) );
+ 267:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 268:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 269:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 270:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 271:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 272:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 273:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer
+ 274:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Process Stack Pointer (PSP).
+ 275:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfProcStack  Process Stack Pointer value to set
+ 276:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 277:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PSP(uint32_t topOfProcStack)
+ 278:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 279:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psp, %0" : : "r" (topOfProcStack) : );
+ 280:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 281:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 282:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 283:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 284:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 285:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer (non-secure)
+ 286:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Process Stack Pointer (PSP) when in secure sta
+ 287:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfProcStack  Process Stack Pointer value to set
+ 288:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 289:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_PSP_NS(uint32_t topOfProcStack)
+ 290:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 291:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psp_ns, %0" : : "r" (topOfProcStack) : );
+ 292:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 293:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 294:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 295:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 296:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 297:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer
+ 298:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer (MSP).
+ 299:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSP Register value
+ 300:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 301:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_MSP(void)
+ 302:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 303:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 304:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 305:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msp" : "=r" (result) );
+ 306:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 307:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 308:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 309:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 310:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 311:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 312:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer (non-secure)
+ 313:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Main Stack Pointer (MSP) when in secure stat
+ 314:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSP Register value
+ 315:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 316:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_MSP_NS(void)
+ 317:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 318:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 319:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 320:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msp_ns" : "=r" (result) );
+ 321:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 322:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 323:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 324:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 325:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 326:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 327:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer
+ 328:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Main Stack Pointer (MSP).
+ 329:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfMainStack  Main Stack Pointer value to set
+ 330:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 331:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_MSP(uint32_t topOfMainStack)
+ 332:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 333:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msp, %0" : : "r" (topOfMainStack) : );
+ 334:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 335:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 336:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 337:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 338:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 339:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer (non-secure)
+ 340:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Main Stack Pointer (MSP) when in secure state.
+ 341:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfMainStack  Main Stack Pointer value to set
+ 342:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 343:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_MSP_NS(uint32_t topOfMainStack)
+ 344:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 345:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msp_ns, %0" : : "r" (topOfMainStack) : );
+ 346:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 347:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 348:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 349:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 350:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 351:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 352:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Stack Pointer (non-secure)
+ 353:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Stack Pointer (SP) when in secure state.
+ 354:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               SP Register value
+ 355:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 356:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_SP_NS(void)
+ 357:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 358:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 359:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 360:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, sp_ns" : "=r" (result) );
+ 361:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 362:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 363:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 364:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 365:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 366:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Stack Pointer (non-secure)
+ 367:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Stack Pointer (SP) when in secure state.
+ 368:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfStack  Stack Pointer value to set
+ 369:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 370:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_SP_NS(uint32_t topOfStack)
+ 371:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 372:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR sp_ns, %0" : : "r" (topOfStack) : );
+ 373:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 374:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 375:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 376:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 377:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 378:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Priority Mask
+ 379:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current state of the priority mask bit from the Priority Mask Register.
+ 380:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Priority Mask value
+ 381:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 382:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_PRIMASK(void)
+ 383:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 384:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 385:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 386:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, primask" : "=r" (result) :: "memory");
+ 387:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 388:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 389:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 390:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 391:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 392:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 393:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Priority Mask (non-secure)
+ 394:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current state of the non-secure priority mask bit from the Priority Mask Reg
+ 395:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Priority Mask value
+ 396:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 397:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_PRIMASK_NS(void)
+ 398:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 399:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 400:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 401:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, primask_ns" : "=r" (result) :: "memory");
+ 402:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 403:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 404:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 405:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 406:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 407:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 408:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Priority Mask
+ 409:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Priority Mask Register.
+ 410:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    priMask  Priority Mask
+ 411:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 412:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PRIMASK(uint32_t priMask)
+ 413:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 414:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR primask, %0" : : "r" (priMask) : "memory");
+ 415:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 416:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 417:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 418:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 419:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 420:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Priority Mask (non-secure)
+ 421:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Priority Mask Register when in secure state.
+ 422:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    priMask  Priority Mask
+ 423:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 424:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_PRIMASK_NS(uint32_t priMask)
+ 425:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 426:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR primask_ns, %0" : : "r" (priMask) : "memory");
+ 427:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 428:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 429:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 430:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 431:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__ARM_ARCH_7M__      ) && (__ARM_ARCH_7M__      == 1)) || \
+ 432:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__ARM_ARCH_7EM__     ) && (__ARM_ARCH_7EM__     == 1)) || \
+ 433:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1))    )
+ 434:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 435:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable FIQ
+ 436:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables FIQ interrupts by clearing the F-bit in the CPSR.
+ 437:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 438:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 439:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_fault_irq(void)
+ 440:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 441:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie f" : : : "memory");
+ 442:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 443:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 444:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 445:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 446:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable FIQ
+ 447:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables FIQ interrupts by setting the F-bit in the CPSR.
+ 448:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 449:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 450:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_fault_irq(void)
+ 451:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 452:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid f" : : : "memory");
+ 453:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 454:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 455:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 456:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 457:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Base Priority
+ 458:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Base Priority register.
+ 459:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Base Priority register value
+ 460:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 461:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_BASEPRI(void)
+ 462:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 463:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 464:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 465:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, basepri" : "=r" (result) );
+ 466:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 467:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 468:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 469:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 470:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 471:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 472:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Base Priority (non-secure)
+ 473:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Base Priority register when in secure state.
+ 474:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Base Priority register value
+ 475:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 476:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_BASEPRI_NS(void)
+ 477:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 478:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 479:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 480:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, basepri_ns" : "=r" (result) );
+ 481:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 482:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 483:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 484:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 485:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 486:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 487:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority
+ 488:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register.
+ 489:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 490:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 491:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_BASEPRI(uint32_t basePri)
+ 492:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 493:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri, %0" : : "r" (basePri) : "memory");
+ 494:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 495:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 496:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 497:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 498:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 499:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority (non-secure)
+ 500:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Base Priority register when in secure state.
+ 501:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 502:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 503:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_BASEPRI_NS(uint32_t basePri)
+ 504:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 505:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri_ns, %0" : : "r" (basePri) : "memory");
+ 506:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 507:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 508:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 509:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 510:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 511:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority with condition
+ 512:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register only if BASEPRI masking is disable
+ 513:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            or the new value increases the BASEPRI priority level.
+ 514:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 515:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 516:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_BASEPRI_MAX(uint32_t basePri)
+ 517:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 518:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri_max, %0" : : "r" (basePri) : "memory");
+ 519:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 520:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 521:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 522:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 523:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Fault Mask
+ 524:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Fault Mask register.
+ 525:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Fault Mask register value
+ 526:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 527:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_FAULTMASK(void)
+ 528:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 529:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 530:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 531:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, faultmask" : "=r" (result) );
+ 532:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 533:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 534:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 535:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 536:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 537:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 538:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Fault Mask (non-secure)
+ 539:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Fault Mask register when in secure state.
+ 540:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Fault Mask register value
+ 541:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 542:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_FAULTMASK_NS(void)
+ 543:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 544:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 545:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 546:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, faultmask_ns" : "=r" (result) );
+ 547:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 548:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 549:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 550:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 551:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 552:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 553:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Fault Mask
+ 554:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Fault Mask register.
+ 555:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    faultMask  Fault Mask value to set
+ 556:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 557:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_FAULTMASK(uint32_t faultMask)
+ 558:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 559:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR faultmask, %0" : : "r" (faultMask) : "memory");
+ 560:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 561:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 562:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 563:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
+ 564:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 565:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Fault Mask (non-secure)
+ 566:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Fault Mask register when in secure state.
+ 567:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    faultMask  Fault Mask value to set
+ 568:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 569:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_FAULTMASK_NS(uint32_t faultMask)
+ 570:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 571:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR faultmask_ns, %0" : : "r" (faultMask) : "memory");
+ 572:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 573:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 574:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 575:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif /* ((defined (__ARM_ARCH_7M__      ) && (__ARM_ARCH_7M__      == 1)) || \
+ 576:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            (defined (__ARM_ARCH_7EM__     ) && (__ARM_ARCH_7EM__     == 1)) || \
+ 577:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            (defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1))    ) */
+ 578:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 579:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 580:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) || \
+ 581:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__ARM_ARCH_8M_BASE__ ) && (__ARM_ARCH_8M_BASE__ == 1))    )
+ 582:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 583:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 584:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer Limit
+ 585:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 586:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always in non-secure
+ 587:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
+ 588:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   
+ 589:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Process Stack Pointer Limit (PSPLIM).
+ 590:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSPLIM Register value
+ 591:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 592:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_PSPLIM(void)
+ 593:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 594:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
+ 595:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
+ 596:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****     // without main extensions, the non-secure PSPLIM is RAZ/WI
+ 597:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
+ 598:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 599:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 600:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psplim"  : "=r" (result) );
+ 601:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
+ 602:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 603:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 604:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 605:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3))
+ 606:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 607:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer Limit (non-secure)
+ 608:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 609:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always.
+ 610:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 611:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Process Stack Pointer Limit (PSPLIM) when in
+ 612:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSPLIM Register value
+ 613:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 614:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_PSPLIM_NS(void)
+ 615:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 616:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
+ 617:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure PSPLIM is RAZ/WI
+ 618:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
+ 619:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 620:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 621:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psplim_ns"  : "=r" (result) );
+ 622:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
+ 623:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 624:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 625:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 626:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 627:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 628:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 629:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer Limit
+ 630:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 631:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored in non-secure
+ 632:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
+ 633:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   
+ 634:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Process Stack Pointer Limit (PSPLIM).
+ 635:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    ProcStackPtrLimit  Process Stack Pointer Limit value to set
+ 636:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 637:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PSPLIM(uint32_t ProcStackPtrLimit)
+ 638:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 639:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
+ 640:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
+ 641:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure PSPLIM is RAZ/WI
+ 642:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)ProcStackPtrLimit;
+ 643:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 644:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psplim, %0" : : "r" (ProcStackPtrLimit));
+ 645:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 646:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 647:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 648:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 649:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE  ) && (__ARM_FEATURE_CMSE   == 3))
+ 650:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 651:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer (non-secure)
+ 652:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 653:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored.
+ 654:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 655:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Process Stack Pointer Limit (PSPLIM) when in s
+ 656:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    ProcStackPtrLimit  Process Stack Pointer Limit value to set
+ 657:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 658:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_PSPLIM_NS(uint32_t ProcStackPtrLimit)
+ 659:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 660:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
+ 661:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure PSPLIM is RAZ/WI
+ 662:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)ProcStackPtrLimit;
+ 663:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 664:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psplim_ns, %0\n" : : "r" (ProcStackPtrLimit));
+ 665:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 666:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 667:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 668:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 669:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 670:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 671:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer Limit
+ 672:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 673:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always in non-secure
+ 674:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
+ 675:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 676:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer Limit (MSPLIM).
+ 677:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSPLIM Register value
+ 678:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 679:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_MSPLIM(void)
+ 680:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 681:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
+ 682:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
+ 683:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
+ 684:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
+ 685:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 686:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 687:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msplim" : "=r" (result) );
+ 688:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
+ 689:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 690:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 691:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 692:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 693:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE  ) && (__ARM_FEATURE_CMSE   == 3))
+ 694:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 695:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer Limit (non-secure)
+ 696:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 697:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always.
+ 698:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 699:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the non-secure Main Stack Pointer Limit(MSPLIM) when in sec
+ 700:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSPLIM Register value
+ 701:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 702:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_MSPLIM_NS(void)
+ 703:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 704:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
+ 705:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
+ 706:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return 0U;
+ 707:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 708:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 709:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msplim_ns" : "=r" (result) );
+ 710:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return result;
+ 711:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 712:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 713:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 714:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 715:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 716:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 717:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer Limit
+ 718:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 719:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored in non-secure
+ 720:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   mode.
+ 721:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 722:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Main Stack Pointer Limit (MSPLIM).
+ 723:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    MainStackPtrLimit  Main Stack Pointer Limit value to set
+ 724:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 725:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_MSPLIM(uint32_t MainStackPtrLimit)
+ 726:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 727:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
+ 728:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
+ 729:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
+ 730:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)MainStackPtrLimit;
+ 731:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 732:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msplim, %0" : : "r" (MainStackPtrLimit));
+ 733:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 734:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 735:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 736:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 737:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE  ) && (__ARM_FEATURE_CMSE   == 3))
+ 738:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 739:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer Limit (non-secure)
+ 740:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
+ 741:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored.
+ 742:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 743:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the non-secure Main Stack Pointer Limit (MSPLIM) when in secu
+ 744:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    MainStackPtrLimit  Main Stack Pointer value to set
+ 745:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 746:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_MSPLIM_NS(uint32_t MainStackPtrLimit)
+ 747:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 748:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)))
+ 749:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
+ 750:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)MainStackPtrLimit;
+ 751:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 752:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msplim_ns, %0" : : "r" (MainStackPtrLimit));
+ 753:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 754:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 755:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 756:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 757:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif /* ((defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) || \
+ 758:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            (defined (__ARM_ARCH_8M_BASE__ ) && (__ARM_ARCH_8M_BASE__ == 1))    ) */
+ 759:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 760:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 761:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 762:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get FPSCR
+ 763:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Floating Point Status/Control register.
+ 764:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Floating Point Status/Control register value
+ 765:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 766:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_FPSCR(void)
+ 767:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 768:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
+ 769:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__FPU_USED   ) && (__FPU_USED    == 1U))     )
+ 770:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if __has_builtin(__builtin_arm_get_fpscr) 
+ 771:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** // Re-enable using built-in when GCC has been fixed
+ 772:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** // || (__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 2)
+ 773:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   /* see https://gcc.gnu.org/ml/gcc-patches/2017-04/msg00443.html */
+ 774:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return __builtin_arm_get_fpscr();
+ 775:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 776:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 777:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 778:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("VMRS %0, fpscr" : "=r" (result) );
+ 779:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 780:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 781:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 782:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(0U);
+ 783:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 784:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 785:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 786:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 787:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 788:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set FPSCR
+ 789:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Floating Point Status/Control register.
+ 790:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    fpscr  Floating Point Status/Control value to set
+ 791:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 792:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_FPSCR(uint32_t fpscr)
+ 793:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 794:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
+ 795:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****      (defined (__FPU_USED   ) && (__FPU_USED    == 1U))     )
+ 796:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if __has_builtin(__builtin_arm_set_fpscr)
+ 797:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** // Re-enable using built-in when GCC has been fixed
+ 798:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** // || (__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 2)
+ 799:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   /* see https://gcc.gnu.org/ml/gcc-patches/2017-04/msg00443.html */
+ 800:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __builtin_arm_set_fpscr(fpscr);
+ 801:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 802:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("VMSR fpscr, %0" : : "r" (fpscr) : "vfpcc", "memory");
+ 803:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 804:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 805:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   (void)fpscr;
+ 806:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 807:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 808:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 809:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 810:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /*@} end of CMSIS_Core_RegAccFunctions */
+ 811:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 812:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 813:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ##########################  Core Instruction Access  ######################### */
+ 814:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \defgroup CMSIS_Core_InstructionInterface CMSIS Core Instruction Interface
+ 815:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   Access to dedicated instructions
+ 816:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
+ 817:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** */
+ 818:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 819:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Define macros for porting to both thumb1 and thumb2.
+ 820:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * For thumb1, use low register (r0-r7), specified by constraint "l"
+ 821:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Otherwise, use general registers, specified by constraint "r" */
+ 822:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #if defined (__thumb__) && !defined (__thumb2__)
+ 823:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=l" (r)
+ 824:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_RW_REG(r) "+l" (r)
+ 825:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "l" (r)
+ 826:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 827:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=r" (r)
+ 828:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_RW_REG(r) "+r" (r)
+ 829:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "r" (r)
+ 830:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 831:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 832:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 833:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   No Operation
+ 834:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details No Operation does nothing. This instruction can be used for code alignment purposes.
+ 835:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 836:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __NOP()                             __ASM volatile ("nop")
+ 837:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 838:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 839:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Wait For Interrupt
+ 840:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Wait For Interrupt is a hint instruction that suspends execution until one of a number o
+ 841:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 842:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __WFI()                             __ASM volatile ("wfi")
+ 843:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 844:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 845:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 846:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Wait For Event
+ 847:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Wait For Event is a hint instruction that permits the processor to enter
+ 848:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            a low-power state until one of a number of events occurs.
+ 849:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 850:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __WFE()                             __ASM volatile ("wfe")
+ 851:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 852:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 853:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 854:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Send Event
+ 855:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Send Event is a hint instruction. It causes an event to be signaled to the CPU.
+ 856:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 857:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __SEV()                             __ASM volatile ("sev")
+ 858:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 859:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 860:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 861:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Instruction Synchronization Barrier
+ 862:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Instruction Synchronization Barrier flushes the pipeline in the processor,
+ 863:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            so that all instructions following the ISB are fetched from cache or memory,
+ 864:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            after the instruction has been completed.
+ 865:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 866:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __ISB(void)
+ 867:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 868:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("isb 0xF":::"memory");
+ 869:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 870:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 871:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 872:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 873:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Data Synchronization Barrier
+ 874:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Acts as a special kind of Data Memory Barrier.
+ 875:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****            It completes when all explicit memory accesses before this instruction complete.
+ 876:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 877:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** __STATIC_FORCEINLINE void __DSB(void)
+ 878:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 879:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("dsb 0xF":::"memory");
  172              	 .loc 2 879 0
  173              	
  174 000e BFF34F8F 	 dsb 0xF
@@ -1471,7 +1471,7 @@
  178              	.LBE10:
  179              	.LBB12:
  180              	.LBB13:
- 131:C:/CODE/Licenta/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 131:C:/GitHub/Stepper_drive/Libraries/CMSIS/Include\cmsis_gcc.h **** }
  181              	 .loc 2 131 0
  182              	
  183 0012 62B6     	 cpsie i
@@ -2443,8 +2443,8 @@
  817              	.Letext0:
  818              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  819              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 820              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 821              	 .file 6 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 820              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
+ 821              	 .file 6 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 system_XMC4800.c
     {standard input}:24     .no_init:00000000 SystemCoreClock

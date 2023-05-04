@@ -22,551 +22,551 @@
   22              	 .thumb_func
   24              	XMC_SCU_GetMirrorStatus:
   25              	.LFB176:
-  26              	 .file 1 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_scu.h"
-   1:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
-   2:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @file xmc_scu.h
-   3:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @date 2016-03-09
-   4:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-   5:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @cond
-   6:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
-   7:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMClib v2.1.22 - XMC Peripheral Driver Library 
-   8:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-   9:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Copyright (c) 2015-2019, Infineon Technologies AG
-  10:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * All rights reserved.                        
-  11:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                                             
-  12:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
-  13:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * following conditions are met:   
-  14:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                                                                              
-  15:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
-  16:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * disclaimer.                        
-  17:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * 
-  18:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
-  19:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
-  20:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * 
-  21:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
-  22:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * products derived from this software without specific prior written permission.                  
-  23:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                                                                              
-  24:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
-  25:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
-  26:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
-  27:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
-  28:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
-  29:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
-  30:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
-  31:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                                                                              
-  32:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
-  33:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
-  34:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
-  35:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-  36:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Change History
-  37:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * --------------
-  38:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-  39:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * 2015-02-20:
-  40:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Initial <br>
-  41:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-  42:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * 2015-05-20:
-  43:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Documentation improved <br>
-  44:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *     - XMC_ASSERT() hanging issues have fixed for XMC4 devices. <br>
-  45:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-  46:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * 2015-06-20:
-  47:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Removed version macros and declaration of GetDriverVersion API
-  48:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Removed STATIC_INLINE property for the below APIs and declared as void
-  49:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *       XMC_SCU_INTERRUPT_EnableEvent, XMC_SCU_INTERRUPT_DisableEvent,
-  50:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *       XMC_SCU_INTERRUPT_TriggerEvent, XMC_SCU_INTERUPT_GetEventStatus,
-  51:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *       XMC_SCU_INTERUPT_ClearEventStatus
-  52:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-  53:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * 2015-11-30:
-  54:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Documentation improved <br>
-  55:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *      
-  56:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * 2016-03-09:
-  57:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Optimization of write only registers
-  58:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *      
-  59:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @endcond 
-  60:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-  61:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
-  62:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #ifndef XMC_SCU_H
-  63:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #define XMC_SCU_H
-  64:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
-  65:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
-  66:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * HEADER FILES
-  67:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
-  68:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #include <xmc_common.h>
-  69:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
-  70:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
-  71:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @addtogroup XMClib XMC Peripheral Library
-  72:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @{
-  73:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
-  74:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
-  75:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
-  76:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @addtogroup SCU
-  77:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @brief System Control Unit(SCU) driver for XMC microcontroller family.
-  78:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-  79:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * System control unit is the SoC power, reset and a clock manager with additional responsibility o
-  80:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * providing system stability protection and other auxiliary functions.<br>
-  81:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * SCU provides the following features,
-  82:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Power control
-  83:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4 
-  84:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Hibernate control 
-  85:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
-  86:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Reset control
-  87:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Clock control
-  88:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Miscellaneous control(boot mode, system interrupts etc.)<br><br>
-  89:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-  90:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The SCU driver is divided in to clock control logic, reset control logic, system interrupt contr
-  91:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4
-  92:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * , hibernate control logic, trap control logic, parity control logic 
-  93:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
-  94:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * and miscellaneous control logic.<br>
-  95:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
-  96:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clock driver features:
-  97:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows clock configuration using the structure XMC_SCU_CLOCK_CONFIG_t and API XMC_SCU_CLOCK_I
-  98:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4
-  99:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides structure XMC_SCU_CLOCK_SYSPLL_CONFIG_t for configuring the system PLL
- 100:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows selection of clock source for system PLL, XMC_SCU_CLOCK_GetSystemPllClockSource()
- 101:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides APIs for configuring different module clock frequencies XMC_SCU_CLOCK_SetWdtClockDiv
- 102:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows selection of clock source for external output, XMC_SCU_CLOCK_SetExternalOutputClockSou
- 103:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides APIs for enabling external high power oscillator and ultra low power oscillator, XMC
- 104:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides APIs for getting various clock frequencies XMC_SCU_CLOCK_GetPeripheralClockFrequency
- 105:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  XMC_SCU_CLOCK_GetCpuClockFrequency(), XMC_SCU_CLOCK_GetSystemClockFrequency()<br>
- 106:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
- 107:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC1
- 108:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows selection of peripheral clock frequency, XMC_SCU_CLOCK_SetFastPeripheralClockSource()
- 109:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides API to get the peripheral clock frequency, XMC_SCU_CLOCK_GetFastPeripheralClockFrequ
- 110:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
- 111:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 112:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Reset driver features:
- 113:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4
- 114:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows to handle peripheral reset XMC_SCU_RESET_AssertPeripheralReset(), XMC_SCU_RESET_Deasse
- 115:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows configuration of NMI generation for selected events, XMC_SCU_INTERRUPT_EnableNmiReques
- 116:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
- 117:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC1
- 118:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows to trigger device reset XMC_SCU_RESET_AssertMasterReset()
- 119:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows to configure multiple sources for reset, XMC_SCU_RESET_EnableResetRequest()
- 120:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \endif <br>
- 121:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 122:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Interrupt driver features:
- 123:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides APIs for enabling/ disabling interrupt event generation XMC_SCU_INTERRUPT_EnableEven
- 124:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  XMC_SCU_INTERRUPT_DisableEvent()
- 125:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides API for registering callback function for events XMC_SCU_INTERRUPT_SetEventHandler()
- 126:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 127:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4
- 128:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Hibernate driver features:
- 129:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows configuration of hibernate domain XMC_SCU_HIB_EnableHibernateDomain(), XMC_SCU_HIB_Dis
- 130:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows selection of standby clock source, XMC_SCU_HIB_SetStandbyClockSource()
- 131:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows selection of RTC clock source, XMC_SCU_HIB_SetRtcClockSource()
- 132:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides API for enabling slow internal clock used for backup clock, XMC_SCU_HIB_EnableIntern
- 133:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 134:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Trap driver features:
- 135:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows handling of trap XMC_SCU_TRAP_Enable(), XMC_SCU_TRAP_GetStatus(), XMC_SCU_TRAP_Trigger
- 136:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 137:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Parity driver features:
- 138:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Parity error generated by on-chip RAM can be monitored, XMC_SCU_PARITY_Enable(), XMC_SCU_PARI
- 139:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows configuration of trap generation on detection of parity error, XMC_SCU_PARITY_EnableTr
- 140:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 141:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Power driver features:
- 142:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows to power the USB module XMC_SCU_POWER_EnableUsb(), XMC_SCU_POWER_DisableUsb()
- 143:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
- 144:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 145:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Miscellaneous features:
- 146:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows to trigger multiple capture compare unit(CCU) channels to be started together XMC_SCU_
- 147:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4
- 148:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Enables configuration of out of range comparator (ORC) XMC_SCU_EnableOutOfRangeComparator()
- 149:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Enables configuration of die temperature sensor XMC_SCU_EnableTemperatureSensor(), XMC_SCU_Ca
- 150:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Enables configuration of device boot mode XMC_SCU_SetBootMode()<br>
- 151:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
- 152:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC1
- 153:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Enables configuration of die temperature sensor XMC_SCU_StartTempMeasurement(), XMC_SCU_SetRa
- 154:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows configuring supply monitor unit using the structure XMC_SCU_SUPPLYMONITOR_t and API XM
- 155:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows handling of protected bits XMC_SCU_LockProtectedBits(), XMC_SCU_UnlockProtectedBits()<
- 156:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
- 157:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @{
- 158:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 159:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
- 160:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
- 161:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * MACROS
- 162:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
- 163:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 164:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
- 165:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * ENUMS
- 166:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
- 167:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 168:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *  Defines the status of SCU API execution, used to verify the SCU related API calls.
- 169:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 170:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** typedef enum XMC_SCU_STATUS 
- 171:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 172:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   XMC_SCU_STATUS_OK   = 0UL, /**< SCU related operation successfully completed.*/
- 173:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   XMC_SCU_STATUS_ERROR,      /**< SCU related operation failed. When API cannot fulfill request, th
- 174:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   XMC_SCU_STATUS_BUSY,       /**< Cannot execute the SCU related operation request because
- 175:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****                                   another operation is in progress. \a XMC_SCU_STATUS_BUSY is retur
- 176:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****                                   processing another request. */
- 177:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** } XMC_SCU_STATUS_t;
- 178:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 179:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 180:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
- 181:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * DATA TYPES
- 182:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
- 183:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 184:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 185:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Function pointer type used for registering callback functions on SCU event occurrence.
- 186:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 187:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** typedef void (*XMC_SCU_INTERRUPT_EVENT_HANDLER_t)(void);
- 188:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 189:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
- 190:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * DEVICE EXTENSIONS
- 191:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
- 192:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 193:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #if (UC_FAMILY == XMC1)
- 194:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #include <xmc1_scu.h>
- 195:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #elif (UC_FAMILY == XMC4)
- 196:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #include <xmc4_scu.h>
- 197:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #else
- 198:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #error "Unspecified chipset"
- 199:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #endif
- 200:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 201:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
- 202:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * API Prototypes
- 203:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
- 204:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 205:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #ifdef __cplusplus
- 206:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** extern "C" {
- 207:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #endif
- 208:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 209:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 210:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 211:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 212:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param trigger    CCU slices to be triggered synchronously via software. The value is a bitmask 
- 213:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    in the register CCUCON. <br>
- 214:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_CCU_TRIGGER_t for bitmask of individual CCU s
- 215:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    combined using \a OR operation.
- 216:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 217:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 218:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 219:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 220:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Generates active edge(low to high) trigger for multiple CCU units at the same time.\n\n
- 221:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Before executing this API, all the required CCU timers should configure external start.
- 222:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The edge of the start signal should be selected as active edge.
- 223:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The input signal for the CCU slice should be selected as SCU input.
- 224:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The above mentioned configurations can be made using the CCU LLD API XMC_CCU4_SLICE_StartConfig(
- 225:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * CCU timer slice should be started using XMC_CCU4_SLICE_StartTimer() before triggering 
- 226:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the timer using this API.<BR>
- 227:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 228:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_CCU4_SLICE_StartConfig(), XMC_CCU4_SLICE_SetInput(), XMC_SCU_SetCcuTriggerLow()\n\n\n
- 229:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 230:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_SetCcuTriggerHigh(const uint32_t trigger)
- 231:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 232:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_GENERAL->CCUCON |= (uint32_t)trigger;
- 233:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 234:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 235:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 236:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 237:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param trigger  CCU slices to be triggered synchronously via software. The value is a bitmask of
- 238:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    in the register CCUCON. <br>
- 239:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_CCU_TRIGGER_t for bitmask of individual CCU s
- 240:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    combined using \a OR operation.
- 241:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 242:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 243:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 244:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 245:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Generates passive edge(high to low) trigger for multiple CCU units at the same time.\n\n
- 246:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Before executing this API, all the required CCU timers should configure external start.
- 247:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The edge of the start signal should be selected as passive edge.
- 248:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The input signal for the CCU slice should be selected as SCU input.
- 249:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The above mentioned configurations can be made using the CCU LLD API XMC_CCU4_SLICE_StartConfig(
- 250:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * CCU timer slice should be started using XMC_CCU4_SLICE_StartTimer() before triggering 
- 251:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the timer using this API.<BR>
- 252:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 253:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_CCU4_SLICE_StartConfig(), XMC_CCU4_SLICE_SetInput(), XMC_SCU_SetCcuTriggerHigh()\n\n\n
- 254:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 255:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_SetCcuTriggerLow(const uint32_t trigger)
- 256:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 257:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_GENERAL->CCUCON &= (uint32_t)~trigger;
- 258:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 259:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 260:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 261:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 262:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param config Pointer to structure holding the clock prescaler values and divider values for 
- 263:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                configuring clock generators and clock tree.\n
- 264:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                \b Range: Configure the members of structure @ref XMC_SCU_CLOCK_CONFIG_t for vari
- 265:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                parameters of clock setup.
- 266:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 267:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 268:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 269:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 270:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Initializes clock generators and clock tree.\n\n
- 271:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
- 272:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Peripheral clock and system clock are configured based on the input configuration \a config.
- 273:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The system clock frequency is tuned by configuring the FDIV and IDIV values of CLKCR register.
- 274:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The values of FDIV and IDIV can be provided as part of input configuration.
- 275:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The PCLK divider determines the ratio of peripheral clock to the system clock. 
- 276:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The source of RTC clock is set based on the input configuration. 
- 277:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \a SystemCoreClock variable will be updated with the value of
- 278:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * system clock frequency. Access to protected bit fields are handled internally.
- 279:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 280:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
- 281:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the high precision oscillator(fOHP) input and configures the system and peripheral clock
- 282:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Based on the system clock source selected in \a config, either fPLL or fOFI will be chosen as sy
- 283:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Based on PLL mode(normal or prescaler mode) used, PLL ramps up in steps to achieve target freque
- 284:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The clock dividers for CPU, CCU and peripheral clocks will be set based on the input configurati
- 285:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The \a SystemCoreClock variable is set with the value of system clock frequency.
- 286:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 287:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 288:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetPeripheralClockFrequency(), XMC_SCU_CLOCK_GetCpuClockFrequency() \n\n\n
- 289:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 290:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_Init(const XMC_SCU_CLOCK_CONFIG_t *const config);
- 291:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 292:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 293:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 294:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the event to enable. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_t
- 295:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
- 296:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 297:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 298:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 299:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 300:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the generation of interrupt for the input events.\n\n
- 301:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are enabled by setting the respective bit fields in the SRMSK register. \n
- 302:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: User should separately enable the NVIC node responsible for handling the SCU interrupt.
- 303:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The interrupt will be generated when the respective event occurs.
- 304:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 305:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_EnableIRQ(), XMC_SCU_INTERRUPT_DisableEvent()\n\n\n
- 306:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 307:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_EnableEvent(const XMC_SCU_INTERRUPT_EVENT_t event);
- 308:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 309:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 310:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 311:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 312:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the event to disable. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_
- 313:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
- 314:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 315:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 316:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 317:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 318:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Disables generation of interrupt on occurrence of the input event.\n\n
- 319:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are disabled by resetting the respective bit fields in the SRMSK register. \n
- 320:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 321:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_DisableIRQ(), XMC_SCU_INTERRUPT_EnableEvent()\n\n\n
- 322:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 323:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_DisableEvent(const XMC_SCU_INTERRUPT_EVENT_t event);
- 324:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 325:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 326:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 327:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event Bit mask of the event to be triggered. \b Range: Use type @ref XMC_SCU_INTERRUPT_EV
- 328:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
- 329:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 330:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 331:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 332:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 333:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Triggers the event as if the hardware raised it.\n\n
- 334:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Event will be triggered by setting the respective bitfield in the SRSET register.\n
- 335:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: User should enable the NVIC node that handles the respective event for interrupt generatio
- 336:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 337:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_EnableIRQ(), XMC_SCU_INTERUPT_GetEventStatus(), XMC_SCU_INTERRUPT_ClearEventStatus() \n\n\n
- 338:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 339:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_TriggerEvent(const XMC_SCU_INTERRUPT_EVENT_t  event);
- 340:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 341:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 342:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Status of the SCU events.
- 343:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 344:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 345:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the status of all SCU events.\n\n
- 346:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The status is read from the SRRAW register. To check the status of a particular 
- 347:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * event, the returned value should be masked with the bit mask of the event. The bitmask
- 348:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * of events can be obtained using the type @ref XMC_SCU_INTERRUPT_EVENT_t. Multiple events'
- 349:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * status can be checked by combining the bit masks using \a OR operation. 
- 350:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * After detecting the event, the event status should be cleared using software to detect the event
- 351:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 352:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_INTERRUPT_ClearEventStatus(), XMC_SCU_INTERRUPT_TriggerEvent(), XMC_SCU_INTERRUPT_SetEve
- 353:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 354:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** XMC_SCU_INTERRUPT_EVENT_t XMC_SCU_INTERUPT_GetEventStatus(void);
- 355:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 356:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 357:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 358:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the events to clear. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_t
- 359:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
- 360:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 361:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 362:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 363:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 364:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clears the event status bit in SRRAW register.\n\n
- 365:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are cleared by writing value 1 to their bit positions in the SRCLR register.
- 366:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The API can be used when polling method is used. After detecting the event, the event status
- 367:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * should be cleared using software to detect the event again.
- 368:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 369:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 370:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_INTERUPT_GetEventStatus(), XMC_SCU_INTERRUPT_TriggerEvent() \n\n\n
- 371:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 372:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_ClearEventStatus(const XMC_SCU_INTERRUPT_EVENT_t event);
- 373:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 374:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 375:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 376:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Status representing the reason for device reset.
- 377:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 378:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 379:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the value representing the reason for device reset.\n\n
- 380:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The return value is an encoded word, which can indicate multiple reasons for the last reset. Eac
- 381:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * returned word is representative of a last reset cause. The returned value should be appropriatel
- 382:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the cause of reset. 
- 383:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The cause of the last reset gets automatically stored in 
- 384:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the \a SCU_RSTSTAT register. The reset status shall be reset after each
- 385:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * startup in order to ensure consistent source indication after the next reset.
- 386:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \b Range: The type @ref XMC_SCU_RESET_REASON_t can be used to get the bit masks of the reset cau
- 387:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 388:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 389:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_RESET_ClearDeviceResetReason() \n\n\n
- 390:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 391:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_RESET_GetDeviceResetReason(void)
- 392:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 393:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   return ((SCU_RESET->RSTSTAT) & SCU_RESET_RSTSTAT_RSTSTAT_Msk);
- 394:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 395:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 396:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None 
- 397:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 398:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 399:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clears the reset reason bits in the reset status register. \n\n
- 400:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clearing of the reset status information in the \a SCU_RSTSTAT register via register bit \a RSTC
- 401:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * recommended to ensure a clear indication of the cause of next reset.
- 402:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 403:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 404:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_RESET_GetDeviceResetReason() \n\n\n
- 405:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 406:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_RESET_ClearDeviceResetReason(void)
- 407:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 408:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   /* Clear RSTSTAT.RSTSTAT bitfield */
- 409:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_RESET->RSTCLR = (uint32_t)SCU_RESET_RSTCLR_RSCLR_Msk;
- 410:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 411:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
- 412:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 413:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Value of CPU clock frequency.
- 414:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 415:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 416:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the vlaue of CPU clock frequency.\n\n
- 417:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The value is stored in a global variable \a \b SystemCoreClock.
- 418:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * It is updated when the clock configuration is done using the SCU LLD APIs.
- 419:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The value represents the frequency of clock used for CPU operation.
- 420:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \b Range: Value is of type uint32_t, and gives the value of frequency in Hertz.
- 421:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 422:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 423:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetPeripheralClockFrequency(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
- 424:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 425:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_CLOCK_GetCpuClockFrequency(void)
- 426:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
- 427:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   return SystemCoreClock;
- 428:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
- 429:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 430:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 431:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Value of peripheral clock frequency in Hertz.
- 432:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 433:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 434:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the vlaue of clock frequency at which the peripherals are working.\n\n
- 435:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The value is derived from the CPU frequency. \b Range: Value is of type uint32_t. It is represen
- 436:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 437:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetCpuClockFrequency(),XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
- 438:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 439:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** uint32_t XMC_SCU_CLOCK_GetPeripheralClockFrequency(void); 
- 440:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 441:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #if(UC_SERIES != XMC45)
- 442:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
- 443:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 444:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 445:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral The peripheral for which the clock has to be gated. \b Range: Use type @ref X
- 446:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    to identify the peripheral clock to be gated.
- 447:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 448:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 449:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 450:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 451:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Blocks the supply of clock to the selected peripheral.\n\n
- 452:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Clock gating helps in reducing the power consumption. User can selectively gate the clocks of un
- 453:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
- 454:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPCLK is the source of clock to various peripherals. Some peripherals support clock gate. Such a
- 455:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the clock supply for the selected peripheral.
- 456:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual gating of such peripheral clocks by enabling the \a SCU_CGAT
- 457:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * register bit field. Every bit in \a SCU_CGATSET0 register is protected by the bit protection sch
- 458:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * bit fields are handled internally.
- 459:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 460:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
- 461:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPERI is the source of clock to various peripherals. Some peripherals support clock gate. Such a
- 462:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * the clock supply for the selected peripheral.
- 463:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual gating of such peripheral clocks by enabling one of the \a
- 464:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * SCU_CGATSET0, \a SCU_CGATSET1 or \a SCU_CGATSET2 register bitfields.
- 465:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * 
- 466:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 467:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: Clock gating shall not be activated unless the module is in reset state. So use \a
- 468:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated() API before enabling the gating of any peripheral.
- 469:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 470:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated(), XMC_SCU_CLOCK_UngatePeripheralClock() \n\n\n
- 471:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 472:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_GatePeripheralClock(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
- 473:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  
- 474:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 475:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 476:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral  The peripheral for which the clock has to be ungated. \b Range: Use type @re
- 477:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    to identify the peripheral.
- 478:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 479:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
- 480:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 481:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 482:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the supply of clock to the selected peripheral.\n\n
- 483:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * By default when the device powers on, the peripheral clock will be gated for the 
- 484:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * peripherals that support clock gating.
- 485:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The peripheral clock should be enabled before using it for any functionality.
- 486:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
- 487:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPCLK is the source of clock to various peripherals. Some peripherals support clock gate.
- 488:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual ungating of such peripheral clocks by setting respective bit
- 489:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * in the \a SCU_CGATCLR0 register.
- 490:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 491:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
- 492:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * fPERI is the source of clock to various peripherals. Some peripherals support clock gate.
- 493:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual ungating of such peripheral clocks by setting the respective
- 494:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * SCU_CGATCLR0, \a SCU_CGATCLR1 or \a SCU_CGATCLR2 registers.
- 495:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 496:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 497:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 498:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
- 499:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 500:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_UngatePeripheralClock(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
- 501:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 502:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 503:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 504:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral  The peripheral for which the check for clock gating has to be done. 
- 505:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_PERIPHERAL_CLOCK_t to identify the peripheral
- 506:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 507:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return bool Status of the peripheral clock gating. \b Range: true if the peripheral clock is ga
- 508:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *              false if the peripheral clock ungated(gate de-asserted).
- 509:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 510:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 511:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Gives the status of peripheral clock gating.\n\n
- 512:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
- 513:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Checks the status of peripheral clock gating using the register CGATSTAT0.
- 514:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 515:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
- 516:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Checks the status of peripheral clock gating using one of CGATSTAT0, CGATSTAT1 or CGATSTAT2 regi
- 517:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
- 518:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * It is recommended to use this API before
- 519:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * enabling the gating of any peripherals through \a XMC_SCU_CLOCK_GatePeripheralClock() API.
- 520:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 521:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
- 522:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_UngatePeripheralClock(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
- 523:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 524:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** bool XMC_SCU_CLOCK_IsPeripheralClockGated(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
- 525:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** #endif
- 526:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 527:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** 
- 528:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** /**
- 529:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * @return  uint32_t  Status of the register mirror update.\n
- 530:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use the bit mask of the SCU_GENERAL_MIRRSTS register for the mirror
- 531:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    interest. e.g.: SCU_GENERAL_MIRRSTS_RTC_CTR_Msk. Multiple update events can b
- 532:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *                    using \a OR operation.
- 533:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  *
- 534:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
- 535:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the status of hibernate domain register update, when the respective mirror registers ar
- 536:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * The hibernate domain is connected to the core domain via SPI serial communication. MIRRSTS is a 
- 537:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * representing the communication of changed value of a mirror register to its corresponding regist
- 538:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * hibernate domain. The bit fields of the register indicate
- 539:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * that a corresponding register of the hibernate domain is ready to accept a write or that the com
- 540:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * is busy with executing the previous operation.\n
- 541:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: There is no hibernate domain in XMC1x devices. This register is retained for legacy purpos
- 542:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****  */
- 543:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_GetMirrorStatus(void)
- 544:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** {
+  26              	 .file 1 "C:/GitHub/Stepper_drive/Libraries/XMCLib/inc/xmc_scu.h"
+   1:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+   2:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @file xmc_scu.h
+   3:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @date 2016-03-09
+   4:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+   5:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @cond
+   6:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+   7:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMClib v2.1.22 - XMC Peripheral Driver Library 
+   8:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+   9:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Copyright (c) 2015-2019, Infineon Technologies AG
+  10:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * All rights reserved.                        
+  11:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                                             
+  12:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * following conditions are met:   
+  14:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                                                                              
+  15:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * disclaimer.                        
+  17:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * 
+  18:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * 
+  21:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * products derived from this software without specific prior written permission.                  
+  23:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                                                                              
+  24:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                                                                              
+  32:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+  35:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+  36:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Change History
+  37:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * --------------
+  38:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+  39:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * 2015-02-20:
+  40:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Initial <br>
+  41:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+  42:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * 2015-05-20:
+  43:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Documentation improved <br>
+  44:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *     - XMC_ASSERT() hanging issues have fixed for XMC4 devices. <br>
+  45:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+  46:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * 2015-06-20:
+  47:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Removed version macros and declaration of GetDriverVersion API
+  48:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Removed STATIC_INLINE property for the below APIs and declared as void
+  49:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *       XMC_SCU_INTERRUPT_EnableEvent, XMC_SCU_INTERRUPT_DisableEvent,
+  50:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *       XMC_SCU_INTERRUPT_TriggerEvent, XMC_SCU_INTERUPT_GetEventStatus,
+  51:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *       XMC_SCU_INTERUPT_ClearEventStatus
+  52:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+  53:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * 2015-11-30:
+  54:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Documentation improved <br>
+  55:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *      
+  56:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * 2016-03-09:
+  57:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *     - Optimization of write only registers
+  58:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *      
+  59:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @endcond 
+  60:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+  61:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+  62:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #ifndef XMC_SCU_H
+  63:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #define XMC_SCU_H
+  64:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  
+  65:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
+  66:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * HEADER FILES
+  67:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+  68:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #include <xmc_common.h>
+  69:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+  70:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+  71:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @addtogroup XMClib XMC Peripheral Library
+  72:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @{
+  73:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+  74:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  
+  75:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+  76:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @addtogroup SCU
+  77:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @brief System Control Unit(SCU) driver for XMC microcontroller family.
+  78:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+  79:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * System control unit is the SoC power, reset and a clock manager with additional responsibility o
+  80:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * providing system stability protection and other auxiliary functions.<br>
+  81:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * SCU provides the following features,
+  82:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Power control
+  83:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4 
+  84:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Hibernate control 
+  85:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
+  86:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Reset control
+  87:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Clock control
+  88:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Miscellaneous control(boot mode, system interrupts etc.)<br><br>
+  89:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+  90:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The SCU driver is divided in to clock control logic, reset control logic, system interrupt contr
+  91:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4
+  92:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * , hibernate control logic, trap control logic, parity control logic 
+  93:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
+  94:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * and miscellaneous control logic.<br>
+  95:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+  96:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Clock driver features:
+  97:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows clock configuration using the structure XMC_SCU_CLOCK_CONFIG_t and API XMC_SCU_CLOCK_I
+  98:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4
+  99:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides structure XMC_SCU_CLOCK_SYSPLL_CONFIG_t for configuring the system PLL
+ 100:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows selection of clock source for system PLL, XMC_SCU_CLOCK_GetSystemPllClockSource()
+ 101:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides APIs for configuring different module clock frequencies XMC_SCU_CLOCK_SetWdtClockDiv
+ 102:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows selection of clock source for external output, XMC_SCU_CLOCK_SetExternalOutputClockSou
+ 103:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides APIs for enabling external high power oscillator and ultra low power oscillator, XMC
+ 104:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides APIs for getting various clock frequencies XMC_SCU_CLOCK_GetPeripheralClockFrequency
+ 105:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  XMC_SCU_CLOCK_GetCpuClockFrequency(), XMC_SCU_CLOCK_GetSystemClockFrequency()<br>
+ 106:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
+ 107:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC1
+ 108:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows selection of peripheral clock frequency, XMC_SCU_CLOCK_SetFastPeripheralClockSource()
+ 109:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides API to get the peripheral clock frequency, XMC_SCU_CLOCK_GetFastPeripheralClockFrequ
+ 110:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
+ 111:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 112:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Reset driver features:
+ 113:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4
+ 114:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows to handle peripheral reset XMC_SCU_RESET_AssertPeripheralReset(), XMC_SCU_RESET_Deasse
+ 115:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows configuration of NMI generation for selected events, XMC_SCU_INTERRUPT_EnableNmiReques
+ 116:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
+ 117:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC1
+ 118:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows to trigger device reset XMC_SCU_RESET_AssertMasterReset()
+ 119:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows to configure multiple sources for reset, XMC_SCU_RESET_EnableResetRequest()
+ 120:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \endif <br>
+ 121:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 122:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Interrupt driver features:
+ 123:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides APIs for enabling/ disabling interrupt event generation XMC_SCU_INTERRUPT_EnableEven
+ 124:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  XMC_SCU_INTERRUPT_DisableEvent()
+ 125:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides API for registering callback function for events XMC_SCU_INTERRUPT_SetEventHandler()
+ 126:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 127:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4
+ 128:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Hibernate driver features:
+ 129:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows configuration of hibernate domain XMC_SCU_HIB_EnableHibernateDomain(), XMC_SCU_HIB_Dis
+ 130:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows selection of standby clock source, XMC_SCU_HIB_SetStandbyClockSource()
+ 131:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows selection of RTC clock source, XMC_SCU_HIB_SetRtcClockSource()
+ 132:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Provides API for enabling slow internal clock used for backup clock, XMC_SCU_HIB_EnableIntern
+ 133:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 134:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Trap driver features:
+ 135:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows handling of trap XMC_SCU_TRAP_Enable(), XMC_SCU_TRAP_GetStatus(), XMC_SCU_TRAP_Trigger
+ 136:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 137:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Parity driver features:
+ 138:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Parity error generated by on-chip RAM can be monitored, XMC_SCU_PARITY_Enable(), XMC_SCU_PARI
+ 139:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows configuration of trap generation on detection of parity error, XMC_SCU_PARITY_EnableTr
+ 140:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 141:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Power driver features:
+ 142:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows to power the USB module XMC_SCU_POWER_EnableUsb(), XMC_SCU_POWER_DisableUsb()
+ 143:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
+ 144:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 145:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Miscellaneous features:
+ 146:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows to trigger multiple capture compare unit(CCU) channels to be started together XMC_SCU_
+ 147:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC4
+ 148:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Enables configuration of out of range comparator (ORC) XMC_SCU_EnableOutOfRangeComparator()
+ 149:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Enables configuration of die temperature sensor XMC_SCU_EnableTemperatureSensor(), XMC_SCU_Ca
+ 150:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Enables configuration of device boot mode XMC_SCU_SetBootMode()<br>
+ 151:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
+ 152:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \if XMC1
+ 153:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Enables configuration of die temperature sensor XMC_SCU_StartTempMeasurement(), XMC_SCU_SetRa
+ 154:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows configuring supply monitor unit using the structure XMC_SCU_SUPPLYMONITOR_t and API XM
+ 155:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * -# Allows handling of protected bits XMC_SCU_LockProtectedBits(), XMC_SCU_UnlockProtectedBits()<
+ 156:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  \endif
+ 157:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @{
+ 158:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 159:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  
+ 160:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
+ 161:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * MACROS
+ 162:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+ 163:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 164:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
+ 165:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * ENUMS
+ 166:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+ 167:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 168:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *  Defines the status of SCU API execution, used to verify the SCU related API calls.
+ 169:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 170:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** typedef enum XMC_SCU_STATUS 
+ 171:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 172:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****   XMC_SCU_STATUS_OK   = 0UL, /**< SCU related operation successfully completed.*/
+ 173:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****   XMC_SCU_STATUS_ERROR,      /**< SCU related operation failed. When API cannot fulfill request, th
+ 174:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****   XMC_SCU_STATUS_BUSY,       /**< Cannot execute the SCU related operation request because
+ 175:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****                                   another operation is in progress. \a XMC_SCU_STATUS_BUSY is retur
+ 176:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****                                   processing another request. */
+ 177:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** } XMC_SCU_STATUS_t;
+ 178:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 179:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 180:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
+ 181:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * DATA TYPES
+ 182:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+ 183:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 184:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 185:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Function pointer type used for registering callback functions on SCU event occurrence.
+ 186:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 187:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** typedef void (*XMC_SCU_INTERRUPT_EVENT_HANDLER_t)(void);
+ 188:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 189:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
+ 190:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * DEVICE EXTENSIONS
+ 191:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+ 192:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 193:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #if (UC_FAMILY == XMC1)
+ 194:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #include <xmc1_scu.h>
+ 195:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #elif (UC_FAMILY == XMC4)
+ 196:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #include <xmc4_scu.h>
+ 197:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #else
+ 198:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #error "Unspecified chipset"
+ 199:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #endif
+ 200:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 201:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**************************************************************************************************
+ 202:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * API Prototypes
+ 203:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  **************************************************************************************************
+ 204:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 205:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #ifdef __cplusplus
+ 206:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** extern "C" {
+ 207:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #endif
+ 208:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 209:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 210:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 211:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 212:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @param trigger    CCU slices to be triggered synchronously via software. The value is a bitmask 
+ 213:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    in the register CCUCON. <br>
+ 214:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_CCU_TRIGGER_t for bitmask of individual CCU s
+ 215:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    combined using \a OR operation.
+ 216:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 217:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 218:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 219:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 220:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Generates active edge(low to high) trigger for multiple CCU units at the same time.\n\n
+ 221:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Before executing this API, all the required CCU timers should configure external start.
+ 222:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The edge of the start signal should be selected as active edge.
+ 223:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The input signal for the CCU slice should be selected as SCU input.
+ 224:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The above mentioned configurations can be made using the CCU LLD API XMC_CCU4_SLICE_StartConfig(
+ 225:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * CCU timer slice should be started using XMC_CCU4_SLICE_StartTimer() before triggering 
+ 226:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * the timer using this API.<BR>
+ 227:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 228:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_CCU4_SLICE_StartConfig(), XMC_CCU4_SLICE_SetInput(), XMC_SCU_SetCcuTriggerLow()\n\n\n
+ 229:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 230:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_SetCcuTriggerHigh(const uint32_t trigger)
+ 231:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 232:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_GENERAL->CCUCON |= (uint32_t)trigger;
+ 233:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 234:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 235:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 236:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 237:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @param trigger  CCU slices to be triggered synchronously via software. The value is a bitmask of
+ 238:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    in the register CCUCON. <br>
+ 239:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_CCU_TRIGGER_t for bitmask of individual CCU s
+ 240:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    combined using \a OR operation.
+ 241:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 242:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 243:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 244:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 245:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Generates passive edge(high to low) trigger for multiple CCU units at the same time.\n\n
+ 246:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Before executing this API, all the required CCU timers should configure external start.
+ 247:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The edge of the start signal should be selected as passive edge.
+ 248:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The input signal for the CCU slice should be selected as SCU input.
+ 249:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The above mentioned configurations can be made using the CCU LLD API XMC_CCU4_SLICE_StartConfig(
+ 250:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * CCU timer slice should be started using XMC_CCU4_SLICE_StartTimer() before triggering 
+ 251:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * the timer using this API.<BR>
+ 252:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 253:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_CCU4_SLICE_StartConfig(), XMC_CCU4_SLICE_SetInput(), XMC_SCU_SetCcuTriggerHigh()\n\n\n
+ 254:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 255:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_SetCcuTriggerLow(const uint32_t trigger)
+ 256:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 257:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_GENERAL->CCUCON &= (uint32_t)~trigger;
+ 258:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 259:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 260:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 261:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 262:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @param config Pointer to structure holding the clock prescaler values and divider values for 
+ 263:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                configuring clock generators and clock tree.\n
+ 264:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                \b Range: Configure the members of structure @ref XMC_SCU_CLOCK_CONFIG_t for vari
+ 265:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                parameters of clock setup.
+ 266:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 267:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 268:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 269:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 270:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Initializes clock generators and clock tree.\n\n
+ 271:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
+ 272:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Peripheral clock and system clock are configured based on the input configuration \a config.
+ 273:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The system clock frequency is tuned by configuring the FDIV and IDIV values of CLKCR register.
+ 274:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The values of FDIV and IDIV can be provided as part of input configuration.
+ 275:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The PCLK divider determines the ratio of peripheral clock to the system clock. 
+ 276:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The source of RTC clock is set based on the input configuration. 
+ 277:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \a SystemCoreClock variable will be updated with the value of
+ 278:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * system clock frequency. Access to protected bit fields are handled internally.
+ 279:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 280:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
+ 281:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the high precision oscillator(fOHP) input and configures the system and peripheral clock
+ 282:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Based on the system clock source selected in \a config, either fPLL or fOFI will be chosen as sy
+ 283:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Based on PLL mode(normal or prescaler mode) used, PLL ramps up in steps to achieve target freque
+ 284:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The clock dividers for CPU, CCU and peripheral clocks will be set based on the input configurati
+ 285:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The \a SystemCoreClock variable is set with the value of system clock frequency.
+ 286:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 287:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 288:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetPeripheralClockFrequency(), XMC_SCU_CLOCK_GetCpuClockFrequency() \n\n\n
+ 289:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 290:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_Init(const XMC_SCU_CLOCK_CONFIG_t *const config);
+ 291:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 292:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 293:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 294:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the event to enable. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_t
+ 295:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 296:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 297:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 298:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 299:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 300:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the generation of interrupt for the input events.\n\n
+ 301:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are enabled by setting the respective bit fields in the SRMSK register. \n
+ 302:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: User should separately enable the NVIC node responsible for handling the SCU interrupt.
+ 303:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The interrupt will be generated when the respective event occurs.
+ 304:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 305:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_EnableIRQ(), XMC_SCU_INTERRUPT_DisableEvent()\n\n\n
+ 306:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 307:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_EnableEvent(const XMC_SCU_INTERRUPT_EVENT_t event);
+ 308:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 309:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 310:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 311:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 312:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the event to disable. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_
+ 313:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 314:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 315:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 316:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 317:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 318:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Disables generation of interrupt on occurrence of the input event.\n\n
+ 319:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are disabled by resetting the respective bit fields in the SRMSK register. \n
+ 320:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 321:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_DisableIRQ(), XMC_SCU_INTERRUPT_EnableEvent()\n\n\n
+ 322:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 323:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_DisableEvent(const XMC_SCU_INTERRUPT_EVENT_t event);
+ 324:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 325:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 326:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 327:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event Bit mask of the event to be triggered. \b Range: Use type @ref XMC_SCU_INTERRUPT_EV
+ 328:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 329:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 330:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 331:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 332:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 333:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Triggers the event as if the hardware raised it.\n\n
+ 334:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Event will be triggered by setting the respective bitfield in the SRSET register.\n
+ 335:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: User should enable the NVIC node that handles the respective event for interrupt generatio
+ 336:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 337:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * NVIC_EnableIRQ(), XMC_SCU_INTERUPT_GetEventStatus(), XMC_SCU_INTERRUPT_ClearEventStatus() \n\n\n
+ 338:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 339:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_TriggerEvent(const XMC_SCU_INTERRUPT_EVENT_t  event);
+ 340:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 341:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 342:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Status of the SCU events.
+ 343:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 344:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 345:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the status of all SCU events.\n\n
+ 346:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The status is read from the SRRAW register. To check the status of a particular 
+ 347:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * event, the returned value should be masked with the bit mask of the event. The bitmask
+ 348:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * of events can be obtained using the type @ref XMC_SCU_INTERRUPT_EVENT_t. Multiple events'
+ 349:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * status can be checked by combining the bit masks using \a OR operation. 
+ 350:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * After detecting the event, the event status should be cleared using software to detect the event
+ 351:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 352:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_INTERRUPT_ClearEventStatus(), XMC_SCU_INTERRUPT_TriggerEvent(), XMC_SCU_INTERRUPT_SetEve
+ 353:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 354:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** XMC_SCU_INTERRUPT_EVENT_t XMC_SCU_INTERUPT_GetEventStatus(void);
+ 355:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 356:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 357:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 358:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @param event  Bit mask of the events to clear. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_t
+ 359:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 360:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 361:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 362:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 363:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 364:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Clears the event status bit in SRRAW register.\n\n
+ 365:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The events are cleared by writing value 1 to their bit positions in the SRCLR register.
+ 366:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The API can be used when polling method is used. After detecting the event, the event status
+ 367:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * should be cleared using software to detect the event again.
+ 368:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 369:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 370:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_INTERUPT_GetEventStatus(), XMC_SCU_INTERRUPT_TriggerEvent() \n\n\n
+ 371:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 372:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_INTERRUPT_ClearEventStatus(const XMC_SCU_INTERRUPT_EVENT_t event);
+ 373:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 374:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 375:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 376:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Status representing the reason for device reset.
+ 377:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 378:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 379:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the value representing the reason for device reset.\n\n
+ 380:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The return value is an encoded word, which can indicate multiple reasons for the last reset. Eac
+ 381:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * returned word is representative of a last reset cause. The returned value should be appropriatel
+ 382:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * the cause of reset. 
+ 383:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The cause of the last reset gets automatically stored in 
+ 384:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * the \a SCU_RSTSTAT register. The reset status shall be reset after each
+ 385:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * startup in order to ensure consistent source indication after the next reset.
+ 386:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \b Range: The type @ref XMC_SCU_RESET_REASON_t can be used to get the bit masks of the reset cau
+ 387:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 388:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 389:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_RESET_ClearDeviceResetReason() \n\n\n
+ 390:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 391:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_RESET_GetDeviceResetReason(void)
+ 392:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 393:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****   return ((SCU_RESET->RSTSTAT) & SCU_RESET_RSTSTAT_RSTSTAT_Msk);
+ 394:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 395:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 396:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None 
+ 397:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 398:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 399:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Clears the reset reason bits in the reset status register. \n\n
+ 400:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Clearing of the reset status information in the \a SCU_RSTSTAT register via register bit \a RSTC
+ 401:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * recommended to ensure a clear indication of the cause of next reset.
+ 402:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 403:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 404:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_RESET_GetDeviceResetReason() \n\n\n
+ 405:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 406:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE void XMC_SCU_RESET_ClearDeviceResetReason(void)
+ 407:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 408:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****   /* Clear RSTSTAT.RSTSTAT bitfield */
+ 409:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****   SCU_RESET->RSTCLR = (uint32_t)SCU_RESET_RSTCLR_RSCLR_Msk;
+ 410:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 411:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  
+ 412:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 413:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Value of CPU clock frequency.
+ 414:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 415:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 416:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the vlaue of CPU clock frequency.\n\n
+ 417:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The value is stored in a global variable \a \b SystemCoreClock.
+ 418:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * It is updated when the clock configuration is done using the SCU LLD APIs.
+ 419:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The value represents the frequency of clock used for CPU operation.
+ 420:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \b Range: Value is of type uint32_t, and gives the value of frequency in Hertz.
+ 421:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 422:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 423:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetPeripheralClockFrequency(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 424:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 425:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_CLOCK_GetCpuClockFrequency(void)
+ 426:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** {
+ 427:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****   return SystemCoreClock;
+ 428:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 429:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 430:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 431:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return uint32_t  Value of peripheral clock frequency in Hertz.
+ 432:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 433:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 434:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the vlaue of clock frequency at which the peripherals are working.\n\n
+ 435:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The value is derived from the CPU frequency. \b Range: Value is of type uint32_t. It is represen
+ 436:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 437:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_GetCpuClockFrequency(),XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 438:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 439:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** uint32_t XMC_SCU_CLOCK_GetPeripheralClockFrequency(void); 
+ 440:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 441:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #if(UC_SERIES != XMC45)
+ 442:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  
+ 443:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 444:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 445:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral The peripheral for which the clock has to be gated. \b Range: Use type @ref X
+ 446:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    to identify the peripheral clock to be gated.
+ 447:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 448:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 449:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 450:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 451:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Blocks the supply of clock to the selected peripheral.\n\n
+ 452:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Clock gating helps in reducing the power consumption. User can selectively gate the clocks of un
+ 453:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
+ 454:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * fPCLK is the source of clock to various peripherals. Some peripherals support clock gate. Such a
+ 455:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * the clock supply for the selected peripheral.
+ 456:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual gating of such peripheral clocks by enabling the \a SCU_CGAT
+ 457:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * register bit field. Every bit in \a SCU_CGATSET0 register is protected by the bit protection sch
+ 458:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * bit fields are handled internally.
+ 459:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 460:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
+ 461:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * fPERI is the source of clock to various peripherals. Some peripherals support clock gate. Such a
+ 462:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * the clock supply for the selected peripheral.
+ 463:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual gating of such peripheral clocks by enabling one of the \a
+ 464:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * SCU_CGATSET0, \a SCU_CGATSET1 or \a SCU_CGATSET2 register bitfields.
+ 465:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * 
+ 466:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 467:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: Clock gating shall not be activated unless the module is in reset state. So use \a
+ 468:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated() API before enabling the gating of any peripheral.
+ 469:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 470:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated(), XMC_SCU_CLOCK_UngatePeripheralClock() \n\n\n
+ 471:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 472:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_GatePeripheralClock(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
+ 473:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  
+ 474:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 475:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 476:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral  The peripheral for which the clock has to be ungated. \b Range: Use type @re
+ 477:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    to identify the peripheral.
+ 478:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 479:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return None
+ 480:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 481:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 482:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Enables the supply of clock to the selected peripheral.\n\n
+ 483:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * By default when the device powers on, the peripheral clock will be gated for the 
+ 484:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * peripherals that support clock gating.
+ 485:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The peripheral clock should be enabled before using it for any functionality.
+ 486:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
+ 487:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * fPCLK is the source of clock to various peripherals. Some peripherals support clock gate.
+ 488:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual ungating of such peripheral clocks by setting respective bit
+ 489:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * in the \a SCU_CGATCLR0 register.
+ 490:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 491:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
+ 492:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * fPERI is the source of clock to various peripherals. Some peripherals support clock gate.
+ 493:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Software can request for individual ungating of such peripheral clocks by setting the respective
+ 494:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * SCU_CGATCLR0, \a SCU_CGATCLR1 or \a SCU_CGATCLR2 registers.
+ 495:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 496:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 497:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 498:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 499:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 500:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** void XMC_SCU_CLOCK_UngatePeripheralClock(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
+ 501:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 502:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 503:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 504:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @param  peripheral  The peripheral for which the check for clock gating has to be done. 
+ 505:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_PERIPHERAL_CLOCK_t to identify the peripheral
+ 506:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 507:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return bool Status of the peripheral clock gating. \b Range: true if the peripheral clock is ga
+ 508:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *              false if the peripheral clock ungated(gate de-asserted).
+ 509:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 510:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 511:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Gives the status of peripheral clock gating.\n\n
+ 512:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC1
+ 513:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Checks the status of peripheral clock gating using the register CGATSTAT0.
+ 514:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 515:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \if XMC4
+ 516:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Checks the status of peripheral clock gating using one of CGATSTAT0, CGATSTAT1 or CGATSTAT2 regi
+ 517:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \endif
+ 518:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * It is recommended to use this API before
+ 519:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * enabling the gating of any peripherals through \a XMC_SCU_CLOCK_GatePeripheralClock() API.
+ 520:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 521:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 522:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * XMC_SCU_CLOCK_UngatePeripheralClock(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 523:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 524:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** bool XMC_SCU_CLOCK_IsPeripheralClockGated(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
+ 525:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** #endif
+ 526:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 527:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** 
+ 528:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** /**
+ 529:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * @return  uint32_t  Status of the register mirror update.\n
+ 530:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    \b Range: Use the bit mask of the SCU_GENERAL_MIRRSTS register for the mirror
+ 531:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    interest. e.g.: SCU_GENERAL_MIRRSTS_RTC_CTR_Msk. Multiple update events can b
+ 532:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *                    using \a OR operation.
+ 533:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  *
+ 534:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * \par<b>Description</b><br>
+ 535:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Provides the status of hibernate domain register update, when the respective mirror registers ar
+ 536:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * The hibernate domain is connected to the core domain via SPI serial communication. MIRRSTS is a 
+ 537:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * representing the communication of changed value of a mirror register to its corresponding regist
+ 538:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * hibernate domain. The bit fields of the register indicate
+ 539:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * that a corresponding register of the hibernate domain is ready to accept a write or that the com
+ 540:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * is busy with executing the previous operation.\n
+ 541:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  * Note: There is no hibernate domain in XMC1x devices. This register is retained for legacy purpos
+ 542:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****  */
+ 543:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_GetMirrorStatus(void)
+ 544:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** {
   27              	 .loc 1 544 0
   28              	 .cfi_startproc
   29              	 
@@ -579,11 +579,11 @@
   36 0002 00AF     	 add r7,sp,#0
   37              	.LCFI1:
   38              	 .cfi_def_cfa_register 7
- 545:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h ****   return(SCU_GENERAL->MIRRSTS);
+ 545:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h ****   return(SCU_GENERAL->MIRRSTS);
   39              	 .loc 1 545 0
   40 0004 034B     	 ldr r3,.L3
   41 0006 D3F8C430 	 ldr r3,[r3,#196]
- 546:C:/CODE/Licenta/Libraries/XMCLib/inc\xmc_scu.h **** }
+ 546:C:/GitHub/Stepper_drive/Libraries/XMCLib/inc\xmc_scu.h **** }
   42              	 .loc 1 546 0
   43 000a 1846     	 mov r0,r3
   44 000c BD46     	 mov sp,r7
@@ -1708,11 +1708,11 @@
  884              	.Letext0:
  885              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  886              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 887              	 .file 5 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 887              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
  888              	 .file 6 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\time.h"
- 889              	 .file 7 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_rtc.h"
- 890              	 .file 8 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 891              	 .file 9 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
+ 889              	 .file 7 "C:/GitHub/Stepper_drive/Libraries/XMCLib/inc/xmc_rtc.h"
+ 890              	 .file 8 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
+ 891              	 .file 9 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 xmc_rtc.c
     {standard input}:20     .text.XMC_SCU_GetMirrorStatus:00000000 $t

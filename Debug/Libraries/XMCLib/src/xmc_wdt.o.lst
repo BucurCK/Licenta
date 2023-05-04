@@ -242,11 +242,11 @@
  154              	.Letext0:
  155              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  156              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 157              	 .file 4 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
- 158              	 .file 5 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc4_scu.h"
- 159              	 .file 6 "C:/CODE/Licenta/Libraries/XMCLib/inc/xmc_wdt.h"
- 160              	 .file 7 "C:/CODE/Licenta/Libraries/CMSIS/Include/core_cm4.h"
- 161              	 .file 8 "C:/CODE/Licenta/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
+ 157              	 .file 4 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 158              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/XMCLib/inc/xmc4_scu.h"
+ 159              	 .file 6 "C:/GitHub/Stepper_drive/Libraries/XMCLib/inc/xmc_wdt.h"
+ 160              	 .file 7 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
+ 161              	 .file 8 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 xmc_wdt.c
     {standard input}:20     .text.XMC_WDT_Enable:00000000 $t
