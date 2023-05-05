@@ -97,8 +97,8 @@ void dq_abc(void)
 void compute_fast_speed(void)			//SPEED = 1 for testing
 {
 	timer_value_fast = CCU40_CC40->TIMER;
-	speed_value_fast = timer_value_fast - timer_value_old_fast;
-//	speed_value_fast = 1;
+//	speed_value_fast = timer_value_fast - timer_value_old_fast;
+	speed_value_fast = 1;
 	timer_value_old_fast = timer_value_fast;
 }
 /*

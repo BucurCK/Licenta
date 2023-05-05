@@ -826,7 +826,7 @@
  210:../driver_pwm.c **** 
  211:../driver_pwm.c **** 
  212:../driver_pwm.c **** 	// New compare value
- 213:../driver_pwm.c **** 	CCU80_CC80->CR1S = (pwm_value / 2 + pwm_value * uaref / 65535);	//A - A1
+ 213:../driver_pwm.c **** 	CCU80_CC80->CR1S = (pwm_value / 2 - pwm_value * uaref / 65535);	//A - A1
  628              	 .loc 1 213 0
  629 0074 3B48     	 ldr r0,.L18+4
  630 0076 3C4B     	 ldr r3,.L18+8
@@ -848,9 +848,9 @@
  646 009c C913     	 asrs r1,r1,#15
  647 009e DB17     	 asrs r3,r3,#31
  648 00a0 CB1A     	 subs r3,r1,r3
- 649 00a2 1344     	 add r3,r3,r2
+ 649 00a2 D31A     	 subs r3,r2,r3
  650 00a4 C363     	 str r3,[r0,#60]
- 214:../driver_pwm.c **** 	CCU80_CC81->CR1S = (pwm_value / 2 - pwm_value * uaref / 65535); //B - A2
+ 214:../driver_pwm.c **** 	CCU80_CC81->CR1S = (pwm_value / 2 + pwm_value * uaref / 65535); //B - A2
  651              	 .loc 1 214 0
  652 00a6 3248     	 ldr r0,.L18+16
  653 00a8 2F4B     	 ldr r3,.L18+8
@@ -872,10 +872,10 @@
  669 00ce C913     	 asrs r1,r1,#15
  670 00d0 DB17     	 asrs r3,r3,#31
  671 00d2 CB1A     	 subs r3,r1,r3
- 672 00d4 D31A     	 subs r3,r2,r3
+ 672 00d4 1344     	 add r3,r3,r2
  673 00d6 C363     	 str r3,[r0,#60]
  215:../driver_pwm.c **** 	
- 216:../driver_pwm.c **** 	CCU80_CC82->CR1S = (pwm_value / 2 + pwm_value * ubref / 65535); //C - B1
+ 216:../driver_pwm.c **** 	CCU80_CC82->CR1S = (pwm_value / 2 - pwm_value * ubref / 65535); //C - B1
  674              	 .loc 1 216 0
  675 00d8 2648     	 ldr r0,.L18+20
  676 00da 234B     	 ldr r3,.L18+8
@@ -897,9 +897,9 @@
  692 0100 C913     	 asrs r1,r1,#15
  693 0102 DB17     	 asrs r3,r3,#31
  694 0104 CB1A     	 subs r3,r1,r3
- 695 0106 1344     	 add r3,r3,r2
+ 695 0106 D31A     	 subs r3,r2,r3
  696 0108 C363     	 str r3,[r0,#60]
- 217:../driver_pwm.c **** 	CCU81_CC81->CR1S = (pwm_value / 2 - pwm_value * ubref / 65535); //D - B2
+ 217:../driver_pwm.c **** 	CCU81_CC81->CR1S = (pwm_value / 2 + pwm_value * ubref / 65535); //D - B2
  697              	 .loc 1 217 0
  698 010a 1B48     	 ldr r0,.L18+24
  699 010c 164B     	 ldr r3,.L18+8
@@ -921,7 +921,7 @@
  715 0132 C913     	 asrs r1,r1,#15
  716 0134 DB17     	 asrs r3,r3,#31
  717 0136 CB1A     	 subs r3,r1,r3
- 718 0138 D31A     	 subs r3,r2,r3
+ 718 0138 1344     	 add r3,r3,r2
  719 013a C363     	 str r3,[r0,#60]
  218:../driver_pwm.c **** 
  219:../driver_pwm.c **** 	// Shadow transfer enabled for new compare value

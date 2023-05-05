@@ -210,11 +210,11 @@ void pwm_update(int16_t uaref, int16_t ubref)
 
 
 	// New compare value
-	CCU80_CC80->CR1S = (pwm_value / 2 + pwm_value * uaref / 65535);	//A - A1
-	CCU80_CC81->CR1S = (pwm_value / 2 - pwm_value * uaref / 65535); //B - A2
+	CCU80_CC80->CR1S = (pwm_value / 2 - pwm_value * uaref / 65535);	//A - A1
+	CCU80_CC81->CR1S = (pwm_value / 2 + pwm_value * uaref / 65535); //B - A2
 	
-	CCU80_CC82->CR1S = (pwm_value / 2 + pwm_value * ubref / 65535); //C - B1
-	CCU81_CC81->CR1S = (pwm_value / 2 - pwm_value * ubref / 65535); //D - B2
+	CCU80_CC82->CR1S = (pwm_value / 2 - pwm_value * ubref / 65535); //C - B1
+	CCU81_CC81->CR1S = (pwm_value / 2 + pwm_value * ubref / 65535); //D - B2
 
 	// Shadow transfer enabled for new compare value
 	CCU80->GCSS |= (CCU8_GCSS_S0SE_MSK | CCU8_GCSS_S1SE_MSK | CCU8_GCSS_S2SE_MSK);

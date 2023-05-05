@@ -73,14 +73,30 @@ void reference_generator_compute(void)
 		low_level_time = time_low_input_s * SECOND;
 		rise_time = time_rise_input_s * SECOND;
 		fall_time = time_fall_input_s * SECOND;
-		u_q_ref = reference;
+//		u_q_ref = reference;
 		break;
 	default:
 		break;
 	}
 
-	rise_increment = (float_t)high_level / rise_time;
-	fall_decrement = (float_t)high_level / fall_time;
+	if (0 == rise_time)
+	{
+		rise_increment = high_level;
+	}
+	else
+	{
+		rise_increment = (float_t)high_level / rise_time;
+	}
+	if (0 == rise_time)
+	{
+		fall_decrement = high_level;
+	}
+	else
+	{
+		fall_decrement = (float_t)high_level / fall_time;
+	}
+
+
 	reference = 0;
 	reference_old = 0;
 
