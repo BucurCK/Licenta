@@ -2033,7 +2033,7 @@
    4:../timer.c    **** #include "driver_pwm.h"
    5:../timer.c    **** 
    6:../timer.c    **** /*
-   7:../timer.c    ****  * Initialize CC81_81 as delay timer
+   7:../timer.c    ****  * Initialize CC81_81 as delay timer -- NOT USED
    8:../timer.c    ****  */
    9:../timer.c    **** void init_timer(void)
   10:../timer.c    **** {
@@ -2471,7 +2471,7 @@
  434              	.LFB198:
   89:../timer.c    **** 
   90:../timer.c    **** /*
-  91:../timer.c    **** *Wait for time*ms -- Uses CC81_80 as clock set at 0.2s 
+  91:../timer.c    **** *Wait for time*ms -- Uses CC81_80 as clock set at 0.2s  -- NOT USED
   92:../timer.c    **** */
   93:../timer.c    **** void delay_ms(uint32_t time_ms)
   94:../timer.c    **** {

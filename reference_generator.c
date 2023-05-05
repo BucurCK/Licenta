@@ -31,8 +31,8 @@ float_t time_fall_input_s = 0;
 float_t time_high_input_s = 0;
 float_t time_low_input_s = 0;
 
-int16_t current_input = 0; // 1[A] ~= 820[i.u]
-int16_t voltage_input = 0;
+float_t current_input = 0; // 1[A] ~= 820[i.u]
+float_t voltage_input = 0;
 float_t rpm_input = 0;	  // rpm_min = 30 = 1[iu/ms] | use increments of 30 for use of computation
 float_t rotation_input = 0; // number of full rotation | 1[rot] = 2000[iu]
 

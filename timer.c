@@ -4,7 +4,7 @@
 #include "driver_pwm.h"
 
 /*
- * Initialize CC81_81 as delay timer
+ * Initialize CC81_81 as delay timer -- NOT USED
  */
 void init_timer(void)
 {
@@ -88,7 +88,7 @@ void delay_t(uint32_t time)
 }
 
 /*
-*Wait for time*ms -- Uses CC81_80 as clock set at 0.2s 
+*Wait for time*ms -- Uses CC81_80 as clock set at 0.2s  -- NOT USED
 */
 void delay_ms(uint32_t time_ms)
 {

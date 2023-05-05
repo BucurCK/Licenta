@@ -62,65 +62,17 @@
   13:../driver_pwm.c **** 	///*
   14:../driver_pwm.c **** 	// * PWM pins configuration CCU80 - as alter function 3 - CCU80 OUTxy
   15:../driver_pwm.c **** 	// */
-  16:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC11_POS); 			// A_HIGH 	- P5.11 - OUT00 -CCU80
-  55              	 .loc 1 16 0
-  56 0004 984A     	 ldr r2,.L2
-  57 0006 984B     	 ldr r3,.L2
-  58 0008 9B69     	 ldr r3,[r3,#24]
-  59 000a 43F01843 	 orr r3,r3,#-1744830464
-  60 000e 9361     	 str r3,[r2,#24]
-  17:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC8_POS);				// A_LOW 	- P5.8  - OUT01 -CCU80
-  61              	 .loc 1 17 0
-  62 0010 954A     	 ldr r2,.L2
-  63 0012 954B     	 ldr r3,.L2
-  64 0014 9B69     	 ldr r3,[r3,#24]
-  65 0016 43F09803 	 orr r3,r3,#152
-  66 001a 9361     	 str r3,[r2,#24]
-  18:../driver_pwm.c **** 
-  19:../driver_pwm.c **** 	PORT0->IOCR4 |= (GPIO_OUTPUT_ALTER_3 << PORT0_IOCR4_PC4_Pos);		// B_HIGH 	- P5.10 - OUT10 P0.4 alt
-  67              	 .loc 1 19 0
-  68 001c 934A     	 ldr r2,.L2+4
-  69 001e 934B     	 ldr r3,.L2+4
-  70 0020 5B69     	 ldr r3,[r3,#20]
-  71 0022 43F09803 	 orr r3,r3,#152
-  72 0026 5361     	 str r3,[r2,#20]
-  20:../driver_pwm.c **** 	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC15_POS);			// B_LOW 	- P2.15 - OUT11 -CCU80
-  73              	 .loc 1 20 0
-  74 0028 914A     	 ldr r2,.L2+8
-  75 002a 914B     	 ldr r3,.L2+8
-  76 002c DB69     	 ldr r3,[r3,#28]
-  77 002e 43F01843 	 orr r3,r3,#-1744830464
-  78 0032 D361     	 str r3,[r2,#28]
-  21:../driver_pwm.c **** 
-  22:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC9_POS);				// C_HIGH 	- P5.9	- OUT20 -CCU80
-  79              	 .loc 1 22 0
-  80 0034 8C4A     	 ldr r2,.L2
-  81 0036 8C4B     	 ldr r3,.L2
-  82 0038 9B69     	 ldr r3,[r3,#24]
-  83 003a 43F41843 	 orr r3,r3,#38912
-  84 003e 9361     	 str r3,[r2,#24]
-  23:../driver_pwm.c **** 	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC14_POS);			// C_LOW 	- P2.14	- OUT21 -CCU80
-  85              	 .loc 1 23 0
-  86 0040 8B4A     	 ldr r2,.L2+8
-  87 0042 8B4B     	 ldr r3,.L2+8
-  88 0044 DB69     	 ldr r3,[r3,#28]
-  89 0046 43F41803 	 orr r3,r3,#9961472
-  90 004a D361     	 str r3,[r2,#28]
-  24:../driver_pwm.c **** 
-  25:../driver_pwm.c **** 	PORT1->IOCR12 |= (GPIO_OUTPUT_ALTER_3 << PORT1_IOCR12_PC14_Pos);	//D_HIGH	-P1.14	- OUT10 -CCU81
-  91              	 .loc 1 25 0
-  92 004c 894A     	 ldr r2,.L2+12
-  93 004e 894B     	 ldr r3,.L2+12
-  94 0050 DB69     	 ldr r3,[r3,#28]
-  95 0052 43F41803 	 orr r3,r3,#9961472
-  96 0056 D361     	 str r3,[r2,#28]
-  26:../driver_pwm.c **** 	PORT1->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT1_IOCR8_PC11_Pos);		//D_LOW		-P1.11	- OUT11 -CCU81
-  97              	 .loc 1 26 0
-  98 0058 864A     	 ldr r2,.L2+12
-  99 005a 864B     	 ldr r3,.L2+12
- 100 005c 9B69     	 ldr r3,[r3,#24]
- 101 005e 43F01843 	 orr r3,r3,#-1744830464
- 102 0062 9361     	 str r3,[r2,#24]
+  16:../driver_pwm.c **** //	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC11_POS); 			// A_HIGH 	- P5.11 - OUT00 -CCU80
+  17:../driver_pwm.c **** //	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC8_POS);				// A_LOW 	- P5.8  - OUT01 -CCU80
+  18:../driver_pwm.c **** //
+  19:../driver_pwm.c **** //	PORT0->IOCR4 |= (GPIO_OUTPUT_ALTER_3 << PORT0_IOCR4_PC4_Pos);		// B_HIGH 	- P5.10 - OUT10 P0.4 a
+  20:../driver_pwm.c **** //	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC15_POS);			// B_LOW 	- P2.15 - OUT11 -CCU80
+  21:../driver_pwm.c **** //
+  22:../driver_pwm.c **** //	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC9_POS);				// C_HIGH 	- P5.9	- OUT20 -CCU80
+  23:../driver_pwm.c **** //	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC14_POS);			// C_LOW 	- P2.14	- OUT21 -CCU80
+  24:../driver_pwm.c **** //
+  25:../driver_pwm.c **** //	PORT1->IOCR12 |= (GPIO_OUTPUT_ALTER_3 << PORT1_IOCR12_PC14_Pos);	//D_HIGH	-P1.14	- OUT10 -CCU81
+  26:../driver_pwm.c **** //	PORT1->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT1_IOCR8_PC11_Pos);		//D_LOW		-P1.11	- OUT11 -CCU81
   27:../driver_pwm.c **** 
   28:../driver_pwm.c **** 	/*
   29:../driver_pwm.c **** 	 * CCU80 is already set up from VADC_irq
@@ -142,153 +94,153 @@
   45:../driver_pwm.c **** 	 */
   46:../driver_pwm.c **** 	/*  Reset CCU81*/
   47:../driver_pwm.c **** 	SCU_RESET->PRSET0 |= SCU_RESET_PRSET0_CCU81RS_Msk;
- 103              	 .loc 1 47 0
- 104 0064 844A     	 ldr r2,.L2+16
- 105 0066 844B     	 ldr r3,.L2+16
- 106 0068 1B69     	 ldr r3,[r3,#16]
- 107 006a 43F48073 	 orr r3,r3,#256
- 108 006e 1361     	 str r3,[r2,#16]
+  55              	 .loc 1 47 0
+  56 0004 984A     	 ldr r2,.L2
+  57 0006 984B     	 ldr r3,.L2
+  58 0008 1B69     	 ldr r3,[r3,#16]
+  59 000a 43F48073 	 orr r3,r3,#256
+  60 000e 1361     	 str r3,[r2,#16]
   48:../driver_pwm.c **** 
   49:../driver_pwm.c **** 	/* Clear reset of CCU81 */
   50:../driver_pwm.c **** 	SCU_RESET->PRCLR0 |= SCU_RESET_PRCLR0_CCU81RS_Msk;
- 109              	 .loc 1 50 0
- 110 0070 814A     	 ldr r2,.L2+16
- 111 0072 814B     	 ldr r3,.L2+16
- 112 0074 5B69     	 ldr r3,[r3,#20]
- 113 0076 43F48073 	 orr r3,r3,#256
- 114 007a 5361     	 str r3,[r2,#20]
+  61              	 .loc 1 50 0
+  62 0010 954A     	 ldr r2,.L2
+  63 0012 954B     	 ldr r3,.L2
+  64 0014 5B69     	 ldr r3,[r3,#20]
+  65 0016 43F48073 	 orr r3,r3,#256
+  66 001a 5361     	 str r3,[r2,#20]
   51:../driver_pwm.c **** 
   52:../driver_pwm.c **** 	/* Enable CCU8 via clkset */
   53:../driver_pwm.c **** 	SCU_CLK->CLKSET |= SCU_CLKSET_CCUCEN_MSK;
- 115              	 .loc 1 53 0
- 116 007c 7F4A     	 ldr r2,.L2+20
- 117 007e 7F4B     	 ldr r3,.L2+20
- 118 0080 5B68     	 ldr r3,[r3,#4]
- 119 0082 43F01003 	 orr r3,r3,#16
- 120 0086 5360     	 str r3,[r2,#4]
+  67              	 .loc 1 53 0
+  68 001c 934A     	 ldr r2,.L2+4
+  69 001e 934B     	 ldr r3,.L2+4
+  70 0020 5B68     	 ldr r3,[r3,#4]
+  71 0022 43F01003 	 orr r3,r3,#16
+  72 0026 5360     	 str r3,[r2,#4]
   54:../driver_pwm.c **** 
   55:../driver_pwm.c **** 	/* Enable prescaler */
   56:../driver_pwm.c **** 	CCU81->GIDLC |= CCU8_GIDLC_SPRB_Msk;
- 121              	 .loc 1 56 0
- 122 0088 7D4A     	 ldr r2,.L2+24
- 123 008a 7D4B     	 ldr r3,.L2+24
- 124 008c DB68     	 ldr r3,[r3,#12]
- 125 008e 43F48073 	 orr r3,r3,#256
- 126 0092 D360     	 str r3,[r2,#12]
+  73              	 .loc 1 56 0
+  74 0028 914A     	 ldr r2,.L2+8
+  75 002a 914B     	 ldr r3,.L2+8
+  76 002c DB68     	 ldr r3,[r3,#12]
+  77 002e 43F48073 	 orr r3,r3,#256
+  78 0032 D360     	 str r3,[r2,#12]
   57:../driver_pwm.c **** 
   58:../driver_pwm.c **** 	/*
   59:../driver_pwm.c **** 	 * Counting Mode - center aligned(0->max->0)
   60:../driver_pwm.c **** 	 */
   61:../driver_pwm.c **** 	CCU80_CC80->TC |= (uint32_t)(CCU8_CC8_TC_TCM_MSK);
- 127              	 .loc 1 61 0
- 128 0094 7B4A     	 ldr r2,.L2+28
- 129 0096 7B4B     	 ldr r3,.L2+28
- 130 0098 5B69     	 ldr r3,[r3,#20]
- 131 009a 43F00103 	 orr r3,r3,#1
- 132 009e 5361     	 str r3,[r2,#20]
+  79              	 .loc 1 61 0
+  80 0034 8F4A     	 ldr r2,.L2+12
+  81 0036 8F4B     	 ldr r3,.L2+12
+  82 0038 5B69     	 ldr r3,[r3,#20]
+  83 003a 43F00103 	 orr r3,r3,#1
+  84 003e 5361     	 str r3,[r2,#20]
   62:../driver_pwm.c **** 	CCU80_CC81->TC |= (uint32_t)(CCU8_CC8_TC_TCM_MSK);
- 133              	 .loc 1 62 0
- 134 00a0 794A     	 ldr r2,.L2+32
- 135 00a2 794B     	 ldr r3,.L2+32
- 136 00a4 5B69     	 ldr r3,[r3,#20]
- 137 00a6 43F00103 	 orr r3,r3,#1
- 138 00aa 5361     	 str r3,[r2,#20]
+  85              	 .loc 1 62 0
+  86 0040 8D4A     	 ldr r2,.L2+16
+  87 0042 8D4B     	 ldr r3,.L2+16
+  88 0044 5B69     	 ldr r3,[r3,#20]
+  89 0046 43F00103 	 orr r3,r3,#1
+  90 004a 5361     	 str r3,[r2,#20]
   63:../driver_pwm.c **** 	CCU80_CC82->TC |= (uint32_t)(CCU8_CC8_TC_TCM_MSK);
- 139              	 .loc 1 63 0
- 140 00ac 774A     	 ldr r2,.L2+36
- 141 00ae 774B     	 ldr r3,.L2+36
- 142 00b0 5B69     	 ldr r3,[r3,#20]
- 143 00b2 43F00103 	 orr r3,r3,#1
- 144 00b6 5361     	 str r3,[r2,#20]
+  91              	 .loc 1 63 0
+  92 004c 8B4A     	 ldr r2,.L2+20
+  93 004e 8B4B     	 ldr r3,.L2+20
+  94 0050 5B69     	 ldr r3,[r3,#20]
+  95 0052 43F00103 	 orr r3,r3,#1
+  96 0056 5361     	 str r3,[r2,#20]
   64:../driver_pwm.c **** 	CCU81_CC81->TC |= (uint32_t)(CCU8_CC8_TC_TCM_MSK);
- 145              	 .loc 1 64 0
- 146 00b8 754A     	 ldr r2,.L2+40
- 147 00ba 754B     	 ldr r3,.L2+40
- 148 00bc 5B69     	 ldr r3,[r3,#20]
- 149 00be 43F00103 	 orr r3,r3,#1
- 150 00c2 5361     	 str r3,[r2,#20]
+  97              	 .loc 1 64 0
+  98 0058 894A     	 ldr r2,.L2+24
+  99 005a 894B     	 ldr r3,.L2+24
+ 100 005c 5B69     	 ldr r3,[r3,#20]
+ 101 005e 43F00103 	 orr r3,r3,#1
+ 102 0062 5361     	 str r3,[r2,#20]
   65:../driver_pwm.c **** 
   66:../driver_pwm.c **** 	/*
   67:../driver_pwm.c **** 	 * Period&Compare channel 1 values configuration
   68:../driver_pwm.c **** 	 */
   69:../driver_pwm.c **** 	CCU80_CC80->PRS |= (uint32_t)(CCU8_CC8_PRS_PR_VALUE);	// Shadow value to timer period PR
- 151              	 .loc 1 69 0
- 152 00c4 6F4A     	 ldr r2,.L2+28
- 153 00c6 6F4B     	 ldr r3,.L2+28
- 154 00c8 5B6B     	 ldr r3,[r3,#52]
- 155 00ca 43F46163 	 orr r3,r3,#3600
- 156 00ce 5363     	 str r3,[r2,#52]
+ 103              	 .loc 1 69 0
+ 104 0064 834A     	 ldr r2,.L2+12
+ 105 0066 834B     	 ldr r3,.L2+12
+ 106 0068 5B6B     	 ldr r3,[r3,#52]
+ 107 006a 43F46163 	 orr r3,r3,#3600
+ 108 006e 5363     	 str r3,[r2,#52]
   70:../driver_pwm.c **** 	CCU80_CC80->CR1S |= (uint32_t)(CCU8_CC8_CR1_CR1_VALUE); // Shadow value to compare channel 1
- 157              	 .loc 1 70 0
- 158 00d0 6C4A     	 ldr r2,.L2+28
- 159 00d2 6C4B     	 ldr r3,.L2+28
- 160 00d4 DB6B     	 ldr r3,[r3,#60]
- 161 00d6 43F4E163 	 orr r3,r3,#1800
- 162 00da D363     	 str r3,[r2,#60]
+ 109              	 .loc 1 70 0
+ 110 0070 804A     	 ldr r2,.L2+12
+ 111 0072 804B     	 ldr r3,.L2+12
+ 112 0074 DB6B     	 ldr r3,[r3,#60]
+ 113 0076 43F4E163 	 orr r3,r3,#1800
+ 114 007a D363     	 str r3,[r2,#60]
   71:../driver_pwm.c **** 
   72:../driver_pwm.c **** 	CCU80_CC81->PRS |= (uint32_t)(CCU8_CC8_PRS_PR_VALUE);
- 163              	 .loc 1 72 0
- 164 00dc 6A4A     	 ldr r2,.L2+32
- 165 00de 6A4B     	 ldr r3,.L2+32
- 166 00e0 5B6B     	 ldr r3,[r3,#52]
- 167 00e2 43F46163 	 orr r3,r3,#3600
- 168 00e6 5363     	 str r3,[r2,#52]
+ 115              	 .loc 1 72 0
+ 116 007c 7E4A     	 ldr r2,.L2+16
+ 117 007e 7E4B     	 ldr r3,.L2+16
+ 118 0080 5B6B     	 ldr r3,[r3,#52]
+ 119 0082 43F46163 	 orr r3,r3,#3600
+ 120 0086 5363     	 str r3,[r2,#52]
   73:../driver_pwm.c **** 	CCU80_CC81->CR1S |= (uint32_t)(CCU8_CC8_CR1_CR1_VALUE);
- 169              	 .loc 1 73 0
- 170 00e8 674A     	 ldr r2,.L2+32
- 171 00ea 674B     	 ldr r3,.L2+32
- 172 00ec DB6B     	 ldr r3,[r3,#60]
- 173 00ee 43F4E163 	 orr r3,r3,#1800
- 174 00f2 D363     	 str r3,[r2,#60]
+ 121              	 .loc 1 73 0
+ 122 0088 7B4A     	 ldr r2,.L2+16
+ 123 008a 7B4B     	 ldr r3,.L2+16
+ 124 008c DB6B     	 ldr r3,[r3,#60]
+ 125 008e 43F4E163 	 orr r3,r3,#1800
+ 126 0092 D363     	 str r3,[r2,#60]
   74:../driver_pwm.c **** 
   75:../driver_pwm.c **** 	CCU80_CC82->PRS |= (uint32_t)(CCU8_CC8_PRS_PR_VALUE);
- 175              	 .loc 1 75 0
- 176 00f4 654A     	 ldr r2,.L2+36
- 177 00f6 654B     	 ldr r3,.L2+36
- 178 00f8 5B6B     	 ldr r3,[r3,#52]
- 179 00fa 43F46163 	 orr r3,r3,#3600
- 180 00fe 5363     	 str r3,[r2,#52]
+ 127              	 .loc 1 75 0
+ 128 0094 794A     	 ldr r2,.L2+20
+ 129 0096 794B     	 ldr r3,.L2+20
+ 130 0098 5B6B     	 ldr r3,[r3,#52]
+ 131 009a 43F46163 	 orr r3,r3,#3600
+ 132 009e 5363     	 str r3,[r2,#52]
   76:../driver_pwm.c **** 	CCU80_CC82->CR1S |= (uint32_t)(CCU8_CC8_CR1_CR1_VALUE);
- 181              	 .loc 1 76 0
- 182 0100 624A     	 ldr r2,.L2+36
- 183 0102 624B     	 ldr r3,.L2+36
- 184 0104 DB6B     	 ldr r3,[r3,#60]
- 185 0106 43F4E163 	 orr r3,r3,#1800
- 186 010a D363     	 str r3,[r2,#60]
+ 133              	 .loc 1 76 0
+ 134 00a0 764A     	 ldr r2,.L2+20
+ 135 00a2 764B     	 ldr r3,.L2+20
+ 136 00a4 DB6B     	 ldr r3,[r3,#60]
+ 137 00a6 43F4E163 	 orr r3,r3,#1800
+ 138 00aa D363     	 str r3,[r2,#60]
   77:../driver_pwm.c **** 
   78:../driver_pwm.c **** 	CCU81_CC81->PRS |= (uint32_t)(CCU8_CC8_PRS_PR_VALUE);
- 187              	 .loc 1 78 0
- 188 010c 604A     	 ldr r2,.L2+40
- 189 010e 604B     	 ldr r3,.L2+40
- 190 0110 5B6B     	 ldr r3,[r3,#52]
- 191 0112 43F46163 	 orr r3,r3,#3600
- 192 0116 5363     	 str r3,[r2,#52]
+ 139              	 .loc 1 78 0
+ 140 00ac 744A     	 ldr r2,.L2+24
+ 141 00ae 744B     	 ldr r3,.L2+24
+ 142 00b0 5B6B     	 ldr r3,[r3,#52]
+ 143 00b2 43F46163 	 orr r3,r3,#3600
+ 144 00b6 5363     	 str r3,[r2,#52]
   79:../driver_pwm.c **** 	CCU81_CC81->CR1S |= (uint32_t)(CCU8_CC8_CR1_CR1_VALUE);
- 193              	 .loc 1 79 0
- 194 0118 5D4A     	 ldr r2,.L2+40
- 195 011a 5D4B     	 ldr r3,.L2+40
- 196 011c DB6B     	 ldr r3,[r3,#60]
- 197 011e 43F4E163 	 orr r3,r3,#1800
- 198 0122 D363     	 str r3,[r2,#60]
+ 145              	 .loc 1 79 0
+ 146 00b8 714A     	 ldr r2,.L2+24
+ 147 00ba 714B     	 ldr r3,.L2+24
+ 148 00bc DB6B     	 ldr r3,[r3,#60]
+ 149 00be 43F4E163 	 orr r3,r3,#1800
+ 150 00c2 D363     	 str r3,[r2,#60]
   80:../driver_pwm.c **** 
   81:../driver_pwm.c **** 	/*
   82:../driver_pwm.c **** 	 *  Shadow transfer enable for CCU80_80/81/82    Request shadow transfer
   83:../driver_pwm.c **** 	 */
   84:../driver_pwm.c **** 	CCU80->GCSS |= (CCU8_GCSS_S0SE_MSK | CCU8_GCSS_S1SE_MSK | CCU8_GCSS_S2SE_MSK);
- 199              	 .loc 1 84 0
- 200 0124 5B4A     	 ldr r2,.L2+44
- 201 0126 5B4B     	 ldr r3,.L2+44
- 202 0128 1B69     	 ldr r3,[r3,#16]
- 203 012a 43F48873 	 orr r3,r3,#272
- 204 012e 43F00103 	 orr r3,r3,#1
- 205 0132 1361     	 str r3,[r2,#16]
+ 151              	 .loc 1 84 0
+ 152 00c4 6F4A     	 ldr r2,.L2+28
+ 153 00c6 6F4B     	 ldr r3,.L2+28
+ 154 00c8 1B69     	 ldr r3,[r3,#16]
+ 155 00ca 43F48873 	 orr r3,r3,#272
+ 156 00ce 43F00103 	 orr r3,r3,#1
+ 157 00d2 1361     	 str r3,[r2,#16]
   85:../driver_pwm.c **** 	CCU81->GCSS |= (CCU8_GCSS_S1SE_MSK);
- 206              	 .loc 1 85 0
- 207 0134 524A     	 ldr r2,.L2+24
- 208 0136 524B     	 ldr r3,.L2+24
- 209 0138 1B69     	 ldr r3,[r3,#16]
- 210 013a 43F01003 	 orr r3,r3,#16
- 211 013e 1361     	 str r3,[r2,#16]
+ 158              	 .loc 1 85 0
+ 159 00d4 664A     	 ldr r2,.L2+8
+ 160 00d6 664B     	 ldr r3,.L2+8
+ 161 00d8 1B69     	 ldr r3,[r3,#16]
+ 162 00da 43F01003 	 orr r3,r3,#16
+ 163 00de 1361     	 str r3,[r2,#16]
   86:../driver_pwm.c **** 
   87:../driver_pwm.c **** 	/*
   88:../driver_pwm.c **** 	 * Configure timers
@@ -297,145 +249,145 @@
   91:../driver_pwm.c **** 	 * Remove from IDLE 80-82
   92:../driver_pwm.c **** 	 */
   93:../driver_pwm.c **** 	CCU80->GIDLC |= (CCU8_GIDLC_CS0I_MSK | CCU8_GIDLC_CS1I_MSK | CCU8_GIDLC_CS2I_MSK);
- 212              	 .loc 1 93 0
- 213 0140 544A     	 ldr r2,.L2+44
- 214 0142 544B     	 ldr r3,.L2+44
- 215 0144 DB68     	 ldr r3,[r3,#12]
- 216 0146 43F00703 	 orr r3,r3,#7
- 217 014a D360     	 str r3,[r2,#12]
+ 164              	 .loc 1 93 0
+ 165 00e0 684A     	 ldr r2,.L2+28
+ 166 00e2 684B     	 ldr r3,.L2+28
+ 167 00e4 DB68     	 ldr r3,[r3,#12]
+ 168 00e6 43F00703 	 orr r3,r3,#7
+ 169 00ea D360     	 str r3,[r2,#12]
   94:../driver_pwm.c **** 	CCU81->GIDLC |= (CCU8_GIDLC_CS1I_MSK);
- 218              	 .loc 1 94 0
- 219 014c 4C4A     	 ldr r2,.L2+24
- 220 014e 4C4B     	 ldr r3,.L2+24
- 221 0150 DB68     	 ldr r3,[r3,#12]
- 222 0152 43F00203 	 orr r3,r3,#2
- 223 0156 D360     	 str r3,[r2,#12]
+ 170              	 .loc 1 94 0
+ 171 00ec 604A     	 ldr r2,.L2+8
+ 172 00ee 604B     	 ldr r3,.L2+8
+ 173 00f0 DB68     	 ldr r3,[r3,#12]
+ 174 00f2 43F00203 	 orr r3,r3,#2
+ 175 00f6 D360     	 str r3,[r2,#12]
   95:../driver_pwm.c **** 
   96:../driver_pwm.c **** 	/*   Clear the timer run bit(TRBC) and timer (TCC) */
   97:../driver_pwm.c **** 	CCU80_CC80->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_MSK);
- 224              	 .loc 1 97 0
- 225 0158 4A4A     	 ldr r2,.L2+28
- 226 015a 4A4B     	 ldr r3,.L2+28
- 227 015c 1B69     	 ldr r3,[r3,#16]
- 228 015e 43F00103 	 orr r3,r3,#1
- 229 0162 1361     	 str r3,[r2,#16]
+ 176              	 .loc 1 97 0
+ 177 00f8 5E4A     	 ldr r2,.L2+12
+ 178 00fa 5E4B     	 ldr r3,.L2+12
+ 179 00fc 1B69     	 ldr r3,[r3,#16]
+ 180 00fe 43F00103 	 orr r3,r3,#1
+ 181 0102 1361     	 str r3,[r2,#16]
   98:../driver_pwm.c **** 	CCU80_CC80->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_MSK);
- 230              	 .loc 1 98 0
- 231 0164 474A     	 ldr r2,.L2+28
- 232 0166 474B     	 ldr r3,.L2+28
- 233 0168 1B69     	 ldr r3,[r3,#16]
- 234 016a 43F00203 	 orr r3,r3,#2
- 235 016e 1361     	 str r3,[r2,#16]
+ 182              	 .loc 1 98 0
+ 183 0104 5B4A     	 ldr r2,.L2+12
+ 184 0106 5B4B     	 ldr r3,.L2+12
+ 185 0108 1B69     	 ldr r3,[r3,#16]
+ 186 010a 43F00203 	 orr r3,r3,#2
+ 187 010e 1361     	 str r3,[r2,#16]
   99:../driver_pwm.c **** 
  100:../driver_pwm.c **** 	CCU80_CC81->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_MSK);
- 236              	 .loc 1 100 0
- 237 0170 454A     	 ldr r2,.L2+32
- 238 0172 454B     	 ldr r3,.L2+32
- 239 0174 1B69     	 ldr r3,[r3,#16]
- 240 0176 43F00103 	 orr r3,r3,#1
- 241 017a 1361     	 str r3,[r2,#16]
+ 188              	 .loc 1 100 0
+ 189 0110 594A     	 ldr r2,.L2+16
+ 190 0112 594B     	 ldr r3,.L2+16
+ 191 0114 1B69     	 ldr r3,[r3,#16]
+ 192 0116 43F00103 	 orr r3,r3,#1
+ 193 011a 1361     	 str r3,[r2,#16]
  101:../driver_pwm.c **** 	CCU80_CC81->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_MSK);
- 242              	 .loc 1 101 0
- 243 017c 424A     	 ldr r2,.L2+32
- 244 017e 424B     	 ldr r3,.L2+32
- 245 0180 1B69     	 ldr r3,[r3,#16]
- 246 0182 43F00203 	 orr r3,r3,#2
- 247 0186 1361     	 str r3,[r2,#16]
+ 194              	 .loc 1 101 0
+ 195 011c 564A     	 ldr r2,.L2+16
+ 196 011e 564B     	 ldr r3,.L2+16
+ 197 0120 1B69     	 ldr r3,[r3,#16]
+ 198 0122 43F00203 	 orr r3,r3,#2
+ 199 0126 1361     	 str r3,[r2,#16]
  102:../driver_pwm.c **** 
  103:../driver_pwm.c **** 	CCU80_CC82->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_MSK);
- 248              	 .loc 1 103 0
- 249 0188 404A     	 ldr r2,.L2+36
- 250 018a 404B     	 ldr r3,.L2+36
- 251 018c 1B69     	 ldr r3,[r3,#16]
- 252 018e 43F00103 	 orr r3,r3,#1
- 253 0192 1361     	 str r3,[r2,#16]
+ 200              	 .loc 1 103 0
+ 201 0128 544A     	 ldr r2,.L2+20
+ 202 012a 544B     	 ldr r3,.L2+20
+ 203 012c 1B69     	 ldr r3,[r3,#16]
+ 204 012e 43F00103 	 orr r3,r3,#1
+ 205 0132 1361     	 str r3,[r2,#16]
  104:../driver_pwm.c **** 	CCU80_CC82->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_MSK);
- 254              	 .loc 1 104 0
- 255 0194 3D4A     	 ldr r2,.L2+36
- 256 0196 3D4B     	 ldr r3,.L2+36
- 257 0198 1B69     	 ldr r3,[r3,#16]
- 258 019a 43F00203 	 orr r3,r3,#2
- 259 019e 1361     	 str r3,[r2,#16]
+ 206              	 .loc 1 104 0
+ 207 0134 514A     	 ldr r2,.L2+20
+ 208 0136 514B     	 ldr r3,.L2+20
+ 209 0138 1B69     	 ldr r3,[r3,#16]
+ 210 013a 43F00203 	 orr r3,r3,#2
+ 211 013e 1361     	 str r3,[r2,#16]
  105:../driver_pwm.c **** 
  106:../driver_pwm.c **** 	CCU81_CC81->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TRBC_MSK);
- 260              	 .loc 1 106 0
- 261 01a0 3B4A     	 ldr r2,.L2+40
- 262 01a2 3B4B     	 ldr r3,.L2+40
- 263 01a4 1B69     	 ldr r3,[r3,#16]
- 264 01a6 43F00103 	 orr r3,r3,#1
- 265 01aa 1361     	 str r3,[r2,#16]
+ 212              	 .loc 1 106 0
+ 213 0140 4F4A     	 ldr r2,.L2+24
+ 214 0142 4F4B     	 ldr r3,.L2+24
+ 215 0144 1B69     	 ldr r3,[r3,#16]
+ 216 0146 43F00103 	 orr r3,r3,#1
+ 217 014a 1361     	 str r3,[r2,#16]
  107:../driver_pwm.c **** 	CCU81_CC81->TCCLR |= (uint32_t)(CCU8_CC8_TCCLR_TCC_MSK);
- 266              	 .loc 1 107 0
- 267 01ac 384A     	 ldr r2,.L2+40
- 268 01ae 384B     	 ldr r3,.L2+40
- 269 01b0 1B69     	 ldr r3,[r3,#16]
- 270 01b2 43F00203 	 orr r3,r3,#2
- 271 01b6 1361     	 str r3,[r2,#16]
+ 218              	 .loc 1 107 0
+ 219 014c 4C4A     	 ldr r2,.L2+24
+ 220 014e 4C4B     	 ldr r3,.L2+24
+ 221 0150 1B69     	 ldr r3,[r3,#16]
+ 222 0152 43F00203 	 orr r3,r3,#2
+ 223 0156 1361     	 str r3,[r2,#16]
  108:../driver_pwm.c **** 
  109:../driver_pwm.c **** 	/*
  110:../driver_pwm.c **** 	 * Deadband config - enable for channel 1 and ST1
  111:../driver_pwm.c **** 	 */
  112:../driver_pwm.c **** 	CCU80_CC80->DTC |= CCU8_CC8_DTC_DTE1_MSK | CCU8_CC8_DTC_DCEN1_MSK;
- 272              	 .loc 1 112 0
- 273 01b8 324A     	 ldr r2,.L2+28
- 274 01ba 324B     	 ldr r3,.L2+28
- 275 01bc DB6C     	 ldr r3,[r3,#76]
- 276 01be 43F00503 	 orr r3,r3,#5
- 277 01c2 D364     	 str r3,[r2,#76]
+ 224              	 .loc 1 112 0
+ 225 0158 464A     	 ldr r2,.L2+12
+ 226 015a 464B     	 ldr r3,.L2+12
+ 227 015c DB6C     	 ldr r3,[r3,#76]
+ 228 015e 43F00503 	 orr r3,r3,#5
+ 229 0162 D364     	 str r3,[r2,#76]
  113:../driver_pwm.c **** 	CCU80_CC81->DTC |= CCU8_CC8_DTC_DTE1_MSK | CCU8_CC8_DTC_DCEN1_MSK;
- 278              	 .loc 1 113 0
- 279 01c4 304A     	 ldr r2,.L2+32
- 280 01c6 304B     	 ldr r3,.L2+32
- 281 01c8 DB6C     	 ldr r3,[r3,#76]
- 282 01ca 43F00503 	 orr r3,r3,#5
- 283 01ce D364     	 str r3,[r2,#76]
+ 230              	 .loc 1 113 0
+ 231 0164 444A     	 ldr r2,.L2+16
+ 232 0166 444B     	 ldr r3,.L2+16
+ 233 0168 DB6C     	 ldr r3,[r3,#76]
+ 234 016a 43F00503 	 orr r3,r3,#5
+ 235 016e D364     	 str r3,[r2,#76]
  114:../driver_pwm.c **** 	CCU80_CC82->DTC |= CCU8_CC8_DTC_DTE1_MSK | CCU8_CC8_DTC_DCEN1_MSK;
- 284              	 .loc 1 114 0
- 285 01d0 2E4A     	 ldr r2,.L2+36
- 286 01d2 2E4B     	 ldr r3,.L2+36
- 287 01d4 DB6C     	 ldr r3,[r3,#76]
- 288 01d6 43F00503 	 orr r3,r3,#5
- 289 01da D364     	 str r3,[r2,#76]
+ 236              	 .loc 1 114 0
+ 237 0170 424A     	 ldr r2,.L2+20
+ 238 0172 424B     	 ldr r3,.L2+20
+ 239 0174 DB6C     	 ldr r3,[r3,#76]
+ 240 0176 43F00503 	 orr r3,r3,#5
+ 241 017a D364     	 str r3,[r2,#76]
  115:../driver_pwm.c **** 	CCU81_CC81->DTC |= CCU8_CC8_DTC_DTE1_MSK | CCU8_CC8_DTC_DCEN1_MSK;
- 290              	 .loc 1 115 0
- 291 01dc 2C4A     	 ldr r2,.L2+40
- 292 01de 2C4B     	 ldr r3,.L2+40
- 293 01e0 DB6C     	 ldr r3,[r3,#76]
- 294 01e2 43F00503 	 orr r3,r3,#5
- 295 01e6 D364     	 str r3,[r2,#76]
+ 242              	 .loc 1 115 0
+ 243 017c 404A     	 ldr r2,.L2+24
+ 244 017e 404B     	 ldr r3,.L2+24
+ 245 0180 DB6C     	 ldr r3,[r3,#76]
+ 246 0182 43F00503 	 orr r3,r3,#5
+ 247 0186 D364     	 str r3,[r2,#76]
  116:../driver_pwm.c **** 
  117:../driver_pwm.c **** 
  118:../driver_pwm.c **** 	/*
  119:../driver_pwm.c **** 	 * Deadband value rising config - rising 50ns
  120:../driver_pwm.c **** 	 */
  121:../driver_pwm.c **** 	CCU80_CC80->DC1R |= CCU8_CC8_DC1R_Value << CCU8_CC8_DC1R_DT1R_POS;
- 296              	 .loc 1 121 0
- 297 01e8 264A     	 ldr r2,.L2+28
- 298 01ea 264B     	 ldr r3,.L2+28
- 299 01ec 1B6D     	 ldr r3,[r3,#80]
- 300 01ee 43F00E03 	 orr r3,r3,#14
- 301 01f2 1365     	 str r3,[r2,#80]
+ 248              	 .loc 1 121 0
+ 249 0188 3A4A     	 ldr r2,.L2+12
+ 250 018a 3A4B     	 ldr r3,.L2+12
+ 251 018c 1B6D     	 ldr r3,[r3,#80]
+ 252 018e 43F00E03 	 orr r3,r3,#14
+ 253 0192 1365     	 str r3,[r2,#80]
  122:../driver_pwm.c **** 	CCU80_CC81->DC1R |= CCU8_CC8_DC1R_Value << CCU8_CC8_DC1R_DT1R_POS;
- 302              	 .loc 1 122 0
- 303 01f4 244A     	 ldr r2,.L2+32
- 304 01f6 244B     	 ldr r3,.L2+32
- 305 01f8 1B6D     	 ldr r3,[r3,#80]
- 306 01fa 43F00E03 	 orr r3,r3,#14
- 307 01fe 1365     	 str r3,[r2,#80]
+ 254              	 .loc 1 122 0
+ 255 0194 384A     	 ldr r2,.L2+16
+ 256 0196 384B     	 ldr r3,.L2+16
+ 257 0198 1B6D     	 ldr r3,[r3,#80]
+ 258 019a 43F00E03 	 orr r3,r3,#14
+ 259 019e 1365     	 str r3,[r2,#80]
  123:../driver_pwm.c **** 	CCU80_CC82->DC1R |= CCU8_CC8_DC1R_Value << CCU8_CC8_DC1R_DT1R_POS;
- 308              	 .loc 1 123 0
- 309 0200 224A     	 ldr r2,.L2+36
- 310 0202 224B     	 ldr r3,.L2+36
- 311 0204 1B6D     	 ldr r3,[r3,#80]
- 312 0206 43F00E03 	 orr r3,r3,#14
- 313 020a 1365     	 str r3,[r2,#80]
+ 260              	 .loc 1 123 0
+ 261 01a0 364A     	 ldr r2,.L2+20
+ 262 01a2 364B     	 ldr r3,.L2+20
+ 263 01a4 1B6D     	 ldr r3,[r3,#80]
+ 264 01a6 43F00E03 	 orr r3,r3,#14
+ 265 01aa 1365     	 str r3,[r2,#80]
  124:../driver_pwm.c **** 	CCU81_CC81->DC1R |= CCU8_CC8_DC1R_Value << CCU8_CC8_DC1R_DT1R_POS;
- 314              	 .loc 1 124 0
- 315 020c 204A     	 ldr r2,.L2+40
- 316 020e 204B     	 ldr r3,.L2+40
- 317 0210 1B6D     	 ldr r3,[r3,#80]
- 318 0212 43F00E03 	 orr r3,r3,#14
- 319 0216 1365     	 str r3,[r2,#80]
+ 266              	 .loc 1 124 0
+ 267 01ac 344A     	 ldr r2,.L2+24
+ 268 01ae 344B     	 ldr r3,.L2+24
+ 269 01b0 1B6D     	 ldr r3,[r3,#80]
+ 270 01b2 43F00E03 	 orr r3,r3,#14
+ 271 01b6 1365     	 str r3,[r2,#80]
  125:../driver_pwm.c **** 
  126:../driver_pwm.c **** 
  127:../driver_pwm.c **** 	/*
@@ -445,797 +397,793 @@
  131:../driver_pwm.c **** 	 * Set stop on Event 1 on Falling edge
  132:../driver_pwm.c **** 	 */
  133:../driver_pwm.c **** 	CCU80_CC80->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS; // Set Event 0(system control) as rising e
- 320              	 .loc 1 133 0
- 321 0218 1A4A     	 ldr r2,.L2+28
- 322 021a 1A4B     	 ldr r3,.L2+28
+ 272              	 .loc 1 133 0
+ 273 01b8 2E4A     	 ldr r2,.L2+12
+ 274 01ba 2E4B     	 ldr r3,.L2+12
+ 275 01bc 1B68     	 ldr r3,[r3]
+ 276 01be 43F00703 	 orr r3,r3,#7
+ 277 01c2 1360     	 str r3,[r2]
+ 134:../driver_pwm.c **** 	CCU80_CC80->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
+ 278              	 .loc 1 134 0
+ 279 01c4 2B4A     	 ldr r2,.L2+12
+ 280 01c6 2B4B     	 ldr r3,.L2+12
+ 281 01c8 1B68     	 ldr r3,[r3]
+ 282 01ca 43F48033 	 orr r3,r3,#65536
+ 283 01ce 1360     	 str r3,[r2]
+ 135:../driver_pwm.c **** 	CCU80_CC80->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS; // Set Event 1(system control) as falling 
+ 284              	 .loc 1 135 0
+ 285 01d0 284A     	 ldr r2,.L2+12
+ 286 01d2 284B     	 ldr r3,.L2+12
+ 287 01d4 1B68     	 ldr r3,[r3]
+ 288 01d6 43F07003 	 orr r3,r3,#112
+ 289 01da 1360     	 str r3,[r2]
+ 136:../driver_pwm.c **** 	CCU80_CC80->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
+ 290              	 .loc 1 136 0
+ 291 01dc 254A     	 ldr r2,.L2+12
+ 292 01de 254B     	 ldr r3,.L2+12
+ 293 01e0 1B68     	 ldr r3,[r3]
+ 294 01e2 43F40023 	 orr r3,r3,#524288
+ 295 01e6 1360     	 str r3,[r2]
+ 137:../driver_pwm.c **** 
+ 138:../driver_pwm.c **** 	CCU80_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;
+ 296              	 .loc 1 138 0
+ 297 01e8 234A     	 ldr r2,.L2+16
+ 298 01ea 234B     	 ldr r3,.L2+16
+ 299 01ec 1B68     	 ldr r3,[r3]
+ 300 01ee 43F00703 	 orr r3,r3,#7
+ 301 01f2 1360     	 str r3,[r2]
+ 139:../driver_pwm.c **** 	CCU80_CC81->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
+ 302              	 .loc 1 139 0
+ 303 01f4 204A     	 ldr r2,.L2+16
+ 304 01f6 204B     	 ldr r3,.L2+16
+ 305 01f8 1B68     	 ldr r3,[r3]
+ 306 01fa 43F48033 	 orr r3,r3,#65536
+ 307 01fe 1360     	 str r3,[r2]
+ 140:../driver_pwm.c **** 	CCU80_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;
+ 308              	 .loc 1 140 0
+ 309 0200 1D4A     	 ldr r2,.L2+16
+ 310 0202 1D4B     	 ldr r3,.L2+16
+ 311 0204 1B68     	 ldr r3,[r3]
+ 312 0206 43F07003 	 orr r3,r3,#112
+ 313 020a 1360     	 str r3,[r2]
+ 141:../driver_pwm.c **** 	CCU80_CC81->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
+ 314              	 .loc 1 141 0
+ 315 020c 1A4A     	 ldr r2,.L2+16
+ 316 020e 1A4B     	 ldr r3,.L2+16
+ 317 0210 1B68     	 ldr r3,[r3]
+ 318 0212 43F40023 	 orr r3,r3,#524288
+ 319 0216 1360     	 str r3,[r2]
+ 142:../driver_pwm.c **** 
+ 143:../driver_pwm.c **** 	CCU80_CC82->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;
+ 320              	 .loc 1 143 0
+ 321 0218 184A     	 ldr r2,.L2+20
+ 322 021a 184B     	 ldr r3,.L2+20
  323 021c 1B68     	 ldr r3,[r3]
  324 021e 43F00703 	 orr r3,r3,#7
  325 0222 1360     	 str r3,[r2]
- 134:../driver_pwm.c **** 	CCU80_CC80->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
- 326              	 .loc 1 134 0
- 327 0224 174A     	 ldr r2,.L2+28
- 328 0226 174B     	 ldr r3,.L2+28
+ 144:../driver_pwm.c **** 	CCU80_CC82->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
+ 326              	 .loc 1 144 0
+ 327 0224 154A     	 ldr r2,.L2+20
+ 328 0226 154B     	 ldr r3,.L2+20
  329 0228 1B68     	 ldr r3,[r3]
  330 022a 43F48033 	 orr r3,r3,#65536
  331 022e 1360     	 str r3,[r2]
- 135:../driver_pwm.c **** 	CCU80_CC80->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS; // Set Event 1(system control) as falling 
- 332              	 .loc 1 135 0
- 333 0230 144A     	 ldr r2,.L2+28
- 334 0232 144B     	 ldr r3,.L2+28
+ 145:../driver_pwm.c **** 	CCU80_CC82->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;
+ 332              	 .loc 1 145 0
+ 333 0230 124A     	 ldr r2,.L2+20
+ 334 0232 124B     	 ldr r3,.L2+20
  335 0234 1B68     	 ldr r3,[r3]
  336 0236 43F07003 	 orr r3,r3,#112
  337 023a 1360     	 str r3,[r2]
- 136:../driver_pwm.c **** 	CCU80_CC80->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
- 338              	 .loc 1 136 0
- 339 023c 114A     	 ldr r2,.L2+28
- 340 023e 114B     	 ldr r3,.L2+28
+ 146:../driver_pwm.c **** 	CCU80_CC82->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
+ 338              	 .loc 1 146 0
+ 339 023c 0F4A     	 ldr r2,.L2+20
+ 340 023e 0F4B     	 ldr r3,.L2+20
  341 0240 1B68     	 ldr r3,[r3]
  342 0242 43F40023 	 orr r3,r3,#524288
  343 0246 1360     	 str r3,[r2]
- 137:../driver_pwm.c **** 
- 138:../driver_pwm.c **** 	CCU80_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;
- 344              	 .loc 1 138 0
- 345 0248 0F4A     	 ldr r2,.L2+32
- 346 024a 0F4B     	 ldr r3,.L2+32
+ 147:../driver_pwm.c **** 
+ 148:../driver_pwm.c **** 	CCU81_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;
+ 344              	 .loc 1 148 0
+ 345 0248 0D4A     	 ldr r2,.L2+24
+ 346 024a 0D4B     	 ldr r3,.L2+24
  347 024c 1B68     	 ldr r3,[r3]
  348 024e 43F00703 	 orr r3,r3,#7
  349 0252 1360     	 str r3,[r2]
- 139:../driver_pwm.c **** 	CCU80_CC81->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
- 350              	 .loc 1 139 0
- 351 0254 0C4A     	 ldr r2,.L2+32
- 352 0256 0C4B     	 ldr r3,.L2+32
+ 149:../driver_pwm.c **** 	CCU81_CC81->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
+ 350              	 .loc 1 149 0
+ 351 0254 0A4A     	 ldr r2,.L2+24
+ 352 0256 0A4B     	 ldr r3,.L2+24
  353 0258 1B68     	 ldr r3,[r3]
  354 025a 43F48033 	 orr r3,r3,#65536
  355 025e 1360     	 str r3,[r2]
- 140:../driver_pwm.c **** 	CCU80_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;
- 356              	 .loc 1 140 0
- 357 0260 094A     	 ldr r2,.L2+32
- 358 0262 094B     	 ldr r3,.L2+32
+ 150:../driver_pwm.c **** 	CCU81_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;
+ 356              	 .loc 1 150 0
+ 357 0260 074A     	 ldr r2,.L2+24
+ 358 0262 074B     	 ldr r3,.L2+24
  359 0264 1B68     	 ldr r3,[r3]
- 360 0266 17E0     	 b .L3
+ 360 0266 0FE0     	 b .L3
  361              	.L4:
  362              	 .align 2
  363              	.L2:
- 364 0268 00850248 	 .word 1208124672
- 365 026c 00800248 	 .word 1208123392
- 366 0270 00820248 	 .word 1208123904
- 367 0274 00810248 	 .word 1208123648
- 368 0278 00440050 	 .word 1342194688
- 369 027c 00460050 	 .word 1342195200
- 370 0280 00400240 	 .word 1073889280
- 371 0284 00010240 	 .word 1073873152
- 372 0288 00020240 	 .word 1073873408
- 373 028c 00030240 	 .word 1073873664
- 374 0290 00420240 	 .word 1073889792
- 375 0294 00000240 	 .word 1073872896
- 376              	.L3:
- 377 0298 43F07003 	 orr r3,r3,#112
- 378 029c 1360     	 str r3,[r2]
- 141:../driver_pwm.c **** 	CCU80_CC81->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
- 379              	 .loc 1 141 0
- 380 029e 384A     	 ldr r2,.L5
- 381 02a0 374B     	 ldr r3,.L5
- 382 02a2 1B68     	 ldr r3,[r3]
- 383 02a4 43F40023 	 orr r3,r3,#524288
- 384 02a8 1360     	 str r3,[r2]
- 142:../driver_pwm.c **** 
- 143:../driver_pwm.c **** 	CCU80_CC82->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;
- 385              	 .loc 1 143 0
- 386 02aa 364A     	 ldr r2,.L5+4
- 387 02ac 354B     	 ldr r3,.L5+4
- 388 02ae 1B68     	 ldr r3,[r3]
- 389 02b0 43F00703 	 orr r3,r3,#7
- 390 02b4 1360     	 str r3,[r2]
- 144:../driver_pwm.c **** 	CCU80_CC82->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
- 391              	 .loc 1 144 0
- 392 02b6 334A     	 ldr r2,.L5+4
- 393 02b8 324B     	 ldr r3,.L5+4
- 394 02ba 1B68     	 ldr r3,[r3]
- 395 02bc 43F48033 	 orr r3,r3,#65536
- 396 02c0 1360     	 str r3,[r2]
- 145:../driver_pwm.c **** 	CCU80_CC82->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;
- 397              	 .loc 1 145 0
- 398 02c2 304A     	 ldr r2,.L5+4
- 399 02c4 2F4B     	 ldr r3,.L5+4
- 400 02c6 1B68     	 ldr r3,[r3]
- 401 02c8 43F07003 	 orr r3,r3,#112
- 402 02cc 1360     	 str r3,[r2]
- 146:../driver_pwm.c **** 	CCU80_CC82->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
- 403              	 .loc 1 146 0
- 404 02ce 2D4A     	 ldr r2,.L5+4
- 405 02d0 2C4B     	 ldr r3,.L5+4
- 406 02d2 1B68     	 ldr r3,[r3]
- 407 02d4 43F40023 	 orr r3,r3,#524288
- 408 02d8 1360     	 str r3,[r2]
- 147:../driver_pwm.c **** 
- 148:../driver_pwm.c **** 	CCU81_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV0IS_POS;
- 409              	 .loc 1 148 0
- 410 02da 2B4A     	 ldr r2,.L5+8
- 411 02dc 2A4B     	 ldr r3,.L5+8
- 412 02de 1B68     	 ldr r3,[r3]
- 413 02e0 43F00703 	 orr r3,r3,#7
- 414 02e4 1360     	 str r3,[r2]
- 149:../driver_pwm.c **** 	CCU81_CC81->INS |= RISING_EDGE << CCU8_CC8_INS_EV0EM_POS;
- 415              	 .loc 1 149 0
- 416 02e6 284A     	 ldr r2,.L5+8
- 417 02e8 274B     	 ldr r3,.L5+8
- 418 02ea 1B68     	 ldr r3,[r3]
- 419 02ec 43F48033 	 orr r3,r3,#65536
- 420 02f0 1360     	 str r3,[r2]
- 150:../driver_pwm.c **** 	CCU81_CC81->INS |= CCU8_IN_H << CCU8_CC8_INS_EV1IS_POS;
- 421              	 .loc 1 150 0
- 422 02f2 254A     	 ldr r2,.L5+8
- 423 02f4 244B     	 ldr r3,.L5+8
- 424 02f6 1B68     	 ldr r3,[r3]
- 425 02f8 43F07003 	 orr r3,r3,#112
- 426 02fc 1360     	 str r3,[r2]
+ 364 0268 00440050 	 .word 1342194688
+ 365 026c 00460050 	 .word 1342195200
+ 366 0270 00400240 	 .word 1073889280
+ 367 0274 00010240 	 .word 1073873152
+ 368 0278 00020240 	 .word 1073873408
+ 369 027c 00030240 	 .word 1073873664
+ 370 0280 00420240 	 .word 1073889792
+ 371 0284 00000240 	 .word 1073872896
+ 372              	.L3:
+ 373 0288 43F07003 	 orr r3,r3,#112
+ 374 028c 1360     	 str r3,[r2]
  151:../driver_pwm.c **** 	CCU81_CC81->INS |= FALLING_EDGE << CCU8_CC8_INS_EV1EM_POS;
- 427              	 .loc 1 151 0
- 428 02fe 224A     	 ldr r2,.L5+8
- 429 0300 214B     	 ldr r3,.L5+8
- 430 0302 1B68     	 ldr r3,[r3]
- 431 0304 43F40023 	 orr r3,r3,#524288
- 432 0308 1360     	 str r3,[r2]
+ 375              	 .loc 1 151 0
+ 376 028e 204A     	 ldr r2,.L5
+ 377 0290 1F4B     	 ldr r3,.L5
+ 378 0292 1B68     	 ldr r3,[r3]
+ 379 0294 43F40023 	 orr r3,r3,#524288
+ 380 0298 1360     	 str r3,[r2]
  152:../driver_pwm.c **** 
  153:../driver_pwm.c **** 	CCU80_CC80->CMC |= CCU8_CC8_CMC_STRTS_EV0_MSK << CCU8_CC8_CMC_STRTS_POS; // Set Event 0 for start
- 433              	 .loc 1 153 0
- 434 030a 204A     	 ldr r2,.L5+12
- 435 030c 1F4B     	 ldr r3,.L5+12
- 436 030e 5B68     	 ldr r3,[r3,#4]
- 437 0310 43F00103 	 orr r3,r3,#1
- 438 0314 5360     	 str r3,[r2,#4]
+ 381              	 .loc 1 153 0
+ 382 029a 1E4A     	 ldr r2,.L5+4
+ 383 029c 1D4B     	 ldr r3,.L5+4
+ 384 029e 5B68     	 ldr r3,[r3,#4]
+ 385 02a0 43F00103 	 orr r3,r3,#1
+ 386 02a4 5360     	 str r3,[r2,#4]
  154:../driver_pwm.c **** 	CCU80_CC81->CMC |= CCU8_CC8_CMC_STRTS_EV0_MSK << CCU8_CC8_CMC_STRTS_POS;
- 439              	 .loc 1 154 0
- 440 0316 1A4A     	 ldr r2,.L5
- 441 0318 194B     	 ldr r3,.L5
- 442 031a 5B68     	 ldr r3,[r3,#4]
- 443 031c 43F00103 	 orr r3,r3,#1
- 444 0320 5360     	 str r3,[r2,#4]
+ 387              	 .loc 1 154 0
+ 388 02a6 1C4A     	 ldr r2,.L5+8
+ 389 02a8 1B4B     	 ldr r3,.L5+8
+ 390 02aa 5B68     	 ldr r3,[r3,#4]
+ 391 02ac 43F00103 	 orr r3,r3,#1
+ 392 02b0 5360     	 str r3,[r2,#4]
  155:../driver_pwm.c **** 	CCU80_CC82->CMC |= CCU8_CC8_CMC_STRTS_EV0_MSK << CCU8_CC8_CMC_STRTS_POS;
- 445              	 .loc 1 155 0
- 446 0322 184A     	 ldr r2,.L5+4
- 447 0324 174B     	 ldr r3,.L5+4
- 448 0326 5B68     	 ldr r3,[r3,#4]
- 449 0328 43F00103 	 orr r3,r3,#1
- 450 032c 5360     	 str r3,[r2,#4]
+ 393              	 .loc 1 155 0
+ 394 02b2 1A4A     	 ldr r2,.L5+12
+ 395 02b4 194B     	 ldr r3,.L5+12
+ 396 02b6 5B68     	 ldr r3,[r3,#4]
+ 397 02b8 43F00103 	 orr r3,r3,#1
+ 398 02bc 5360     	 str r3,[r2,#4]
  156:../driver_pwm.c **** 	CCU81_CC81->CMC |= CCU8_CC8_CMC_STRTS_EV0_MSK << CCU8_CC8_CMC_STRTS_POS;
- 451              	 .loc 1 156 0
- 452 032e 164A     	 ldr r2,.L5+8
- 453 0330 154B     	 ldr r3,.L5+8
- 454 0332 5B68     	 ldr r3,[r3,#4]
- 455 0334 43F00103 	 orr r3,r3,#1
- 456 0338 5360     	 str r3,[r2,#4]
+ 399              	 .loc 1 156 0
+ 400 02be 144A     	 ldr r2,.L5
+ 401 02c0 134B     	 ldr r3,.L5
+ 402 02c2 5B68     	 ldr r3,[r3,#4]
+ 403 02c4 43F00103 	 orr r3,r3,#1
+ 404 02c8 5360     	 str r3,[r2,#4]
  157:../driver_pwm.c **** 
  158:../driver_pwm.c **** 	CCU80_CC80->CMC |= CCU8_CC8_CMC_ENDS_EV1_MSK << CCU8_CC8_CMC_ENDS_POS; // Set Event 1 for end
- 457              	 .loc 1 158 0
- 458 033a 144A     	 ldr r2,.L5+12
- 459 033c 134B     	 ldr r3,.L5+12
- 460 033e 5B68     	 ldr r3,[r3,#4]
- 461 0340 43F00803 	 orr r3,r3,#8
- 462 0344 5360     	 str r3,[r2,#4]
+ 405              	 .loc 1 158 0
+ 406 02ca 124A     	 ldr r2,.L5+4
+ 407 02cc 114B     	 ldr r3,.L5+4
+ 408 02ce 5B68     	 ldr r3,[r3,#4]
+ 409 02d0 43F00803 	 orr r3,r3,#8
+ 410 02d4 5360     	 str r3,[r2,#4]
  159:../driver_pwm.c **** 	CCU80_CC81->CMC |= CCU8_CC8_CMC_ENDS_EV1_MSK << CCU8_CC8_CMC_ENDS_POS;
- 463              	 .loc 1 159 0
- 464 0346 0E4A     	 ldr r2,.L5
- 465 0348 0D4B     	 ldr r3,.L5
- 466 034a 5B68     	 ldr r3,[r3,#4]
- 467 034c 43F00803 	 orr r3,r3,#8
- 468 0350 5360     	 str r3,[r2,#4]
+ 411              	 .loc 1 159 0
+ 412 02d6 104A     	 ldr r2,.L5+8
+ 413 02d8 0F4B     	 ldr r3,.L5+8
+ 414 02da 5B68     	 ldr r3,[r3,#4]
+ 415 02dc 43F00803 	 orr r3,r3,#8
+ 416 02e0 5360     	 str r3,[r2,#4]
  160:../driver_pwm.c **** 	CCU80_CC82->CMC |= CCU8_CC8_CMC_ENDS_EV1_MSK << CCU8_CC8_CMC_ENDS_POS;
- 469              	 .loc 1 160 0
- 470 0352 0C4A     	 ldr r2,.L5+4
- 471 0354 0B4B     	 ldr r3,.L5+4
- 472 0356 5B68     	 ldr r3,[r3,#4]
- 473 0358 43F00803 	 orr r3,r3,#8
- 474 035c 5360     	 str r3,[r2,#4]
+ 417              	 .loc 1 160 0
+ 418 02e2 0E4A     	 ldr r2,.L5+12
+ 419 02e4 0D4B     	 ldr r3,.L5+12
+ 420 02e6 5B68     	 ldr r3,[r3,#4]
+ 421 02e8 43F00803 	 orr r3,r3,#8
+ 422 02ec 5360     	 str r3,[r2,#4]
  161:../driver_pwm.c **** 	CCU81_CC81->CMC |= CCU8_CC8_CMC_ENDS_EV1_MSK << CCU8_CC8_CMC_ENDS_POS;
- 475              	 .loc 1 161 0
- 476 035e 0A4A     	 ldr r2,.L5+8
- 477 0360 094B     	 ldr r3,.L5+8
- 478 0362 5B68     	 ldr r3,[r3,#4]
- 479 0364 43F00803 	 orr r3,r3,#8
- 480 0368 5360     	 str r3,[r2,#4]
+ 423              	 .loc 1 161 0
+ 424 02ee 084A     	 ldr r2,.L5
+ 425 02f0 074B     	 ldr r3,.L5
+ 426 02f2 5B68     	 ldr r3,[r3,#4]
+ 427 02f4 43F00803 	 orr r3,r3,#8
+ 428 02f8 5360     	 str r3,[r2,#4]
  162:../driver_pwm.c **** 
  163:../driver_pwm.c **** 	/*
  164:../driver_pwm.c **** 	 * Enable CCUCON Module
  165:../driver_pwm.c **** 	 */
  166:../driver_pwm.c **** 	SCU_GENERAL->CCUCON |= SCU_GENERAL_CCUCON_GSC80_GSC81_MSK;
- 481              	 .loc 1 166 0
- 482 036a 094A     	 ldr r2,.L5+16
- 483 036c 084B     	 ldr r3,.L5+16
- 484 036e DB6C     	 ldr r3,[r3,#76]
- 485 0370 43F44073 	 orr r3,r3,#768
- 486 0374 D364     	 str r3,[r2,#76]
+ 429              	 .loc 1 166 0
+ 430 02fa 094A     	 ldr r2,.L5+16
+ 431 02fc 084B     	 ldr r3,.L5+16
+ 432 02fe DB6C     	 ldr r3,[r3,#76]
+ 433 0300 43F44073 	 orr r3,r3,#768
+ 434 0304 D364     	 str r3,[r2,#76]
  167:../driver_pwm.c **** 	//	SCU_GENERAL->CCUCON &= ~SCU_GENERAL_CCUCON_GSC80_MSK; 		//Reset back to 0 if it needs to be re-
  168:../driver_pwm.c **** }
- 487              	 .loc 1 168 0
- 488 0376 BD46     	 mov sp,r7
- 489              	.LCFI2:
- 490              	 .cfi_def_cfa_register 13
- 491              	 
- 492 0378 5DF8047B 	 ldr r7,[sp],#4
- 493              	.LCFI3:
- 494              	 .cfi_restore 7
- 495              	 .cfi_def_cfa_offset 0
- 496 037c 7047     	 bx lr
- 497              	.L6:
- 498 037e 00BF     	 .align 2
- 499              	.L5:
- 500 0380 00020240 	 .word 1073873408
- 501 0384 00030240 	 .word 1073873664
- 502 0388 00420240 	 .word 1073889792
- 503 038c 00010240 	 .word 1073873152
- 504 0390 00400050 	 .word 1342193664
- 505              	 .cfi_endproc
- 506              	.LFE196:
- 508              	 .section .text.pwm_timer_start,"ax",%progbits
- 509              	 .align 2
- 510              	 .global pwm_timer_start
- 511              	 .thumb
- 512              	 .thumb_func
- 514              	pwm_timer_start:
- 515              	.LFB197:
+ 435              	 .loc 1 168 0
+ 436 0306 BD46     	 mov sp,r7
+ 437              	.LCFI2:
+ 438              	 .cfi_def_cfa_register 13
+ 439              	 
+ 440 0308 5DF8047B 	 ldr r7,[sp],#4
+ 441              	.LCFI3:
+ 442              	 .cfi_restore 7
+ 443              	 .cfi_def_cfa_offset 0
+ 444 030c 7047     	 bx lr
+ 445              	.L6:
+ 446 030e 00BF     	 .align 2
+ 447              	.L5:
+ 448 0310 00420240 	 .word 1073889792
+ 449 0314 00010240 	 .word 1073873152
+ 450 0318 00020240 	 .word 1073873408
+ 451 031c 00030240 	 .word 1073873664
+ 452 0320 00400050 	 .word 1342193664
+ 453              	 .cfi_endproc
+ 454              	.LFE196:
+ 456              	 .section .text.pwm_timer_start,"ax",%progbits
+ 457              	 .align 2
+ 458              	 .global pwm_timer_start
+ 459              	 .thumb
+ 460              	 .thumb_func
+ 462              	pwm_timer_start:
+ 463              	.LFB197:
  169:../driver_pwm.c **** /*
  170:../driver_pwm.c ****  * Sets CCUCON to 1 which enables the 0->1 transition (Rising Edge)
  171:../driver_pwm.c ****  */
  172:../driver_pwm.c **** void pwm_timer_start(void)
  173:../driver_pwm.c **** {
- 516              	 .loc 1 173 0
- 517              	 .cfi_startproc
- 518              	 
- 519              	 
- 520              	 
- 521 0000 80B4     	 push {r7}
- 522              	.LCFI4:
- 523              	 .cfi_def_cfa_offset 4
- 524              	 .cfi_offset 7,-4
- 525 0002 00AF     	 add r7,sp,#0
- 526              	.LCFI5:
- 527              	 .cfi_def_cfa_register 7
+ 464              	 .loc 1 173 0
+ 465              	 .cfi_startproc
+ 466              	 
+ 467              	 
+ 468              	 
+ 469 0000 80B4     	 push {r7}
+ 470              	.LCFI4:
+ 471              	 .cfi_def_cfa_offset 4
+ 472              	 .cfi_offset 7,-4
+ 473 0002 00AF     	 add r7,sp,#0
+ 474              	.LCFI5:
+ 475              	 .cfi_def_cfa_register 7
  174:../driver_pwm.c **** 	SCU_GENERAL->CCUCON |= SCU_GENERAL_CCUCON_GSC80_GSC81_MSK;
- 528              	 .loc 1 174 0
- 529 0004 044A     	 ldr r2,.L8
- 530 0006 044B     	 ldr r3,.L8
- 531 0008 DB6C     	 ldr r3,[r3,#76]
- 532 000a 43F44073 	 orr r3,r3,#768
- 533 000e D364     	 str r3,[r2,#76]
+ 476              	 .loc 1 174 0
+ 477 0004 044A     	 ldr r2,.L8
+ 478 0006 044B     	 ldr r3,.L8
+ 479 0008 DB6C     	 ldr r3,[r3,#76]
+ 480 000a 43F44073 	 orr r3,r3,#768
+ 481 000e D364     	 str r3,[r2,#76]
  175:../driver_pwm.c **** }
- 534              	 .loc 1 175 0
- 535 0010 BD46     	 mov sp,r7
- 536              	.LCFI6:
- 537              	 .cfi_def_cfa_register 13
- 538              	 
- 539 0012 5DF8047B 	 ldr r7,[sp],#4
- 540              	.LCFI7:
- 541              	 .cfi_restore 7
- 542              	 .cfi_def_cfa_offset 0
- 543 0016 7047     	 bx lr
- 544              	.L9:
- 545              	 .align 2
- 546              	.L8:
- 547 0018 00400050 	 .word 1342193664
- 548              	 .cfi_endproc
- 549              	.LFE197:
- 551              	 .section .text.pwm_timer_stop,"ax",%progbits
- 552              	 .align 2
- 553              	 .global pwm_timer_stop
- 554              	 .thumb
- 555              	 .thumb_func
- 557              	pwm_timer_stop:
- 558              	.LFB198:
+ 482              	 .loc 1 175 0
+ 483 0010 BD46     	 mov sp,r7
+ 484              	.LCFI6:
+ 485              	 .cfi_def_cfa_register 13
+ 486              	 
+ 487 0012 5DF8047B 	 ldr r7,[sp],#4
+ 488              	.LCFI7:
+ 489              	 .cfi_restore 7
+ 490              	 .cfi_def_cfa_offset 0
+ 491 0016 7047     	 bx lr
+ 492              	.L9:
+ 493              	 .align 2
+ 494              	.L8:
+ 495 0018 00400050 	 .word 1342193664
+ 496              	 .cfi_endproc
+ 497              	.LFE197:
+ 499              	 .section .text.pwm_timer_stop,"ax",%progbits
+ 500              	 .align 2
+ 501              	 .global pwm_timer_stop
+ 502              	 .thumb
+ 503              	 .thumb_func
+ 505              	pwm_timer_stop:
+ 506              	.LFB198:
  176:../driver_pwm.c **** /*
  177:../driver_pwm.c ****  * Sets CCUCON to 0 which enables the 1->0 transition (Falling Edge)
  178:../driver_pwm.c ****  */
  179:../driver_pwm.c **** void pwm_timer_stop(void)
  180:../driver_pwm.c **** {
- 559              	 .loc 1 180 0
- 560              	 .cfi_startproc
- 561              	 
- 562              	 
- 563              	 
- 564 0000 80B4     	 push {r7}
- 565              	.LCFI8:
- 566              	 .cfi_def_cfa_offset 4
- 567              	 .cfi_offset 7,-4
- 568 0002 00AF     	 add r7,sp,#0
- 569              	.LCFI9:
- 570              	 .cfi_def_cfa_register 7
+ 507              	 .loc 1 180 0
+ 508              	 .cfi_startproc
+ 509              	 
+ 510              	 
+ 511              	 
+ 512 0000 80B4     	 push {r7}
+ 513              	.LCFI8:
+ 514              	 .cfi_def_cfa_offset 4
+ 515              	 .cfi_offset 7,-4
+ 516 0002 00AF     	 add r7,sp,#0
+ 517              	.LCFI9:
+ 518              	 .cfi_def_cfa_register 7
  181:../driver_pwm.c **** 	SCU_GENERAL->CCUCON &= ~SCU_GENERAL_CCUCON_GSC80_GSC81_MSK;
- 571              	 .loc 1 181 0
- 572 0004 044A     	 ldr r2,.L11
- 573 0006 044B     	 ldr r3,.L11
- 574 0008 DB6C     	 ldr r3,[r3,#76]
- 575 000a 23F44073 	 bic r3,r3,#768
- 576 000e D364     	 str r3,[r2,#76]
+ 519              	 .loc 1 181 0
+ 520 0004 044A     	 ldr r2,.L11
+ 521 0006 044B     	 ldr r3,.L11
+ 522 0008 DB6C     	 ldr r3,[r3,#76]
+ 523 000a 23F44073 	 bic r3,r3,#768
+ 524 000e D364     	 str r3,[r2,#76]
  182:../driver_pwm.c **** }
- 577              	 .loc 1 182 0
- 578 0010 BD46     	 mov sp,r7
- 579              	.LCFI10:
- 580              	 .cfi_def_cfa_register 13
- 581              	 
- 582 0012 5DF8047B 	 ldr r7,[sp],#4
- 583              	.LCFI11:
- 584              	 .cfi_restore 7
- 585              	 .cfi_def_cfa_offset 0
- 586 0016 7047     	 bx lr
- 587              	.L12:
- 588              	 .align 2
- 589              	.L11:
- 590 0018 00400050 	 .word 1342193664
- 591              	 .cfi_endproc
- 592              	.LFE198:
- 594              	 .section .text.pwm_update,"ax",%progbits
- 595              	 .align 2
- 596              	 .global pwm_update
- 597              	 .thumb
- 598              	 .thumb_func
- 600              	pwm_update:
- 601              	.LFB199:
+ 525              	 .loc 1 182 0
+ 526 0010 BD46     	 mov sp,r7
+ 527              	.LCFI10:
+ 528              	 .cfi_def_cfa_register 13
+ 529              	 
+ 530 0012 5DF8047B 	 ldr r7,[sp],#4
+ 531              	.LCFI11:
+ 532              	 .cfi_restore 7
+ 533              	 .cfi_def_cfa_offset 0
+ 534 0016 7047     	 bx lr
+ 535              	.L12:
+ 536              	 .align 2
+ 537              	.L11:
+ 538 0018 00400050 	 .word 1342193664
+ 539              	 .cfi_endproc
+ 540              	.LFE198:
+ 542              	 .section .text.pwm_update,"ax",%progbits
+ 543              	 .align 2
+ 544              	 .global pwm_update
+ 545              	 .thumb
+ 546              	 .thumb_func
+ 548              	pwm_update:
+ 549              	.LFB199:
  183:../driver_pwm.c **** /*
  184:../driver_pwm.c ****  * Update compare values for PWM
  185:../driver_pwm.c ****  * Input type: int16_t
  186:../driver_pwm.c ****  */
  187:../driver_pwm.c **** void pwm_update(int16_t uaref, int16_t ubref)
  188:../driver_pwm.c **** {
- 602              	 .loc 1 188 0
- 603              	 .cfi_startproc
- 604              	 
- 605              	 
- 606 0000 80B5     	 push {r7,lr}
- 607              	.LCFI12:
- 608              	 .cfi_def_cfa_offset 8
- 609              	 .cfi_offset 7,-8
- 610              	 .cfi_offset 14,-4
- 611 0002 82B0     	 sub sp,sp,#8
- 612              	.LCFI13:
- 613              	 .cfi_def_cfa_offset 16
- 614 0004 00AF     	 add r7,sp,#0
- 615              	.LCFI14:
- 616              	 .cfi_def_cfa_register 7
- 617 0006 0346     	 mov r3,r0
- 618 0008 0A46     	 mov r2,r1
- 619 000a FB80     	 strh r3,[r7,#6]
- 620 000c 1346     	 mov r3,r2
- 621 000e BB80     	 strh r3,[r7,#4]
+ 550              	 .loc 1 188 0
+ 551              	 .cfi_startproc
+ 552              	 
+ 553              	 
+ 554 0000 80B5     	 push {r7,lr}
+ 555              	.LCFI12:
+ 556              	 .cfi_def_cfa_offset 8
+ 557              	 .cfi_offset 7,-8
+ 558              	 .cfi_offset 14,-4
+ 559 0002 82B0     	 sub sp,sp,#8
+ 560              	.LCFI13:
+ 561              	 .cfi_def_cfa_offset 16
+ 562 0004 00AF     	 add r7,sp,#0
+ 563              	.LCFI14:
+ 564              	 .cfi_def_cfa_register 7
+ 565 0006 0346     	 mov r3,r0
+ 566 0008 0A46     	 mov r2,r1
+ 567 000a FB80     	 strh r3,[r7,#6]
+ 568 000c 1346     	 mov r3,r2
+ 569 000e BB80     	 strh r3,[r7,#4]
  189:../driver_pwm.c **** 	/*
  190:../driver_pwm.c **** 	 * Keeps the voltage values between max/min saturation
  191:../driver_pwm.c **** 	 * Resulted PWM shouldn't be 0 or MAX
  192:../driver_pwm.c **** 	 */
  193:../driver_pwm.c **** 	if (uaref > sat_pwm)
- 622              	 .loc 1 193 0
- 623 0010 534B     	 ldr r3,.L18
- 624 0012 1B88     	 ldrh r3,[r3]
- 625 0014 B7F90620 	 ldrsh r2,[r7,#6]
- 626 0018 1BB2     	 sxth r3,r3
- 627 001a 9A42     	 cmp r2,r3
- 628 001c 03DD     	 ble .L14
+ 570              	 .loc 1 193 0
+ 571 0010 534B     	 ldr r3,.L18
+ 572 0012 1B88     	 ldrh r3,[r3]
+ 573 0014 B7F90620 	 ldrsh r2,[r7,#6]
+ 574 0018 1BB2     	 sxth r3,r3
+ 575 001a 9A42     	 cmp r2,r3
+ 576 001c 03DD     	 ble .L14
  194:../driver_pwm.c **** 	{
  195:../driver_pwm.c **** 		uaref = sat_pwm;
- 629              	 .loc 1 195 0
- 630 001e 504B     	 ldr r3,.L18
- 631 0020 1B88     	 ldrh r3,[r3]
- 632 0022 FB80     	 strh r3,[r7,#6]
- 633 0024 0DE0     	 b .L15
- 634              	.L14:
+ 577              	 .loc 1 195 0
+ 578 001e 504B     	 ldr r3,.L18
+ 579 0020 1B88     	 ldrh r3,[r3]
+ 580 0022 FB80     	 strh r3,[r7,#6]
+ 581 0024 0DE0     	 b .L15
+ 582              	.L14:
  196:../driver_pwm.c **** 	}
  197:../driver_pwm.c **** 	else if (uaref < -sat_pwm)
- 635              	 .loc 1 197 0
- 636 0026 B7F90620 	 ldrsh r2,[r7,#6]
- 637 002a 4D4B     	 ldr r3,.L18
- 638 002c 1B88     	 ldrh r3,[r3]
- 639 002e 1BB2     	 sxth r3,r3
- 640 0030 5B42     	 negs r3,r3
- 641 0032 9A42     	 cmp r2,r3
- 642 0034 05DA     	 bge .L15
+ 583              	 .loc 1 197 0
+ 584 0026 B7F90620 	 ldrsh r2,[r7,#6]
+ 585 002a 4D4B     	 ldr r3,.L18
+ 586 002c 1B88     	 ldrh r3,[r3]
+ 587 002e 1BB2     	 sxth r3,r3
+ 588 0030 5B42     	 negs r3,r3
+ 589 0032 9A42     	 cmp r2,r3
+ 590 0034 05DA     	 bge .L15
  198:../driver_pwm.c **** 	{
  199:../driver_pwm.c **** 		uaref = -sat_pwm;
- 643              	 .loc 1 199 0
- 644 0036 4A4B     	 ldr r3,.L18
- 645 0038 1B88     	 ldrh r3,[r3]
- 646 003a 9BB2     	 uxth r3,r3
- 647 003c 5B42     	 negs r3,r3
- 648 003e 9BB2     	 uxth r3,r3
- 649 0040 FB80     	 strh r3,[r7,#6]
- 650              	.L15:
+ 591              	 .loc 1 199 0
+ 592 0036 4A4B     	 ldr r3,.L18
+ 593 0038 1B88     	 ldrh r3,[r3]
+ 594 003a 9BB2     	 uxth r3,r3
+ 595 003c 5B42     	 negs r3,r3
+ 596 003e 9BB2     	 uxth r3,r3
+ 597 0040 FB80     	 strh r3,[r7,#6]
+ 598              	.L15:
  200:../driver_pwm.c **** 	}
  201:../driver_pwm.c **** 
  202:../driver_pwm.c **** 	if (ubref > sat_pwm)
- 651              	 .loc 1 202 0
- 652 0042 474B     	 ldr r3,.L18
- 653 0044 1B88     	 ldrh r3,[r3]
- 654 0046 B7F90420 	 ldrsh r2,[r7,#4]
- 655 004a 1BB2     	 sxth r3,r3
- 656 004c 9A42     	 cmp r2,r3
- 657 004e 03DD     	 ble .L16
+ 599              	 .loc 1 202 0
+ 600 0042 474B     	 ldr r3,.L18
+ 601 0044 1B88     	 ldrh r3,[r3]
+ 602 0046 B7F90420 	 ldrsh r2,[r7,#4]
+ 603 004a 1BB2     	 sxth r3,r3
+ 604 004c 9A42     	 cmp r2,r3
+ 605 004e 03DD     	 ble .L16
  203:../driver_pwm.c **** 	{
  204:../driver_pwm.c **** 		ubref = sat_pwm;
- 658              	 .loc 1 204 0
- 659 0050 434B     	 ldr r3,.L18
- 660 0052 1B88     	 ldrh r3,[r3]
- 661 0054 BB80     	 strh r3,[r7,#4]
- 662 0056 0DE0     	 b .L17
- 663              	.L16:
+ 606              	 .loc 1 204 0
+ 607 0050 434B     	 ldr r3,.L18
+ 608 0052 1B88     	 ldrh r3,[r3]
+ 609 0054 BB80     	 strh r3,[r7,#4]
+ 610 0056 0DE0     	 b .L17
+ 611              	.L16:
  205:../driver_pwm.c **** 	}
  206:../driver_pwm.c **** 	else if (ubref < -sat_pwm)
- 664              	 .loc 1 206 0
- 665 0058 B7F90420 	 ldrsh r2,[r7,#4]
- 666 005c 404B     	 ldr r3,.L18
- 667 005e 1B88     	 ldrh r3,[r3]
- 668 0060 1BB2     	 sxth r3,r3
- 669 0062 5B42     	 negs r3,r3
- 670 0064 9A42     	 cmp r2,r3
- 671 0066 05DA     	 bge .L17
+ 612              	 .loc 1 206 0
+ 613 0058 B7F90420 	 ldrsh r2,[r7,#4]
+ 614 005c 404B     	 ldr r3,.L18
+ 615 005e 1B88     	 ldrh r3,[r3]
+ 616 0060 1BB2     	 sxth r3,r3
+ 617 0062 5B42     	 negs r3,r3
+ 618 0064 9A42     	 cmp r2,r3
+ 619 0066 05DA     	 bge .L17
  207:../driver_pwm.c **** 	{
  208:../driver_pwm.c **** 		ubref = -sat_pwm;
- 672              	 .loc 1 208 0
- 673 0068 3D4B     	 ldr r3,.L18
- 674 006a 1B88     	 ldrh r3,[r3]
- 675 006c 9BB2     	 uxth r3,r3
- 676 006e 5B42     	 negs r3,r3
- 677 0070 9BB2     	 uxth r3,r3
- 678 0072 BB80     	 strh r3,[r7,#4]
- 679              	.L17:
+ 620              	 .loc 1 208 0
+ 621 0068 3D4B     	 ldr r3,.L18
+ 622 006a 1B88     	 ldrh r3,[r3]
+ 623 006c 9BB2     	 uxth r3,r3
+ 624 006e 5B42     	 negs r3,r3
+ 625 0070 9BB2     	 uxth r3,r3
+ 626 0072 BB80     	 strh r3,[r7,#4]
+ 627              	.L17:
  209:../driver_pwm.c **** 	}
  210:../driver_pwm.c **** 
  211:../driver_pwm.c **** 
  212:../driver_pwm.c **** 	// New compare value
- 213:../driver_pwm.c **** 	CCU80_CC80->CR1S = (pwm_value / 2 - pwm_value * uaref / 65535);	//A - A1
- 680              	 .loc 1 213 0
- 681 0074 3B48     	 ldr r0,.L18+4
- 682 0076 3C4B     	 ldr r3,.L18+8
- 683 0078 1B88     	 ldrh r3,[r3]
- 684 007a 1BB2     	 sxth r3,r3
- 685 007c DA0F     	 lsrs r2,r3,#31
- 686 007e 1344     	 add r3,r3,r2
- 687 0080 5B10     	 asrs r3,r3,#1
- 688 0082 9BB2     	 uxth r3,r3
- 689 0084 1AB2     	 sxth r2,r3
- 690 0086 384B     	 ldr r3,.L18+8
- 691 0088 1B88     	 ldrh r3,[r3]
- 692 008a 1BB2     	 sxth r3,r3
- 693 008c B7F90610 	 ldrsh r1,[r7,#6]
- 694 0090 01FB03F3 	 mul r3,r1,r3
- 695 0094 3549     	 ldr r1,.L18+12
- 696 0096 81FB03E1 	 smull lr,r1,r1,r3
- 697 009a 1944     	 add r1,r1,r3
- 698 009c C913     	 asrs r1,r1,#15
- 699 009e DB17     	 asrs r3,r3,#31
- 700 00a0 CB1A     	 subs r3,r1,r3
- 701 00a2 D31A     	 subs r3,r2,r3
- 702 00a4 C363     	 str r3,[r0,#60]
- 214:../driver_pwm.c **** 	CCU80_CC81->CR1S = (pwm_value / 2 + pwm_value * uaref / 65535); //B - A2
- 703              	 .loc 1 214 0
- 704 00a6 3248     	 ldr r0,.L18+16
- 705 00a8 2F4B     	 ldr r3,.L18+8
- 706 00aa 1B88     	 ldrh r3,[r3]
- 707 00ac 1BB2     	 sxth r3,r3
- 708 00ae DA0F     	 lsrs r2,r3,#31
- 709 00b0 1344     	 add r3,r3,r2
- 710 00b2 5B10     	 asrs r3,r3,#1
- 711 00b4 9BB2     	 uxth r3,r3
- 712 00b6 1AB2     	 sxth r2,r3
- 713 00b8 2B4B     	 ldr r3,.L18+8
- 714 00ba 1B88     	 ldrh r3,[r3]
- 715 00bc 1BB2     	 sxth r3,r3
- 716 00be B7F90610 	 ldrsh r1,[r7,#6]
- 717 00c2 01FB03F3 	 mul r3,r1,r3
- 718 00c6 2949     	 ldr r1,.L18+12
- 719 00c8 81FB03E1 	 smull lr,r1,r1,r3
- 720 00cc 1944     	 add r1,r1,r3
- 721 00ce C913     	 asrs r1,r1,#15
- 722 00d0 DB17     	 asrs r3,r3,#31
- 723 00d2 CB1A     	 subs r3,r1,r3
- 724 00d4 1344     	 add r3,r3,r2
- 725 00d6 C363     	 str r3,[r0,#60]
+ 213:../driver_pwm.c **** 	CCU80_CC80->CR1S = (pwm_value / 2 + pwm_value * uaref / 65535);	//A - A1
+ 628              	 .loc 1 213 0
+ 629 0074 3B48     	 ldr r0,.L18+4
+ 630 0076 3C4B     	 ldr r3,.L18+8
+ 631 0078 1B88     	 ldrh r3,[r3]
+ 632 007a 1BB2     	 sxth r3,r3
+ 633 007c DA0F     	 lsrs r2,r3,#31
+ 634 007e 1344     	 add r3,r3,r2
+ 635 0080 5B10     	 asrs r3,r3,#1
+ 636 0082 9BB2     	 uxth r3,r3
+ 637 0084 1AB2     	 sxth r2,r3
+ 638 0086 384B     	 ldr r3,.L18+8
+ 639 0088 1B88     	 ldrh r3,[r3]
+ 640 008a 1BB2     	 sxth r3,r3
+ 641 008c B7F90610 	 ldrsh r1,[r7,#6]
+ 642 0090 01FB03F3 	 mul r3,r1,r3
+ 643 0094 3549     	 ldr r1,.L18+12
+ 644 0096 81FB03E1 	 smull lr,r1,r1,r3
+ 645 009a 1944     	 add r1,r1,r3
+ 646 009c C913     	 asrs r1,r1,#15
+ 647 009e DB17     	 asrs r3,r3,#31
+ 648 00a0 CB1A     	 subs r3,r1,r3
+ 649 00a2 1344     	 add r3,r3,r2
+ 650 00a4 C363     	 str r3,[r0,#60]
+ 214:../driver_pwm.c **** 	CCU80_CC81->CR1S = (pwm_value / 2 - pwm_value * uaref / 65535); //B - A2
+ 651              	 .loc 1 214 0
+ 652 00a6 3248     	 ldr r0,.L18+16
+ 653 00a8 2F4B     	 ldr r3,.L18+8
+ 654 00aa 1B88     	 ldrh r3,[r3]
+ 655 00ac 1BB2     	 sxth r3,r3
+ 656 00ae DA0F     	 lsrs r2,r3,#31
+ 657 00b0 1344     	 add r3,r3,r2
+ 658 00b2 5B10     	 asrs r3,r3,#1
+ 659 00b4 9BB2     	 uxth r3,r3
+ 660 00b6 1AB2     	 sxth r2,r3
+ 661 00b8 2B4B     	 ldr r3,.L18+8
+ 662 00ba 1B88     	 ldrh r3,[r3]
+ 663 00bc 1BB2     	 sxth r3,r3
+ 664 00be B7F90610 	 ldrsh r1,[r7,#6]
+ 665 00c2 01FB03F3 	 mul r3,r1,r3
+ 666 00c6 2949     	 ldr r1,.L18+12
+ 667 00c8 81FB03E1 	 smull lr,r1,r1,r3
+ 668 00cc 1944     	 add r1,r1,r3
+ 669 00ce C913     	 asrs r1,r1,#15
+ 670 00d0 DB17     	 asrs r3,r3,#31
+ 671 00d2 CB1A     	 subs r3,r1,r3
+ 672 00d4 D31A     	 subs r3,r2,r3
+ 673 00d6 C363     	 str r3,[r0,#60]
  215:../driver_pwm.c **** 	
- 216:../driver_pwm.c **** 	CCU80_CC82->CR1S = (pwm_value / 2 - pwm_value * ubref / 65535); //C - B1
- 726              	 .loc 1 216 0
- 727 00d8 2648     	 ldr r0,.L18+20
- 728 00da 234B     	 ldr r3,.L18+8
- 729 00dc 1B88     	 ldrh r3,[r3]
- 730 00de 1BB2     	 sxth r3,r3
- 731 00e0 DA0F     	 lsrs r2,r3,#31
- 732 00e2 1344     	 add r3,r3,r2
- 733 00e4 5B10     	 asrs r3,r3,#1
- 734 00e6 9BB2     	 uxth r3,r3
- 735 00e8 1AB2     	 sxth r2,r3
- 736 00ea 1F4B     	 ldr r3,.L18+8
- 737 00ec 1B88     	 ldrh r3,[r3]
- 738 00ee 1BB2     	 sxth r3,r3
- 739 00f0 B7F90410 	 ldrsh r1,[r7,#4]
- 740 00f4 01FB03F3 	 mul r3,r1,r3
- 741 00f8 1C49     	 ldr r1,.L18+12
- 742 00fa 81FB03E1 	 smull lr,r1,r1,r3
- 743 00fe 1944     	 add r1,r1,r3
- 744 0100 C913     	 asrs r1,r1,#15
- 745 0102 DB17     	 asrs r3,r3,#31
- 746 0104 CB1A     	 subs r3,r1,r3
- 747 0106 D31A     	 subs r3,r2,r3
- 748 0108 C363     	 str r3,[r0,#60]
- 217:../driver_pwm.c **** 	CCU81_CC81->CR1S = (pwm_value / 2 + pwm_value * ubref / 65535); //D - B2
- 749              	 .loc 1 217 0
- 750 010a 1B48     	 ldr r0,.L18+24
- 751 010c 164B     	 ldr r3,.L18+8
- 752 010e 1B88     	 ldrh r3,[r3]
- 753 0110 1BB2     	 sxth r3,r3
- 754 0112 DA0F     	 lsrs r2,r3,#31
- 755 0114 1344     	 add r3,r3,r2
- 756 0116 5B10     	 asrs r3,r3,#1
- 757 0118 9BB2     	 uxth r3,r3
- 758 011a 1AB2     	 sxth r2,r3
- 759 011c 124B     	 ldr r3,.L18+8
- 760 011e 1B88     	 ldrh r3,[r3]
- 761 0120 1BB2     	 sxth r3,r3
- 762 0122 B7F90410 	 ldrsh r1,[r7,#4]
- 763 0126 01FB03F3 	 mul r3,r1,r3
- 764 012a 1049     	 ldr r1,.L18+12
- 765 012c 81FB03E1 	 smull lr,r1,r1,r3
- 766 0130 1944     	 add r1,r1,r3
- 767 0132 C913     	 asrs r1,r1,#15
- 768 0134 DB17     	 asrs r3,r3,#31
- 769 0136 CB1A     	 subs r3,r1,r3
- 770 0138 1344     	 add r3,r3,r2
- 771 013a C363     	 str r3,[r0,#60]
+ 216:../driver_pwm.c **** 	CCU80_CC82->CR1S = (pwm_value / 2 + pwm_value * ubref / 65535); //C - B1
+ 674              	 .loc 1 216 0
+ 675 00d8 2648     	 ldr r0,.L18+20
+ 676 00da 234B     	 ldr r3,.L18+8
+ 677 00dc 1B88     	 ldrh r3,[r3]
+ 678 00de 1BB2     	 sxth r3,r3
+ 679 00e0 DA0F     	 lsrs r2,r3,#31
+ 680 00e2 1344     	 add r3,r3,r2
+ 681 00e4 5B10     	 asrs r3,r3,#1
+ 682 00e6 9BB2     	 uxth r3,r3
+ 683 00e8 1AB2     	 sxth r2,r3
+ 684 00ea 1F4B     	 ldr r3,.L18+8
+ 685 00ec 1B88     	 ldrh r3,[r3]
+ 686 00ee 1BB2     	 sxth r3,r3
+ 687 00f0 B7F90410 	 ldrsh r1,[r7,#4]
+ 688 00f4 01FB03F3 	 mul r3,r1,r3
+ 689 00f8 1C49     	 ldr r1,.L18+12
+ 690 00fa 81FB03E1 	 smull lr,r1,r1,r3
+ 691 00fe 1944     	 add r1,r1,r3
+ 692 0100 C913     	 asrs r1,r1,#15
+ 693 0102 DB17     	 asrs r3,r3,#31
+ 694 0104 CB1A     	 subs r3,r1,r3
+ 695 0106 1344     	 add r3,r3,r2
+ 696 0108 C363     	 str r3,[r0,#60]
+ 217:../driver_pwm.c **** 	CCU81_CC81->CR1S = (pwm_value / 2 - pwm_value * ubref / 65535); //D - B2
+ 697              	 .loc 1 217 0
+ 698 010a 1B48     	 ldr r0,.L18+24
+ 699 010c 164B     	 ldr r3,.L18+8
+ 700 010e 1B88     	 ldrh r3,[r3]
+ 701 0110 1BB2     	 sxth r3,r3
+ 702 0112 DA0F     	 lsrs r2,r3,#31
+ 703 0114 1344     	 add r3,r3,r2
+ 704 0116 5B10     	 asrs r3,r3,#1
+ 705 0118 9BB2     	 uxth r3,r3
+ 706 011a 1AB2     	 sxth r2,r3
+ 707 011c 124B     	 ldr r3,.L18+8
+ 708 011e 1B88     	 ldrh r3,[r3]
+ 709 0120 1BB2     	 sxth r3,r3
+ 710 0122 B7F90410 	 ldrsh r1,[r7,#4]
+ 711 0126 01FB03F3 	 mul r3,r1,r3
+ 712 012a 1049     	 ldr r1,.L18+12
+ 713 012c 81FB03E1 	 smull lr,r1,r1,r3
+ 714 0130 1944     	 add r1,r1,r3
+ 715 0132 C913     	 asrs r1,r1,#15
+ 716 0134 DB17     	 asrs r3,r3,#31
+ 717 0136 CB1A     	 subs r3,r1,r3
+ 718 0138 D31A     	 subs r3,r2,r3
+ 719 013a C363     	 str r3,[r0,#60]
  218:../driver_pwm.c **** 
  219:../driver_pwm.c **** 	// Shadow transfer enabled for new compare value
  220:../driver_pwm.c **** 	CCU80->GCSS |= (CCU8_GCSS_S0SE_MSK | CCU8_GCSS_S1SE_MSK | CCU8_GCSS_S2SE_MSK);
- 772              	 .loc 1 220 0
- 773 013c 0F4A     	 ldr r2,.L18+28
- 774 013e 0F4B     	 ldr r3,.L18+28
- 775 0140 1B69     	 ldr r3,[r3,#16]
- 776 0142 43F48873 	 orr r3,r3,#272
- 777 0146 43F00103 	 orr r3,r3,#1
- 778 014a 1361     	 str r3,[r2,#16]
+ 720              	 .loc 1 220 0
+ 721 013c 0F4A     	 ldr r2,.L18+28
+ 722 013e 0F4B     	 ldr r3,.L18+28
+ 723 0140 1B69     	 ldr r3,[r3,#16]
+ 724 0142 43F48873 	 orr r3,r3,#272
+ 725 0146 43F00103 	 orr r3,r3,#1
+ 726 014a 1361     	 str r3,[r2,#16]
  221:../driver_pwm.c **** 	CCU81->GCSS |= (CCU8_GCSS_S1SE_MSK);
- 779              	 .loc 1 221 0
- 780 014c 0C4A     	 ldr r2,.L18+32
- 781 014e 0C4B     	 ldr r3,.L18+32
- 782 0150 1B69     	 ldr r3,[r3,#16]
- 783 0152 43F01003 	 orr r3,r3,#16
- 784 0156 1361     	 str r3,[r2,#16]
+ 727              	 .loc 1 221 0
+ 728 014c 0C4A     	 ldr r2,.L18+32
+ 729 014e 0C4B     	 ldr r3,.L18+32
+ 730 0150 1B69     	 ldr r3,[r3,#16]
+ 731 0152 43F01003 	 orr r3,r3,#16
+ 732 0156 1361     	 str r3,[r2,#16]
  222:../driver_pwm.c **** }
- 785              	 .loc 1 222 0
- 786 0158 0837     	 adds r7,r7,#8
- 787              	.LCFI15:
- 788              	 .cfi_def_cfa_offset 8
- 789 015a BD46     	 mov sp,r7
- 790              	.LCFI16:
- 791              	 .cfi_def_cfa_register 13
- 792              	 
- 793 015c 80BD     	 pop {r7,pc}
- 794              	.L19:
- 795 015e 00BF     	 .align 2
- 796              	.L18:
- 797 0160 00000000 	 .word sat_pwm
- 798 0164 00010240 	 .word 1073873152
- 799 0168 00000000 	 .word pwm_value
- 800 016c 01800080 	 .word -2147450879
- 801 0170 00020240 	 .word 1073873408
- 802 0174 00030240 	 .word 1073873664
- 803 0178 00420240 	 .word 1073889792
- 804 017c 00000240 	 .word 1073872896
- 805 0180 00400240 	 .word 1073889280
- 806              	 .cfi_endproc
- 807              	.LFE199:
- 809              	 .section .text.motion_on,"ax",%progbits
- 810              	 .align 2
- 811              	 .global motion_on
- 812              	 .thumb
- 813              	 .thumb_func
- 815              	motion_on:
- 816              	.LFB200:
+ 733              	 .loc 1 222 0
+ 734 0158 0837     	 adds r7,r7,#8
+ 735              	.LCFI15:
+ 736              	 .cfi_def_cfa_offset 8
+ 737 015a BD46     	 mov sp,r7
+ 738              	.LCFI16:
+ 739              	 .cfi_def_cfa_register 13
+ 740              	 
+ 741 015c 80BD     	 pop {r7,pc}
+ 742              	.L19:
+ 743 015e 00BF     	 .align 2
+ 744              	.L18:
+ 745 0160 00000000 	 .word sat_pwm
+ 746 0164 00010240 	 .word 1073873152
+ 747 0168 00000000 	 .word pwm_value
+ 748 016c 01800080 	 .word -2147450879
+ 749 0170 00020240 	 .word 1073873408
+ 750 0174 00030240 	 .word 1073873664
+ 751 0178 00420240 	 .word 1073889792
+ 752 017c 00000240 	 .word 1073872896
+ 753 0180 00400240 	 .word 1073889280
+ 754              	 .cfi_endproc
+ 755              	.LFE199:
+ 757              	 .section .text.motion_on,"ax",%progbits
+ 758              	 .align 2
+ 759              	 .global motion_on
+ 760              	 .thumb
+ 761              	 .thumb_func
+ 763              	motion_on:
+ 764              	.LFB200:
  223:../driver_pwm.c **** /*
  224:../driver_pwm.c **** 	Enable all PWM pins
  225:../driver_pwm.c **** */
  226:../driver_pwm.c **** void motion_on(void)
  227:../driver_pwm.c **** {
- 817              	 .loc 1 227 0
- 818              	 .cfi_startproc
- 819              	 
- 820              	 
- 821              	 
- 822 0000 80B4     	 push {r7}
- 823              	.LCFI17:
- 824              	 .cfi_def_cfa_offset 4
- 825              	 .cfi_offset 7,-4
- 826 0002 00AF     	 add r7,sp,#0
- 827              	.LCFI18:
- 828              	 .cfi_def_cfa_register 7
+ 765              	 .loc 1 227 0
+ 766              	 .cfi_startproc
+ 767              	 
+ 768              	 
+ 769              	 
+ 770 0000 80B4     	 push {r7}
+ 771              	.LCFI17:
+ 772              	 .cfi_def_cfa_offset 4
+ 773              	 .cfi_offset 7,-4
+ 774 0002 00AF     	 add r7,sp,#0
+ 775              	.LCFI18:
+ 776              	 .cfi_def_cfa_register 7
  228:../driver_pwm.c **** 	/*
  229:../driver_pwm.c **** 	 * PWM pins configuration CCU80 - as alter function 3 - CCU80 OUTxy
  230:../driver_pwm.c **** 	 */
  231:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC11_POS); // A_HIGH 	- P5.11 - OUT00
- 829              	 .loc 1 231 0
- 830 0004 194A     	 ldr r2,.L21
- 831 0006 194B     	 ldr r3,.L21
- 832 0008 9B69     	 ldr r3,[r3,#24]
- 833 000a 43F01843 	 orr r3,r3,#-1744830464
- 834 000e 9361     	 str r3,[r2,#24]
+ 777              	 .loc 1 231 0
+ 778 0004 194A     	 ldr r2,.L21
+ 779 0006 194B     	 ldr r3,.L21
+ 780 0008 9B69     	 ldr r3,[r3,#24]
+ 781 000a 43F01843 	 orr r3,r3,#-1744830464
+ 782 000e 9361     	 str r3,[r2,#24]
  232:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC8_POS);	 // A_LOW 	- P5.8  - OUT01
- 835              	 .loc 1 232 0
- 836 0010 164A     	 ldr r2,.L21
- 837 0012 164B     	 ldr r3,.L21
- 838 0014 9B69     	 ldr r3,[r3,#24]
- 839 0016 43F09803 	 orr r3,r3,#152
- 840 001a 9361     	 str r3,[r2,#24]
+ 783              	 .loc 1 232 0
+ 784 0010 164A     	 ldr r2,.L21
+ 785 0012 164B     	 ldr r3,.L21
+ 786 0014 9B69     	 ldr r3,[r3,#24]
+ 787 0016 43F09803 	 orr r3,r3,#152
+ 788 001a 9361     	 str r3,[r2,#24]
  233:../driver_pwm.c **** 
  234:../driver_pwm.c **** 	PORT0->IOCR4 |= (GPIO_OUTPUT_ALTER_3 << PORT0_IOCR4_PC4_Pos); // B_HIGH 	- P5.10 - OUT10 P0.4 alte
- 841              	 .loc 1 234 0
- 842 001c 144A     	 ldr r2,.L21+4
- 843 001e 144B     	 ldr r3,.L21+4
- 844 0020 5B69     	 ldr r3,[r3,#20]
- 845 0022 43F09803 	 orr r3,r3,#152
- 846 0026 5361     	 str r3,[r2,#20]
+ 789              	 .loc 1 234 0
+ 790 001c 144A     	 ldr r2,.L21+4
+ 791 001e 144B     	 ldr r3,.L21+4
+ 792 0020 5B69     	 ldr r3,[r3,#20]
+ 793 0022 43F09803 	 orr r3,r3,#152
+ 794 0026 5361     	 str r3,[r2,#20]
  235:../driver_pwm.c **** 	PORT2->IOCR12 |= (GPIO_OUTPUT_ALTER_3 << PORT2_PC15_POS);	  // B_LOW 	- P2.15 - OUT11
- 847              	 .loc 1 235 0
- 848 0028 124A     	 ldr r2,.L21+8
- 849 002a 124B     	 ldr r3,.L21+8
- 850 002c DB69     	 ldr r3,[r3,#28]
- 851 002e 43F01843 	 orr r3,r3,#-1744830464
- 852 0032 D361     	 str r3,[r2,#28]
+ 795              	 .loc 1 235 0
+ 796 0028 124A     	 ldr r2,.L21+8
+ 797 002a 124B     	 ldr r3,.L21+8
+ 798 002c DB69     	 ldr r3,[r3,#28]
+ 799 002e 43F01843 	 orr r3,r3,#-1744830464
+ 800 0032 D361     	 str r3,[r2,#28]
  236:../driver_pwm.c **** 
  237:../driver_pwm.c **** 	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC9_POS);	  // C_HIGH 	- P5.9	- OUT20
- 853              	 .loc 1 237 0
- 854 0034 0D4A     	 ldr r2,.L21
- 855 0036 0D4B     	 ldr r3,.L21
- 856 0038 9B69     	 ldr r3,[r3,#24]
- 857 003a 43F41843 	 orr r3,r3,#38912
- 858 003e 9361     	 str r3,[r2,#24]
+ 801              	 .loc 1 237 0
+ 802 0034 0D4A     	 ldr r2,.L21
+ 803 0036 0D4B     	 ldr r3,.L21
+ 804 0038 9B69     	 ldr r3,[r3,#24]
+ 805 003a 43F41843 	 orr r3,r3,#38912
+ 806 003e 9361     	 str r3,[r2,#24]
  238:../driver_pwm.c **** 	PORT2->IOCR12 |= (GPIO_OUTPUT_ALTER_3 << PORT2_PC14_POS); // C_LOW 	- P2.14	- OUT21
- 859              	 .loc 1 238 0
- 860 0040 0C4A     	 ldr r2,.L21+8
- 861 0042 0C4B     	 ldr r3,.L21+8
- 862 0044 DB69     	 ldr r3,[r3,#28]
- 863 0046 43F41803 	 orr r3,r3,#9961472
- 864 004a D361     	 str r3,[r2,#28]
+ 807              	 .loc 1 238 0
+ 808 0040 0C4A     	 ldr r2,.L21+8
+ 809 0042 0C4B     	 ldr r3,.L21+8
+ 810 0044 DB69     	 ldr r3,[r3,#28]
+ 811 0046 43F41803 	 orr r3,r3,#9961472
+ 812 004a D361     	 str r3,[r2,#28]
  239:../driver_pwm.c **** 
  240:../driver_pwm.c **** 	PORT1->IOCR12 |= (GPIO_OUTPUT_ALTER_3 << PORT1_IOCR12_PC14_Pos);	//D_HIGH	-P1.14	- OUT10 -CCU81
- 865              	 .loc 1 240 0
- 866 004c 0A4A     	 ldr r2,.L21+12
- 867 004e 0A4B     	 ldr r3,.L21+12
- 868 0050 DB69     	 ldr r3,[r3,#28]
- 869 0052 43F41803 	 orr r3,r3,#9961472
- 870 0056 D361     	 str r3,[r2,#28]
+ 813              	 .loc 1 240 0
+ 814 004c 0A4A     	 ldr r2,.L21+12
+ 815 004e 0A4B     	 ldr r3,.L21+12
+ 816 0050 DB69     	 ldr r3,[r3,#28]
+ 817 0052 43F41803 	 orr r3,r3,#9961472
+ 818 0056 D361     	 str r3,[r2,#28]
  241:../driver_pwm.c **** 	PORT1->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT1_IOCR8_PC11_Pos);		//D_LOW		-P1.11	- OUT11 -CCU81
- 871              	 .loc 1 241 0
- 872 0058 074A     	 ldr r2,.L21+12
- 873 005a 074B     	 ldr r3,.L21+12
- 874 005c 9B69     	 ldr r3,[r3,#24]
- 875 005e 43F01843 	 orr r3,r3,#-1744830464
- 876 0062 9361     	 str r3,[r2,#24]
+ 819              	 .loc 1 241 0
+ 820 0058 074A     	 ldr r2,.L21+12
+ 821 005a 074B     	 ldr r3,.L21+12
+ 822 005c 9B69     	 ldr r3,[r3,#24]
+ 823 005e 43F01843 	 orr r3,r3,#-1744830464
+ 824 0062 9361     	 str r3,[r2,#24]
  242:../driver_pwm.c **** }
- 877              	 .loc 1 242 0
- 878 0064 BD46     	 mov sp,r7
- 879              	.LCFI19:
- 880              	 .cfi_def_cfa_register 13
- 881              	 
- 882 0066 5DF8047B 	 ldr r7,[sp],#4
- 883              	.LCFI20:
- 884              	 .cfi_restore 7
- 885              	 .cfi_def_cfa_offset 0
- 886 006a 7047     	 bx lr
- 887              	.L22:
- 888              	 .align 2
- 889              	.L21:
- 890 006c 00850248 	 .word 1208124672
- 891 0070 00800248 	 .word 1208123392
- 892 0074 00820248 	 .word 1208123904
- 893 0078 00810248 	 .word 1208123648
- 894              	 .cfi_endproc
- 895              	.LFE200:
- 897              	 .section .text.motion_off,"ax",%progbits
- 898              	 .align 2
- 899              	 .global motion_off
- 900              	 .thumb
- 901              	 .thumb_func
- 903              	motion_off:
- 904              	.LFB201:
+ 825              	 .loc 1 242 0
+ 826 0064 BD46     	 mov sp,r7
+ 827              	.LCFI19:
+ 828              	 .cfi_def_cfa_register 13
+ 829              	 
+ 830 0066 5DF8047B 	 ldr r7,[sp],#4
+ 831              	.LCFI20:
+ 832              	 .cfi_restore 7
+ 833              	 .cfi_def_cfa_offset 0
+ 834 006a 7047     	 bx lr
+ 835              	.L22:
+ 836              	 .align 2
+ 837              	.L21:
+ 838 006c 00850248 	 .word 1208124672
+ 839 0070 00800248 	 .word 1208123392
+ 840 0074 00820248 	 .word 1208123904
+ 841 0078 00810248 	 .word 1208123648
+ 842              	 .cfi_endproc
+ 843              	.LFE200:
+ 845              	 .section .text.motion_off,"ax",%progbits
+ 846              	 .align 2
+ 847              	 .global motion_off
+ 848              	 .thumb
+ 849              	 .thumb_func
+ 851              	motion_off:
+ 852              	.LFB201:
  243:../driver_pwm.c **** 
  244:../driver_pwm.c **** /*
  245:../driver_pwm.c **** 	Disable all PWM pins
  246:../driver_pwm.c **** */
  247:../driver_pwm.c **** void motion_off(void)
  248:../driver_pwm.c **** {
- 905              	 .loc 1 248 0
- 906              	 .cfi_startproc
- 907              	 
- 908              	 
- 909              	 
- 910 0000 80B4     	 push {r7}
- 911              	.LCFI21:
- 912              	 .cfi_def_cfa_offset 4
- 913              	 .cfi_offset 7,-4
- 914 0002 00AF     	 add r7,sp,#0
- 915              	.LCFI22:
- 916              	 .cfi_def_cfa_register 7
+ 853              	 .loc 1 248 0
+ 854              	 .cfi_startproc
+ 855              	 
+ 856              	 
+ 857              	 
+ 858 0000 80B4     	 push {r7}
+ 859              	.LCFI21:
+ 860              	 .cfi_def_cfa_offset 4
+ 861              	 .cfi_offset 7,-4
+ 862 0002 00AF     	 add r7,sp,#0
+ 863              	.LCFI22:
+ 864              	 .cfi_def_cfa_register 7
  249:../driver_pwm.c **** 	/*
  250:../driver_pwm.c **** 	 * PWM pins configuration CCU80 - OFF
  251:../driver_pwm.c **** 	 */
  252:../driver_pwm.c **** 	PORT5->IOCR8 &= ~(DISABLE_OUTPUT << PORT5_PC11_POS); // A_HIGH 	- P5.11 - OUT00
- 917              	 .loc 1 252 0
- 918 0004 194A     	 ldr r2,.L24
- 919 0006 194B     	 ldr r3,.L24
- 920 0008 9B69     	 ldr r3,[r3,#24]
- 921 000a 23F07843 	 bic r3,r3,#-134217728
- 922 000e 9361     	 str r3,[r2,#24]
+ 865              	 .loc 1 252 0
+ 866 0004 194A     	 ldr r2,.L24
+ 867 0006 194B     	 ldr r3,.L24
+ 868 0008 9B69     	 ldr r3,[r3,#24]
+ 869 000a 23F07843 	 bic r3,r3,#-134217728
+ 870 000e 9361     	 str r3,[r2,#24]
  253:../driver_pwm.c **** 	PORT5->IOCR8 &= ~(DISABLE_OUTPUT << PORT5_PC8_POS);	 // A_LOW 	- P5.8  - OUT01
- 923              	 .loc 1 253 0
- 924 0010 164A     	 ldr r2,.L24
- 925 0012 164B     	 ldr r3,.L24
- 926 0014 9B69     	 ldr r3,[r3,#24]
- 927 0016 23F0F803 	 bic r3,r3,#248
- 928 001a 9361     	 str r3,[r2,#24]
+ 871              	 .loc 1 253 0
+ 872 0010 164A     	 ldr r2,.L24
+ 873 0012 164B     	 ldr r3,.L24
+ 874 0014 9B69     	 ldr r3,[r3,#24]
+ 875 0016 23F0F803 	 bic r3,r3,#248
+ 876 001a 9361     	 str r3,[r2,#24]
  254:../driver_pwm.c **** 
  255:../driver_pwm.c **** 	PORT0->IOCR4 &= ~(DISABLE_OUTPUT << PORT0_IOCR4_PC4_Pos); // B_HIGH 	- P5.10 - OUT10 P0.4 alternat
- 929              	 .loc 1 255 0
- 930 001c 144A     	 ldr r2,.L24+4
- 931 001e 144B     	 ldr r3,.L24+4
- 932 0020 5B69     	 ldr r3,[r3,#20]
- 933 0022 23F0F803 	 bic r3,r3,#248
- 934 0026 5361     	 str r3,[r2,#20]
+ 877              	 .loc 1 255 0
+ 878 001c 144A     	 ldr r2,.L24+4
+ 879 001e 144B     	 ldr r3,.L24+4
+ 880 0020 5B69     	 ldr r3,[r3,#20]
+ 881 0022 23F0F803 	 bic r3,r3,#248
+ 882 0026 5361     	 str r3,[r2,#20]
  256:../driver_pwm.c **** 	PORT2->IOCR12 &= ~(DISABLE_OUTPUT << PORT2_PC15_POS);	  // B_LOW 	- P2.15 - OUT11
- 935              	 .loc 1 256 0
- 936 0028 124A     	 ldr r2,.L24+8
- 937 002a 124B     	 ldr r3,.L24+8
- 938 002c DB69     	 ldr r3,[r3,#28]
- 939 002e 23F07843 	 bic r3,r3,#-134217728
- 940 0032 D361     	 str r3,[r2,#28]
+ 883              	 .loc 1 256 0
+ 884 0028 124A     	 ldr r2,.L24+8
+ 885 002a 124B     	 ldr r3,.L24+8
+ 886 002c DB69     	 ldr r3,[r3,#28]
+ 887 002e 23F07843 	 bic r3,r3,#-134217728
+ 888 0032 D361     	 str r3,[r2,#28]
  257:../driver_pwm.c **** 
  258:../driver_pwm.c **** 	PORT5->IOCR8 &= ~(DISABLE_OUTPUT << PORT5_PC9_POS);	  // C_HIGH 	- P5.9	- OUT20
- 941              	 .loc 1 258 0
- 942 0034 0D4A     	 ldr r2,.L24
- 943 0036 0D4B     	 ldr r3,.L24
- 944 0038 9B69     	 ldr r3,[r3,#24]
- 945 003a 23F47843 	 bic r3,r3,#63488
- 946 003e 9361     	 str r3,[r2,#24]
+ 889              	 .loc 1 258 0
+ 890 0034 0D4A     	 ldr r2,.L24
+ 891 0036 0D4B     	 ldr r3,.L24
+ 892 0038 9B69     	 ldr r3,[r3,#24]
+ 893 003a 23F47843 	 bic r3,r3,#63488
+ 894 003e 9361     	 str r3,[r2,#24]
  259:../driver_pwm.c **** 	PORT2->IOCR12 &= ~(DISABLE_OUTPUT << PORT2_PC14_POS); // C_LOW 	- P2.14	- OUT21
- 947              	 .loc 1 259 0
- 948 0040 0C4A     	 ldr r2,.L24+8
- 949 0042 0C4B     	 ldr r3,.L24+8
- 950 0044 DB69     	 ldr r3,[r3,#28]
- 951 0046 23F47803 	 bic r3,r3,#16252928
- 952 004a D361     	 str r3,[r2,#28]
+ 895              	 .loc 1 259 0
+ 896 0040 0C4A     	 ldr r2,.L24+8
+ 897 0042 0C4B     	 ldr r3,.L24+8
+ 898 0044 DB69     	 ldr r3,[r3,#28]
+ 899 0046 23F47803 	 bic r3,r3,#16252928
+ 900 004a D361     	 str r3,[r2,#28]
  260:../driver_pwm.c **** 
  261:../driver_pwm.c **** 	PORT1->IOCR12 &= ~(GPIO_OUTPUT_ALTER_3 << PORT1_IOCR12_PC14_Pos);	//D_HIGH	-P1.14	- OUT10 -CCU81
- 953              	 .loc 1 261 0
- 954 004c 0A4A     	 ldr r2,.L24+12
- 955 004e 0A4B     	 ldr r3,.L24+12
- 956 0050 DB69     	 ldr r3,[r3,#28]
- 957 0052 23F41803 	 bic r3,r3,#9961472
- 958 0056 D361     	 str r3,[r2,#28]
+ 901              	 .loc 1 261 0
+ 902 004c 0A4A     	 ldr r2,.L24+12
+ 903 004e 0A4B     	 ldr r3,.L24+12
+ 904 0050 DB69     	 ldr r3,[r3,#28]
+ 905 0052 23F41803 	 bic r3,r3,#9961472
+ 906 0056 D361     	 str r3,[r2,#28]
  262:../driver_pwm.c **** 	PORT1->IOCR8 &= ~(GPIO_OUTPUT_ALTER_3 << PORT1_IOCR8_PC11_Pos);		//D_LOW		-P1.11	- OUT11 -CCU81
- 959              	 .loc 1 262 0
- 960 0058 074A     	 ldr r2,.L24+12
- 961 005a 074B     	 ldr r3,.L24+12
- 962 005c 9B69     	 ldr r3,[r3,#24]
- 963 005e 23F01843 	 bic r3,r3,#-1744830464
- 964 0062 9361     	 str r3,[r2,#24]
+ 907              	 .loc 1 262 0
+ 908 0058 074A     	 ldr r2,.L24+12
+ 909 005a 074B     	 ldr r3,.L24+12
+ 910 005c 9B69     	 ldr r3,[r3,#24]
+ 911 005e 23F01843 	 bic r3,r3,#-1744830464
+ 912 0062 9361     	 str r3,[r2,#24]
  263:../driver_pwm.c **** }
- 965              	 .loc 1 263 0
- 966 0064 BD46     	 mov sp,r7
- 967              	.LCFI23:
- 968              	 .cfi_def_cfa_register 13
- 969              	 
- 970 0066 5DF8047B 	 ldr r7,[sp],#4
- 971              	.LCFI24:
- 972              	 .cfi_restore 7
- 973              	 .cfi_def_cfa_offset 0
- 974 006a 7047     	 bx lr
- 975              	.L25:
- 976              	 .align 2
- 977              	.L24:
- 978 006c 00850248 	 .word 1208124672
- 979 0070 00800248 	 .word 1208123392
- 980 0074 00820248 	 .word 1208123904
- 981 0078 00810248 	 .word 1208123648
- 982              	 .cfi_endproc
- 983              	.LFE201:
- 985              	 .text
- 986              	.Letext0:
- 987              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 988              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 989              	 .file 4 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
- 990              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
- 991              	 .file 6 "../main.h"
+ 913              	 .loc 1 263 0
+ 914 0064 BD46     	 mov sp,r7
+ 915              	.LCFI23:
+ 916              	 .cfi_def_cfa_register 13
+ 917              	 
+ 918 0066 5DF8047B 	 ldr r7,[sp],#4
+ 919              	.LCFI24:
+ 920              	 .cfi_restore 7
+ 921              	 .cfi_def_cfa_offset 0
+ 922 006a 7047     	 bx lr
+ 923              	.L25:
+ 924              	 .align 2
+ 925              	.L24:
+ 926 006c 00850248 	 .word 1208124672
+ 927 0070 00800248 	 .word 1208123392
+ 928 0074 00820248 	 .word 1208123904
+ 929 0078 00810248 	 .word 1208123648
+ 930              	 .cfi_endproc
+ 931              	.LFE201:
+ 933              	 .text
+ 934              	.Letext0:
+ 935              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 936              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 937              	 .file 4 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 938              	 .file 5 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
+ 939              	 .file 6 "../main.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 driver_pwm.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
@@ -1246,23 +1194,23 @@ DEFINED SYMBOLS
     {standard input}:35     .text.pwm_init:00000000 $t
     {standard input}:40     .text.pwm_init:00000000 pwm_init
     {standard input}:364    .text.pwm_init:00000268 $d
-    {standard input}:377    .text.pwm_init:00000298 $t
-    {standard input}:500    .text.pwm_init:00000380 $d
-    {standard input}:509    .text.pwm_timer_start:00000000 $t
-    {standard input}:514    .text.pwm_timer_start:00000000 pwm_timer_start
-    {standard input}:547    .text.pwm_timer_start:00000018 $d
-    {standard input}:552    .text.pwm_timer_stop:00000000 $t
-    {standard input}:557    .text.pwm_timer_stop:00000000 pwm_timer_stop
-    {standard input}:590    .text.pwm_timer_stop:00000018 $d
-    {standard input}:595    .text.pwm_update:00000000 $t
-    {standard input}:600    .text.pwm_update:00000000 pwm_update
-    {standard input}:797    .text.pwm_update:00000160 $d
-    {standard input}:810    .text.motion_on:00000000 $t
-    {standard input}:815    .text.motion_on:00000000 motion_on
-    {standard input}:890    .text.motion_on:0000006c $d
-    {standard input}:898    .text.motion_off:00000000 $t
-    {standard input}:903    .text.motion_off:00000000 motion_off
-    {standard input}:978    .text.motion_off:0000006c $d
+    {standard input}:373    .text.pwm_init:00000288 $t
+    {standard input}:448    .text.pwm_init:00000310 $d
+    {standard input}:457    .text.pwm_timer_start:00000000 $t
+    {standard input}:462    .text.pwm_timer_start:00000000 pwm_timer_start
+    {standard input}:495    .text.pwm_timer_start:00000018 $d
+    {standard input}:500    .text.pwm_timer_stop:00000000 $t
+    {standard input}:505    .text.pwm_timer_stop:00000000 pwm_timer_stop
+    {standard input}:538    .text.pwm_timer_stop:00000018 $d
+    {standard input}:543    .text.pwm_update:00000000 $t
+    {standard input}:548    .text.pwm_update:00000000 pwm_update
+    {standard input}:745    .text.pwm_update:00000160 $d
+    {standard input}:758    .text.motion_on:00000000 $t
+    {standard input}:763    .text.motion_on:00000000 motion_on
+    {standard input}:838    .text.motion_on:0000006c $d
+    {standard input}:846    .text.motion_off:00000000 $t
+    {standard input}:851    .text.motion_off:00000000 motion_off
+    {standard input}:926    .text.motion_off:0000006c $d
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

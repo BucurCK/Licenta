@@ -19,7 +19,7 @@
 
 void infinite_loop(void)
 {
-//	state_machine();
+	state_machine();
 }
 
 int main(void)

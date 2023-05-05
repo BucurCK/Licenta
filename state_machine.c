@@ -142,7 +142,7 @@ void drive_on(void)
 	pwm_update(0, 0); // PWM(50%)
 	motion_on();
 	current_offset();
-	init_position();		//NEED TO CHECK if it still works !!!!
+	init_position();
 }
 
 /*

@@ -10,7 +10,6 @@ C_SRCS += \
 ../driver_pwm.c \
 ../io.c \
 ../kernel_interrupt.c \
-../logger.c \
 ../main.c \
 ../motor_data_update.c \
 ../pi_regulator.c \
@@ -27,7 +26,6 @@ OBJS += \
 ./driver_pwm.o \
 ./io.o \
 ./kernel_interrupt.o \
-./logger.o \
 ./main.o \
 ./motor_data_update.o \
 ./pi_regulator.o \
@@ -44,7 +42,6 @@ C_DEPS += \
 ./driver_pwm.d \
 ./io.d \
 ./kernel_interrupt.d \
-./logger.d \
 ./main.d \
 ./motor_data_update.d \
 ./pi_regulator.d \

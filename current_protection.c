@@ -11,7 +11,7 @@
 #include "driver_pwm.h"
 #include <math.h>
 
-float_t i_prot = 3 * 820.;						  // Ampers converted into 16bit scale | 32768/40 ~= 820
+float_t i_prot = 7 * 820.;						  // Ampers converted into 16bit scale | 32768/40 ~= 820
 float_t k = 0.4;								  // Percentage of filtered signal
 float_t filter_output = 0, filter_output_old = 0; // Output of filtered signal | Last output of filtered signal
 uint32_t counter_timer_prot = 0;				  // Timer increment in 100us -- if functione called in fast_loop

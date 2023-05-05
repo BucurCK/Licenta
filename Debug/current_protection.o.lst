@@ -21,7 +21,7 @@
   21              	 .section .data.i_prot,"aw",%progbits
   22              	 .align 2
   25              	i_prot:
-  26 0000 00C01945 	 .word 1159315456
+  26 0000 0060B345 	 .word 1169383424
   27              	 .global k
   28              	 .section .data.k,"aw",%progbits
   29              	 .align 2
@@ -63,7 +63,7 @@
   11:../current_protection.c **** #include "driver_pwm.h"
   12:../current_protection.c **** #include <math.h>
   13:../current_protection.c **** 
-  14:../current_protection.c **** float_t i_prot = 3 * 820.;						  // Ampers converted into 16bit scale | 32768/40 ~= 820
+  14:../current_protection.c **** float_t i_prot = 7 * 820.;						  // Ampers converted into 16bit scale | 32768/40 ~= 820
   15:../current_protection.c **** float_t k = 0.4;								  // Percentage of filtered signal
   16:../current_protection.c **** float_t filter_output = 0, filter_output_old = 0; // Output of filtered signal | Last output of fil
   17:../current_protection.c **** uint32_t counter_timer_prot = 0;				  // Timer increment in 100us -- if functione called in fast_lo

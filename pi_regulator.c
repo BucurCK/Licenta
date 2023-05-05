@@ -11,7 +11,7 @@ regulator current_d;
 regulator speed;
 float_t err_old_pos;
 
-float_t i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 1000, u_d_ref = 0;	//TEST
+float_t i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref = 0;	//TEST
 
 void pi_regulator_i_q(void) // i_q -> u_q_ref
 {
@@ -205,8 +205,8 @@ void pid_regulator_pos(void) // mechanical_position_fast -> spd_ref
 
 void pi_init(void)
 {
-	current_q.kp = 10;
-	current_q.ki = 0.05;
+	current_q.kp = 1;
+	current_q.ki = 0;
 	current_q.kd = 0;
 	current_q.sat_out = 15000;
 	current_q.sat_i_part = current_q.sat_out / 10;
@@ -217,21 +217,21 @@ void pi_init(void)
 	current_d.sat_out = current_q.sat_out;
 	current_d.sat_i_part = current_q.sat_i_part;
 
-	speed.kp = 200;
-	speed.ki = 5;
+	speed.kp = 0;
+	speed.ki = 0;
 	speed.kd = 0;
 	speed.sat_out = 5000;
 	speed.sat_i_part = speed.sat_out / 10;
 
-	position[0].kp = 0.3;
-	position[0].ki = 0.0015;
+	position[0].kp = 0;
+	position[0].ki = 0;
 	position[0].kd = 0;
 	position[0].sat_out = 50;
 	position[0].sat_i_part = position[0].sat_out / 10;
 
-	position[1].kp = 0.5;
-	position[1].ki = 0.025;
-	position[1].kd = 25.0;
+	position[1].kp = 0;
+	position[1].ki = 0;
+	position[1].kd = 0;
 	position[1].sat_out = 5000;
 	position[1].sat_i_part = position[1].sat_out / 10;
 

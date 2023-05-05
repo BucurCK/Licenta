@@ -80,19 +80,19 @@
   26:../motor_data_update.c **** 	motion_on();			// Enable PWM pins
   62              	 .loc 1 26 0
   63 0004 FFF7FEFF 	 bl motion_on
-  27:../motor_data_update.c **** 	pwm_update(0, 4000); // Apply voltage on B Phase
+  27:../motor_data_update.c **** 	pwm_update(0, 1000); // Apply voltage on B Phase
   64              	 .loc 1 27 0
   65 0008 0020     	 movs r0,#0
-  66 000a 4FF47A61 	 mov r1,#4000
+  66 000a 4FF47A71 	 mov r1,#1000
   67 000e FFF7FEFF 	 bl pwm_update
   28:../motor_data_update.c **** 	delay_t(SECOND_1 / 2);	// Wait 0.5s
   68              	 .loc 1 28 0
   69 0012 41F28830 	 movw r0,#5000
   70 0016 FFF7FEFF 	 bl delay_t
   29:../motor_data_update.c **** 
-  30:../motor_data_update.c **** 	pwm_update(4000, 0); // Apply voltage on A Phase
+  30:../motor_data_update.c **** 	pwm_update(1000, 0); // Apply voltage on A Phase
   71              	 .loc 1 30 0
-  72 001a 4FF47A60 	 mov r0,#4000
+  72 001a 4FF47A70 	 mov r0,#1000
   73 001e 0021     	 movs r1,#0
   74 0020 FFF7FEFF 	 bl pwm_update
   31:../motor_data_update.c **** 	delay_t(SECOND_1 / 2);	// Wait 0.5s

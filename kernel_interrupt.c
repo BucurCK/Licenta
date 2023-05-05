@@ -20,7 +20,7 @@
 uint16_t interrupt_counter_slow_loop = 0; // Slow Loop counter
 uint16_t interrupt_counter_fast_loop = 0; // Fast Loop couner
 uint32_t interrupt_counter_timer = 0;	  // Timer Counter
-uint8_t test = 1;
+uint8_t test = 0;
 
 /********************************************************************/
 //// FOR TESTING
@@ -65,7 +65,7 @@ void VADC0_G0_2_IRQHandler(void)
 			}
 
 			dq_abc();
-//			pwm_update(u_a_ref, u_b_ref, u_c_ref);
+			pwm_update(u_a_ref, u_b_ref);
 
 			ProbeScope_Sampling(); // For Micrium Osciloscope
 		}

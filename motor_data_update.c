@@ -24,10 +24,10 @@ uint16_t timer_value_old_slow = 0;
 void init_position(void)	//TO DO:check if it still works
 {
 	motion_on();			// Enable PWM pins
-	pwm_update(0, 4000); // Apply voltage on B Phase
+	pwm_update(0, 1000); // Apply voltage on B Phase
 	delay_t(SECOND_1 / 2);	// Wait 0.5s
 
-	pwm_update(4000, 0); // Apply voltage on A Phase
+	pwm_update(1000, 0); // Apply voltage on A Phase
 	delay_t(SECOND_1 / 2);	// Wait 0.5s
 //	motion_off();			// Disable PWM pin			NEED TO CHECK if it still works
 

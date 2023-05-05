@@ -22,7 +22,6 @@ int32_t offset_ia, offset_ib, offset_ic; // Current offsets for every phase
 int16_t ia, ib, ic;						 // Currents read from ADC in 16bit
 float_t ia_a, ib_a, ic_a, iq_a;			 // Float values for Micrium
 uint8_t prot_status = ON;				 // Status of Current protection -- OFF for offset computation
-// int32_t ia_32, ib_32, ic_32;							// Int32 values for Micrium(int16 is prone to error for osciloscope)
 
 /*
 	Initialize VADC unit
@@ -284,17 +283,14 @@ void interrupt_vadc_init(void)
 */
 void read_currents(void)
 {
-	ia = (VADC_G0->RES[1] & 0xFFFF) * 16 - offset_ia; // 16 bit value -- INVERTED
+	ia = (VADC_G0->RES[1] & 0xFFFF) * 16 - offset_ia; // 16 bit value -- Very noisy
 	ib = (VADC_G1->RES[1] & 0xFFFF) * 16 - offset_ib; // 16 bit value
 	ic = (VADC_G2->RES[1] & 0xFFFF) * 16 - offset_ic; // 16 bit value
-//	ia = (-ib - ic);								  // TOO NOISY
+	ia = -ib;
 
 	u_mot_dig = (VADC_G2->RES[14] & 0xFFFF); // 12 bit value
 	u_log_dig = (VADC_G1->RES[14] & 0xFFFF); // 12 bit value
 
-	// ia_32 = ia;
-	// ib_32 = ib;
-	// ic_32 = ic;
 }
 /**
  * Compute current offset for every phase

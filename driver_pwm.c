@@ -13,17 +13,17 @@ void pwm_init(void)
 	///*
 	// * PWM pins configuration CCU80 - as alter function 3 - CCU80 OUTxy
 	// */
-	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC11_POS); 			// A_HIGH 	- P5.11 - OUT00 -CCU80
-	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC8_POS);				// A_LOW 	- P5.8  - OUT01 -CCU80
-
-	PORT0->IOCR4 |= (GPIO_OUTPUT_ALTER_3 << PORT0_IOCR4_PC4_Pos);		// B_HIGH 	- P5.10 - OUT10 P0.4 alternative -CCU80
-	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC15_POS);			// B_LOW 	- P2.15 - OUT11 -CCU80
-
-	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC9_POS);				// C_HIGH 	- P5.9	- OUT20 -CCU80
-	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC14_POS);			// C_LOW 	- P2.14	- OUT21 -CCU80
-
-	PORT1->IOCR12 |= (GPIO_OUTPUT_ALTER_3 << PORT1_IOCR12_PC14_Pos);	//D_HIGH	-P1.14	- OUT10 -CCU81
-	PORT1->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT1_IOCR8_PC11_Pos);		//D_LOW		-P1.11	- OUT11 -CCU81
+//	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC11_POS); 			// A_HIGH 	- P5.11 - OUT00 -CCU80
+//	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC8_POS);				// A_LOW 	- P5.8  - OUT01 -CCU80
+//
+//	PORT0->IOCR4 |= (GPIO_OUTPUT_ALTER_3 << PORT0_IOCR4_PC4_Pos);		// B_HIGH 	- P5.10 - OUT10 P0.4 alternative -CCU80
+//	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC15_POS);			// B_LOW 	- P2.15 - OUT11 -CCU80
+//
+//	PORT5->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT5_PC9_POS);				// C_HIGH 	- P5.9	- OUT20 -CCU80
+//	PORT2->IOCR12 |=(GPIO_OUTPUT_ALTER_3 << PORT2_PC14_POS);			// C_LOW 	- P2.14	- OUT21 -CCU80
+//
+//	PORT1->IOCR12 |= (GPIO_OUTPUT_ALTER_3 << PORT1_IOCR12_PC14_Pos);	//D_HIGH	-P1.14	- OUT10 -CCU81
+//	PORT1->IOCR8 |= (GPIO_OUTPUT_ALTER_3 << PORT1_IOCR8_PC11_Pos);		//D_LOW		-P1.11	- OUT11 -CCU81
 
 	/*
 	 * CCU80 is already set up from VADC_irq
@@ -210,11 +210,11 @@ void pwm_update(int16_t uaref, int16_t ubref)
 
 
 	// New compare value
-	CCU80_CC80->CR1S = (pwm_value / 2 - pwm_value * uaref / 65535);	//A - A1
-	CCU80_CC81->CR1S = (pwm_value / 2 + pwm_value * uaref / 65535); //B - A2
+	CCU80_CC80->CR1S = (pwm_value / 2 + pwm_value * uaref / 65535);	//A - A1
+	CCU80_CC81->CR1S = (pwm_value / 2 - pwm_value * uaref / 65535); //B - A2
 	
-	CCU80_CC82->CR1S = (pwm_value / 2 - pwm_value * ubref / 65535); //C - B1
-	CCU81_CC81->CR1S = (pwm_value / 2 + pwm_value * ubref / 65535); //D - B2
+	CCU80_CC82->CR1S = (pwm_value / 2 + pwm_value * ubref / 65535); //C - B1
+	CCU81_CC81->CR1S = (pwm_value / 2 - pwm_value * ubref / 65535); //D - B2
 
 	// Shadow transfer enabled for new compare value
 	CCU80->GCSS |= (CCU8_GCSS_S0SE_MSK | CCU8_GCSS_S1SE_MSK | CCU8_GCSS_S2SE_MSK);

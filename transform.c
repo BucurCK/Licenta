@@ -20,8 +20,8 @@ float_t cos_theta_fast = 0;					 // cos(theta)
 uint16_t timer_value_fast = 0;				 // Stored value of CCU40 timer for encoder
 uint16_t timer_value_old_fast = 0;			 //*Last* read of timer value for speed computation
 int16_t speed_value_fast = 0;				 // Speed value based on 2 timer values
-int16_t encoder_resolution = 2000;			 // Resolution of encoder | 4*500
-int8_t pp = 50;								 // Number of electric poles
+int16_t encoder_resolution = 4000;			 // Resolution of encoder | 4*1000
+int8_t pp = 25;								 // Number of electric poles
 int16_t electrical_resolution = 0;			 // Electrical resolution based on encoder resolution and number of electric poles | 2000/4 = 500
 float_t u_a_ref, u_b_ref, u_c_ref;			 // abc voltage | -32768 -- 32,767
 float_t i_d, i_q;							 // dq voltage																   *
@@ -36,7 +36,7 @@ void abc_dq(void)
 	// The Clarke Transformation
 	i_alpha = ia;
 //	i_beta = F_1_SQRT_3 * (float_t)(ia + (float_t)(2 * ib));
-	i_beta = ib;
+	i_beta = ic;
 
 	// The Park Transformation
 	i_d = i_alpha * cos_theta_fast + i_beta * sin_theta_fast;
@@ -94,11 +94,11 @@ void dq_abc(void)
 /*
  * Compute the speed based on the encoder increments, read from CCU40 Timer
  */
-void compute_fast_speed(void)
+void compute_fast_speed(void)			//SPEED = 1 for testing
 {
 	timer_value_fast = CCU40_CC40->TIMER;
-//	speed_value_fast = timer_value_fast - timer_value_old_fast;
-	speed_value_fast = 1;
+	speed_value_fast = timer_value_fast - timer_value_old_fast;
+//	speed_value_fast = 1;
 	timer_value_old_fast = timer_value_fast;
 }
 /*
