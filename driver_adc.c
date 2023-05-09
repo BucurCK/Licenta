@@ -286,7 +286,7 @@ void read_currents(void)
 	ia = (VADC_G0->RES[1] & 0xFFFF) * 16 - offset_ia; // 16 bit value -- Very noisy
 	ib = (VADC_G1->RES[1] & 0xFFFF) * 16 - offset_ib; // 16 bit value
 	ic = (VADC_G2->RES[1] & 0xFFFF) * 16 - offset_ic; // 16 bit value
-	ia = -ib;
+	ia = -ib;										  // use ib instead of ia
 
 	u_mot_dig = (VADC_G2->RES[14] & 0xFFFF); // 12 bit value
 	u_log_dig = (VADC_G1->RES[14] & 0xFFFF); // 12 bit value

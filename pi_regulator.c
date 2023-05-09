@@ -12,8 +12,12 @@ regulator speed;
 float_t err_old_pos;
 
 float_t i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref = 0;	//TEST
-
-void pi_regulator_i_q(void) // i_q -> u_q_ref
+/*
+	PI regulator for Iq
+	Input: i_q
+	Output u_q_ref
+*/
+void pi_regulator_i_q(void) 
 {
 	current_q.error = i_q_ref - i_q;
 
@@ -52,7 +56,12 @@ void pi_regulator_i_q(void) // i_q -> u_q_ref
 	}
 }
 
-void pi_regulator_i_d(void) // i_d -> u_d_ref
+/*
+	PI regulator for Id
+	Input: i_d
+	Output u_d_ref
+*/
+void pi_regulator_i_d(void) 
 {
 	current_d.error = i_d_ref - i_d;
 
@@ -91,7 +100,12 @@ void pi_regulator_i_d(void) // i_d -> u_d_ref
 	}
 }
 
-void pi_regulator_speed(void) // motor_spd -> i_q_ref
+/*
+	PI regulator for Spd
+	Input: motor_spd
+	Output i_q_ref
+*/
+void pi_regulator_speed(void) 
 {
 	speed.error = spd_ref - motor_spd;
 
@@ -130,6 +144,11 @@ void pi_regulator_speed(void) // motor_spd -> i_q_ref
 	}
 }
 
+/*
+	PID regulator for Pos
+	Input: mechanical_position_fast
+	Output: spd_ref | i_q_ref
+*/
 void pid_regulator_pos(void) // mechanical_position_fast -> spd_ref
 {
 	int i = !(LOOP_SPD_ENABLE);
@@ -202,11 +221,14 @@ void pid_regulator_pos(void) // mechanical_position_fast -> spd_ref
 		break;
 	}
 }
-
+/*
+	Refulator data initialization
+	TODO: Stepper tunnig
+*/
 void pi_init(void)
 {
-	current_q.kp = 1;
-	current_q.ki = 0;
+	current_q.kp = 1.5;
+	current_q.ki = 0.05;
 	current_q.kd = 0;
 	current_q.sat_out = 15000;
 	current_q.sat_i_part = current_q.sat_out / 10;
@@ -217,16 +239,16 @@ void pi_init(void)
 	current_d.sat_out = current_q.sat_out;
 	current_d.sat_i_part = current_q.sat_i_part;
 
-	speed.kp = 0;
-	speed.ki = 0;
+	speed.kp = 60;
+	speed.ki = 15;
 	speed.kd = 0;
-	speed.sat_out = 5000;
+	speed.sat_out = 15000;
 	speed.sat_i_part = speed.sat_out / 10;
 
-	position[0].kp = 0;
-	position[0].ki = 0;
+	position[0].kp = 0.5;
+	position[0].ki = 0.01;
 	position[0].kd = 0;
-	position[0].sat_out = 50;
+	position[0].sat_out = 100;
 	position[0].sat_i_part = position[0].sat_out / 10;
 
 	position[1].kp = 0;

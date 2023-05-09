@@ -110,8 +110,8 @@
   20:../transform.c **** uint16_t timer_value_fast = 0;				 // Stored value of CCU40 timer for encoder
   21:../transform.c **** uint16_t timer_value_old_fast = 0;			 //*Last* read of timer value for speed computation
   22:../transform.c **** int16_t speed_value_fast = 0;				 // Speed value based on 2 timer values
-  23:../transform.c **** int16_t encoder_resolution = 4000;			 // Resolution of encoder | 4*1000
-  24:../transform.c **** int8_t pp = 25;								 // Number of electric poles
+  23:../transform.c **** int16_t encoder_resolution = 4000;			 // Resolution of encoder | 4*1000				TODO: Make a function to
+  24:../transform.c **** int8_t pp = 25;								 // Number of electric poles : 100[steps]/4		TODO: Make a function to init t
   25:../transform.c **** int16_t electrical_resolution = 0;			 // Electrical resolution based on encoder resolution and numb
   26:../transform.c **** float_t u_a_ref, u_b_ref, u_c_ref;			 // abc voltage | -32768 -- 32,767
   27:../transform.c **** float_t i_d, i_q;							 // dq voltage																   *
@@ -135,7 +135,7 @@
  123 0002 00AF     	 add r7,sp,#0
  124              	.LCFI1:
  125              	 .cfi_def_cfa_register 7
-  36:../transform.c **** 	// The Clarke Transformation
+  36:../transform.c **** 	// Initializa alpha values
   37:../transform.c **** 	i_alpha = ia;
  126              	 .loc 1 37 0
  127 0004 204B     	 ldr r3,.L2
@@ -145,9 +145,8 @@
  131 000e F8EEE77A 	 fsitos s15,s15
  132 0012 1E4B     	 ldr r3,.L2+4
  133 0014 C3ED007A 	 fsts s15,[r3]
-  38:../transform.c **** //	i_beta = F_1_SQRT_3 * (float_t)(ia + (float_t)(2 * ib));
-  39:../transform.c **** 	i_beta = ic;
- 134              	 .loc 1 39 0
+  38:../transform.c **** 	i_beta = ic;
+ 134              	 .loc 1 38 0
  135 0018 1D4B     	 ldr r3,.L2+8
  136 001a 1B88     	 ldrh r3,[r3]
  137 001c 1BB2     	 sxth r3,r3
@@ -155,10 +154,10 @@
  139 0022 F8EEE77A 	 fsitos s15,s15
  140 0026 1B4B     	 ldr r3,.L2+12
  141 0028 C3ED007A 	 fsts s15,[r3]
-  40:../transform.c **** 
-  41:../transform.c **** 	// The Park Transformation
-  42:../transform.c **** 	i_d = i_alpha * cos_theta_fast + i_beta * sin_theta_fast;
- 142              	 .loc 1 42 0
+  39:../transform.c **** 
+  40:../transform.c **** 	// Park Transformation
+  41:../transform.c **** 	i_d = i_alpha * cos_theta_fast + i_beta * sin_theta_fast;
+ 142              	 .loc 1 41 0
  143 002c 174B     	 ldr r3,.L2+4
  144 002e 93ED007A 	 flds s14,[r3]
  145 0032 194B     	 ldr r3,.L2+16
@@ -172,8 +171,8 @@
  153 004c 77EE277A 	 fadds s15,s14,s15
  154 0050 134B     	 ldr r3,.L2+24
  155 0052 C3ED007A 	 fsts s15,[r3]
-  43:../transform.c **** 	i_q = i_beta * cos_theta_fast - i_alpha * sin_theta_fast;
- 156              	 .loc 1 43 0
+  42:../transform.c **** 	i_q = i_beta * cos_theta_fast - i_alpha * sin_theta_fast;
+ 156              	 .loc 1 42 0
  157 0056 0F4B     	 ldr r3,.L2+12
  158 0058 93ED007A 	 flds s14,[r3]
  159 005c 0E4B     	 ldr r3,.L2+16
@@ -187,8 +186,8 @@
  167 0076 77EE677A 	 fsubs s15,s14,s15
  168 007a 0A4B     	 ldr r3,.L2+28
  169 007c C3ED007A 	 fsts s15,[r3]
-  44:../transform.c **** }
- 170              	 .loc 1 44 0
+  43:../transform.c **** }
+ 170              	 .loc 1 43 0
  171 0080 BD46     	 mov sp,r7
  172              	.LCFI2:
  173              	 .cfi_def_cfa_register 13
@@ -218,13 +217,13 @@
  198              	 .thumb_func
  200              	dq_abc:
  201              	.LFB197:
-  45:../transform.c **** 
-  46:../transform.c **** /*
-  47:../transform.c ****  * Convert two-phase balanced sinusoidal signals to three-phase electrical signals
-  48:../transform.c ****  */
-  49:../transform.c **** void dq_abc(void)
-  50:../transform.c **** {
- 202              	 .loc 1 50 0
+  44:../transform.c **** 
+  45:../transform.c **** /*
+  46:../transform.c ****  * Convert two-phase balanced sinusoidal signals to three-phase electrical signals
+  47:../transform.c ****  */
+  48:../transform.c **** void dq_abc(void)
+  49:../transform.c **** {
+ 202              	 .loc 1 49 0
  203              	 .cfi_startproc
  204              	 
  205              	 
@@ -236,10 +235,10 @@
  211 0002 00AF     	 add r7,sp,#0
  212              	.LCFI5:
  213              	 .cfi_def_cfa_register 7
-  51:../transform.c **** 
-  52:../transform.c **** 	// The Inverse Park Transformation
-  53:../transform.c **** 	u_alpha = u_d_ref * cos_theta_fast - u_q_ref * sin_theta_fast;
- 214              	 .loc 1 53 0
+  50:../transform.c **** 
+  51:../transform.c **** 	// The Inverse Park Transformation
+  52:../transform.c **** 	u_alpha = u_d_ref * cos_theta_fast - u_q_ref * sin_theta_fast;
+ 214              	 .loc 1 52 0
  215 0004 364B     	 ldr r3,.L19
  216 0006 93ED007A 	 flds s14,[r3]
  217 000a 364B     	 ldr r3,.L19+4
@@ -253,8 +252,8 @@
  225 0024 77EE677A 	 fsubs s15,s14,s15
  226 0028 314B     	 ldr r3,.L19+16
  227 002a C3ED007A 	 fsts s15,[r3]
-  54:../transform.c **** 	u_beta = u_q_ref * cos_theta_fast + u_d_ref * sin_theta_fast;
- 228              	 .loc 1 54 0
+  53:../transform.c **** 	u_beta = u_q_ref * cos_theta_fast + u_d_ref * sin_theta_fast;
+ 228              	 .loc 1 53 0
  229 002e 2E4B     	 ldr r3,.L19+8
  230 0030 93ED007A 	 flds s14,[r3]
  231 0034 2B4B     	 ldr r3,.L19+4
@@ -268,105 +267,95 @@
  239 004e 77EE277A 	 fadds s15,s14,s15
  240 0052 284B     	 ldr r3,.L19+20
  241 0054 C3ED007A 	 fsts s15,[r3]
-  55:../transform.c **** 
-  56:../transform.c **** 	// The Inverse Clarke Transformation
-  57:../transform.c **** 	u_a_ref = u_alpha;
- 242              	 .loc 1 57 0
+  54:../transform.c **** 
+  55:../transform.c **** 	// The Inverse Clarke Transformation
+  56:../transform.c **** 	u_a_ref = u_alpha;
+ 242              	 .loc 1 56 0
  243 0058 254B     	 ldr r3,.L19+16
  244 005a 1B68     	 ldr r3,[r3]
  245 005c 264A     	 ldr r2,.L19+24
  246 005e 1360     	 str r3,[r2]
-  58:../transform.c **** 	u_b_ref = u_beta;
- 247              	 .loc 1 58 0
+  57:../transform.c **** 	u_b_ref = u_beta;
+ 247              	 .loc 1 57 0
  248 0060 244B     	 ldr r3,.L19+20
  249 0062 1B68     	 ldr r3,[r3]
  250 0064 254A     	 ldr r2,.L19+28
  251 0066 1360     	 str r3,[r2]
-  59:../transform.c **** //	u_b_ref = (-u_alpha + SQRT_3 * u_beta) / 2;
-  60:../transform.c **** //	u_c_ref = (-u_alpha - SQRT_3 * u_beta) / 2;
-  61:../transform.c **** 
-  62:../transform.c **** 	/*
-  63:../transform.c **** 	 * Keeps the values in range of int16_t
-  64:../transform.c **** 	 * Later on the Float values will be casted into Int
-  65:../transform.c **** 	 */
-  66:../transform.c **** 	if (u_a_ref > MAX_UINT_16)
- 252              	 .loc 1 66 0
+  58:../transform.c **** 
+  59:../transform.c **** 	/*
+  60:../transform.c **** 	 * Keeps the values in range of int16_t
+  61:../transform.c **** 	 * Later on the Float values will be casted into Int
+  62:../transform.c **** 	 */
+  63:../transform.c **** 	if (u_a_ref > MAX_INT_16)
+ 252              	 .loc 1 63 0
  253 0068 234B     	 ldr r3,.L19+24
  254 006a D3ED007A 	 flds s15,[r3]
  255 006e 9FED247A 	 flds s14,.L19+32
  256 0072 F4EEC77A 	 fcmpes s15,s14
  257 0076 F1EE10FA 	 fmstat
  258 007a 03DD     	 ble .L17
-  67:../transform.c **** 	{
-  68:../transform.c **** 		u_a_ref = MAX_UINT_16;
- 259              	 .loc 1 68 0
+  64:../transform.c **** 	{
+  65:../transform.c **** 		u_a_ref = MAX_INT_16;
+ 259              	 .loc 1 65 0
  260 007c 1E4B     	 ldr r3,.L19+24
  261 007e 214A     	 ldr r2,.L19+36
  262 0080 1A60     	 str r2,[r3]
  263 0082 0DE0     	 b .L7
  264              	.L17:
-  69:../transform.c **** 	}
-  70:../transform.c **** 	else if (u_a_ref < MIN_UINT_16)
- 265              	 .loc 1 70 0
+  66:../transform.c **** 	}
+  67:../transform.c **** 	else if (u_a_ref < MIN_UINT_16)
+ 265              	 .loc 1 67 0
  266 0084 1C4B     	 ldr r3,.L19+24
  267 0086 D3ED007A 	 flds s15,[r3]
  268 008a 9FED1F7A 	 flds s14,.L19+40
  269 008e F4EEC77A 	 fcmpes s15,s14
  270 0092 F1EE10FA 	 fmstat
  271 0096 03D5     	 bpl .L7
-  71:../transform.c **** 	{
-  72:../transform.c **** 		u_a_ref = MIN_UINT_16;
- 272              	 .loc 1 72 0
+  68:../transform.c **** 	{
+  69:../transform.c **** 		u_a_ref = MIN_UINT_16;
+ 272              	 .loc 1 69 0
  273 0098 174B     	 ldr r3,.L19+24
  274 009a 4FF04742 	 mov r2,#-956301312
  275 009e 1A60     	 str r2,[r3]
  276              	.L7:
-  73:../transform.c **** 	}
-  74:../transform.c **** 
-  75:../transform.c **** 	if (u_b_ref > MAX_UINT_16)
- 277              	 .loc 1 75 0
+  70:../transform.c **** 	}
+  71:../transform.c **** 
+  72:../transform.c **** 	if (u_b_ref > MAX_INT_16)
+ 277              	 .loc 1 72 0
  278 00a0 164B     	 ldr r3,.L19+28
  279 00a2 D3ED007A 	 flds s15,[r3]
  280 00a6 9FED167A 	 flds s14,.L19+32
  281 00aa F4EEC77A 	 fcmpes s15,s14
  282 00ae F1EE10FA 	 fmstat
  283 00b2 03DD     	 ble .L18
-  76:../transform.c **** 	{
-  77:../transform.c **** 		u_b_ref = MAX_UINT_16;
- 284              	 .loc 1 77 0
+  73:../transform.c **** 	{
+  74:../transform.c **** 		u_b_ref = MAX_INT_16;
+ 284              	 .loc 1 74 0
  285 00b4 114B     	 ldr r3,.L19+28
  286 00b6 134A     	 ldr r2,.L19+36
  287 00b8 1A60     	 str r2,[r3]
  288 00ba 0DE0     	 b .L4
  289              	.L18:
-  78:../transform.c **** 	}
-  79:../transform.c **** 	else if (u_b_ref < MIN_UINT_16)
- 290              	 .loc 1 79 0
+  75:../transform.c **** 	}
+  76:../transform.c **** 	else if (u_b_ref < MIN_UINT_16)
+ 290              	 .loc 1 76 0
  291 00bc 0F4B     	 ldr r3,.L19+28
  292 00be D3ED007A 	 flds s15,[r3]
  293 00c2 9FED117A 	 flds s14,.L19+40
  294 00c6 F4EEC77A 	 fcmpes s15,s14
  295 00ca F1EE10FA 	 fmstat
  296 00ce 03D5     	 bpl .L4
-  80:../transform.c **** 	{
-  81:../transform.c **** 		u_a_ref = MIN_UINT_16;
- 297              	 .loc 1 81 0
+  77:../transform.c **** 	{
+  78:../transform.c **** 		u_a_ref = MIN_UINT_16;
+ 297              	 .loc 1 78 0
  298 00d0 094B     	 ldr r3,.L19+24
  299 00d2 4FF04742 	 mov r2,#-956301312
  300 00d6 1A60     	 str r2,[r3]
  301              	.L4:
-  82:../transform.c **** 	}
-  83:../transform.c **** 
-  84:../transform.c **** //	if (u_c_ref > MAX_UINT_16)
-  85:../transform.c **** //	{
-  86:../transform.c **** //		u_a_ref = MAX_UINT_16;
-  87:../transform.c **** //	}
-  88:../transform.c **** //	else if (u_c_ref < MIN_UINT_16)
-  89:../transform.c **** //	{
-  90:../transform.c **** //		u_c_ref = MIN_UINT_16;
-  91:../transform.c **** //	}
-  92:../transform.c **** }
- 302              	 .loc 1 92 0
+  79:../transform.c **** 	}
+  80:../transform.c **** 
+  81:../transform.c **** }
+ 302              	 .loc 1 81 0
  303 00d8 BD46     	 mov sp,r7
  304              	.LCFI6:
  305              	 .cfi_def_cfa_register 13
@@ -399,13 +388,13 @@
  333              	 .thumb_func
  335              	compute_fast_speed:
  336              	.LFB198:
-  93:../transform.c **** 
-  94:../transform.c **** /*
-  95:../transform.c ****  * Compute the speed based on the encoder increments, read from CCU40 Timer
-  96:../transform.c ****  */
-  97:../transform.c **** void compute_fast_speed(void)			//SPEED = 1 for testing
-  98:../transform.c **** {
- 337              	 .loc 1 98 0
+  82:../transform.c **** 
+  83:../transform.c **** /*
+  84:../transform.c ****  * Compute the speed based on the encoder increments, read from CCU40 Timer
+  85:../transform.c ****  */
+  86:../transform.c **** void compute_fast_speed(void)			//SPEED = 1 for testing
+  87:../transform.c **** {
+ 337              	 .loc 1 87 0
  338              	 .cfi_startproc
  339              	 
  340              	 
@@ -417,259 +406,265 @@
  346 0002 00AF     	 add r7,sp,#0
  347              	.LCFI9:
  348              	 .cfi_def_cfa_register 7
-  99:../transform.c **** 	timer_value_fast = CCU40_CC40->TIMER;
- 349              	 .loc 1 99 0
- 350 0004 074B     	 ldr r3,.L22
+  88:../transform.c **** 	timer_value_fast = CCU40_CC40->TIMER;
+ 349              	 .loc 1 88 0
+ 350 0004 0A4B     	 ldr r3,.L22
  351 0006 1B6F     	 ldr r3,[r3,#112]
  352 0008 9AB2     	 uxth r2,r3
- 353 000a 074B     	 ldr r3,.L22+4
+ 353 000a 0A4B     	 ldr r3,.L22+4
  354 000c 1A80     	 strh r2,[r3]
- 100:../transform.c **** //	speed_value_fast = timer_value_fast - timer_value_old_fast;
- 101:../transform.c **** 	speed_value_fast = 1;
- 355              	 .loc 1 101 0
- 356 000e 074B     	 ldr r3,.L22+8
- 357 0010 0122     	 movs r2,#1
- 358 0012 1A80     	 strh r2,[r3]
- 102:../transform.c **** 	timer_value_old_fast = timer_value_fast;
- 359              	 .loc 1 102 0
- 360 0014 044B     	 ldr r3,.L22+4
- 361 0016 1A88     	 ldrh r2,[r3]
- 362 0018 054B     	 ldr r3,.L22+12
- 363 001a 1A80     	 strh r2,[r3]
- 103:../transform.c **** }
- 364              	 .loc 1 103 0
- 365 001c BD46     	 mov sp,r7
- 366              	.LCFI10:
- 367              	 .cfi_def_cfa_register 13
- 368              	 
- 369 001e 5DF8047B 	 ldr r7,[sp],#4
- 370              	.LCFI11:
- 371              	 .cfi_restore 7
- 372              	 .cfi_def_cfa_offset 0
- 373 0022 7047     	 bx lr
- 374              	.L23:
- 375              	 .align 2
- 376              	.L22:
- 377 0024 00C10040 	 .word 1073791232
- 378 0028 00000000 	 .word timer_value_fast
- 379 002c 00000000 	 .word speed_value_fast
- 380 0030 00000000 	 .word timer_value_old_fast
- 381              	 .cfi_endproc
- 382              	.LFE198:
- 384              	 .section .text.compute_fast_mechanical_position,"ax",%progbits
- 385              	 .align 2
- 386              	 .global compute_fast_mechanical_position
- 387              	 .thumb
- 388              	 .thumb_func
- 390              	compute_fast_mechanical_position:
- 391              	.LFB199:
- 104:../transform.c **** /*
- 105:../transform.c ****  * Compute the mechanical position based on the speed value
- 106:../transform.c ****  */
- 107:../transform.c **** void compute_fast_mechanical_position(void)
- 108:../transform.c **** {
- 392              	 .loc 1 108 0
- 393              	 .cfi_startproc
- 394              	 
- 395              	 
- 396              	 
- 397 0000 80B4     	 push {r7}
- 398              	.LCFI12:
- 399              	 .cfi_def_cfa_offset 4
- 400              	 .cfi_offset 7,-4
- 401 0002 00AF     	 add r7,sp,#0
- 402              	.LCFI13:
- 403              	 .cfi_def_cfa_register 7
- 109:../transform.c **** 	mechanical_position_fast += speed_value_fast;
- 404              	 .loc 1 109 0
- 405 0004 054B     	 ldr r3,.L25
- 406 0006 1B88     	 ldrh r3,[r3]
- 407 0008 1AB2     	 sxth r2,r3
- 408 000a 054B     	 ldr r3,.L25+4
- 409 000c 1B68     	 ldr r3,[r3]
- 410 000e 1344     	 add r3,r3,r2
- 411 0010 034A     	 ldr r2,.L25+4
- 412 0012 1360     	 str r3,[r2]
- 110:../transform.c **** }
- 413              	 .loc 1 110 0
- 414 0014 BD46     	 mov sp,r7
- 415              	.LCFI14:
- 416              	 .cfi_def_cfa_register 13
- 417              	 
- 418 0016 5DF8047B 	 ldr r7,[sp],#4
- 419              	.LCFI15:
- 420              	 .cfi_restore 7
- 421              	 .cfi_def_cfa_offset 0
- 422 001a 7047     	 bx lr
- 423              	.L26:
- 424              	 .align 2
- 425              	.L25:
- 426 001c 00000000 	 .word speed_value_fast
- 427 0020 00000000 	 .word mechanical_position_fast
- 428              	 .cfi_endproc
- 429              	.LFE199:
- 431              	 .section .text.compute_fast_electrical_position,"ax",%progbits
- 432              	 .align 2
- 433              	 .global compute_fast_electrical_position
- 434              	 .thumb
- 435              	 .thumb_func
- 437              	compute_fast_electrical_position:
- 438              	.LFB200:
- 111:../transform.c **** 
- 112:../transform.c **** /*
- 113:../transform.c ****  * Compute the module of the electrical position based on the mechanical position
- 114:../transform.c ****  */
- 115:../transform.c **** void compute_fast_electrical_position(void)
- 116:../transform.c **** {
- 439              	 .loc 1 116 0
- 440              	 .cfi_startproc
- 441              	 
- 442              	 
- 443              	 
- 444 0000 80B4     	 push {r7}
- 445              	.LCFI16:
- 446              	 .cfi_def_cfa_offset 4
- 447              	 .cfi_offset 7,-4
- 448 0002 00AF     	 add r7,sp,#0
- 449              	.LCFI17:
- 450              	 .cfi_def_cfa_register 7
- 117:../transform.c **** 	electrical_resolution = encoder_resolution / pp;
- 451              	 .loc 1 117 0
- 452 0004 0D4B     	 ldr r3,.L28
- 453 0006 1B88     	 ldrh r3,[r3]
- 454 0008 1AB2     	 sxth r2,r3
- 455 000a 0D4B     	 ldr r3,.L28+4
- 456 000c 1B78     	 ldrb r3,[r3]
- 457 000e 5BB2     	 sxtb r3,r3
- 458 0010 92FBF3F3 	 sdiv r3,r2,r3
- 459 0014 9AB2     	 uxth r2,r3
- 460 0016 0B4B     	 ldr r3,.L28+8
- 461 0018 1A80     	 strh r2,[r3]
- 118:../transform.c **** 	electrical_position_modulo_fast = mechanical_position_fast % electrical_resolution;
- 462              	 .loc 1 118 0
- 463 001a 0B4B     	 ldr r3,.L28+12
- 464 001c 1B68     	 ldr r3,[r3]
- 465 001e 094A     	 ldr r2,.L28+8
- 466 0020 1288     	 ldrh r2,[r2]
- 467 0022 12B2     	 sxth r2,r2
- 468 0024 93FBF2F1 	 sdiv r1,r3,r2
- 469 0028 02FB01F2 	 mul r2,r2,r1
- 470 002c 9B1A     	 subs r3,r3,r2
- 471 002e 074A     	 ldr r2,.L28+16
- 472 0030 1360     	 str r3,[r2]
- 119:../transform.c **** }
- 473              	 .loc 1 119 0
- 474 0032 BD46     	 mov sp,r7
- 475              	.LCFI18:
- 476              	 .cfi_def_cfa_register 13
- 477              	 
- 478 0034 5DF8047B 	 ldr r7,[sp],#4
- 479              	.LCFI19:
- 480              	 .cfi_restore 7
- 481              	 .cfi_def_cfa_offset 0
- 482 0038 7047     	 bx lr
- 483              	.L29:
- 484 003a 00BF     	 .align 2
- 485              	.L28:
- 486 003c 00000000 	 .word encoder_resolution
- 487 0040 00000000 	 .word pp
- 488 0044 00000000 	 .word electrical_resolution
- 489 0048 00000000 	 .word mechanical_position_fast
- 490 004c 00000000 	 .word electrical_position_modulo_fast
- 491              	 .cfi_endproc
- 492              	.LFE200:
- 494              	 .section .text.compute_fast_field,"ax",%progbits
- 495              	 .align 2
- 496              	 .global compute_fast_field
- 497              	 .thumb
- 498              	 .thumb_func
- 500              	compute_fast_field:
- 501              	.LFB201:
- 120:../transform.c **** 
- 121:../transform.c **** /*
- 122:../transform.c ****  * Compute the electrical angle based on the electrical position
- 123:../transform.c ****  * Compute the sin&cos of theta
- 124:../transform.c ****  */
- 125:../transform.c **** void compute_fast_field(void)
- 126:../transform.c **** {
- 502              	 .loc 1 126 0
- 503              	 .cfi_startproc
- 504              	 
- 505              	 
- 506 0000 80B5     	 push {r7,lr}
- 507              	.LCFI20:
- 508              	 .cfi_def_cfa_offset 8
- 509              	 .cfi_offset 7,-8
- 510              	 .cfi_offset 14,-4
- 511 0002 00AF     	 add r7,sp,#0
- 512              	.LCFI21:
- 513              	 .cfi_def_cfa_register 7
- 127:../transform.c **** 	theta_fast = electrical_position_modulo_fast * (2 * Pi) / electrical_resolution;
- 514              	 .loc 1 127 0
- 515 0004 134B     	 ldr r3,.L32
- 516 0006 1B68     	 ldr r3,[r3]
- 517 0008 07EE903A 	 fmsr s15,r3
- 518 000c F8EEE77A 	 fsitos s15,s15
- 519 0010 9FED117A 	 flds s14,.L32+4
- 520 0014 27EE877A 	 fmuls s14,s15,s14
- 521 0018 104B     	 ldr r3,.L32+8
- 522 001a 1B88     	 ldrh r3,[r3]
- 523 001c 1BB2     	 sxth r3,r3
- 524 001e 07EE903A 	 fmsr s15,r3
- 525 0022 F8EEE77A 	 fsitos s15,s15
- 526 0026 C7EE277A 	 fdivs s15,s14,s15
- 527 002a 0D4B     	 ldr r3,.L32+12
- 528 002c C3ED007A 	 fsts s15,[r3]
- 128:../transform.c **** 	if (loop_control & TUNE_REF_LOOP_MSK)
- 529              	 .loc 1 128 0
- 530 0030 0C4B     	 ldr r3,.L32+16
- 531 0032 1B78     	 ldrb r3,[r3]
- 532 0034 DBB2     	 uxtb r3,r3
- 533 0036 5BB2     	 sxtb r3,r3
- 534 0038 002B     	 cmp r3,#0
- 535 003a 03DA     	 bge .L31
- 129:../transform.c **** 	{
- 130:../transform.c **** 		theta_fast = 0;
- 536              	 .loc 1 130 0
- 537 003c 084B     	 ldr r3,.L32+12
- 538 003e 4FF00002 	 mov r2,#0
- 539 0042 1A60     	 str r2,[r3]
- 540              	.L31:
- 131:../transform.c **** 	}
- 132:../transform.c **** 	sincosf(theta_fast, &sin_theta_fast, &cos_theta_fast);
- 541              	 .loc 1 132 0
- 542 0044 064B     	 ldr r3,.L32+12
- 543 0046 1B68     	 ldr r3,[r3]
- 544 0048 1846     	 mov r0,r3
- 545 004a 0749     	 ldr r1,.L32+20
- 546 004c 074A     	 ldr r2,.L32+24
- 547 004e FFF7FEFF 	 bl sincosf
- 133:../transform.c **** }
- 548              	 .loc 1 133 0
- 549 0052 80BD     	 pop {r7,pc}
- 550              	.L33:
- 551              	 .align 2
- 552              	.L32:
- 553 0054 00000000 	 .word electrical_position_modulo_fast
- 554 0058 D00FC940 	 .word 1086918608
- 555 005c 00000000 	 .word electrical_resolution
- 556 0060 00000000 	 .word theta_fast
- 557 0064 00000000 	 .word loop_control
- 558 0068 00000000 	 .word sin_theta_fast
- 559 006c 00000000 	 .word cos_theta_fast
- 560              	 .cfi_endproc
- 561              	.LFE201:
- 563              	 .text
- 564              	.Letext0:
- 565              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 566              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 567              	 .file 4 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
- 568              	 .file 5 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
- 569              	 .file 6 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
- 570              	 .file 7 "../main.h"
- 571              	 .file 8 "../driver_adc.h"
- 572              	 .file 9 "../pi_regulator.h"
- 573              	 .file 10 "../state_machine.h"
+  89:../transform.c **** 	speed_value_fast = timer_value_fast - timer_value_old_fast;
+ 355              	 .loc 1 89 0
+ 356 000e 094B     	 ldr r3,.L22+4
+ 357 0010 1A88     	 ldrh r2,[r3]
+ 358 0012 094B     	 ldr r3,.L22+8
+ 359 0014 1B88     	 ldrh r3,[r3]
+ 360 0016 D31A     	 subs r3,r2,r3
+ 361 0018 9BB2     	 uxth r3,r3
+ 362 001a 9AB2     	 uxth r2,r3
+ 363 001c 074B     	 ldr r3,.L22+12
+ 364 001e 1A80     	 strh r2,[r3]
+  90:../transform.c **** //	speed_value_fast = 1;
+  91:../transform.c **** 	timer_value_old_fast = timer_value_fast;
+ 365              	 .loc 1 91 0
+ 366 0020 044B     	 ldr r3,.L22+4
+ 367 0022 1A88     	 ldrh r2,[r3]
+ 368 0024 044B     	 ldr r3,.L22+8
+ 369 0026 1A80     	 strh r2,[r3]
+  92:../transform.c **** }
+ 370              	 .loc 1 92 0
+ 371 0028 BD46     	 mov sp,r7
+ 372              	.LCFI10:
+ 373              	 .cfi_def_cfa_register 13
+ 374              	 
+ 375 002a 5DF8047B 	 ldr r7,[sp],#4
+ 376              	.LCFI11:
+ 377              	 .cfi_restore 7
+ 378              	 .cfi_def_cfa_offset 0
+ 379 002e 7047     	 bx lr
+ 380              	.L23:
+ 381              	 .align 2
+ 382              	.L22:
+ 383 0030 00C10040 	 .word 1073791232
+ 384 0034 00000000 	 .word timer_value_fast
+ 385 0038 00000000 	 .word timer_value_old_fast
+ 386 003c 00000000 	 .word speed_value_fast
+ 387              	 .cfi_endproc
+ 388              	.LFE198:
+ 390              	 .section .text.compute_fast_mechanical_position,"ax",%progbits
+ 391              	 .align 2
+ 392              	 .global compute_fast_mechanical_position
+ 393              	 .thumb
+ 394              	 .thumb_func
+ 396              	compute_fast_mechanical_position:
+ 397              	.LFB199:
+  93:../transform.c **** /*
+  94:../transform.c ****  * Compute the mechanical position based on the speed value
+  95:../transform.c ****  */
+  96:../transform.c **** void compute_fast_mechanical_position(void)
+  97:../transform.c **** {
+ 398              	 .loc 1 97 0
+ 399              	 .cfi_startproc
+ 400              	 
+ 401              	 
+ 402              	 
+ 403 0000 80B4     	 push {r7}
+ 404              	.LCFI12:
+ 405              	 .cfi_def_cfa_offset 4
+ 406              	 .cfi_offset 7,-4
+ 407 0002 00AF     	 add r7,sp,#0
+ 408              	.LCFI13:
+ 409              	 .cfi_def_cfa_register 7
+  98:../transform.c **** 	mechanical_position_fast += speed_value_fast;
+ 410              	 .loc 1 98 0
+ 411 0004 054B     	 ldr r3,.L25
+ 412 0006 1B88     	 ldrh r3,[r3]
+ 413 0008 1AB2     	 sxth r2,r3
+ 414 000a 054B     	 ldr r3,.L25+4
+ 415 000c 1B68     	 ldr r3,[r3]
+ 416 000e 1344     	 add r3,r3,r2
+ 417 0010 034A     	 ldr r2,.L25+4
+ 418 0012 1360     	 str r3,[r2]
+  99:../transform.c **** }
+ 419              	 .loc 1 99 0
+ 420 0014 BD46     	 mov sp,r7
+ 421              	.LCFI14:
+ 422              	 .cfi_def_cfa_register 13
+ 423              	 
+ 424 0016 5DF8047B 	 ldr r7,[sp],#4
+ 425              	.LCFI15:
+ 426              	 .cfi_restore 7
+ 427              	 .cfi_def_cfa_offset 0
+ 428 001a 7047     	 bx lr
+ 429              	.L26:
+ 430              	 .align 2
+ 431              	.L25:
+ 432 001c 00000000 	 .word speed_value_fast
+ 433 0020 00000000 	 .word mechanical_position_fast
+ 434              	 .cfi_endproc
+ 435              	.LFE199:
+ 437              	 .section .text.compute_fast_electrical_position,"ax",%progbits
+ 438              	 .align 2
+ 439              	 .global compute_fast_electrical_position
+ 440              	 .thumb
+ 441              	 .thumb_func
+ 443              	compute_fast_electrical_position:
+ 444              	.LFB200:
+ 100:../transform.c **** 
+ 101:../transform.c **** /*
+ 102:../transform.c ****  * Compute the module of the electrical position based on the mechanical position
+ 103:../transform.c ****  */
+ 104:../transform.c **** void compute_fast_electrical_position(void)
+ 105:../transform.c **** {
+ 445              	 .loc 1 105 0
+ 446              	 .cfi_startproc
+ 447              	 
+ 448              	 
+ 449              	 
+ 450 0000 80B4     	 push {r7}
+ 451              	.LCFI16:
+ 452              	 .cfi_def_cfa_offset 4
+ 453              	 .cfi_offset 7,-4
+ 454 0002 00AF     	 add r7,sp,#0
+ 455              	.LCFI17:
+ 456              	 .cfi_def_cfa_register 7
+ 106:../transform.c **** 	electrical_resolution = encoder_resolution / pp;
+ 457              	 .loc 1 106 0
+ 458 0004 0D4B     	 ldr r3,.L28
+ 459 0006 1B88     	 ldrh r3,[r3]
+ 460 0008 1AB2     	 sxth r2,r3
+ 461 000a 0D4B     	 ldr r3,.L28+4
+ 462 000c 1B78     	 ldrb r3,[r3]
+ 463 000e 5BB2     	 sxtb r3,r3
+ 464 0010 92FBF3F3 	 sdiv r3,r2,r3
+ 465 0014 9AB2     	 uxth r2,r3
+ 466 0016 0B4B     	 ldr r3,.L28+8
+ 467 0018 1A80     	 strh r2,[r3]
+ 107:../transform.c **** 	electrical_position_modulo_fast = mechanical_position_fast % electrical_resolution;
+ 468              	 .loc 1 107 0
+ 469 001a 0B4B     	 ldr r3,.L28+12
+ 470 001c 1B68     	 ldr r3,[r3]
+ 471 001e 094A     	 ldr r2,.L28+8
+ 472 0020 1288     	 ldrh r2,[r2]
+ 473 0022 12B2     	 sxth r2,r2
+ 474 0024 93FBF2F1 	 sdiv r1,r3,r2
+ 475 0028 02FB01F2 	 mul r2,r2,r1
+ 476 002c 9B1A     	 subs r3,r3,r2
+ 477 002e 074A     	 ldr r2,.L28+16
+ 478 0030 1360     	 str r3,[r2]
+ 108:../transform.c **** }
+ 479              	 .loc 1 108 0
+ 480 0032 BD46     	 mov sp,r7
+ 481              	.LCFI18:
+ 482              	 .cfi_def_cfa_register 13
+ 483              	 
+ 484 0034 5DF8047B 	 ldr r7,[sp],#4
+ 485              	.LCFI19:
+ 486              	 .cfi_restore 7
+ 487              	 .cfi_def_cfa_offset 0
+ 488 0038 7047     	 bx lr
+ 489              	.L29:
+ 490 003a 00BF     	 .align 2
+ 491              	.L28:
+ 492 003c 00000000 	 .word encoder_resolution
+ 493 0040 00000000 	 .word pp
+ 494 0044 00000000 	 .word electrical_resolution
+ 495 0048 00000000 	 .word mechanical_position_fast
+ 496 004c 00000000 	 .word electrical_position_modulo_fast
+ 497              	 .cfi_endproc
+ 498              	.LFE200:
+ 500              	 .section .text.compute_fast_field,"ax",%progbits
+ 501              	 .align 2
+ 502              	 .global compute_fast_field
+ 503              	 .thumb
+ 504              	 .thumb_func
+ 506              	compute_fast_field:
+ 507              	.LFB201:
+ 109:../transform.c **** 
+ 110:../transform.c **** /*
+ 111:../transform.c ****  * Compute the electrical angle based on the electrical position
+ 112:../transform.c ****  * Compute the sin&cos of theta
+ 113:../transform.c ****  */
+ 114:../transform.c **** void compute_fast_field(void)
+ 115:../transform.c **** {
+ 508              	 .loc 1 115 0
+ 509              	 .cfi_startproc
+ 510              	 
+ 511              	 
+ 512 0000 80B5     	 push {r7,lr}
+ 513              	.LCFI20:
+ 514              	 .cfi_def_cfa_offset 8
+ 515              	 .cfi_offset 7,-8
+ 516              	 .cfi_offset 14,-4
+ 517 0002 00AF     	 add r7,sp,#0
+ 518              	.LCFI21:
+ 519              	 .cfi_def_cfa_register 7
+ 116:../transform.c **** 	theta_fast = electrical_position_modulo_fast * (2 * Pi) / electrical_resolution;
+ 520              	 .loc 1 116 0
+ 521 0004 134B     	 ldr r3,.L32
+ 522 0006 1B68     	 ldr r3,[r3]
+ 523 0008 07EE903A 	 fmsr s15,r3
+ 524 000c F8EEE77A 	 fsitos s15,s15
+ 525 0010 9FED117A 	 flds s14,.L32+4
+ 526 0014 27EE877A 	 fmuls s14,s15,s14
+ 527 0018 104B     	 ldr r3,.L32+8
+ 528 001a 1B88     	 ldrh r3,[r3]
+ 529 001c 1BB2     	 sxth r3,r3
+ 530 001e 07EE903A 	 fmsr s15,r3
+ 531 0022 F8EEE77A 	 fsitos s15,s15
+ 532 0026 C7EE277A 	 fdivs s15,s14,s15
+ 533 002a 0D4B     	 ldr r3,.L32+12
+ 534 002c C3ED007A 	 fsts s15,[r3]
+ 117:../transform.c **** 	if (loop_control & TUNE_REF_LOOP_MSK)
+ 535              	 .loc 1 117 0
+ 536 0030 0C4B     	 ldr r3,.L32+16
+ 537 0032 1B78     	 ldrb r3,[r3]
+ 538 0034 DBB2     	 uxtb r3,r3
+ 539 0036 5BB2     	 sxtb r3,r3
+ 540 0038 002B     	 cmp r3,#0
+ 541 003a 03DA     	 bge .L31
+ 118:../transform.c **** 	{
+ 119:../transform.c **** 		theta_fast = 0;
+ 542              	 .loc 1 119 0
+ 543 003c 084B     	 ldr r3,.L32+12
+ 544 003e 4FF00002 	 mov r2,#0
+ 545 0042 1A60     	 str r2,[r3]
+ 546              	.L31:
+ 120:../transform.c **** 	}
+ 121:../transform.c **** 	sincosf(theta_fast, &sin_theta_fast, &cos_theta_fast);
+ 547              	 .loc 1 121 0
+ 548 0044 064B     	 ldr r3,.L32+12
+ 549 0046 1B68     	 ldr r3,[r3]
+ 550 0048 1846     	 mov r0,r3
+ 551 004a 0749     	 ldr r1,.L32+20
+ 552 004c 074A     	 ldr r2,.L32+24
+ 553 004e FFF7FEFF 	 bl sincosf
+ 122:../transform.c **** }
+ 554              	 .loc 1 122 0
+ 555 0052 80BD     	 pop {r7,pc}
+ 556              	.L33:
+ 557              	 .align 2
+ 558              	.L32:
+ 559 0054 00000000 	 .word electrical_position_modulo_fast
+ 560 0058 D00FC940 	 .word 1086918608
+ 561 005c 00000000 	 .word electrical_resolution
+ 562 0060 00000000 	 .word theta_fast
+ 563 0064 00000000 	 .word loop_control
+ 564 0068 00000000 	 .word sin_theta_fast
+ 565 006c 00000000 	 .word cos_theta_fast
+ 566              	 .cfi_endproc
+ 567              	.LFE201:
+ 569              	 .text
+ 570              	.Letext0:
+ 571              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 572              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 573              	 .file 4 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 574              	 .file 5 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
+ 575              	 .file 6 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
+ 576              	 .file 7 "../main.h"
+ 577              	 .file 8 "../driver_adc.h"
+ 578              	 .file 9 "../pi_regulator.h"
+ 579              	 .file 10 "../state_machine.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 transform.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
@@ -711,16 +706,16 @@ DEFINED SYMBOLS
     {standard input}:315    .text.dq_abc:000000e0 $d
     {standard input}:330    .text.compute_fast_speed:00000000 $t
     {standard input}:335    .text.compute_fast_speed:00000000 compute_fast_speed
-    {standard input}:377    .text.compute_fast_speed:00000024 $d
-    {standard input}:385    .text.compute_fast_mechanical_position:00000000 $t
-    {standard input}:390    .text.compute_fast_mechanical_position:00000000 compute_fast_mechanical_position
-    {standard input}:426    .text.compute_fast_mechanical_position:0000001c $d
-    {standard input}:432    .text.compute_fast_electrical_position:00000000 $t
-    {standard input}:437    .text.compute_fast_electrical_position:00000000 compute_fast_electrical_position
-    {standard input}:486    .text.compute_fast_electrical_position:0000003c $d
-    {standard input}:495    .text.compute_fast_field:00000000 $t
-    {standard input}:500    .text.compute_fast_field:00000000 compute_fast_field
-    {standard input}:553    .text.compute_fast_field:00000054 $d
+    {standard input}:383    .text.compute_fast_speed:00000030 $d
+    {standard input}:391    .text.compute_fast_mechanical_position:00000000 $t
+    {standard input}:396    .text.compute_fast_mechanical_position:00000000 compute_fast_mechanical_position
+    {standard input}:432    .text.compute_fast_mechanical_position:0000001c $d
+    {standard input}:438    .text.compute_fast_electrical_position:00000000 $t
+    {standard input}:443    .text.compute_fast_electrical_position:00000000 compute_fast_electrical_position
+    {standard input}:492    .text.compute_fast_electrical_position:0000003c $d
+    {standard input}:501    .text.compute_fast_field:00000000 $t
+    {standard input}:506    .text.compute_fast_field:00000000 compute_fast_field
+    {standard input}:559    .text.compute_fast_field:00000054 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

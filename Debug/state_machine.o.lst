@@ -640,7 +640,7 @@
  144:../state_machine.c **** 	current_offset();
  463              	 .loc 1 144 0
  464 0026 FFF7FEFF 	 bl current_offset
- 145:../state_machine.c **** 	init_position();		//NEED TO CHECK if it still works !!!!
+ 145:../state_machine.c **** 	init_position();
  465              	 .loc 1 145 0
  466 002a FFF7FEFF 	 bl init_position
  146:../state_machine.c **** }

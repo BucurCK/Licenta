@@ -20,15 +20,6 @@
 uint16_t interrupt_counter_slow_loop = 0; // Slow Loop counter
 uint16_t interrupt_counter_fast_loop = 0; // Fast Loop couner
 uint32_t interrupt_counter_timer = 0;	  // Timer Counter
-uint8_t test = 0;
-
-/********************************************************************/
-//// FOR TESTING
-//  float_t signal_ia_test = 0, signal_ib_test = 0, signal_ic_test = 0;
-//  float_t increment_2_pi = 0;
-//  float_t sin_increment_2_pi, cos_increment_2_pi;
-//  float_t sin_plus_cos;
-/********************************************************************/
 
 void VADC0_G0_2_IRQHandler(void)
 {
@@ -57,6 +48,11 @@ void VADC0_G0_2_IRQHandler(void)
 			compute_fast_field();
 			abc_dq();
 
+			if (prot_status)
+			{
+				current_protection();
+			}
+
 			// Add Fast Loop regulators
 			if (loop_control & I_REF_LOOP_MSK)
 			{
@@ -69,33 +65,11 @@ void VADC0_G0_2_IRQHandler(void)
 
 			ProbeScope_Sampling(); // For Micrium Osciloscope
 		}
-		//***************************************************************
-		if(test)
-		{
-			compute_fast_speed();
-			compute_fast_mechanical_position();
-			compute_fast_electrical_position();
-			compute_fast_field();
-//			abc_dq();
 
-//			// Add Fast Loop regulators
-//			if (loop_control & I_REF_LOOP_MSK)
-//			{
-//				pi_regulator_i_d();
-//				pi_regulator_i_q();
-//			}
-
-			dq_abc();
-			pwm_update(u_a_ref, u_b_ref);
-
-			ProbeScope_Sampling(); // For Micrium Osciloscope
-		}
-		//*****************************************************************
-
-		if (prot_status)
-		{
-			current_protection();
-		}
+//		if (prot_status)
+//		{
+//			current_protection();
+//		}
 
 		interrupt_counter_fast_loop = 0;
 	}
@@ -138,18 +112,4 @@ void CCU81_0_IRQHandler(void)
 {
 	// interrupt_counter_timer++;
 }
-// void test_ia_id_iq_id (void)
-// {
-// 	increment_2_pi += 0.01;
-// 	if(increment_2_pi >= 2*M_PI)
-// 	{
-// 		increment_2_pi = 0;
-// 	}
 
-// 	signal_ia_test = sin(increment_2_pi - M_PI/2.) * 5000;
-// 	signal_ib_test = sin(increment_2_pi + (120. * M_PI / 180.) - M_PI/2.) * 5000;
-// 	signal_ic_test = sin(increment_2_pi + (240. * M_PI / 180.) - M_PI/2.) * 5000;
-// 	sincosf(increment_2_pi, &sin_increment_2_pi, &cos_increment_2_pi);
-// 	sin_plus_cos = sin_increment_2_pi*sin_increment_2_pi + cos_increment_2_pi*cos_increment_2_pi;
-
-// }

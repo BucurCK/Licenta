@@ -13,6 +13,7 @@
 int32_t motor_spd = 0;
 uint16_t timer_value_slow = 0;
 uint16_t timer_value_old_slow = 0;
+uint16_t timer_diff;
 
 /**
  * Initialize position for motor
@@ -21,15 +22,14 @@ uint16_t timer_value_old_slow = 0;
  * Reset: Theta | Position | Timers_old
  * Disable PWM output
  */
-void init_position(void)	//TO DO:check if it still works
+void init_position(void) // TO DO:check if it still works
 {
-	motion_on();			// Enable PWM pins
-	pwm_update(0, 1000); // Apply voltage on B Phase
-	delay_t(SECOND_1 / 2);	// Wait 0.5s
+	motion_on();		   // Enable PWM pins
+	pwm_update(0, 1000);   // Apply voltage on B Phase
+	delay_t(SECOND_1 / 2); // Wait 0.5s
 
-	pwm_update(1000, 0); // Apply voltage on A Phase
-	delay_t(SECOND_1 / 2);	// Wait 0.5s
-//	motion_off();			// Disable PWM pin			NEED TO CHECK if it still works
+	pwm_update(1000, 0);   // Apply voltage on A Phase
+	delay_t(SECOND_1 / 2); // Wait 0.5s
 
 	theta_fast = 0;
 	mechanical_position_fast = 0;
@@ -44,6 +44,32 @@ void init_position(void)	//TO DO:check if it still works
 void compute_speed(void)
 {
 	timer_value_slow = CCU40_CC40->TIMER;
-	motor_spd = timer_value_slow - timer_value_old_slow;
+//	motor_spd = timer_value_old_slow - timer_value_slow;
+
+	if (timer_value_slow >= timer_value_old_slow)
+	{
+		timer_diff = timer_value_slow - timer_value_old_slow;
+		if (timer_diff > (UINT16_MAX / 2))
+		{
+			motor_spd = (int16_t)(-((UINT16_MAX - timer_diff) + 1));
+		}
+		else
+		{
+			motor_spd = (int16_t)timer_diff;
+		}
+	}
+	else
+	{
+		timer_diff = timer_value_old_slow - timer_value_slow;
+		if (timer_diff > (UINT16_MAX / 2))
+		{
+			motor_spd = (int16_t)((UINT16_MAX - timer_diff) + 1);
+		}
+		else
+		{
+			motor_spd = (int16_t)(-timer_diff);
+		}
+	}
+
 	timer_value_old_slow = timer_value_slow;
 }

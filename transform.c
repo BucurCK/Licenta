@@ -20,9 +20,9 @@ float_t cos_theta_fast = 0;					 // cos(theta)
 uint16_t timer_value_fast = 0;				 // Stored value of CCU40 timer for encoder
 uint16_t timer_value_old_fast = 0;			 //*Last* read of timer value for speed computation
 int16_t speed_value_fast = 0;				 // Speed value based on 2 timer values
-int16_t encoder_resolution = 4000;			 // Resolution of encoder | 4*1000
-int8_t pp = 25;								 // Number of electric poles
-int16_t electrical_resolution = 0;			 // Electrical resolution based on encoder resolution and number of electric poles | 2000/4 = 500
+int16_t encoder_resolution = 4000;			 // Resolution of encoder | 4*1000				TODO: Make a function to init this data
+int8_t pp = 25;								 // Number of electric poles : 100[steps]/4		TODO: Make a function to init this data
+int16_t electrical_resolution = 0;			 // Electrical resolution based on encoder resolution and number of electric poles | 2000/4 = 500	 TODO: Make a function to init this data
 float_t u_a_ref, u_b_ref, u_c_ref;			 // abc voltage | -32768 -- 32,767
 float_t i_d, i_q;							 // dq voltage																   *
 float_t i_alpha, i_beta;					 // currents for dq computation
@@ -33,12 +33,11 @@ float_t u_alpha, u_beta;					 // voltage for abc computation
  */
 void abc_dq(void)
 {
-	// The Clarke Transformation
+	// Initializa alpha values
 	i_alpha = ia;
-//	i_beta = F_1_SQRT_3 * (float_t)(ia + (float_t)(2 * ib));
 	i_beta = ic;
 
-	// The Park Transformation
+	// Park Transformation
 	i_d = i_alpha * cos_theta_fast + i_beta * sin_theta_fast;
 	i_q = i_beta * cos_theta_fast - i_alpha * sin_theta_fast;
 }
@@ -56,39 +55,29 @@ void dq_abc(void)
 	// The Inverse Clarke Transformation
 	u_a_ref = u_alpha;
 	u_b_ref = u_beta;
-//	u_b_ref = (-u_alpha + SQRT_3 * u_beta) / 2;
-//	u_c_ref = (-u_alpha - SQRT_3 * u_beta) / 2;
 
 	/*
 	 * Keeps the values in range of int16_t
 	 * Later on the Float values will be casted into Int
 	 */
-	if (u_a_ref > MAX_UINT_16)
+	if (u_a_ref > MAX_INT_16)
 	{
-		u_a_ref = MAX_UINT_16;
+		u_a_ref = MAX_INT_16;
 	}
 	else if (u_a_ref < MIN_UINT_16)
 	{
 		u_a_ref = MIN_UINT_16;
 	}
 
-	if (u_b_ref > MAX_UINT_16)
+	if (u_b_ref > MAX_INT_16)
 	{
-		u_b_ref = MAX_UINT_16;
+		u_b_ref = MAX_INT_16;
 	}
 	else if (u_b_ref < MIN_UINT_16)
 	{
 		u_a_ref = MIN_UINT_16;
 	}
 
-//	if (u_c_ref > MAX_UINT_16)
-//	{
-//		u_a_ref = MAX_UINT_16;
-//	}
-//	else if (u_c_ref < MIN_UINT_16)
-//	{
-//		u_c_ref = MIN_UINT_16;
-//	}
 }
 
 /*
@@ -97,8 +86,8 @@ void dq_abc(void)
 void compute_fast_speed(void)			//SPEED = 1 for testing
 {
 	timer_value_fast = CCU40_CC40->TIMER;
-//	speed_value_fast = timer_value_fast - timer_value_old_fast;
-	speed_value_fast = 1;
+	speed_value_fast = timer_value_fast - timer_value_old_fast;
+//	speed_value_fast = 1;
 	timer_value_old_fast = timer_value_fast;
 }
 /*
@@ -131,18 +120,3 @@ void compute_fast_field(void)
 	}
 	sincosf(theta_fast, &sin_theta_fast, &cos_theta_fast);
 }
-
-// void abc_dq_test (void)		//TEST
-// {
-// 	/*
-// 	 * The Clarke Transformation
-// 	 */
-// 	i_alpha = signal_ia_test;
-// 	i_beta = 1/sqrtf(3) * (float)(signal_ia_test + (2.*(float)signal_ib_test));
-// 	/*
-// 	 * The Park Transformation
-// 	 */
-// 	i_d = i_alpha*cos_increment_2_pi + i_beta*sin_increment_2_pi;
-// 	i_q = i_beta*cos_increment_2_pi - i_alpha*sin_increment_2_pi;
-
-// }
