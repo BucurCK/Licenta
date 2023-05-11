@@ -5,13 +5,12 @@
 #include "driver_adc.h"
 #include "state_machine.h"
 
-regulator position[2]; // to modify
+regulator position[2];
 regulator current_q;
 regulator current_d;
 regulator speed;
-float_t err_old_pos;
 
-float_t i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref = 0;	//TEST
+float_t i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref = 0;
 /*
 	PI regulator for Iq
 	Input: i_q
@@ -178,7 +177,7 @@ void pid_regulator_pos(void) // mechanical_position_fast -> spd_ref
 	}
 
 	// Derived part computation	
-	position[i].d_part = (position[i].error - err_old_pos) * position[i].kd;
+	position[i].d_part = (position[i].error - position[i].error_old) * position[i].kd;
 	if (position[i].d_part > position[i].sat_out)
 	{
 		position[i].d_part = position[i].sat_out;
@@ -187,6 +186,7 @@ void pid_regulator_pos(void) // mechanical_position_fast -> spd_ref
 	{
 		position[i].d_part = -position[i].sat_out;
 	}
+	position[i].error_old = position[i].error;
 
 	// Output SPD or I
 	switch (i)
@@ -223,14 +223,14 @@ void pid_regulator_pos(void) // mechanical_position_fast -> spd_ref
 }
 /*
 	Refulator data initialization
-	TODO: Stepper tunnig
+	TODO: Position to current
 */
 void pi_init(void)
 {
 	current_q.kp = 1.5;
 	current_q.ki = 0.05;
 	current_q.kd = 0;
-	current_q.sat_out = 15000;
+	current_q.sat_out = 20000;
 	current_q.sat_i_part = current_q.sat_out / 10;
 
 	current_d.kp = current_q.kp;
@@ -242,19 +242,22 @@ void pi_init(void)
 	speed.kp = 60;
 	speed.ki = 15;
 	speed.kd = 0;
-	speed.sat_out = 15000;
+	speed.sat_out = 20000;
 	speed.sat_i_part = speed.sat_out / 10;
-
+	
+	//Position to speed
 	position[0].kp = 0.5;
 	position[0].ki = 0.01;
 	position[0].kd = 0;
-	position[0].sat_out = 100;
+	position[0].sat_out = 200;
 	position[0].sat_i_part = position[0].sat_out / 10;
 
-	position[1].kp = 0;
-	position[1].ki = 0;
-	position[1].kd = 0;
-	position[1].sat_out = 5000;
+	//Position to current
+	position[1].kp = 10;
+	position[1].ki = 0.05;
+	position[1].kd = 20;
+	position[1].sat_out = 20000;
 	position[1].sat_i_part = position[1].sat_out / 10;
+	position[1].error_old = 0;
 
 }

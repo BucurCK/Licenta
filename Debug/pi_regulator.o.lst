@@ -17,49 +17,48 @@
   17              	.Ltext0:
   18              	 .cfi_sections .debug_frame
   19              	 .comm CCU8_CC8_CR1_CR1_Value,4,4
-  20              	 .comm position,72,4
-  21              	 .comm current_q,36,4
-  22              	 .comm current_d,36,4
-  23              	 .comm speed,36,4
-  24              	 .comm err_old_pos,4,4
-  25              	 .global i_q_ref
-  26              	 .section .bss.i_q_ref,"aw",%nobits
-  27              	 .align 2
-  30              	i_q_ref:
-  31 0000 00000000 	 .space 4
-  32              	 .global i_d_ref
-  33              	 .section .bss.i_d_ref,"aw",%nobits
-  34              	 .align 2
-  37              	i_d_ref:
-  38 0000 00000000 	 .space 4
-  39              	 .global pos_ref
-  40              	 .section .bss.pos_ref,"aw",%nobits
-  41              	 .align 2
-  44              	pos_ref:
-  45 0000 00000000 	 .space 4
-  46              	 .global spd_ref
-  47              	 .section .bss.spd_ref,"aw",%nobits
-  48              	 .align 2
-  51              	spd_ref:
-  52 0000 00000000 	 .space 4
-  53              	 .global u_q_ref
-  54              	 .section .bss.u_q_ref,"aw",%nobits
-  55              	 .align 2
-  58              	u_q_ref:
-  59 0000 00000000 	 .space 4
-  60              	 .global u_d_ref
-  61              	 .section .bss.u_d_ref,"aw",%nobits
-  62              	 .align 2
-  65              	u_d_ref:
-  66 0000 00000000 	 .space 4
-  67              	 .section .text.pi_regulator_i_q,"ax",%progbits
-  68              	 .align 2
-  69              	 .global pi_regulator_i_q
-  70              	 .thumb
-  71              	 .thumb_func
-  73              	pi_regulator_i_q:
-  74              	.LFB196:
-  75              	 .file 1 "../pi_regulator.c"
+  20              	 .comm position,80,4
+  21              	 .comm current_q,40,4
+  22              	 .comm current_d,40,4
+  23              	 .comm speed,40,4
+  24              	 .global i_q_ref
+  25              	 .section .bss.i_q_ref,"aw",%nobits
+  26              	 .align 2
+  29              	i_q_ref:
+  30 0000 00000000 	 .space 4
+  31              	 .global i_d_ref
+  32              	 .section .bss.i_d_ref,"aw",%nobits
+  33              	 .align 2
+  36              	i_d_ref:
+  37 0000 00000000 	 .space 4
+  38              	 .global pos_ref
+  39              	 .section .bss.pos_ref,"aw",%nobits
+  40              	 .align 2
+  43              	pos_ref:
+  44 0000 00000000 	 .space 4
+  45              	 .global spd_ref
+  46              	 .section .bss.spd_ref,"aw",%nobits
+  47              	 .align 2
+  50              	spd_ref:
+  51 0000 00000000 	 .space 4
+  52              	 .global u_q_ref
+  53              	 .section .bss.u_q_ref,"aw",%nobits
+  54              	 .align 2
+  57              	u_q_ref:
+  58 0000 00000000 	 .space 4
+  59              	 .global u_d_ref
+  60              	 .section .bss.u_d_ref,"aw",%nobits
+  61              	 .align 2
+  64              	u_d_ref:
+  65 0000 00000000 	 .space 4
+  66              	 .section .text.pi_regulator_i_q,"ax",%progbits
+  67              	 .align 2
+  68              	 .global pi_regulator_i_q
+  69              	 .thumb
+  70              	 .thumb_func
+  72              	pi_regulator_i_q:
+  73              	.LFB196:
+  74              	 .file 1 "../pi_regulator.c"
    1:../pi_regulator.c **** #include <stdint.h>
    2:../pi_regulator.c **** #include <stdbool.h>
    3:../pi_regulator.c **** #include "pi_regulator.h"
@@ -67,1106 +66,1131 @@
    5:../pi_regulator.c **** #include "driver_adc.h"
    6:../pi_regulator.c **** #include "state_machine.h"
    7:../pi_regulator.c **** 
-   8:../pi_regulator.c **** regulator position[2]; // to modify
+   8:../pi_regulator.c **** regulator position[2];
    9:../pi_regulator.c **** regulator current_q;
   10:../pi_regulator.c **** regulator current_d;
   11:../pi_regulator.c **** regulator speed;
-  12:../pi_regulator.c **** float_t err_old_pos;
-  13:../pi_regulator.c **** 
-  14:../pi_regulator.c **** float_t i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref = 0;	//TEST
-  15:../pi_regulator.c **** /*
-  16:../pi_regulator.c **** 	PI regulator for Iq
-  17:../pi_regulator.c **** 	Input: i_q
-  18:../pi_regulator.c **** 	Output u_q_ref
-  19:../pi_regulator.c **** */
-  20:../pi_regulator.c **** void pi_regulator_i_q(void) 
-  21:../pi_regulator.c **** {
-  76              	 .loc 1 21 0
-  77              	 .cfi_startproc
+  12:../pi_regulator.c **** 
+  13:../pi_regulator.c **** float_t i_q_ref = 0, i_d_ref = 0, pos_ref = 0, spd_ref = 0, u_q_ref = 0, u_d_ref = 0;
+  14:../pi_regulator.c **** /*
+  15:../pi_regulator.c **** 	PI regulator for Iq
+  16:../pi_regulator.c **** 	Input: i_q
+  17:../pi_regulator.c **** 	Output u_q_ref
+  18:../pi_regulator.c **** */
+  19:../pi_regulator.c **** void pi_regulator_i_q(void) 
+  20:../pi_regulator.c **** {
+  75              	 .loc 1 20 0
+  76              	 .cfi_startproc
+  77              	 
   78              	 
   79              	 
-  80              	 
-  81 0000 80B4     	 push {r7}
-  82              	.LCFI0:
-  83              	 .cfi_def_cfa_offset 4
-  84              	 .cfi_offset 7,-4
-  85 0002 00AF     	 add r7,sp,#0
-  86              	.LCFI1:
-  87              	 .cfi_def_cfa_register 7
-  22:../pi_regulator.c **** 	current_q.error = i_q_ref - i_q;
-  88              	 .loc 1 22 0
-  89 0004 514B     	 ldr r3,.L23
-  90 0006 93ED007A 	 flds s14,[r3]
-  91 000a 514B     	 ldr r3,.L23+4
-  92 000c D3ED007A 	 flds s15,[r3]
-  93 0010 77EE677A 	 fsubs s15,s14,s15
-  94 0014 4F4B     	 ldr r3,.L23+8
-  95 0016 C3ED037A 	 fsts s15,[r3,#12]
-  23:../pi_regulator.c **** 
-  24:../pi_regulator.c **** 	// Proportional part computation
-  25:../pi_regulator.c **** 	current_q.p_part = current_q.error * current_q.kp;
-  96              	 .loc 1 25 0
-  97 001a 4E4B     	 ldr r3,.L23+8
-  98 001c 93ED037A 	 flds s14,[r3,#12]
-  99 0020 4C4B     	 ldr r3,.L23+8
- 100 0022 D3ED007A 	 flds s15,[r3]
- 101 0026 67EE277A 	 fmuls s15,s14,s15
- 102 002a 4A4B     	 ldr r3,.L23+8
- 103 002c C3ED047A 	 fsts s15,[r3,#16]
-  26:../pi_regulator.c **** 	if (current_q.p_part > current_q.sat_out)
- 104              	 .loc 1 26 0
- 105 0030 484B     	 ldr r3,.L23+8
- 106 0032 93ED047A 	 flds s14,[r3,#16]
- 107 0036 474B     	 ldr r3,.L23+8
- 108 0038 D3ED077A 	 flds s15,[r3,#28]
- 109 003c B4EEE77A 	 fcmpes s14,s15
- 110 0040 F1EE10FA 	 fmstat
- 111 0044 04DD     	 ble .L20
-  27:../pi_regulator.c **** 	{
-  28:../pi_regulator.c **** 		current_q.p_part = current_q.sat_out;
- 112              	 .loc 1 28 0
- 113 0046 434B     	 ldr r3,.L23+8
- 114 0048 DB69     	 ldr r3,[r3,#28]
- 115 004a 424A     	 ldr r2,.L23+8
- 116 004c 1361     	 str r3,[r2,#16]
- 117 004e 14E0     	 b .L4
- 118              	.L20:
-  29:../pi_regulator.c **** 	}
-  30:../pi_regulator.c **** 	else if (current_q.p_part < -current_q.sat_out)
- 119              	 .loc 1 30 0
- 120 0050 404B     	 ldr r3,.L23+8
- 121 0052 93ED047A 	 flds s14,[r3,#16]
- 122 0056 3F4B     	 ldr r3,.L23+8
- 123 0058 D3ED077A 	 flds s15,[r3,#28]
- 124 005c F1EE677A 	 fnegs s15,s15
- 125 0060 B4EEE77A 	 fcmpes s14,s15
- 126 0064 F1EE10FA 	 fmstat
- 127 0068 07D5     	 bpl .L4
-  31:../pi_regulator.c **** 	{
-  32:../pi_regulator.c **** 		current_q.p_part = -current_q.sat_out;
- 128              	 .loc 1 32 0
- 129 006a 3A4B     	 ldr r3,.L23+8
- 130 006c D3ED077A 	 flds s15,[r3,#28]
- 131 0070 F1EE677A 	 fnegs s15,s15
- 132 0074 374B     	 ldr r3,.L23+8
- 133 0076 C3ED047A 	 fsts s15,[r3,#16]
- 134              	.L4:
-  33:../pi_regulator.c **** 	}
-  34:../pi_regulator.c **** 
-  35:../pi_regulator.c **** 	// Integral part computation
-  36:../pi_regulator.c **** 	current_q.i_part += current_q.error * current_q.ki;
- 135              	 .loc 1 36 0
- 136 007a 364B     	 ldr r3,.L23+8
- 137 007c 93ED057A 	 flds s14,[r3,#20]
- 138 0080 344B     	 ldr r3,.L23+8
- 139 0082 D3ED036A 	 flds s13,[r3,#12]
- 140 0086 334B     	 ldr r3,.L23+8
- 141 0088 D3ED017A 	 flds s15,[r3,#4]
- 142 008c 66EEA77A 	 fmuls s15,s13,s15
- 143 0090 77EE277A 	 fadds s15,s14,s15
- 144 0094 2F4B     	 ldr r3,.L23+8
- 145 0096 C3ED057A 	 fsts s15,[r3,#20]
-  37:../pi_regulator.c **** 	if (current_q.i_part > current_q.sat_i_part)
- 146              	 .loc 1 37 0
- 147 009a 2E4B     	 ldr r3,.L23+8
- 148 009c 93ED057A 	 flds s14,[r3,#20]
- 149 00a0 2C4B     	 ldr r3,.L23+8
- 150 00a2 D3ED087A 	 flds s15,[r3,#32]
- 151 00a6 B4EEE77A 	 fcmpes s14,s15
- 152 00aa F1EE10FA 	 fmstat
- 153 00ae 04DD     	 ble .L21
-  38:../pi_regulator.c **** 	{
-  39:../pi_regulator.c **** 		current_q.i_part = current_q.sat_i_part;
- 154              	 .loc 1 39 0
- 155 00b0 284B     	 ldr r3,.L23+8
- 156 00b2 1B6A     	 ldr r3,[r3,#32]
- 157 00b4 274A     	 ldr r2,.L23+8
- 158 00b6 5361     	 str r3,[r2,#20]
- 159 00b8 14E0     	 b .L8
- 160              	.L21:
-  40:../pi_regulator.c **** 	}
-  41:../pi_regulator.c **** 	else if (current_q.i_part < -current_q.sat_i_part)
- 161              	 .loc 1 41 0
- 162 00ba 264B     	 ldr r3,.L23+8
- 163 00bc 93ED057A 	 flds s14,[r3,#20]
- 164 00c0 244B     	 ldr r3,.L23+8
- 165 00c2 D3ED087A 	 flds s15,[r3,#32]
- 166 00c6 F1EE677A 	 fnegs s15,s15
- 167 00ca B4EEE77A 	 fcmpes s14,s15
- 168 00ce F1EE10FA 	 fmstat
- 169 00d2 07D5     	 bpl .L8
-  42:../pi_regulator.c **** 	{
-  43:../pi_regulator.c **** 		current_q.i_part = -current_q.sat_i_part;
- 170              	 .loc 1 43 0
- 171 00d4 1F4B     	 ldr r3,.L23+8
- 172 00d6 D3ED087A 	 flds s15,[r3,#32]
- 173 00da F1EE677A 	 fnegs s15,s15
- 174 00de 1D4B     	 ldr r3,.L23+8
- 175 00e0 C3ED057A 	 fsts s15,[r3,#20]
- 176              	.L8:
-  44:../pi_regulator.c **** 	}
-  45:../pi_regulator.c **** 
-  46:../pi_regulator.c **** 	// Output
-  47:../pi_regulator.c **** 	u_q_ref = current_q.p_part + current_q.i_part;
- 177              	 .loc 1 47 0
- 178 00e4 1B4B     	 ldr r3,.L23+8
- 179 00e6 93ED047A 	 flds s14,[r3,#16]
- 180 00ea 1A4B     	 ldr r3,.L23+8
- 181 00ec D3ED057A 	 flds s15,[r3,#20]
- 182 00f0 77EE277A 	 fadds s15,s14,s15
- 183 00f4 184B     	 ldr r3,.L23+12
- 184 00f6 C3ED007A 	 fsts s15,[r3]
-  48:../pi_regulator.c **** 
-  49:../pi_regulator.c **** 	if (u_q_ref > current_q.sat_out)
- 185              	 .loc 1 49 0
- 186 00fa 164B     	 ldr r3,.L23+8
- 187 00fc 93ED077A 	 flds s14,[r3,#28]
- 188 0100 154B     	 ldr r3,.L23+12
- 189 0102 D3ED007A 	 flds s15,[r3]
- 190 0106 B4EEE77A 	 fcmpes s14,s15
- 191 010a F1EE10FA 	 fmstat
- 192 010e 04D5     	 bpl .L22
-  50:../pi_regulator.c **** 	{
-  51:../pi_regulator.c **** 		u_q_ref = current_q.sat_out;
- 193              	 .loc 1 51 0
- 194 0110 104B     	 ldr r3,.L23+8
- 195 0112 DB69     	 ldr r3,[r3,#28]
- 196 0114 104A     	 ldr r2,.L23+12
- 197 0116 1360     	 str r3,[r2]
- 198 0118 14E0     	 b .L1
- 199              	.L22:
-  52:../pi_regulator.c **** 	}
-  53:../pi_regulator.c **** 	else if (u_q_ref < -current_q.sat_out)
- 200              	 .loc 1 53 0
- 201 011a 0E4B     	 ldr r3,.L23+8
- 202 011c D3ED077A 	 flds s15,[r3,#28]
- 203 0120 B1EE677A 	 fnegs s14,s15
- 204 0124 0C4B     	 ldr r3,.L23+12
- 205 0126 D3ED007A 	 flds s15,[r3]
- 206 012a B4EEE77A 	 fcmpes s14,s15
- 207 012e F1EE10FA 	 fmstat
- 208 0132 07DD     	 ble .L1
-  54:../pi_regulator.c **** 	{
-  55:../pi_regulator.c **** 		u_q_ref = -current_q.sat_out;
- 209              	 .loc 1 55 0
- 210 0134 074B     	 ldr r3,.L23+8
- 211 0136 D3ED077A 	 flds s15,[r3,#28]
- 212 013a F1EE677A 	 fnegs s15,s15
- 213 013e 064B     	 ldr r3,.L23+12
- 214 0140 C3ED007A 	 fsts s15,[r3]
- 215              	.L1:
-  56:../pi_regulator.c **** 	}
-  57:../pi_regulator.c **** }
- 216              	 .loc 1 57 0
- 217 0144 BD46     	 mov sp,r7
- 218              	.LCFI2:
- 219              	 .cfi_def_cfa_register 13
- 220              	 
- 221 0146 5DF8047B 	 ldr r7,[sp],#4
- 222              	.LCFI3:
- 223              	 .cfi_restore 7
- 224              	 .cfi_def_cfa_offset 0
- 225 014a 7047     	 bx lr
- 226              	.L24:
- 227              	 .align 2
- 228              	.L23:
- 229 014c 00000000 	 .word i_q_ref
- 230 0150 00000000 	 .word i_q
- 231 0154 00000000 	 .word current_q
- 232 0158 00000000 	 .word u_q_ref
- 233              	 .cfi_endproc
- 234              	.LFE196:
- 236              	 .section .text.pi_regulator_i_d,"ax",%progbits
- 237              	 .align 2
- 238              	 .global pi_regulator_i_d
- 239              	 .thumb
- 240              	 .thumb_func
- 242              	pi_regulator_i_d:
- 243              	.LFB197:
-  58:../pi_regulator.c **** 
-  59:../pi_regulator.c **** /*
-  60:../pi_regulator.c **** 	PI regulator for Id
-  61:../pi_regulator.c **** 	Input: i_d
-  62:../pi_regulator.c **** 	Output u_d_ref
-  63:../pi_regulator.c **** */
-  64:../pi_regulator.c **** void pi_regulator_i_d(void) 
-  65:../pi_regulator.c **** {
- 244              	 .loc 1 65 0
- 245              	 .cfi_startproc
+  80 0000 80B4     	 push {r7}
+  81              	.LCFI0:
+  82              	 .cfi_def_cfa_offset 4
+  83              	 .cfi_offset 7,-4
+  84 0002 00AF     	 add r7,sp,#0
+  85              	.LCFI1:
+  86              	 .cfi_def_cfa_register 7
+  21:../pi_regulator.c **** 	current_q.error = i_q_ref - i_q;
+  87              	 .loc 1 21 0
+  88 0004 514B     	 ldr r3,.L23
+  89 0006 93ED007A 	 flds s14,[r3]
+  90 000a 514B     	 ldr r3,.L23+4
+  91 000c D3ED007A 	 flds s15,[r3]
+  92 0010 77EE677A 	 fsubs s15,s14,s15
+  93 0014 4F4B     	 ldr r3,.L23+8
+  94 0016 C3ED037A 	 fsts s15,[r3,#12]
+  22:../pi_regulator.c **** 
+  23:../pi_regulator.c **** 	// Proportional part computation
+  24:../pi_regulator.c **** 	current_q.p_part = current_q.error * current_q.kp;
+  95              	 .loc 1 24 0
+  96 001a 4E4B     	 ldr r3,.L23+8
+  97 001c 93ED037A 	 flds s14,[r3,#12]
+  98 0020 4C4B     	 ldr r3,.L23+8
+  99 0022 D3ED007A 	 flds s15,[r3]
+ 100 0026 67EE277A 	 fmuls s15,s14,s15
+ 101 002a 4A4B     	 ldr r3,.L23+8
+ 102 002c C3ED057A 	 fsts s15,[r3,#20]
+  25:../pi_regulator.c **** 	if (current_q.p_part > current_q.sat_out)
+ 103              	 .loc 1 25 0
+ 104 0030 484B     	 ldr r3,.L23+8
+ 105 0032 93ED057A 	 flds s14,[r3,#20]
+ 106 0036 474B     	 ldr r3,.L23+8
+ 107 0038 D3ED087A 	 flds s15,[r3,#32]
+ 108 003c B4EEE77A 	 fcmpes s14,s15
+ 109 0040 F1EE10FA 	 fmstat
+ 110 0044 04DD     	 ble .L20
+  26:../pi_regulator.c **** 	{
+  27:../pi_regulator.c **** 		current_q.p_part = current_q.sat_out;
+ 111              	 .loc 1 27 0
+ 112 0046 434B     	 ldr r3,.L23+8
+ 113 0048 1B6A     	 ldr r3,[r3,#32]
+ 114 004a 424A     	 ldr r2,.L23+8
+ 115 004c 5361     	 str r3,[r2,#20]
+ 116 004e 14E0     	 b .L4
+ 117              	.L20:
+  28:../pi_regulator.c **** 	}
+  29:../pi_regulator.c **** 	else if (current_q.p_part < -current_q.sat_out)
+ 118              	 .loc 1 29 0
+ 119 0050 404B     	 ldr r3,.L23+8
+ 120 0052 93ED057A 	 flds s14,[r3,#20]
+ 121 0056 3F4B     	 ldr r3,.L23+8
+ 122 0058 D3ED087A 	 flds s15,[r3,#32]
+ 123 005c F1EE677A 	 fnegs s15,s15
+ 124 0060 B4EEE77A 	 fcmpes s14,s15
+ 125 0064 F1EE10FA 	 fmstat
+ 126 0068 07D5     	 bpl .L4
+  30:../pi_regulator.c **** 	{
+  31:../pi_regulator.c **** 		current_q.p_part = -current_q.sat_out;
+ 127              	 .loc 1 31 0
+ 128 006a 3A4B     	 ldr r3,.L23+8
+ 129 006c D3ED087A 	 flds s15,[r3,#32]
+ 130 0070 F1EE677A 	 fnegs s15,s15
+ 131 0074 374B     	 ldr r3,.L23+8
+ 132 0076 C3ED057A 	 fsts s15,[r3,#20]
+ 133              	.L4:
+  32:../pi_regulator.c **** 	}
+  33:../pi_regulator.c **** 
+  34:../pi_regulator.c **** 	// Integral part computation
+  35:../pi_regulator.c **** 	current_q.i_part += current_q.error * current_q.ki;
+ 134              	 .loc 1 35 0
+ 135 007a 364B     	 ldr r3,.L23+8
+ 136 007c 93ED067A 	 flds s14,[r3,#24]
+ 137 0080 344B     	 ldr r3,.L23+8
+ 138 0082 D3ED036A 	 flds s13,[r3,#12]
+ 139 0086 334B     	 ldr r3,.L23+8
+ 140 0088 D3ED017A 	 flds s15,[r3,#4]
+ 141 008c 66EEA77A 	 fmuls s15,s13,s15
+ 142 0090 77EE277A 	 fadds s15,s14,s15
+ 143 0094 2F4B     	 ldr r3,.L23+8
+ 144 0096 C3ED067A 	 fsts s15,[r3,#24]
+  36:../pi_regulator.c **** 	if (current_q.i_part > current_q.sat_i_part)
+ 145              	 .loc 1 36 0
+ 146 009a 2E4B     	 ldr r3,.L23+8
+ 147 009c 93ED067A 	 flds s14,[r3,#24]
+ 148 00a0 2C4B     	 ldr r3,.L23+8
+ 149 00a2 D3ED097A 	 flds s15,[r3,#36]
+ 150 00a6 B4EEE77A 	 fcmpes s14,s15
+ 151 00aa F1EE10FA 	 fmstat
+ 152 00ae 04DD     	 ble .L21
+  37:../pi_regulator.c **** 	{
+  38:../pi_regulator.c **** 		current_q.i_part = current_q.sat_i_part;
+ 153              	 .loc 1 38 0
+ 154 00b0 284B     	 ldr r3,.L23+8
+ 155 00b2 5B6A     	 ldr r3,[r3,#36]
+ 156 00b4 274A     	 ldr r2,.L23+8
+ 157 00b6 9361     	 str r3,[r2,#24]
+ 158 00b8 14E0     	 b .L8
+ 159              	.L21:
+  39:../pi_regulator.c **** 	}
+  40:../pi_regulator.c **** 	else if (current_q.i_part < -current_q.sat_i_part)
+ 160              	 .loc 1 40 0
+ 161 00ba 264B     	 ldr r3,.L23+8
+ 162 00bc 93ED067A 	 flds s14,[r3,#24]
+ 163 00c0 244B     	 ldr r3,.L23+8
+ 164 00c2 D3ED097A 	 flds s15,[r3,#36]
+ 165 00c6 F1EE677A 	 fnegs s15,s15
+ 166 00ca B4EEE77A 	 fcmpes s14,s15
+ 167 00ce F1EE10FA 	 fmstat
+ 168 00d2 07D5     	 bpl .L8
+  41:../pi_regulator.c **** 	{
+  42:../pi_regulator.c **** 		current_q.i_part = -current_q.sat_i_part;
+ 169              	 .loc 1 42 0
+ 170 00d4 1F4B     	 ldr r3,.L23+8
+ 171 00d6 D3ED097A 	 flds s15,[r3,#36]
+ 172 00da F1EE677A 	 fnegs s15,s15
+ 173 00de 1D4B     	 ldr r3,.L23+8
+ 174 00e0 C3ED067A 	 fsts s15,[r3,#24]
+ 175              	.L8:
+  43:../pi_regulator.c **** 	}
+  44:../pi_regulator.c **** 
+  45:../pi_regulator.c **** 	// Output
+  46:../pi_regulator.c **** 	u_q_ref = current_q.p_part + current_q.i_part;
+ 176              	 .loc 1 46 0
+ 177 00e4 1B4B     	 ldr r3,.L23+8
+ 178 00e6 93ED057A 	 flds s14,[r3,#20]
+ 179 00ea 1A4B     	 ldr r3,.L23+8
+ 180 00ec D3ED067A 	 flds s15,[r3,#24]
+ 181 00f0 77EE277A 	 fadds s15,s14,s15
+ 182 00f4 184B     	 ldr r3,.L23+12
+ 183 00f6 C3ED007A 	 fsts s15,[r3]
+  47:../pi_regulator.c **** 
+  48:../pi_regulator.c **** 	if (u_q_ref > current_q.sat_out)
+ 184              	 .loc 1 48 0
+ 185 00fa 164B     	 ldr r3,.L23+8
+ 186 00fc 93ED087A 	 flds s14,[r3,#32]
+ 187 0100 154B     	 ldr r3,.L23+12
+ 188 0102 D3ED007A 	 flds s15,[r3]
+ 189 0106 B4EEE77A 	 fcmpes s14,s15
+ 190 010a F1EE10FA 	 fmstat
+ 191 010e 04D5     	 bpl .L22
+  49:../pi_regulator.c **** 	{
+  50:../pi_regulator.c **** 		u_q_ref = current_q.sat_out;
+ 192              	 .loc 1 50 0
+ 193 0110 104B     	 ldr r3,.L23+8
+ 194 0112 1B6A     	 ldr r3,[r3,#32]
+ 195 0114 104A     	 ldr r2,.L23+12
+ 196 0116 1360     	 str r3,[r2]
+ 197 0118 14E0     	 b .L1
+ 198              	.L22:
+  51:../pi_regulator.c **** 	}
+  52:../pi_regulator.c **** 	else if (u_q_ref < -current_q.sat_out)
+ 199              	 .loc 1 52 0
+ 200 011a 0E4B     	 ldr r3,.L23+8
+ 201 011c D3ED087A 	 flds s15,[r3,#32]
+ 202 0120 B1EE677A 	 fnegs s14,s15
+ 203 0124 0C4B     	 ldr r3,.L23+12
+ 204 0126 D3ED007A 	 flds s15,[r3]
+ 205 012a B4EEE77A 	 fcmpes s14,s15
+ 206 012e F1EE10FA 	 fmstat
+ 207 0132 07DD     	 ble .L1
+  53:../pi_regulator.c **** 	{
+  54:../pi_regulator.c **** 		u_q_ref = -current_q.sat_out;
+ 208              	 .loc 1 54 0
+ 209 0134 074B     	 ldr r3,.L23+8
+ 210 0136 D3ED087A 	 flds s15,[r3,#32]
+ 211 013a F1EE677A 	 fnegs s15,s15
+ 212 013e 064B     	 ldr r3,.L23+12
+ 213 0140 C3ED007A 	 fsts s15,[r3]
+ 214              	.L1:
+  55:../pi_regulator.c **** 	}
+  56:../pi_regulator.c **** }
+ 215              	 .loc 1 56 0
+ 216 0144 BD46     	 mov sp,r7
+ 217              	.LCFI2:
+ 218              	 .cfi_def_cfa_register 13
+ 219              	 
+ 220 0146 5DF8047B 	 ldr r7,[sp],#4
+ 221              	.LCFI3:
+ 222              	 .cfi_restore 7
+ 223              	 .cfi_def_cfa_offset 0
+ 224 014a 7047     	 bx lr
+ 225              	.L24:
+ 226              	 .align 2
+ 227              	.L23:
+ 228 014c 00000000 	 .word i_q_ref
+ 229 0150 00000000 	 .word i_q
+ 230 0154 00000000 	 .word current_q
+ 231 0158 00000000 	 .word u_q_ref
+ 232              	 .cfi_endproc
+ 233              	.LFE196:
+ 235              	 .section .text.pi_regulator_i_d,"ax",%progbits
+ 236              	 .align 2
+ 237              	 .global pi_regulator_i_d
+ 238              	 .thumb
+ 239              	 .thumb_func
+ 241              	pi_regulator_i_d:
+ 242              	.LFB197:
+  57:../pi_regulator.c **** 
+  58:../pi_regulator.c **** /*
+  59:../pi_regulator.c **** 	PI regulator for Id
+  60:../pi_regulator.c **** 	Input: i_d
+  61:../pi_regulator.c **** 	Output u_d_ref
+  62:../pi_regulator.c **** */
+  63:../pi_regulator.c **** void pi_regulator_i_d(void) 
+  64:../pi_regulator.c **** {
+ 243              	 .loc 1 64 0
+ 244              	 .cfi_startproc
+ 245              	 
  246              	 
  247              	 
- 248              	 
- 249 0000 80B4     	 push {r7}
- 250              	.LCFI4:
- 251              	 .cfi_def_cfa_offset 4
- 252              	 .cfi_offset 7,-4
- 253 0002 00AF     	 add r7,sp,#0
- 254              	.LCFI5:
- 255              	 .cfi_def_cfa_register 7
-  66:../pi_regulator.c **** 	current_d.error = i_d_ref - i_d;
- 256              	 .loc 1 66 0
- 257 0004 514B     	 ldr r3,.L47
- 258 0006 93ED007A 	 flds s14,[r3]
- 259 000a 514B     	 ldr r3,.L47+4
- 260 000c D3ED007A 	 flds s15,[r3]
- 261 0010 77EE677A 	 fsubs s15,s14,s15
- 262 0014 4F4B     	 ldr r3,.L47+8
- 263 0016 C3ED037A 	 fsts s15,[r3,#12]
-  67:../pi_regulator.c **** 
-  68:../pi_regulator.c **** 	// Proportional part computation
-  69:../pi_regulator.c **** 	current_d.p_part = current_d.error * current_d.kp;
- 264              	 .loc 1 69 0
- 265 001a 4E4B     	 ldr r3,.L47+8
- 266 001c 93ED037A 	 flds s14,[r3,#12]
- 267 0020 4C4B     	 ldr r3,.L47+8
- 268 0022 D3ED007A 	 flds s15,[r3]
- 269 0026 67EE277A 	 fmuls s15,s14,s15
- 270 002a 4A4B     	 ldr r3,.L47+8
- 271 002c C3ED047A 	 fsts s15,[r3,#16]
-  70:../pi_regulator.c **** 	if (current_d.p_part > current_d.sat_out)
- 272              	 .loc 1 70 0
- 273 0030 484B     	 ldr r3,.L47+8
- 274 0032 93ED047A 	 flds s14,[r3,#16]
- 275 0036 474B     	 ldr r3,.L47+8
- 276 0038 D3ED077A 	 flds s15,[r3,#28]
- 277 003c B4EEE77A 	 fcmpes s14,s15
- 278 0040 F1EE10FA 	 fmstat
- 279 0044 04DD     	 ble .L44
-  71:../pi_regulator.c **** 	{
-  72:../pi_regulator.c **** 		current_d.p_part = current_d.sat_out;
- 280              	 .loc 1 72 0
- 281 0046 434B     	 ldr r3,.L47+8
- 282 0048 DB69     	 ldr r3,[r3,#28]
- 283 004a 424A     	 ldr r2,.L47+8
- 284 004c 1361     	 str r3,[r2,#16]
- 285 004e 14E0     	 b .L28
- 286              	.L44:
-  73:../pi_regulator.c **** 	}
-  74:../pi_regulator.c **** 	else if (current_d.p_part < -current_d.sat_out)
- 287              	 .loc 1 74 0
- 288 0050 404B     	 ldr r3,.L47+8
- 289 0052 93ED047A 	 flds s14,[r3,#16]
- 290 0056 3F4B     	 ldr r3,.L47+8
- 291 0058 D3ED077A 	 flds s15,[r3,#28]
- 292 005c F1EE677A 	 fnegs s15,s15
- 293 0060 B4EEE77A 	 fcmpes s14,s15
- 294 0064 F1EE10FA 	 fmstat
- 295 0068 07D5     	 bpl .L28
-  75:../pi_regulator.c **** 	{
-  76:../pi_regulator.c **** 		current_d.p_part = -current_d.sat_out;
- 296              	 .loc 1 76 0
- 297 006a 3A4B     	 ldr r3,.L47+8
- 298 006c D3ED077A 	 flds s15,[r3,#28]
- 299 0070 F1EE677A 	 fnegs s15,s15
- 300 0074 374B     	 ldr r3,.L47+8
- 301 0076 C3ED047A 	 fsts s15,[r3,#16]
- 302              	.L28:
-  77:../pi_regulator.c **** 	}
-  78:../pi_regulator.c **** 
-  79:../pi_regulator.c **** 	// Integral part computation
-  80:../pi_regulator.c **** 	current_d.i_part += current_d.error * current_d.ki;
- 303              	 .loc 1 80 0
- 304 007a 364B     	 ldr r3,.L47+8
- 305 007c 93ED057A 	 flds s14,[r3,#20]
- 306 0080 344B     	 ldr r3,.L47+8
- 307 0082 D3ED036A 	 flds s13,[r3,#12]
- 308 0086 334B     	 ldr r3,.L47+8
- 309 0088 D3ED017A 	 flds s15,[r3,#4]
- 310 008c 66EEA77A 	 fmuls s15,s13,s15
- 311 0090 77EE277A 	 fadds s15,s14,s15
- 312 0094 2F4B     	 ldr r3,.L47+8
- 313 0096 C3ED057A 	 fsts s15,[r3,#20]
-  81:../pi_regulator.c **** 	if (current_d.i_part > current_d.sat_i_part)
- 314              	 .loc 1 81 0
- 315 009a 2E4B     	 ldr r3,.L47+8
- 316 009c 93ED057A 	 flds s14,[r3,#20]
- 317 00a0 2C4B     	 ldr r3,.L47+8
- 318 00a2 D3ED087A 	 flds s15,[r3,#32]
- 319 00a6 B4EEE77A 	 fcmpes s14,s15
- 320 00aa F1EE10FA 	 fmstat
- 321 00ae 04DD     	 ble .L45
-  82:../pi_regulator.c **** 	{
-  83:../pi_regulator.c **** 		current_d.i_part = current_d.sat_i_part;
- 322              	 .loc 1 83 0
- 323 00b0 284B     	 ldr r3,.L47+8
- 324 00b2 1B6A     	 ldr r3,[r3,#32]
- 325 00b4 274A     	 ldr r2,.L47+8
- 326 00b6 5361     	 str r3,[r2,#20]
- 327 00b8 14E0     	 b .L32
- 328              	.L45:
-  84:../pi_regulator.c **** 	}
-  85:../pi_regulator.c **** 	else if (current_d.i_part < -current_d.sat_i_part)
- 329              	 .loc 1 85 0
- 330 00ba 264B     	 ldr r3,.L47+8
- 331 00bc 93ED057A 	 flds s14,[r3,#20]
- 332 00c0 244B     	 ldr r3,.L47+8
- 333 00c2 D3ED087A 	 flds s15,[r3,#32]
- 334 00c6 F1EE677A 	 fnegs s15,s15
- 335 00ca B4EEE77A 	 fcmpes s14,s15
- 336 00ce F1EE10FA 	 fmstat
- 337 00d2 07D5     	 bpl .L32
-  86:../pi_regulator.c **** 	{
-  87:../pi_regulator.c **** 		current_d.i_part = -current_d.sat_i_part;
- 338              	 .loc 1 87 0
- 339 00d4 1F4B     	 ldr r3,.L47+8
- 340 00d6 D3ED087A 	 flds s15,[r3,#32]
- 341 00da F1EE677A 	 fnegs s15,s15
- 342 00de 1D4B     	 ldr r3,.L47+8
- 343 00e0 C3ED057A 	 fsts s15,[r3,#20]
- 344              	.L32:
-  88:../pi_regulator.c **** 	}
-  89:../pi_regulator.c **** 
-  90:../pi_regulator.c **** 	// Output
-  91:../pi_regulator.c **** 	u_d_ref = current_d.p_part + current_d.i_part;
- 345              	 .loc 1 91 0
- 346 00e4 1B4B     	 ldr r3,.L47+8
- 347 00e6 93ED047A 	 flds s14,[r3,#16]
- 348 00ea 1A4B     	 ldr r3,.L47+8
- 349 00ec D3ED057A 	 flds s15,[r3,#20]
- 350 00f0 77EE277A 	 fadds s15,s14,s15
- 351 00f4 184B     	 ldr r3,.L47+12
- 352 00f6 C3ED007A 	 fsts s15,[r3]
-  92:../pi_regulator.c **** 
-  93:../pi_regulator.c **** 	if (u_d_ref > current_d.sat_out)
- 353              	 .loc 1 93 0
- 354 00fa 164B     	 ldr r3,.L47+8
- 355 00fc 93ED077A 	 flds s14,[r3,#28]
- 356 0100 154B     	 ldr r3,.L47+12
- 357 0102 D3ED007A 	 flds s15,[r3]
- 358 0106 B4EEE77A 	 fcmpes s14,s15
- 359 010a F1EE10FA 	 fmstat
- 360 010e 04D5     	 bpl .L46
-  94:../pi_regulator.c **** 	{
-  95:../pi_regulator.c **** 		u_d_ref = current_d.sat_out;
- 361              	 .loc 1 95 0
- 362 0110 104B     	 ldr r3,.L47+8
- 363 0112 DB69     	 ldr r3,[r3,#28]
- 364 0114 104A     	 ldr r2,.L47+12
- 365 0116 1360     	 str r3,[r2]
- 366 0118 14E0     	 b .L25
- 367              	.L46:
-  96:../pi_regulator.c **** 	}
-  97:../pi_regulator.c **** 	else if (u_d_ref < -current_d.sat_out)
- 368              	 .loc 1 97 0
- 369 011a 0E4B     	 ldr r3,.L47+8
- 370 011c D3ED077A 	 flds s15,[r3,#28]
- 371 0120 B1EE677A 	 fnegs s14,s15
- 372 0124 0C4B     	 ldr r3,.L47+12
- 373 0126 D3ED007A 	 flds s15,[r3]
- 374 012a B4EEE77A 	 fcmpes s14,s15
- 375 012e F1EE10FA 	 fmstat
- 376 0132 07DD     	 ble .L25
-  98:../pi_regulator.c **** 	{
-  99:../pi_regulator.c **** 		u_d_ref = -current_d.sat_out;
- 377              	 .loc 1 99 0
- 378 0134 074B     	 ldr r3,.L47+8
- 379 0136 D3ED077A 	 flds s15,[r3,#28]
- 380 013a F1EE677A 	 fnegs s15,s15
- 381 013e 064B     	 ldr r3,.L47+12
- 382 0140 C3ED007A 	 fsts s15,[r3]
- 383              	.L25:
- 100:../pi_regulator.c **** 	}
- 101:../pi_regulator.c **** }
- 384              	 .loc 1 101 0
- 385 0144 BD46     	 mov sp,r7
- 386              	.LCFI6:
- 387              	 .cfi_def_cfa_register 13
- 388              	 
- 389 0146 5DF8047B 	 ldr r7,[sp],#4
- 390              	.LCFI7:
- 391              	 .cfi_restore 7
- 392              	 .cfi_def_cfa_offset 0
- 393 014a 7047     	 bx lr
- 394              	.L48:
- 395              	 .align 2
- 396              	.L47:
- 397 014c 00000000 	 .word i_d_ref
- 398 0150 00000000 	 .word i_d
- 399 0154 00000000 	 .word current_d
- 400 0158 00000000 	 .word u_d_ref
- 401              	 .cfi_endproc
- 402              	.LFE197:
- 404              	 .section .text.pi_regulator_speed,"ax",%progbits
- 405              	 .align 2
- 406              	 .global pi_regulator_speed
- 407              	 .thumb
- 408              	 .thumb_func
- 410              	pi_regulator_speed:
- 411              	.LFB198:
- 102:../pi_regulator.c **** 
- 103:../pi_regulator.c **** /*
- 104:../pi_regulator.c **** 	PI regulator for Spd
- 105:../pi_regulator.c **** 	Input: motor_spd
- 106:../pi_regulator.c **** 	Output i_q_ref
- 107:../pi_regulator.c **** */
- 108:../pi_regulator.c **** void pi_regulator_speed(void) 
- 109:../pi_regulator.c **** {
- 412              	 .loc 1 109 0
- 413              	 .cfi_startproc
+ 248 0000 80B4     	 push {r7}
+ 249              	.LCFI4:
+ 250              	 .cfi_def_cfa_offset 4
+ 251              	 .cfi_offset 7,-4
+ 252 0002 00AF     	 add r7,sp,#0
+ 253              	.LCFI5:
+ 254              	 .cfi_def_cfa_register 7
+  65:../pi_regulator.c **** 	current_d.error = i_d_ref - i_d;
+ 255              	 .loc 1 65 0
+ 256 0004 514B     	 ldr r3,.L47
+ 257 0006 93ED007A 	 flds s14,[r3]
+ 258 000a 514B     	 ldr r3,.L47+4
+ 259 000c D3ED007A 	 flds s15,[r3]
+ 260 0010 77EE677A 	 fsubs s15,s14,s15
+ 261 0014 4F4B     	 ldr r3,.L47+8
+ 262 0016 C3ED037A 	 fsts s15,[r3,#12]
+  66:../pi_regulator.c **** 
+  67:../pi_regulator.c **** 	// Proportional part computation
+  68:../pi_regulator.c **** 	current_d.p_part = current_d.error * current_d.kp;
+ 263              	 .loc 1 68 0
+ 264 001a 4E4B     	 ldr r3,.L47+8
+ 265 001c 93ED037A 	 flds s14,[r3,#12]
+ 266 0020 4C4B     	 ldr r3,.L47+8
+ 267 0022 D3ED007A 	 flds s15,[r3]
+ 268 0026 67EE277A 	 fmuls s15,s14,s15
+ 269 002a 4A4B     	 ldr r3,.L47+8
+ 270 002c C3ED057A 	 fsts s15,[r3,#20]
+  69:../pi_regulator.c **** 	if (current_d.p_part > current_d.sat_out)
+ 271              	 .loc 1 69 0
+ 272 0030 484B     	 ldr r3,.L47+8
+ 273 0032 93ED057A 	 flds s14,[r3,#20]
+ 274 0036 474B     	 ldr r3,.L47+8
+ 275 0038 D3ED087A 	 flds s15,[r3,#32]
+ 276 003c B4EEE77A 	 fcmpes s14,s15
+ 277 0040 F1EE10FA 	 fmstat
+ 278 0044 04DD     	 ble .L44
+  70:../pi_regulator.c **** 	{
+  71:../pi_regulator.c **** 		current_d.p_part = current_d.sat_out;
+ 279              	 .loc 1 71 0
+ 280 0046 434B     	 ldr r3,.L47+8
+ 281 0048 1B6A     	 ldr r3,[r3,#32]
+ 282 004a 424A     	 ldr r2,.L47+8
+ 283 004c 5361     	 str r3,[r2,#20]
+ 284 004e 14E0     	 b .L28
+ 285              	.L44:
+  72:../pi_regulator.c **** 	}
+  73:../pi_regulator.c **** 	else if (current_d.p_part < -current_d.sat_out)
+ 286              	 .loc 1 73 0
+ 287 0050 404B     	 ldr r3,.L47+8
+ 288 0052 93ED057A 	 flds s14,[r3,#20]
+ 289 0056 3F4B     	 ldr r3,.L47+8
+ 290 0058 D3ED087A 	 flds s15,[r3,#32]
+ 291 005c F1EE677A 	 fnegs s15,s15
+ 292 0060 B4EEE77A 	 fcmpes s14,s15
+ 293 0064 F1EE10FA 	 fmstat
+ 294 0068 07D5     	 bpl .L28
+  74:../pi_regulator.c **** 	{
+  75:../pi_regulator.c **** 		current_d.p_part = -current_d.sat_out;
+ 295              	 .loc 1 75 0
+ 296 006a 3A4B     	 ldr r3,.L47+8
+ 297 006c D3ED087A 	 flds s15,[r3,#32]
+ 298 0070 F1EE677A 	 fnegs s15,s15
+ 299 0074 374B     	 ldr r3,.L47+8
+ 300 0076 C3ED057A 	 fsts s15,[r3,#20]
+ 301              	.L28:
+  76:../pi_regulator.c **** 	}
+  77:../pi_regulator.c **** 
+  78:../pi_regulator.c **** 	// Integral part computation
+  79:../pi_regulator.c **** 	current_d.i_part += current_d.error * current_d.ki;
+ 302              	 .loc 1 79 0
+ 303 007a 364B     	 ldr r3,.L47+8
+ 304 007c 93ED067A 	 flds s14,[r3,#24]
+ 305 0080 344B     	 ldr r3,.L47+8
+ 306 0082 D3ED036A 	 flds s13,[r3,#12]
+ 307 0086 334B     	 ldr r3,.L47+8
+ 308 0088 D3ED017A 	 flds s15,[r3,#4]
+ 309 008c 66EEA77A 	 fmuls s15,s13,s15
+ 310 0090 77EE277A 	 fadds s15,s14,s15
+ 311 0094 2F4B     	 ldr r3,.L47+8
+ 312 0096 C3ED067A 	 fsts s15,[r3,#24]
+  80:../pi_regulator.c **** 	if (current_d.i_part > current_d.sat_i_part)
+ 313              	 .loc 1 80 0
+ 314 009a 2E4B     	 ldr r3,.L47+8
+ 315 009c 93ED067A 	 flds s14,[r3,#24]
+ 316 00a0 2C4B     	 ldr r3,.L47+8
+ 317 00a2 D3ED097A 	 flds s15,[r3,#36]
+ 318 00a6 B4EEE77A 	 fcmpes s14,s15
+ 319 00aa F1EE10FA 	 fmstat
+ 320 00ae 04DD     	 ble .L45
+  81:../pi_regulator.c **** 	{
+  82:../pi_regulator.c **** 		current_d.i_part = current_d.sat_i_part;
+ 321              	 .loc 1 82 0
+ 322 00b0 284B     	 ldr r3,.L47+8
+ 323 00b2 5B6A     	 ldr r3,[r3,#36]
+ 324 00b4 274A     	 ldr r2,.L47+8
+ 325 00b6 9361     	 str r3,[r2,#24]
+ 326 00b8 14E0     	 b .L32
+ 327              	.L45:
+  83:../pi_regulator.c **** 	}
+  84:../pi_regulator.c **** 	else if (current_d.i_part < -current_d.sat_i_part)
+ 328              	 .loc 1 84 0
+ 329 00ba 264B     	 ldr r3,.L47+8
+ 330 00bc 93ED067A 	 flds s14,[r3,#24]
+ 331 00c0 244B     	 ldr r3,.L47+8
+ 332 00c2 D3ED097A 	 flds s15,[r3,#36]
+ 333 00c6 F1EE677A 	 fnegs s15,s15
+ 334 00ca B4EEE77A 	 fcmpes s14,s15
+ 335 00ce F1EE10FA 	 fmstat
+ 336 00d2 07D5     	 bpl .L32
+  85:../pi_regulator.c **** 	{
+  86:../pi_regulator.c **** 		current_d.i_part = -current_d.sat_i_part;
+ 337              	 .loc 1 86 0
+ 338 00d4 1F4B     	 ldr r3,.L47+8
+ 339 00d6 D3ED097A 	 flds s15,[r3,#36]
+ 340 00da F1EE677A 	 fnegs s15,s15
+ 341 00de 1D4B     	 ldr r3,.L47+8
+ 342 00e0 C3ED067A 	 fsts s15,[r3,#24]
+ 343              	.L32:
+  87:../pi_regulator.c **** 	}
+  88:../pi_regulator.c **** 
+  89:../pi_regulator.c **** 	// Output
+  90:../pi_regulator.c **** 	u_d_ref = current_d.p_part + current_d.i_part;
+ 344              	 .loc 1 90 0
+ 345 00e4 1B4B     	 ldr r3,.L47+8
+ 346 00e6 93ED057A 	 flds s14,[r3,#20]
+ 347 00ea 1A4B     	 ldr r3,.L47+8
+ 348 00ec D3ED067A 	 flds s15,[r3,#24]
+ 349 00f0 77EE277A 	 fadds s15,s14,s15
+ 350 00f4 184B     	 ldr r3,.L47+12
+ 351 00f6 C3ED007A 	 fsts s15,[r3]
+  91:../pi_regulator.c **** 
+  92:../pi_regulator.c **** 	if (u_d_ref > current_d.sat_out)
+ 352              	 .loc 1 92 0
+ 353 00fa 164B     	 ldr r3,.L47+8
+ 354 00fc 93ED087A 	 flds s14,[r3,#32]
+ 355 0100 154B     	 ldr r3,.L47+12
+ 356 0102 D3ED007A 	 flds s15,[r3]
+ 357 0106 B4EEE77A 	 fcmpes s14,s15
+ 358 010a F1EE10FA 	 fmstat
+ 359 010e 04D5     	 bpl .L46
+  93:../pi_regulator.c **** 	{
+  94:../pi_regulator.c **** 		u_d_ref = current_d.sat_out;
+ 360              	 .loc 1 94 0
+ 361 0110 104B     	 ldr r3,.L47+8
+ 362 0112 1B6A     	 ldr r3,[r3,#32]
+ 363 0114 104A     	 ldr r2,.L47+12
+ 364 0116 1360     	 str r3,[r2]
+ 365 0118 14E0     	 b .L25
+ 366              	.L46:
+  95:../pi_regulator.c **** 	}
+  96:../pi_regulator.c **** 	else if (u_d_ref < -current_d.sat_out)
+ 367              	 .loc 1 96 0
+ 368 011a 0E4B     	 ldr r3,.L47+8
+ 369 011c D3ED087A 	 flds s15,[r3,#32]
+ 370 0120 B1EE677A 	 fnegs s14,s15
+ 371 0124 0C4B     	 ldr r3,.L47+12
+ 372 0126 D3ED007A 	 flds s15,[r3]
+ 373 012a B4EEE77A 	 fcmpes s14,s15
+ 374 012e F1EE10FA 	 fmstat
+ 375 0132 07DD     	 ble .L25
+  97:../pi_regulator.c **** 	{
+  98:../pi_regulator.c **** 		u_d_ref = -current_d.sat_out;
+ 376              	 .loc 1 98 0
+ 377 0134 074B     	 ldr r3,.L47+8
+ 378 0136 D3ED087A 	 flds s15,[r3,#32]
+ 379 013a F1EE677A 	 fnegs s15,s15
+ 380 013e 064B     	 ldr r3,.L47+12
+ 381 0140 C3ED007A 	 fsts s15,[r3]
+ 382              	.L25:
+  99:../pi_regulator.c **** 	}
+ 100:../pi_regulator.c **** }
+ 383              	 .loc 1 100 0
+ 384 0144 BD46     	 mov sp,r7
+ 385              	.LCFI6:
+ 386              	 .cfi_def_cfa_register 13
+ 387              	 
+ 388 0146 5DF8047B 	 ldr r7,[sp],#4
+ 389              	.LCFI7:
+ 390              	 .cfi_restore 7
+ 391              	 .cfi_def_cfa_offset 0
+ 392 014a 7047     	 bx lr
+ 393              	.L48:
+ 394              	 .align 2
+ 395              	.L47:
+ 396 014c 00000000 	 .word i_d_ref
+ 397 0150 00000000 	 .word i_d
+ 398 0154 00000000 	 .word current_d
+ 399 0158 00000000 	 .word u_d_ref
+ 400              	 .cfi_endproc
+ 401              	.LFE197:
+ 403              	 .section .text.pi_regulator_speed,"ax",%progbits
+ 404              	 .align 2
+ 405              	 .global pi_regulator_speed
+ 406              	 .thumb
+ 407              	 .thumb_func
+ 409              	pi_regulator_speed:
+ 410              	.LFB198:
+ 101:../pi_regulator.c **** 
+ 102:../pi_regulator.c **** /*
+ 103:../pi_regulator.c **** 	PI regulator for Spd
+ 104:../pi_regulator.c **** 	Input: motor_spd
+ 105:../pi_regulator.c **** 	Output i_q_ref
+ 106:../pi_regulator.c **** */
+ 107:../pi_regulator.c **** void pi_regulator_speed(void) 
+ 108:../pi_regulator.c **** {
+ 411              	 .loc 1 108 0
+ 412              	 .cfi_startproc
+ 413              	 
  414              	 
  415              	 
- 416              	 
- 417 0000 80B4     	 push {r7}
- 418              	.LCFI8:
- 419              	 .cfi_def_cfa_offset 4
- 420              	 .cfi_offset 7,-4
- 421 0002 00AF     	 add r7,sp,#0
- 422              	.LCFI9:
- 423              	 .cfi_def_cfa_register 7
- 110:../pi_regulator.c **** 	speed.error = spd_ref - motor_spd;
- 424              	 .loc 1 110 0
- 425 0004 534B     	 ldr r3,.L71
- 426 0006 93ED007A 	 flds s14,[r3]
- 427 000a 534B     	 ldr r3,.L71+4
- 428 000c 1B68     	 ldr r3,[r3]
- 429 000e 07EE903A 	 fmsr s15,r3
- 430 0012 F8EEE77A 	 fsitos s15,s15
- 431 0016 77EE677A 	 fsubs s15,s14,s15
- 432 001a 504B     	 ldr r3,.L71+8
- 433 001c C3ED037A 	 fsts s15,[r3,#12]
- 111:../pi_regulator.c **** 
- 112:../pi_regulator.c **** 	// Proportional part computation
- 113:../pi_regulator.c **** 	speed.p_part = speed.error * speed.kp;
- 434              	 .loc 1 113 0
- 435 0020 4E4B     	 ldr r3,.L71+8
- 436 0022 93ED037A 	 flds s14,[r3,#12]
- 437 0026 4D4B     	 ldr r3,.L71+8
- 438 0028 D3ED007A 	 flds s15,[r3]
- 439 002c 67EE277A 	 fmuls s15,s14,s15
- 440 0030 4A4B     	 ldr r3,.L71+8
- 441 0032 C3ED047A 	 fsts s15,[r3,#16]
- 114:../pi_regulator.c **** 	if (speed.p_part > speed.sat_out)
- 442              	 .loc 1 114 0
- 443 0036 494B     	 ldr r3,.L71+8
- 444 0038 93ED047A 	 flds s14,[r3,#16]
- 445 003c 474B     	 ldr r3,.L71+8
- 446 003e D3ED077A 	 flds s15,[r3,#28]
- 447 0042 B4EEE77A 	 fcmpes s14,s15
- 448 0046 F1EE10FA 	 fmstat
- 449 004a 04DD     	 ble .L68
- 115:../pi_regulator.c **** 	{
- 116:../pi_regulator.c **** 		speed.p_part = speed.sat_out;
- 450              	 .loc 1 116 0
- 451 004c 434B     	 ldr r3,.L71+8
- 452 004e DB69     	 ldr r3,[r3,#28]
- 453 0050 424A     	 ldr r2,.L71+8
- 454 0052 1361     	 str r3,[r2,#16]
- 455 0054 14E0     	 b .L52
- 456              	.L68:
- 117:../pi_regulator.c **** 	}
- 118:../pi_regulator.c **** 	else if (speed.p_part < -speed.sat_out)
- 457              	 .loc 1 118 0
- 458 0056 414B     	 ldr r3,.L71+8
- 459 0058 93ED047A 	 flds s14,[r3,#16]
- 460 005c 3F4B     	 ldr r3,.L71+8
- 461 005e D3ED077A 	 flds s15,[r3,#28]
- 462 0062 F1EE677A 	 fnegs s15,s15
- 463 0066 B4EEE77A 	 fcmpes s14,s15
- 464 006a F1EE10FA 	 fmstat
- 465 006e 07D5     	 bpl .L52
- 119:../pi_regulator.c **** 	{
- 120:../pi_regulator.c **** 		speed.p_part = -speed.sat_out;
- 466              	 .loc 1 120 0
- 467 0070 3A4B     	 ldr r3,.L71+8
- 468 0072 D3ED077A 	 flds s15,[r3,#28]
- 469 0076 F1EE677A 	 fnegs s15,s15
- 470 007a 384B     	 ldr r3,.L71+8
- 471 007c C3ED047A 	 fsts s15,[r3,#16]
- 472              	.L52:
- 121:../pi_regulator.c **** 	}
- 122:../pi_regulator.c **** 
- 123:../pi_regulator.c **** 	// Integral part computation
- 124:../pi_regulator.c **** 	speed.i_part += speed.error * speed.ki;
- 473              	 .loc 1 124 0
- 474 0080 364B     	 ldr r3,.L71+8
- 475 0082 93ED057A 	 flds s14,[r3,#20]
- 476 0086 354B     	 ldr r3,.L71+8
- 477 0088 D3ED036A 	 flds s13,[r3,#12]
- 478 008c 334B     	 ldr r3,.L71+8
- 479 008e D3ED017A 	 flds s15,[r3,#4]
- 480 0092 66EEA77A 	 fmuls s15,s13,s15
- 481 0096 77EE277A 	 fadds s15,s14,s15
- 482 009a 304B     	 ldr r3,.L71+8
- 483 009c C3ED057A 	 fsts s15,[r3,#20]
- 125:../pi_regulator.c **** 	if (speed.i_part > speed.sat_i_part)
- 484              	 .loc 1 125 0
- 485 00a0 2E4B     	 ldr r3,.L71+8
- 486 00a2 93ED057A 	 flds s14,[r3,#20]
- 487 00a6 2D4B     	 ldr r3,.L71+8
- 488 00a8 D3ED087A 	 flds s15,[r3,#32]
- 489 00ac B4EEE77A 	 fcmpes s14,s15
- 490 00b0 F1EE10FA 	 fmstat
- 491 00b4 04DD     	 ble .L69
- 126:../pi_regulator.c **** 	{
- 127:../pi_regulator.c **** 		speed.i_part = speed.sat_i_part;
- 492              	 .loc 1 127 0
- 493 00b6 294B     	 ldr r3,.L71+8
- 494 00b8 1B6A     	 ldr r3,[r3,#32]
- 495 00ba 284A     	 ldr r2,.L71+8
- 496 00bc 5361     	 str r3,[r2,#20]
- 497 00be 14E0     	 b .L56
- 498              	.L69:
- 128:../pi_regulator.c **** 	}
- 129:../pi_regulator.c **** 	else if (speed.i_part < -speed.sat_i_part)
- 499              	 .loc 1 129 0
- 500 00c0 264B     	 ldr r3,.L71+8
- 501 00c2 93ED057A 	 flds s14,[r3,#20]
- 502 00c6 254B     	 ldr r3,.L71+8
- 503 00c8 D3ED087A 	 flds s15,[r3,#32]
- 504 00cc F1EE677A 	 fnegs s15,s15
- 505 00d0 B4EEE77A 	 fcmpes s14,s15
- 506 00d4 F1EE10FA 	 fmstat
- 507 00d8 07D5     	 bpl .L56
- 130:../pi_regulator.c **** 	{
- 131:../pi_regulator.c **** 		speed.i_part = -speed.sat_i_part;
- 508              	 .loc 1 131 0
- 509 00da 204B     	 ldr r3,.L71+8
- 510 00dc D3ED087A 	 flds s15,[r3,#32]
- 511 00e0 F1EE677A 	 fnegs s15,s15
- 512 00e4 1D4B     	 ldr r3,.L71+8
- 513 00e6 C3ED057A 	 fsts s15,[r3,#20]
- 514              	.L56:
- 132:../pi_regulator.c **** 	}
- 133:../pi_regulator.c **** 
- 134:../pi_regulator.c **** 	// Output
- 135:../pi_regulator.c **** 	i_q_ref = speed.p_part + speed.i_part;
- 515              	 .loc 1 135 0
- 516 00ea 1C4B     	 ldr r3,.L71+8
- 517 00ec 93ED047A 	 flds s14,[r3,#16]
- 518 00f0 1A4B     	 ldr r3,.L71+8
- 519 00f2 D3ED057A 	 flds s15,[r3,#20]
- 520 00f6 77EE277A 	 fadds s15,s14,s15
- 521 00fa 194B     	 ldr r3,.L71+12
- 522 00fc C3ED007A 	 fsts s15,[r3]
- 136:../pi_regulator.c **** 
- 137:../pi_regulator.c **** 	if (i_q_ref > speed.sat_out)
- 523              	 .loc 1 137 0
- 524 0100 164B     	 ldr r3,.L71+8
- 525 0102 93ED077A 	 flds s14,[r3,#28]
- 526 0106 164B     	 ldr r3,.L71+12
- 527 0108 D3ED007A 	 flds s15,[r3]
- 528 010c B4EEE77A 	 fcmpes s14,s15
- 529 0110 F1EE10FA 	 fmstat
- 530 0114 04D5     	 bpl .L70
- 138:../pi_regulator.c **** 	{
- 139:../pi_regulator.c **** 		i_q_ref = speed.sat_out;
- 531              	 .loc 1 139 0
- 532 0116 114B     	 ldr r3,.L71+8
- 533 0118 DB69     	 ldr r3,[r3,#28]
- 534 011a 114A     	 ldr r2,.L71+12
- 535 011c 1360     	 str r3,[r2]
- 536 011e 14E0     	 b .L49
- 537              	.L70:
- 140:../pi_regulator.c **** 	}
- 141:../pi_regulator.c **** 	else if (i_q_ref < -speed.sat_out)
- 538              	 .loc 1 141 0
- 539 0120 0E4B     	 ldr r3,.L71+8
- 540 0122 D3ED077A 	 flds s15,[r3,#28]
- 541 0126 B1EE677A 	 fnegs s14,s15
- 542 012a 0D4B     	 ldr r3,.L71+12
- 543 012c D3ED007A 	 flds s15,[r3]
- 544 0130 B4EEE77A 	 fcmpes s14,s15
- 545 0134 F1EE10FA 	 fmstat
- 546 0138 07DD     	 ble .L49
- 142:../pi_regulator.c **** 	{
- 143:../pi_regulator.c **** 		i_q_ref = -speed.sat_out;
- 547              	 .loc 1 143 0
- 548 013a 084B     	 ldr r3,.L71+8
- 549 013c D3ED077A 	 flds s15,[r3,#28]
- 550 0140 F1EE677A 	 fnegs s15,s15
- 551 0144 064B     	 ldr r3,.L71+12
- 552 0146 C3ED007A 	 fsts s15,[r3]
- 553              	.L49:
- 144:../pi_regulator.c **** 	}
- 145:../pi_regulator.c **** }
- 554              	 .loc 1 145 0
- 555 014a BD46     	 mov sp,r7
- 556              	.LCFI10:
- 557              	 .cfi_def_cfa_register 13
- 558              	 
- 559 014c 5DF8047B 	 ldr r7,[sp],#4
- 560              	.LCFI11:
- 561              	 .cfi_restore 7
- 562              	 .cfi_def_cfa_offset 0
- 563 0150 7047     	 bx lr
- 564              	.L72:
- 565 0152 00BF     	 .align 2
- 566              	.L71:
- 567 0154 00000000 	 .word spd_ref
- 568 0158 00000000 	 .word motor_spd
- 569 015c 00000000 	 .word speed
- 570 0160 00000000 	 .word i_q_ref
- 571              	 .cfi_endproc
- 572              	.LFE198:
- 574              	 .section .text.pid_regulator_pos,"ax",%progbits
- 575              	 .align 2
- 576              	 .global pid_regulator_pos
- 577              	 .thumb
- 578              	 .thumb_func
- 580              	pid_regulator_pos:
- 581              	.LFB199:
- 146:../pi_regulator.c **** 
- 147:../pi_regulator.c **** /*
- 148:../pi_regulator.c **** 	PID regulator for Pos
- 149:../pi_regulator.c **** 	Input: mechanical_position_fast
- 150:../pi_regulator.c **** 	Output: spd_ref | i_q_ref
- 151:../pi_regulator.c **** */
- 152:../pi_regulator.c **** void pid_regulator_pos(void) // mechanical_position_fast -> spd_ref
- 153:../pi_regulator.c **** {
- 582              	 .loc 1 153 0
- 583              	 .cfi_startproc
+ 416 0000 80B4     	 push {r7}
+ 417              	.LCFI8:
+ 418              	 .cfi_def_cfa_offset 4
+ 419              	 .cfi_offset 7,-4
+ 420 0002 00AF     	 add r7,sp,#0
+ 421              	.LCFI9:
+ 422              	 .cfi_def_cfa_register 7
+ 109:../pi_regulator.c **** 	speed.error = spd_ref - motor_spd;
+ 423              	 .loc 1 109 0
+ 424 0004 534B     	 ldr r3,.L71
+ 425 0006 93ED007A 	 flds s14,[r3]
+ 426 000a 534B     	 ldr r3,.L71+4
+ 427 000c 1B68     	 ldr r3,[r3]
+ 428 000e 07EE903A 	 fmsr s15,r3
+ 429 0012 F8EEE77A 	 fsitos s15,s15
+ 430 0016 77EE677A 	 fsubs s15,s14,s15
+ 431 001a 504B     	 ldr r3,.L71+8
+ 432 001c C3ED037A 	 fsts s15,[r3,#12]
+ 110:../pi_regulator.c **** 
+ 111:../pi_regulator.c **** 	// Proportional part computation
+ 112:../pi_regulator.c **** 	speed.p_part = speed.error * speed.kp;
+ 433              	 .loc 1 112 0
+ 434 0020 4E4B     	 ldr r3,.L71+8
+ 435 0022 93ED037A 	 flds s14,[r3,#12]
+ 436 0026 4D4B     	 ldr r3,.L71+8
+ 437 0028 D3ED007A 	 flds s15,[r3]
+ 438 002c 67EE277A 	 fmuls s15,s14,s15
+ 439 0030 4A4B     	 ldr r3,.L71+8
+ 440 0032 C3ED057A 	 fsts s15,[r3,#20]
+ 113:../pi_regulator.c **** 	if (speed.p_part > speed.sat_out)
+ 441              	 .loc 1 113 0
+ 442 0036 494B     	 ldr r3,.L71+8
+ 443 0038 93ED057A 	 flds s14,[r3,#20]
+ 444 003c 474B     	 ldr r3,.L71+8
+ 445 003e D3ED087A 	 flds s15,[r3,#32]
+ 446 0042 B4EEE77A 	 fcmpes s14,s15
+ 447 0046 F1EE10FA 	 fmstat
+ 448 004a 04DD     	 ble .L68
+ 114:../pi_regulator.c **** 	{
+ 115:../pi_regulator.c **** 		speed.p_part = speed.sat_out;
+ 449              	 .loc 1 115 0
+ 450 004c 434B     	 ldr r3,.L71+8
+ 451 004e 1B6A     	 ldr r3,[r3,#32]
+ 452 0050 424A     	 ldr r2,.L71+8
+ 453 0052 5361     	 str r3,[r2,#20]
+ 454 0054 14E0     	 b .L52
+ 455              	.L68:
+ 116:../pi_regulator.c **** 	}
+ 117:../pi_regulator.c **** 	else if (speed.p_part < -speed.sat_out)
+ 456              	 .loc 1 117 0
+ 457 0056 414B     	 ldr r3,.L71+8
+ 458 0058 93ED057A 	 flds s14,[r3,#20]
+ 459 005c 3F4B     	 ldr r3,.L71+8
+ 460 005e D3ED087A 	 flds s15,[r3,#32]
+ 461 0062 F1EE677A 	 fnegs s15,s15
+ 462 0066 B4EEE77A 	 fcmpes s14,s15
+ 463 006a F1EE10FA 	 fmstat
+ 464 006e 07D5     	 bpl .L52
+ 118:../pi_regulator.c **** 	{
+ 119:../pi_regulator.c **** 		speed.p_part = -speed.sat_out;
+ 465              	 .loc 1 119 0
+ 466 0070 3A4B     	 ldr r3,.L71+8
+ 467 0072 D3ED087A 	 flds s15,[r3,#32]
+ 468 0076 F1EE677A 	 fnegs s15,s15
+ 469 007a 384B     	 ldr r3,.L71+8
+ 470 007c C3ED057A 	 fsts s15,[r3,#20]
+ 471              	.L52:
+ 120:../pi_regulator.c **** 	}
+ 121:../pi_regulator.c **** 
+ 122:../pi_regulator.c **** 	// Integral part computation
+ 123:../pi_regulator.c **** 	speed.i_part += speed.error * speed.ki;
+ 472              	 .loc 1 123 0
+ 473 0080 364B     	 ldr r3,.L71+8
+ 474 0082 93ED067A 	 flds s14,[r3,#24]
+ 475 0086 354B     	 ldr r3,.L71+8
+ 476 0088 D3ED036A 	 flds s13,[r3,#12]
+ 477 008c 334B     	 ldr r3,.L71+8
+ 478 008e D3ED017A 	 flds s15,[r3,#4]
+ 479 0092 66EEA77A 	 fmuls s15,s13,s15
+ 480 0096 77EE277A 	 fadds s15,s14,s15
+ 481 009a 304B     	 ldr r3,.L71+8
+ 482 009c C3ED067A 	 fsts s15,[r3,#24]
+ 124:../pi_regulator.c **** 	if (speed.i_part > speed.sat_i_part)
+ 483              	 .loc 1 124 0
+ 484 00a0 2E4B     	 ldr r3,.L71+8
+ 485 00a2 93ED067A 	 flds s14,[r3,#24]
+ 486 00a6 2D4B     	 ldr r3,.L71+8
+ 487 00a8 D3ED097A 	 flds s15,[r3,#36]
+ 488 00ac B4EEE77A 	 fcmpes s14,s15
+ 489 00b0 F1EE10FA 	 fmstat
+ 490 00b4 04DD     	 ble .L69
+ 125:../pi_regulator.c **** 	{
+ 126:../pi_regulator.c **** 		speed.i_part = speed.sat_i_part;
+ 491              	 .loc 1 126 0
+ 492 00b6 294B     	 ldr r3,.L71+8
+ 493 00b8 5B6A     	 ldr r3,[r3,#36]
+ 494 00ba 284A     	 ldr r2,.L71+8
+ 495 00bc 9361     	 str r3,[r2,#24]
+ 496 00be 14E0     	 b .L56
+ 497              	.L69:
+ 127:../pi_regulator.c **** 	}
+ 128:../pi_regulator.c **** 	else if (speed.i_part < -speed.sat_i_part)
+ 498              	 .loc 1 128 0
+ 499 00c0 264B     	 ldr r3,.L71+8
+ 500 00c2 93ED067A 	 flds s14,[r3,#24]
+ 501 00c6 254B     	 ldr r3,.L71+8
+ 502 00c8 D3ED097A 	 flds s15,[r3,#36]
+ 503 00cc F1EE677A 	 fnegs s15,s15
+ 504 00d0 B4EEE77A 	 fcmpes s14,s15
+ 505 00d4 F1EE10FA 	 fmstat
+ 506 00d8 07D5     	 bpl .L56
+ 129:../pi_regulator.c **** 	{
+ 130:../pi_regulator.c **** 		speed.i_part = -speed.sat_i_part;
+ 507              	 .loc 1 130 0
+ 508 00da 204B     	 ldr r3,.L71+8
+ 509 00dc D3ED097A 	 flds s15,[r3,#36]
+ 510 00e0 F1EE677A 	 fnegs s15,s15
+ 511 00e4 1D4B     	 ldr r3,.L71+8
+ 512 00e6 C3ED067A 	 fsts s15,[r3,#24]
+ 513              	.L56:
+ 131:../pi_regulator.c **** 	}
+ 132:../pi_regulator.c **** 
+ 133:../pi_regulator.c **** 	// Output
+ 134:../pi_regulator.c **** 	i_q_ref = speed.p_part + speed.i_part;
+ 514              	 .loc 1 134 0
+ 515 00ea 1C4B     	 ldr r3,.L71+8
+ 516 00ec 93ED057A 	 flds s14,[r3,#20]
+ 517 00f0 1A4B     	 ldr r3,.L71+8
+ 518 00f2 D3ED067A 	 flds s15,[r3,#24]
+ 519 00f6 77EE277A 	 fadds s15,s14,s15
+ 520 00fa 194B     	 ldr r3,.L71+12
+ 521 00fc C3ED007A 	 fsts s15,[r3]
+ 135:../pi_regulator.c **** 
+ 136:../pi_regulator.c **** 	if (i_q_ref > speed.sat_out)
+ 522              	 .loc 1 136 0
+ 523 0100 164B     	 ldr r3,.L71+8
+ 524 0102 93ED087A 	 flds s14,[r3,#32]
+ 525 0106 164B     	 ldr r3,.L71+12
+ 526 0108 D3ED007A 	 flds s15,[r3]
+ 527 010c B4EEE77A 	 fcmpes s14,s15
+ 528 0110 F1EE10FA 	 fmstat
+ 529 0114 04D5     	 bpl .L70
+ 137:../pi_regulator.c **** 	{
+ 138:../pi_regulator.c **** 		i_q_ref = speed.sat_out;
+ 530              	 .loc 1 138 0
+ 531 0116 114B     	 ldr r3,.L71+8
+ 532 0118 1B6A     	 ldr r3,[r3,#32]
+ 533 011a 114A     	 ldr r2,.L71+12
+ 534 011c 1360     	 str r3,[r2]
+ 535 011e 14E0     	 b .L49
+ 536              	.L70:
+ 139:../pi_regulator.c **** 	}
+ 140:../pi_regulator.c **** 	else if (i_q_ref < -speed.sat_out)
+ 537              	 .loc 1 140 0
+ 538 0120 0E4B     	 ldr r3,.L71+8
+ 539 0122 D3ED087A 	 flds s15,[r3,#32]
+ 540 0126 B1EE677A 	 fnegs s14,s15
+ 541 012a 0D4B     	 ldr r3,.L71+12
+ 542 012c D3ED007A 	 flds s15,[r3]
+ 543 0130 B4EEE77A 	 fcmpes s14,s15
+ 544 0134 F1EE10FA 	 fmstat
+ 545 0138 07DD     	 ble .L49
+ 141:../pi_regulator.c **** 	{
+ 142:../pi_regulator.c **** 		i_q_ref = -speed.sat_out;
+ 546              	 .loc 1 142 0
+ 547 013a 084B     	 ldr r3,.L71+8
+ 548 013c D3ED087A 	 flds s15,[r3,#32]
+ 549 0140 F1EE677A 	 fnegs s15,s15
+ 550 0144 064B     	 ldr r3,.L71+12
+ 551 0146 C3ED007A 	 fsts s15,[r3]
+ 552              	.L49:
+ 143:../pi_regulator.c **** 	}
+ 144:../pi_regulator.c **** }
+ 553              	 .loc 1 144 0
+ 554 014a BD46     	 mov sp,r7
+ 555              	.LCFI10:
+ 556              	 .cfi_def_cfa_register 13
+ 557              	 
+ 558 014c 5DF8047B 	 ldr r7,[sp],#4
+ 559              	.LCFI11:
+ 560              	 .cfi_restore 7
+ 561              	 .cfi_def_cfa_offset 0
+ 562 0150 7047     	 bx lr
+ 563              	.L72:
+ 564 0152 00BF     	 .align 2
+ 565              	.L71:
+ 566 0154 00000000 	 .word spd_ref
+ 567 0158 00000000 	 .word motor_spd
+ 568 015c 00000000 	 .word speed
+ 569 0160 00000000 	 .word i_q_ref
+ 570              	 .cfi_endproc
+ 571              	.LFE198:
+ 573              	 .section .text.pid_regulator_pos,"ax",%progbits
+ 574              	 .align 2
+ 575              	 .global pid_regulator_pos
+ 576              	 .thumb
+ 577              	 .thumb_func
+ 579              	pid_regulator_pos:
+ 580              	.LFB199:
+ 145:../pi_regulator.c **** 
+ 146:../pi_regulator.c **** /*
+ 147:../pi_regulator.c **** 	PID regulator for Pos
+ 148:../pi_regulator.c **** 	Input: mechanical_position_fast
+ 149:../pi_regulator.c **** 	Output: spd_ref | i_q_ref
+ 150:../pi_regulator.c **** */
+ 151:../pi_regulator.c **** void pid_regulator_pos(void) // mechanical_position_fast -> spd_ref
+ 152:../pi_regulator.c **** {
+ 581              	 .loc 1 152 0
+ 582              	 .cfi_startproc
+ 583              	 
  584              	 
  585              	 
- 586              	 
- 587 0000 80B4     	 push {r7}
- 588              	.LCFI12:
- 589              	 .cfi_def_cfa_offset 4
- 590              	 .cfi_offset 7,-4
- 591 0002 83B0     	 sub sp,sp,#12
- 592              	.LCFI13:
- 593              	 .cfi_def_cfa_offset 16
- 594 0004 00AF     	 add r7,sp,#0
- 595              	.LCFI14:
- 596              	 .cfi_def_cfa_register 7
- 154:../pi_regulator.c **** 	int i = !(LOOP_SPD_ENABLE);
- 597              	 .loc 1 154 0
- 598 0006 BA4B     	 ldr r3,.L114
- 599 0008 1B88     	 ldrh r3,[r3]
- 600 000a 03F40073 	 and r3,r3,#512
- 601 000e 002B     	 cmp r3,#0
- 602 0010 0CBF     	 ite eq
- 603 0012 0123     	 moveq r3,#1
- 604 0014 0023     	 movne r3,#0
- 605 0016 DBB2     	 uxtb r3,r3
- 606 0018 7B60     	 str r3,[r7,#4]
- 155:../pi_regulator.c **** 
- 156:../pi_regulator.c **** 	position[i].error = pos_ref - mechanical_position_fast;
- 607              	 .loc 1 156 0
- 608 001a B64B     	 ldr r3,.L114+4
- 609 001c 93ED007A 	 flds s14,[r3]
- 610 0020 B54B     	 ldr r3,.L114+8
- 611 0022 1B68     	 ldr r3,[r3]
- 612 0024 07EE903A 	 fmsr s15,r3
- 613 0028 F8EEE77A 	 fsitos s15,s15
- 614 002c 77EE677A 	 fsubs s15,s14,s15
- 615 0030 B249     	 ldr r1,.L114+12
- 616 0032 7A68     	 ldr r2,[r7,#4]
- 617 0034 1346     	 mov r3,r2
- 618 0036 DB00     	 lsls r3,r3,#3
- 619 0038 1344     	 add r3,r3,r2
- 620 003a 9B00     	 lsls r3,r3,#2
- 621 003c 0B44     	 add r3,r3,r1
- 622 003e 0833     	 adds r3,r3,#8
- 623 0040 C3ED017A 	 fsts s15,[r3,#4]
- 157:../pi_regulator.c **** 
- 158:../pi_regulator.c **** 	// Proportional part computation
- 159:../pi_regulator.c **** 	position[i].p_part = position[i].error * position[i].kp;
- 624              	 .loc 1 159 0
- 625 0044 AD49     	 ldr r1,.L114+12
- 626 0046 7A68     	 ldr r2,[r7,#4]
- 627 0048 1346     	 mov r3,r2
- 628 004a DB00     	 lsls r3,r3,#3
- 629 004c 1344     	 add r3,r3,r2
- 630 004e 9B00     	 lsls r3,r3,#2
- 631 0050 0B44     	 add r3,r3,r1
- 632 0052 0833     	 adds r3,r3,#8
- 633 0054 93ED017A 	 flds s14,[r3,#4]
- 634 0058 A849     	 ldr r1,.L114+12
- 635 005a 7A68     	 ldr r2,[r7,#4]
- 636 005c 1346     	 mov r3,r2
- 637 005e DB00     	 lsls r3,r3,#3
- 638 0060 1344     	 add r3,r3,r2
- 639 0062 9B00     	 lsls r3,r3,#2
- 640 0064 0B44     	 add r3,r3,r1
- 641 0066 D3ED007A 	 flds s15,[r3]
- 642 006a 67EE277A 	 fmuls s15,s14,s15
- 643 006e A349     	 ldr r1,.L114+12
- 644 0070 7A68     	 ldr r2,[r7,#4]
- 645 0072 1346     	 mov r3,r2
- 646 0074 DB00     	 lsls r3,r3,#3
- 647 0076 1344     	 add r3,r3,r2
- 648 0078 9B00     	 lsls r3,r3,#2
- 649 007a 0B44     	 add r3,r3,r1
- 650 007c 1033     	 adds r3,r3,#16
- 651 007e C3ED007A 	 fsts s15,[r3]
- 160:../pi_regulator.c **** 	if (position[i].p_part > position[i].sat_out)
- 652              	 .loc 1 160 0
- 653 0082 9E49     	 ldr r1,.L114+12
- 654 0084 7A68     	 ldr r2,[r7,#4]
- 655 0086 1346     	 mov r3,r2
- 656 0088 DB00     	 lsls r3,r3,#3
- 657 008a 1344     	 add r3,r3,r2
- 658 008c 9B00     	 lsls r3,r3,#2
- 659 008e 0B44     	 add r3,r3,r1
- 660 0090 1033     	 adds r3,r3,#16
- 661 0092 93ED007A 	 flds s14,[r3]
- 662 0096 9949     	 ldr r1,.L114+12
- 663 0098 7A68     	 ldr r2,[r7,#4]
- 664 009a 1346     	 mov r3,r2
- 665 009c DB00     	 lsls r3,r3,#3
- 666 009e 1344     	 add r3,r3,r2
- 667 00a0 9B00     	 lsls r3,r3,#2
- 668 00a2 0B44     	 add r3,r3,r1
- 669 00a4 1833     	 adds r3,r3,#24
- 670 00a6 D3ED017A 	 flds s15,[r3,#4]
- 671 00aa B4EEE77A 	 fcmpes s14,s15
- 672 00ae F1EE10FA 	 fmstat
- 673 00b2 12DD     	 ble .L108
- 161:../pi_regulator.c **** 	{
- 162:../pi_regulator.c **** 		position[i].p_part = position[i].sat_out;
- 674              	 .loc 1 162 0
- 675 00b4 9149     	 ldr r1,.L114+12
- 676 00b6 7A68     	 ldr r2,[r7,#4]
- 677 00b8 1346     	 mov r3,r2
- 678 00ba DB00     	 lsls r3,r3,#3
- 679 00bc 1344     	 add r3,r3,r2
- 680 00be 9B00     	 lsls r3,r3,#2
- 681 00c0 0B44     	 add r3,r3,r1
- 682 00c2 1833     	 adds r3,r3,#24
- 683 00c4 5968     	 ldr r1,[r3,#4]
- 684 00c6 8D48     	 ldr r0,.L114+12
- 685 00c8 7A68     	 ldr r2,[r7,#4]
- 686 00ca 1346     	 mov r3,r2
- 687 00cc DB00     	 lsls r3,r3,#3
- 688 00ce 1344     	 add r3,r3,r2
- 689 00d0 9B00     	 lsls r3,r3,#2
- 690 00d2 0344     	 add r3,r3,r0
- 691 00d4 1033     	 adds r3,r3,#16
- 692 00d6 1960     	 str r1,[r3]
- 693 00d8 30E0     	 b .L76
- 694              	.L108:
- 163:../pi_regulator.c **** 	}
- 164:../pi_regulator.c **** 	else if (position[i].p_part < -position[i].sat_out)
- 695              	 .loc 1 164 0
- 696 00da 8849     	 ldr r1,.L114+12
- 697 00dc 7A68     	 ldr r2,[r7,#4]
- 698 00de 1346     	 mov r3,r2
- 699 00e0 DB00     	 lsls r3,r3,#3
- 700 00e2 1344     	 add r3,r3,r2
- 701 00e4 9B00     	 lsls r3,r3,#2
- 702 00e6 0B44     	 add r3,r3,r1
- 703 00e8 1033     	 adds r3,r3,#16
- 704 00ea 93ED007A 	 flds s14,[r3]
- 705 00ee 8349     	 ldr r1,.L114+12
- 706 00f0 7A68     	 ldr r2,[r7,#4]
- 707 00f2 1346     	 mov r3,r2
- 708 00f4 DB00     	 lsls r3,r3,#3
- 709 00f6 1344     	 add r3,r3,r2
- 710 00f8 9B00     	 lsls r3,r3,#2
- 711 00fa 0B44     	 add r3,r3,r1
- 712 00fc 1833     	 adds r3,r3,#24
- 713 00fe D3ED017A 	 flds s15,[r3,#4]
- 714 0102 F1EE677A 	 fnegs s15,s15
- 715 0106 B4EEE77A 	 fcmpes s14,s15
- 716 010a F1EE10FA 	 fmstat
- 717 010e 15D5     	 bpl .L76
- 165:../pi_regulator.c **** 	{
- 166:../pi_regulator.c **** 		position[i].p_part = -position[i].sat_out;
- 718              	 .loc 1 166 0
- 719 0110 7A49     	 ldr r1,.L114+12
- 720 0112 7A68     	 ldr r2,[r7,#4]
- 721 0114 1346     	 mov r3,r2
- 722 0116 DB00     	 lsls r3,r3,#3
- 723 0118 1344     	 add r3,r3,r2
- 724 011a 9B00     	 lsls r3,r3,#2
- 725 011c 0B44     	 add r3,r3,r1
- 726 011e 1833     	 adds r3,r3,#24
- 727 0120 D3ED017A 	 flds s15,[r3,#4]
- 728 0124 F1EE677A 	 fnegs s15,s15
- 729 0128 7449     	 ldr r1,.L114+12
- 730 012a 7A68     	 ldr r2,[r7,#4]
- 731 012c 1346     	 mov r3,r2
- 732 012e DB00     	 lsls r3,r3,#3
- 733 0130 1344     	 add r3,r3,r2
- 734 0132 9B00     	 lsls r3,r3,#2
- 735 0134 0B44     	 add r3,r3,r1
- 736 0136 1033     	 adds r3,r3,#16
- 737 0138 C3ED007A 	 fsts s15,[r3]
- 738              	.L76:
- 167:../pi_regulator.c **** 	}
- 168:../pi_regulator.c **** 
- 169:../pi_regulator.c **** 	// Integral part computation
- 170:../pi_regulator.c **** 	position[i].i_part += position[i].error * position[i].ki;
- 739              	 .loc 1 170 0
- 740 013c 6F49     	 ldr r1,.L114+12
- 741 013e 7A68     	 ldr r2,[r7,#4]
- 742 0140 1346     	 mov r3,r2
- 743 0142 DB00     	 lsls r3,r3,#3
- 744 0144 1344     	 add r3,r3,r2
- 745 0146 9B00     	 lsls r3,r3,#2
- 746 0148 0B44     	 add r3,r3,r1
- 747 014a 1033     	 adds r3,r3,#16
- 748 014c 93ED017A 	 flds s14,[r3,#4]
- 749 0150 6A49     	 ldr r1,.L114+12
- 750 0152 7A68     	 ldr r2,[r7,#4]
- 751 0154 1346     	 mov r3,r2
- 752 0156 DB00     	 lsls r3,r3,#3
- 753 0158 1344     	 add r3,r3,r2
- 754 015a 9B00     	 lsls r3,r3,#2
- 755 015c 0B44     	 add r3,r3,r1
- 756 015e 0833     	 adds r3,r3,#8
- 757 0160 D3ED016A 	 flds s13,[r3,#4]
- 758 0164 6549     	 ldr r1,.L114+12
- 759 0166 7A68     	 ldr r2,[r7,#4]
- 760 0168 1346     	 mov r3,r2
- 761 016a DB00     	 lsls r3,r3,#3
- 762 016c 1344     	 add r3,r3,r2
- 763 016e 9B00     	 lsls r3,r3,#2
- 764 0170 0B44     	 add r3,r3,r1
- 765 0172 D3ED017A 	 flds s15,[r3,#4]
- 766 0176 66EEA77A 	 fmuls s15,s13,s15
- 767 017a 77EE277A 	 fadds s15,s14,s15
- 768 017e 5F49     	 ldr r1,.L114+12
- 769 0180 7A68     	 ldr r2,[r7,#4]
- 770 0182 1346     	 mov r3,r2
- 771 0184 DB00     	 lsls r3,r3,#3
- 772 0186 1344     	 add r3,r3,r2
- 773 0188 9B00     	 lsls r3,r3,#2
- 774 018a 0B44     	 add r3,r3,r1
- 775 018c 1033     	 adds r3,r3,#16
- 776 018e C3ED017A 	 fsts s15,[r3,#4]
- 171:../pi_regulator.c **** 	if (position[i].i_part > position[i].sat_i_part)
- 777              	 .loc 1 171 0
- 778 0192 5A49     	 ldr r1,.L114+12
- 779 0194 7A68     	 ldr r2,[r7,#4]
- 780 0196 1346     	 mov r3,r2
- 781 0198 DB00     	 lsls r3,r3,#3
- 782 019a 1344     	 add r3,r3,r2
- 783 019c 9B00     	 lsls r3,r3,#2
- 784 019e 0B44     	 add r3,r3,r1
- 785 01a0 1033     	 adds r3,r3,#16
- 786 01a2 93ED017A 	 flds s14,[r3,#4]
- 787 01a6 5549     	 ldr r1,.L114+12
- 788 01a8 7A68     	 ldr r2,[r7,#4]
- 789 01aa 1346     	 mov r3,r2
- 790 01ac DB00     	 lsls r3,r3,#3
- 791 01ae 1344     	 add r3,r3,r2
- 792 01b0 9B00     	 lsls r3,r3,#2
- 793 01b2 0B44     	 add r3,r3,r1
- 794 01b4 2033     	 adds r3,r3,#32
- 795 01b6 D3ED007A 	 flds s15,[r3]
- 796 01ba B4EEE77A 	 fcmpes s14,s15
- 797 01be F1EE10FA 	 fmstat
- 798 01c2 12DD     	 ble .L109
- 172:../pi_regulator.c **** 	{
- 173:../pi_regulator.c **** 		position[i].i_part = position[i].sat_i_part;
- 799              	 .loc 1 173 0
- 800 01c4 4D49     	 ldr r1,.L114+12
- 801 01c6 7A68     	 ldr r2,[r7,#4]
- 802 01c8 1346     	 mov r3,r2
- 803 01ca DB00     	 lsls r3,r3,#3
- 804 01cc 1344     	 add r3,r3,r2
- 805 01ce 9B00     	 lsls r3,r3,#2
- 806 01d0 0B44     	 add r3,r3,r1
- 807 01d2 2033     	 adds r3,r3,#32
- 808 01d4 1968     	 ldr r1,[r3]
- 809 01d6 4948     	 ldr r0,.L114+12
- 810 01d8 7A68     	 ldr r2,[r7,#4]
- 811 01da 1346     	 mov r3,r2
- 812 01dc DB00     	 lsls r3,r3,#3
- 813 01de 1344     	 add r3,r3,r2
- 814 01e0 9B00     	 lsls r3,r3,#2
- 815 01e2 0344     	 add r3,r3,r0
- 816 01e4 1033     	 adds r3,r3,#16
- 817 01e6 5960     	 str r1,[r3,#4]
- 818 01e8 30E0     	 b .L80
- 819              	.L109:
- 174:../pi_regulator.c **** 	}
- 175:../pi_regulator.c **** 	else if (position[i].i_part < -position[i].sat_i_part)
- 820              	 .loc 1 175 0
- 821 01ea 4449     	 ldr r1,.L114+12
- 822 01ec 7A68     	 ldr r2,[r7,#4]
- 823 01ee 1346     	 mov r3,r2
- 824 01f0 DB00     	 lsls r3,r3,#3
- 825 01f2 1344     	 add r3,r3,r2
- 826 01f4 9B00     	 lsls r3,r3,#2
- 827 01f6 0B44     	 add r3,r3,r1
- 828 01f8 1033     	 adds r3,r3,#16
- 829 01fa 93ED017A 	 flds s14,[r3,#4]
- 830 01fe 3F49     	 ldr r1,.L114+12
- 831 0200 7A68     	 ldr r2,[r7,#4]
- 832 0202 1346     	 mov r3,r2
- 833 0204 DB00     	 lsls r3,r3,#3
- 834 0206 1344     	 add r3,r3,r2
- 835 0208 9B00     	 lsls r3,r3,#2
- 836 020a 0B44     	 add r3,r3,r1
- 837 020c 2033     	 adds r3,r3,#32
- 838 020e D3ED007A 	 flds s15,[r3]
- 839 0212 F1EE677A 	 fnegs s15,s15
- 840 0216 B4EEE77A 	 fcmpes s14,s15
- 841 021a F1EE10FA 	 fmstat
- 842 021e 15D5     	 bpl .L80
- 176:../pi_regulator.c **** 	{
- 177:../pi_regulator.c **** 		position[i].i_part = -position[i].sat_i_part;
- 843              	 .loc 1 177 0
- 844 0220 3649     	 ldr r1,.L114+12
- 845 0222 7A68     	 ldr r2,[r7,#4]
- 846 0224 1346     	 mov r3,r2
- 847 0226 DB00     	 lsls r3,r3,#3
- 848 0228 1344     	 add r3,r3,r2
- 849 022a 9B00     	 lsls r3,r3,#2
- 850 022c 0B44     	 add r3,r3,r1
- 851 022e 2033     	 adds r3,r3,#32
- 852 0230 D3ED007A 	 flds s15,[r3]
- 853 0234 F1EE677A 	 fnegs s15,s15
- 854 0238 3049     	 ldr r1,.L114+12
- 855 023a 7A68     	 ldr r2,[r7,#4]
- 856 023c 1346     	 mov r3,r2
- 857 023e DB00     	 lsls r3,r3,#3
- 858 0240 1344     	 add r3,r3,r2
- 859 0242 9B00     	 lsls r3,r3,#2
- 860 0244 0B44     	 add r3,r3,r1
- 861 0246 1033     	 adds r3,r3,#16
- 862 0248 C3ED017A 	 fsts s15,[r3,#4]
- 863              	.L80:
- 178:../pi_regulator.c **** 	}
- 179:../pi_regulator.c **** 
- 180:../pi_regulator.c **** 	// Derived part computation	
- 181:../pi_regulator.c **** 	position[i].d_part = (position[i].error - err_old_pos) * position[i].kd;
- 864              	 .loc 1 181 0
- 865 024c 2B49     	 ldr r1,.L114+12
- 866 024e 7A68     	 ldr r2,[r7,#4]
- 867 0250 1346     	 mov r3,r2
- 868 0252 DB00     	 lsls r3,r3,#3
- 869 0254 1344     	 add r3,r3,r2
- 870 0256 9B00     	 lsls r3,r3,#2
- 871 0258 0B44     	 add r3,r3,r1
- 872 025a 0833     	 adds r3,r3,#8
- 873 025c 93ED017A 	 flds s14,[r3,#4]
- 874 0260 274B     	 ldr r3,.L114+16
- 875 0262 D3ED007A 	 flds s15,[r3]
- 876 0266 37EE677A 	 fsubs s14,s14,s15
- 877 026a 2449     	 ldr r1,.L114+12
- 878 026c 7A68     	 ldr r2,[r7,#4]
- 879 026e 1346     	 mov r3,r2
- 880 0270 DB00     	 lsls r3,r3,#3
- 881 0272 1344     	 add r3,r3,r2
- 882 0274 9B00     	 lsls r3,r3,#2
- 883 0276 0B44     	 add r3,r3,r1
- 884 0278 0833     	 adds r3,r3,#8
- 885 027a D3ED007A 	 flds s15,[r3]
- 886 027e 67EE277A 	 fmuls s15,s14,s15
- 887 0282 1E49     	 ldr r1,.L114+12
- 888 0284 7A68     	 ldr r2,[r7,#4]
- 889 0286 1346     	 mov r3,r2
- 890 0288 DB00     	 lsls r3,r3,#3
- 891 028a 1344     	 add r3,r3,r2
- 892 028c 9B00     	 lsls r3,r3,#2
- 893 028e 0B44     	 add r3,r3,r1
- 894 0290 1833     	 adds r3,r3,#24
- 895 0292 C3ED007A 	 fsts s15,[r3]
- 182:../pi_regulator.c **** 	if (position[i].d_part > position[i].sat_out)
- 896              	 .loc 1 182 0
- 897 0296 1949     	 ldr r1,.L114+12
- 898 0298 7A68     	 ldr r2,[r7,#4]
- 899 029a 1346     	 mov r3,r2
- 900 029c DB00     	 lsls r3,r3,#3
- 901 029e 1344     	 add r3,r3,r2
- 902 02a0 9B00     	 lsls r3,r3,#2
- 903 02a2 0B44     	 add r3,r3,r1
- 904 02a4 1833     	 adds r3,r3,#24
- 905 02a6 93ED007A 	 flds s14,[r3]
- 906 02aa 1449     	 ldr r1,.L114+12
- 907 02ac 7A68     	 ldr r2,[r7,#4]
- 908 02ae 1346     	 mov r3,r2
- 909 02b0 DB00     	 lsls r3,r3,#3
- 910 02b2 1344     	 add r3,r3,r2
- 911 02b4 9B00     	 lsls r3,r3,#2
- 912 02b6 0B44     	 add r3,r3,r1
- 913 02b8 1833     	 adds r3,r3,#24
- 914 02ba D3ED017A 	 flds s15,[r3,#4]
- 915 02be B4EEE77A 	 fcmpes s14,s15
- 916 02c2 F1EE10FA 	 fmstat
- 917 02c6 1DDD     	 ble .L110
- 183:../pi_regulator.c **** 	{
- 184:../pi_regulator.c **** 		position[i].d_part = position[i].sat_out;
- 918              	 .loc 1 184 0
- 919 02c8 0C49     	 ldr r1,.L114+12
- 920 02ca 7A68     	 ldr r2,[r7,#4]
- 921 02cc 1346     	 mov r3,r2
- 922 02ce DB00     	 lsls r3,r3,#3
- 923 02d0 1344     	 add r3,r3,r2
- 924 02d2 9B00     	 lsls r3,r3,#2
- 925 02d4 0B44     	 add r3,r3,r1
- 926 02d6 1833     	 adds r3,r3,#24
- 927 02d8 5968     	 ldr r1,[r3,#4]
- 928 02da 0848     	 ldr r0,.L114+12
- 929 02dc 7A68     	 ldr r2,[r7,#4]
- 930 02de 1346     	 mov r3,r2
- 931 02e0 DB00     	 lsls r3,r3,#3
- 932 02e2 1344     	 add r3,r3,r2
- 933 02e4 9B00     	 lsls r3,r3,#2
- 934 02e6 0344     	 add r3,r3,r0
- 935 02e8 1833     	 adds r3,r3,#24
- 936 02ea 1960     	 str r1,[r3]
- 937 02ec 3BE0     	 b .L84
- 938              	.L115:
- 939 02ee 00BF     	 .align 2
- 940              	.L114:
- 941 02f0 00000000 	 .word drive_command_old
- 942 02f4 00000000 	 .word pos_ref
- 943 02f8 00000000 	 .word mechanical_position_fast
- 944 02fc 00000000 	 .word position
- 945 0300 00000000 	 .word err_old_pos
- 946              	.L110:
- 185:../pi_regulator.c **** 	}
- 186:../pi_regulator.c **** 	else if (position[i].d_part < -position[i].sat_out)
- 947              	 .loc 1 186 0
- 948 0304 8549     	 ldr r1,.L116
- 949 0306 7A68     	 ldr r2,[r7,#4]
- 950 0308 1346     	 mov r3,r2
- 951 030a DB00     	 lsls r3,r3,#3
- 952 030c 1344     	 add r3,r3,r2
- 953 030e 9B00     	 lsls r3,r3,#2
- 954 0310 0B44     	 add r3,r3,r1
- 955 0312 1833     	 adds r3,r3,#24
- 956 0314 93ED007A 	 flds s14,[r3]
- 957 0318 8049     	 ldr r1,.L116
- 958 031a 7A68     	 ldr r2,[r7,#4]
- 959 031c 1346     	 mov r3,r2
- 960 031e DB00     	 lsls r3,r3,#3
- 961 0320 1344     	 add r3,r3,r2
- 962 0322 9B00     	 lsls r3,r3,#2
- 963 0324 0B44     	 add r3,r3,r1
- 964 0326 1833     	 adds r3,r3,#24
- 965 0328 D3ED017A 	 flds s15,[r3,#4]
- 966 032c F1EE677A 	 fnegs s15,s15
- 967 0330 B4EEE77A 	 fcmpes s14,s15
- 968 0334 F1EE10FA 	 fmstat
- 969 0338 15D5     	 bpl .L84
- 187:../pi_regulator.c **** 	{
- 188:../pi_regulator.c **** 		position[i].d_part = -position[i].sat_out;
- 970              	 .loc 1 188 0
- 971 033a 7849     	 ldr r1,.L116
- 972 033c 7A68     	 ldr r2,[r7,#4]
- 973 033e 1346     	 mov r3,r2
- 974 0340 DB00     	 lsls r3,r3,#3
- 975 0342 1344     	 add r3,r3,r2
- 976 0344 9B00     	 lsls r3,r3,#2
- 977 0346 0B44     	 add r3,r3,r1
- 978 0348 1833     	 adds r3,r3,#24
- 979 034a D3ED017A 	 flds s15,[r3,#4]
- 980 034e F1EE677A 	 fnegs s15,s15
- 981 0352 7249     	 ldr r1,.L116
- 982 0354 7A68     	 ldr r2,[r7,#4]
- 983 0356 1346     	 mov r3,r2
- 984 0358 DB00     	 lsls r3,r3,#3
- 985 035a 1344     	 add r3,r3,r2
- 986 035c 9B00     	 lsls r3,r3,#2
- 987 035e 0B44     	 add r3,r3,r1
- 988 0360 1833     	 adds r3,r3,#24
- 989 0362 C3ED007A 	 fsts s15,[r3]
- 990              	.L84:
- 189:../pi_regulator.c **** 	}
+ 586 0000 80B4     	 push {r7}
+ 587              	.LCFI12:
+ 588              	 .cfi_def_cfa_offset 4
+ 589              	 .cfi_offset 7,-4
+ 590 0002 83B0     	 sub sp,sp,#12
+ 591              	.LCFI13:
+ 592              	 .cfi_def_cfa_offset 16
+ 593 0004 00AF     	 add r7,sp,#0
+ 594              	.LCFI14:
+ 595              	 .cfi_def_cfa_register 7
+ 153:../pi_regulator.c **** 	int i = !(LOOP_SPD_ENABLE);
+ 596              	 .loc 1 153 0
+ 597 0006 BD4B     	 ldr r3,.L114
+ 598 0008 1B88     	 ldrh r3,[r3]
+ 599 000a 03F40073 	 and r3,r3,#512
+ 600 000e 002B     	 cmp r3,#0
+ 601 0010 0CBF     	 ite eq
+ 602 0012 0123     	 moveq r3,#1
+ 603 0014 0023     	 movne r3,#0
+ 604 0016 DBB2     	 uxtb r3,r3
+ 605 0018 7B60     	 str r3,[r7,#4]
+ 154:../pi_regulator.c **** 
+ 155:../pi_regulator.c **** 	position[i].error = pos_ref - mechanical_position_fast;
+ 606              	 .loc 1 155 0
+ 607 001a B94B     	 ldr r3,.L114+4
+ 608 001c 93ED007A 	 flds s14,[r3]
+ 609 0020 B84B     	 ldr r3,.L114+8
+ 610 0022 1B68     	 ldr r3,[r3]
+ 611 0024 07EE903A 	 fmsr s15,r3
+ 612 0028 F8EEE77A 	 fsitos s15,s15
+ 613 002c 77EE677A 	 fsubs s15,s14,s15
+ 614 0030 B549     	 ldr r1,.L114+12
+ 615 0032 7A68     	 ldr r2,[r7,#4]
+ 616 0034 1346     	 mov r3,r2
+ 617 0036 9B00     	 lsls r3,r3,#2
+ 618 0038 1344     	 add r3,r3,r2
+ 619 003a DB00     	 lsls r3,r3,#3
+ 620 003c 0B44     	 add r3,r3,r1
+ 621 003e 0833     	 adds r3,r3,#8
+ 622 0040 C3ED017A 	 fsts s15,[r3,#4]
+ 156:../pi_regulator.c **** 
+ 157:../pi_regulator.c **** 	// Proportional part computation
+ 158:../pi_regulator.c **** 	position[i].p_part = position[i].error * position[i].kp;
+ 623              	 .loc 1 158 0
+ 624 0044 B049     	 ldr r1,.L114+12
+ 625 0046 7A68     	 ldr r2,[r7,#4]
+ 626 0048 1346     	 mov r3,r2
+ 627 004a 9B00     	 lsls r3,r3,#2
+ 628 004c 1344     	 add r3,r3,r2
+ 629 004e DB00     	 lsls r3,r3,#3
+ 630 0050 0B44     	 add r3,r3,r1
+ 631 0052 0833     	 adds r3,r3,#8
+ 632 0054 93ED017A 	 flds s14,[r3,#4]
+ 633 0058 AB49     	 ldr r1,.L114+12
+ 634 005a 7A68     	 ldr r2,[r7,#4]
+ 635 005c 1346     	 mov r3,r2
+ 636 005e 9B00     	 lsls r3,r3,#2
+ 637 0060 1344     	 add r3,r3,r2
+ 638 0062 DB00     	 lsls r3,r3,#3
+ 639 0064 0B44     	 add r3,r3,r1
+ 640 0066 D3ED007A 	 flds s15,[r3]
+ 641 006a 67EE277A 	 fmuls s15,s14,s15
+ 642 006e A649     	 ldr r1,.L114+12
+ 643 0070 7A68     	 ldr r2,[r7,#4]
+ 644 0072 1346     	 mov r3,r2
+ 645 0074 9B00     	 lsls r3,r3,#2
+ 646 0076 1344     	 add r3,r3,r2
+ 647 0078 DB00     	 lsls r3,r3,#3
+ 648 007a 0B44     	 add r3,r3,r1
+ 649 007c 1033     	 adds r3,r3,#16
+ 650 007e C3ED017A 	 fsts s15,[r3,#4]
+ 159:../pi_regulator.c **** 	if (position[i].p_part > position[i].sat_out)
+ 651              	 .loc 1 159 0
+ 652 0082 A149     	 ldr r1,.L114+12
+ 653 0084 7A68     	 ldr r2,[r7,#4]
+ 654 0086 1346     	 mov r3,r2
+ 655 0088 9B00     	 lsls r3,r3,#2
+ 656 008a 1344     	 add r3,r3,r2
+ 657 008c DB00     	 lsls r3,r3,#3
+ 658 008e 0B44     	 add r3,r3,r1
+ 659 0090 1033     	 adds r3,r3,#16
+ 660 0092 93ED017A 	 flds s14,[r3,#4]
+ 661 0096 9C49     	 ldr r1,.L114+12
+ 662 0098 7A68     	 ldr r2,[r7,#4]
+ 663 009a 1346     	 mov r3,r2
+ 664 009c 9B00     	 lsls r3,r3,#2
+ 665 009e 1344     	 add r3,r3,r2
+ 666 00a0 DB00     	 lsls r3,r3,#3
+ 667 00a2 0B44     	 add r3,r3,r1
+ 668 00a4 2033     	 adds r3,r3,#32
+ 669 00a6 D3ED007A 	 flds s15,[r3]
+ 670 00aa B4EEE77A 	 fcmpes s14,s15
+ 671 00ae F1EE10FA 	 fmstat
+ 672 00b2 12DD     	 ble .L108
+ 160:../pi_regulator.c **** 	{
+ 161:../pi_regulator.c **** 		position[i].p_part = position[i].sat_out;
+ 673              	 .loc 1 161 0
+ 674 00b4 9449     	 ldr r1,.L114+12
+ 675 00b6 7A68     	 ldr r2,[r7,#4]
+ 676 00b8 1346     	 mov r3,r2
+ 677 00ba 9B00     	 lsls r3,r3,#2
+ 678 00bc 1344     	 add r3,r3,r2
+ 679 00be DB00     	 lsls r3,r3,#3
+ 680 00c0 0B44     	 add r3,r3,r1
+ 681 00c2 2033     	 adds r3,r3,#32
+ 682 00c4 1968     	 ldr r1,[r3]
+ 683 00c6 9048     	 ldr r0,.L114+12
+ 684 00c8 7A68     	 ldr r2,[r7,#4]
+ 685 00ca 1346     	 mov r3,r2
+ 686 00cc 9B00     	 lsls r3,r3,#2
+ 687 00ce 1344     	 add r3,r3,r2
+ 688 00d0 DB00     	 lsls r3,r3,#3
+ 689 00d2 0344     	 add r3,r3,r0
+ 690 00d4 1033     	 adds r3,r3,#16
+ 691 00d6 5960     	 str r1,[r3,#4]
+ 692 00d8 30E0     	 b .L76
+ 693              	.L108:
+ 162:../pi_regulator.c **** 	}
+ 163:../pi_regulator.c **** 	else if (position[i].p_part < -position[i].sat_out)
+ 694              	 .loc 1 163 0
+ 695 00da 8B49     	 ldr r1,.L114+12
+ 696 00dc 7A68     	 ldr r2,[r7,#4]
+ 697 00de 1346     	 mov r3,r2
+ 698 00e0 9B00     	 lsls r3,r3,#2
+ 699 00e2 1344     	 add r3,r3,r2
+ 700 00e4 DB00     	 lsls r3,r3,#3
+ 701 00e6 0B44     	 add r3,r3,r1
+ 702 00e8 1033     	 adds r3,r3,#16
+ 703 00ea 93ED017A 	 flds s14,[r3,#4]
+ 704 00ee 8649     	 ldr r1,.L114+12
+ 705 00f0 7A68     	 ldr r2,[r7,#4]
+ 706 00f2 1346     	 mov r3,r2
+ 707 00f4 9B00     	 lsls r3,r3,#2
+ 708 00f6 1344     	 add r3,r3,r2
+ 709 00f8 DB00     	 lsls r3,r3,#3
+ 710 00fa 0B44     	 add r3,r3,r1
+ 711 00fc 2033     	 adds r3,r3,#32
+ 712 00fe D3ED007A 	 flds s15,[r3]
+ 713 0102 F1EE677A 	 fnegs s15,s15
+ 714 0106 B4EEE77A 	 fcmpes s14,s15
+ 715 010a F1EE10FA 	 fmstat
+ 716 010e 15D5     	 bpl .L76
+ 164:../pi_regulator.c **** 	{
+ 165:../pi_regulator.c **** 		position[i].p_part = -position[i].sat_out;
+ 717              	 .loc 1 165 0
+ 718 0110 7D49     	 ldr r1,.L114+12
+ 719 0112 7A68     	 ldr r2,[r7,#4]
+ 720 0114 1346     	 mov r3,r2
+ 721 0116 9B00     	 lsls r3,r3,#2
+ 722 0118 1344     	 add r3,r3,r2
+ 723 011a DB00     	 lsls r3,r3,#3
+ 724 011c 0B44     	 add r3,r3,r1
+ 725 011e 2033     	 adds r3,r3,#32
+ 726 0120 D3ED007A 	 flds s15,[r3]
+ 727 0124 F1EE677A 	 fnegs s15,s15
+ 728 0128 7749     	 ldr r1,.L114+12
+ 729 012a 7A68     	 ldr r2,[r7,#4]
+ 730 012c 1346     	 mov r3,r2
+ 731 012e 9B00     	 lsls r3,r3,#2
+ 732 0130 1344     	 add r3,r3,r2
+ 733 0132 DB00     	 lsls r3,r3,#3
+ 734 0134 0B44     	 add r3,r3,r1
+ 735 0136 1033     	 adds r3,r3,#16
+ 736 0138 C3ED017A 	 fsts s15,[r3,#4]
+ 737              	.L76:
+ 166:../pi_regulator.c **** 	}
+ 167:../pi_regulator.c **** 
+ 168:../pi_regulator.c **** 	// Integral part computation
+ 169:../pi_regulator.c **** 	position[i].i_part += position[i].error * position[i].ki;
+ 738              	 .loc 1 169 0
+ 739 013c 7249     	 ldr r1,.L114+12
+ 740 013e 7A68     	 ldr r2,[r7,#4]
+ 741 0140 1346     	 mov r3,r2
+ 742 0142 9B00     	 lsls r3,r3,#2
+ 743 0144 1344     	 add r3,r3,r2
+ 744 0146 DB00     	 lsls r3,r3,#3
+ 745 0148 0B44     	 add r3,r3,r1
+ 746 014a 1833     	 adds r3,r3,#24
+ 747 014c 93ED007A 	 flds s14,[r3]
+ 748 0150 6D49     	 ldr r1,.L114+12
+ 749 0152 7A68     	 ldr r2,[r7,#4]
+ 750 0154 1346     	 mov r3,r2
+ 751 0156 9B00     	 lsls r3,r3,#2
+ 752 0158 1344     	 add r3,r3,r2
+ 753 015a DB00     	 lsls r3,r3,#3
+ 754 015c 0B44     	 add r3,r3,r1
+ 755 015e 0833     	 adds r3,r3,#8
+ 756 0160 D3ED016A 	 flds s13,[r3,#4]
+ 757 0164 6849     	 ldr r1,.L114+12
+ 758 0166 7A68     	 ldr r2,[r7,#4]
+ 759 0168 1346     	 mov r3,r2
+ 760 016a 9B00     	 lsls r3,r3,#2
+ 761 016c 1344     	 add r3,r3,r2
+ 762 016e DB00     	 lsls r3,r3,#3
+ 763 0170 0B44     	 add r3,r3,r1
+ 764 0172 D3ED017A 	 flds s15,[r3,#4]
+ 765 0176 66EEA77A 	 fmuls s15,s13,s15
+ 766 017a 77EE277A 	 fadds s15,s14,s15
+ 767 017e 6249     	 ldr r1,.L114+12
+ 768 0180 7A68     	 ldr r2,[r7,#4]
+ 769 0182 1346     	 mov r3,r2
+ 770 0184 9B00     	 lsls r3,r3,#2
+ 771 0186 1344     	 add r3,r3,r2
+ 772 0188 DB00     	 lsls r3,r3,#3
+ 773 018a 0B44     	 add r3,r3,r1
+ 774 018c 1833     	 adds r3,r3,#24
+ 775 018e C3ED007A 	 fsts s15,[r3]
+ 170:../pi_regulator.c **** 	if (position[i].i_part > position[i].sat_i_part)
+ 776              	 .loc 1 170 0
+ 777 0192 5D49     	 ldr r1,.L114+12
+ 778 0194 7A68     	 ldr r2,[r7,#4]
+ 779 0196 1346     	 mov r3,r2
+ 780 0198 9B00     	 lsls r3,r3,#2
+ 781 019a 1344     	 add r3,r3,r2
+ 782 019c DB00     	 lsls r3,r3,#3
+ 783 019e 0B44     	 add r3,r3,r1
+ 784 01a0 1833     	 adds r3,r3,#24
+ 785 01a2 93ED007A 	 flds s14,[r3]
+ 786 01a6 5849     	 ldr r1,.L114+12
+ 787 01a8 7A68     	 ldr r2,[r7,#4]
+ 788 01aa 1346     	 mov r3,r2
+ 789 01ac 9B00     	 lsls r3,r3,#2
+ 790 01ae 1344     	 add r3,r3,r2
+ 791 01b0 DB00     	 lsls r3,r3,#3
+ 792 01b2 0B44     	 add r3,r3,r1
+ 793 01b4 2033     	 adds r3,r3,#32
+ 794 01b6 D3ED017A 	 flds s15,[r3,#4]
+ 795 01ba B4EEE77A 	 fcmpes s14,s15
+ 796 01be F1EE10FA 	 fmstat
+ 797 01c2 12DD     	 ble .L109
+ 171:../pi_regulator.c **** 	{
+ 172:../pi_regulator.c **** 		position[i].i_part = position[i].sat_i_part;
+ 798              	 .loc 1 172 0
+ 799 01c4 5049     	 ldr r1,.L114+12
+ 800 01c6 7A68     	 ldr r2,[r7,#4]
+ 801 01c8 1346     	 mov r3,r2
+ 802 01ca 9B00     	 lsls r3,r3,#2
+ 803 01cc 1344     	 add r3,r3,r2
+ 804 01ce DB00     	 lsls r3,r3,#3
+ 805 01d0 0B44     	 add r3,r3,r1
+ 806 01d2 2033     	 adds r3,r3,#32
+ 807 01d4 5968     	 ldr r1,[r3,#4]
+ 808 01d6 4C48     	 ldr r0,.L114+12
+ 809 01d8 7A68     	 ldr r2,[r7,#4]
+ 810 01da 1346     	 mov r3,r2
+ 811 01dc 9B00     	 lsls r3,r3,#2
+ 812 01de 1344     	 add r3,r3,r2
+ 813 01e0 DB00     	 lsls r3,r3,#3
+ 814 01e2 0344     	 add r3,r3,r0
+ 815 01e4 1833     	 adds r3,r3,#24
+ 816 01e6 1960     	 str r1,[r3]
+ 817 01e8 30E0     	 b .L80
+ 818              	.L109:
+ 173:../pi_regulator.c **** 	}
+ 174:../pi_regulator.c **** 	else if (position[i].i_part < -position[i].sat_i_part)
+ 819              	 .loc 1 174 0
+ 820 01ea 4749     	 ldr r1,.L114+12
+ 821 01ec 7A68     	 ldr r2,[r7,#4]
+ 822 01ee 1346     	 mov r3,r2
+ 823 01f0 9B00     	 lsls r3,r3,#2
+ 824 01f2 1344     	 add r3,r3,r2
+ 825 01f4 DB00     	 lsls r3,r3,#3
+ 826 01f6 0B44     	 add r3,r3,r1
+ 827 01f8 1833     	 adds r3,r3,#24
+ 828 01fa 93ED007A 	 flds s14,[r3]
+ 829 01fe 4249     	 ldr r1,.L114+12
+ 830 0200 7A68     	 ldr r2,[r7,#4]
+ 831 0202 1346     	 mov r3,r2
+ 832 0204 9B00     	 lsls r3,r3,#2
+ 833 0206 1344     	 add r3,r3,r2
+ 834 0208 DB00     	 lsls r3,r3,#3
+ 835 020a 0B44     	 add r3,r3,r1
+ 836 020c 2033     	 adds r3,r3,#32
+ 837 020e D3ED017A 	 flds s15,[r3,#4]
+ 838 0212 F1EE677A 	 fnegs s15,s15
+ 839 0216 B4EEE77A 	 fcmpes s14,s15
+ 840 021a F1EE10FA 	 fmstat
+ 841 021e 15D5     	 bpl .L80
+ 175:../pi_regulator.c **** 	{
+ 176:../pi_regulator.c **** 		position[i].i_part = -position[i].sat_i_part;
+ 842              	 .loc 1 176 0
+ 843 0220 3949     	 ldr r1,.L114+12
+ 844 0222 7A68     	 ldr r2,[r7,#4]
+ 845 0224 1346     	 mov r3,r2
+ 846 0226 9B00     	 lsls r3,r3,#2
+ 847 0228 1344     	 add r3,r3,r2
+ 848 022a DB00     	 lsls r3,r3,#3
+ 849 022c 0B44     	 add r3,r3,r1
+ 850 022e 2033     	 adds r3,r3,#32
+ 851 0230 D3ED017A 	 flds s15,[r3,#4]
+ 852 0234 F1EE677A 	 fnegs s15,s15
+ 853 0238 3349     	 ldr r1,.L114+12
+ 854 023a 7A68     	 ldr r2,[r7,#4]
+ 855 023c 1346     	 mov r3,r2
+ 856 023e 9B00     	 lsls r3,r3,#2
+ 857 0240 1344     	 add r3,r3,r2
+ 858 0242 DB00     	 lsls r3,r3,#3
+ 859 0244 0B44     	 add r3,r3,r1
+ 860 0246 1833     	 adds r3,r3,#24
+ 861 0248 C3ED007A 	 fsts s15,[r3]
+ 862              	.L80:
+ 177:../pi_regulator.c **** 	}
+ 178:../pi_regulator.c **** 
+ 179:../pi_regulator.c **** 	// Derived part computation	
+ 180:../pi_regulator.c **** 	position[i].d_part = (position[i].error - position[i].error_old) * position[i].kd;
+ 863              	 .loc 1 180 0
+ 864 024c 2E49     	 ldr r1,.L114+12
+ 865 024e 7A68     	 ldr r2,[r7,#4]
+ 866 0250 1346     	 mov r3,r2
+ 867 0252 9B00     	 lsls r3,r3,#2
+ 868 0254 1344     	 add r3,r3,r2
+ 869 0256 DB00     	 lsls r3,r3,#3
+ 870 0258 0B44     	 add r3,r3,r1
+ 871 025a 0833     	 adds r3,r3,#8
+ 872 025c 93ED017A 	 flds s14,[r3,#4]
+ 873 0260 2949     	 ldr r1,.L114+12
+ 874 0262 7A68     	 ldr r2,[r7,#4]
+ 875 0264 1346     	 mov r3,r2
+ 876 0266 9B00     	 lsls r3,r3,#2
+ 877 0268 1344     	 add r3,r3,r2
+ 878 026a DB00     	 lsls r3,r3,#3
+ 879 026c 0B44     	 add r3,r3,r1
+ 880 026e 1033     	 adds r3,r3,#16
+ 881 0270 D3ED007A 	 flds s15,[r3]
+ 882 0274 37EE677A 	 fsubs s14,s14,s15
+ 883 0278 2349     	 ldr r1,.L114+12
+ 884 027a 7A68     	 ldr r2,[r7,#4]
+ 885 027c 1346     	 mov r3,r2
+ 886 027e 9B00     	 lsls r3,r3,#2
+ 887 0280 1344     	 add r3,r3,r2
+ 888 0282 DB00     	 lsls r3,r3,#3
+ 889 0284 0B44     	 add r3,r3,r1
+ 890 0286 0833     	 adds r3,r3,#8
+ 891 0288 D3ED007A 	 flds s15,[r3]
+ 892 028c 67EE277A 	 fmuls s15,s14,s15
+ 893 0290 1D49     	 ldr r1,.L114+12
+ 894 0292 7A68     	 ldr r2,[r7,#4]
+ 895 0294 1346     	 mov r3,r2
+ 896 0296 9B00     	 lsls r3,r3,#2
+ 897 0298 1344     	 add r3,r3,r2
+ 898 029a DB00     	 lsls r3,r3,#3
+ 899 029c 0B44     	 add r3,r3,r1
+ 900 029e 1833     	 adds r3,r3,#24
+ 901 02a0 C3ED017A 	 fsts s15,[r3,#4]
+ 181:../pi_regulator.c **** 	if (position[i].d_part > position[i].sat_out)
+ 902              	 .loc 1 181 0
+ 903 02a4 1849     	 ldr r1,.L114+12
+ 904 02a6 7A68     	 ldr r2,[r7,#4]
+ 905 02a8 1346     	 mov r3,r2
+ 906 02aa 9B00     	 lsls r3,r3,#2
+ 907 02ac 1344     	 add r3,r3,r2
+ 908 02ae DB00     	 lsls r3,r3,#3
+ 909 02b0 0B44     	 add r3,r3,r1
+ 910 02b2 1833     	 adds r3,r3,#24
+ 911 02b4 93ED017A 	 flds s14,[r3,#4]
+ 912 02b8 1349     	 ldr r1,.L114+12
+ 913 02ba 7A68     	 ldr r2,[r7,#4]
+ 914 02bc 1346     	 mov r3,r2
+ 915 02be 9B00     	 lsls r3,r3,#2
+ 916 02c0 1344     	 add r3,r3,r2
+ 917 02c2 DB00     	 lsls r3,r3,#3
+ 918 02c4 0B44     	 add r3,r3,r1
+ 919 02c6 2033     	 adds r3,r3,#32
+ 920 02c8 D3ED007A 	 flds s15,[r3]
+ 921 02cc B4EEE77A 	 fcmpes s14,s15
+ 922 02d0 F1EE10FA 	 fmstat
+ 923 02d4 1ADD     	 ble .L110
+ 182:../pi_regulator.c **** 	{
+ 183:../pi_regulator.c **** 		position[i].d_part = position[i].sat_out;
+ 924              	 .loc 1 183 0
+ 925 02d6 0C49     	 ldr r1,.L114+12
+ 926 02d8 7A68     	 ldr r2,[r7,#4]
+ 927 02da 1346     	 mov r3,r2
+ 928 02dc 9B00     	 lsls r3,r3,#2
+ 929 02de 1344     	 add r3,r3,r2
+ 930 02e0 DB00     	 lsls r3,r3,#3
+ 931 02e2 0B44     	 add r3,r3,r1
+ 932 02e4 2033     	 adds r3,r3,#32
+ 933 02e6 1968     	 ldr r1,[r3]
+ 934 02e8 0748     	 ldr r0,.L114+12
+ 935 02ea 7A68     	 ldr r2,[r7,#4]
+ 936 02ec 1346     	 mov r3,r2
+ 937 02ee 9B00     	 lsls r3,r3,#2
+ 938 02f0 1344     	 add r3,r3,r2
+ 939 02f2 DB00     	 lsls r3,r3,#3
+ 940 02f4 0344     	 add r3,r3,r0
+ 941 02f6 1833     	 adds r3,r3,#24
+ 942 02f8 5960     	 str r1,[r3,#4]
+ 943 02fa 38E0     	 b .L84
+ 944              	.L115:
+ 945              	 .align 2
+ 946              	.L114:
+ 947 02fc 00000000 	 .word drive_command_old
+ 948 0300 00000000 	 .word pos_ref
+ 949 0304 00000000 	 .word mechanical_position_fast
+ 950 0308 00000000 	 .word position
+ 951              	.L110:
+ 184:../pi_regulator.c **** 	}
+ 185:../pi_regulator.c **** 	else if (position[i].d_part < -position[i].sat_out)
+ 952              	 .loc 1 185 0
+ 953 030c 8E49     	 ldr r1,.L116
+ 954 030e 7A68     	 ldr r2,[r7,#4]
+ 955 0310 1346     	 mov r3,r2
+ 956 0312 9B00     	 lsls r3,r3,#2
+ 957 0314 1344     	 add r3,r3,r2
+ 958 0316 DB00     	 lsls r3,r3,#3
+ 959 0318 0B44     	 add r3,r3,r1
+ 960 031a 1833     	 adds r3,r3,#24
+ 961 031c 93ED017A 	 flds s14,[r3,#4]
+ 962 0320 8949     	 ldr r1,.L116
+ 963 0322 7A68     	 ldr r2,[r7,#4]
+ 964 0324 1346     	 mov r3,r2
+ 965 0326 9B00     	 lsls r3,r3,#2
+ 966 0328 1344     	 add r3,r3,r2
+ 967 032a DB00     	 lsls r3,r3,#3
+ 968 032c 0B44     	 add r3,r3,r1
+ 969 032e 2033     	 adds r3,r3,#32
+ 970 0330 D3ED007A 	 flds s15,[r3]
+ 971 0334 F1EE677A 	 fnegs s15,s15
+ 972 0338 B4EEE77A 	 fcmpes s14,s15
+ 973 033c F1EE10FA 	 fmstat
+ 974 0340 15D5     	 bpl .L84
+ 186:../pi_regulator.c **** 	{
+ 187:../pi_regulator.c **** 		position[i].d_part = -position[i].sat_out;
+ 975              	 .loc 1 187 0
+ 976 0342 8149     	 ldr r1,.L116
+ 977 0344 7A68     	 ldr r2,[r7,#4]
+ 978 0346 1346     	 mov r3,r2
+ 979 0348 9B00     	 lsls r3,r3,#2
+ 980 034a 1344     	 add r3,r3,r2
+ 981 034c DB00     	 lsls r3,r3,#3
+ 982 034e 0B44     	 add r3,r3,r1
+ 983 0350 2033     	 adds r3,r3,#32
+ 984 0352 D3ED007A 	 flds s15,[r3]
+ 985 0356 F1EE677A 	 fnegs s15,s15
+ 986 035a 7B49     	 ldr r1,.L116
+ 987 035c 7A68     	 ldr r2,[r7,#4]
+ 988 035e 1346     	 mov r3,r2
+ 989 0360 9B00     	 lsls r3,r3,#2
+ 990 0362 1344     	 add r3,r3,r2
+ 991 0364 DB00     	 lsls r3,r3,#3
+ 992 0366 0B44     	 add r3,r3,r1
+ 993 0368 1833     	 adds r3,r3,#24
+ 994 036a C3ED017A 	 fsts s15,[r3,#4]
+ 995              	.L84:
+ 188:../pi_regulator.c **** 	}
+ 189:../pi_regulator.c **** 	position[i].error_old = position[i].error;
+ 996              	 .loc 1 189 0
+ 997 036e 7649     	 ldr r1,.L116
+ 998 0370 7A68     	 ldr r2,[r7,#4]
+ 999 0372 1346     	 mov r3,r2
+ 1000 0374 9B00     	 lsls r3,r3,#2
+ 1001 0376 1344     	 add r3,r3,r2
+ 1002 0378 DB00     	 lsls r3,r3,#3
+ 1003 037a 0B44     	 add r3,r3,r1
+ 1004 037c 0833     	 adds r3,r3,#8
+ 1005 037e 5968     	 ldr r1,[r3,#4]
+ 1006 0380 7148     	 ldr r0,.L116
+ 1007 0382 7A68     	 ldr r2,[r7,#4]
+ 1008 0384 1346     	 mov r3,r2
+ 1009 0386 9B00     	 lsls r3,r3,#2
+ 1010 0388 1344     	 add r3,r3,r2
+ 1011 038a DB00     	 lsls r3,r3,#3
+ 1012 038c 0344     	 add r3,r3,r0
+ 1013 038e 1033     	 adds r3,r3,#16
+ 1014 0390 1960     	 str r1,[r3]
  190:../pi_regulator.c **** 
  191:../pi_regulator.c **** 	// Output SPD or I
  192:../pi_regulator.c **** 	switch (i)
- 991              	 .loc 1 192 0
- 992 0366 7B68     	 ldr r3,[r7,#4]
- 993 0368 002B     	 cmp r3,#0
- 994 036a 02D0     	 beq .L87
- 995 036c 012B     	 cmp r3,#1
- 996 036e 68D0     	 beq .L88
+ 1015              	 .loc 1 192 0
+ 1016 0392 7B68     	 ldr r3,[r7,#4]
+ 1017 0394 002B     	 cmp r3,#0
+ 1018 0396 02D0     	 beq .L87
+ 1019 0398 012B     	 cmp r3,#1
+ 1020 039a 68D0     	 beq .L88
  193:../pi_regulator.c **** 	{
  194:../pi_regulator.c **** 	case (SPD_REF):
  195:../pi_regulator.c **** 		spd_ref = position[i].p_part + position[i].i_part + position[i].d_part;
@@ -1196,490 +1220,497 @@
  219:../pi_regulator.c **** 
  220:../pi_regulator.c **** 	default:
  221:../pi_regulator.c **** 		break;
- 997              	 .loc 1 221 0
- 998 0370 CFE0     	 b .L73
- 999              	.L87:
+ 1021              	 .loc 1 221 0
+ 1022 039c CFE0     	 b .L73
+ 1023              	.L87:
  195:../pi_regulator.c **** 
- 1000              	 .loc 1 195 0
- 1001 0372 6A49     	 ldr r1,.L116
- 1002 0374 7A68     	 ldr r2,[r7,#4]
- 1003 0376 1346     	 mov r3,r2
- 1004 0378 DB00     	 lsls r3,r3,#3
- 1005 037a 1344     	 add r3,r3,r2
- 1006 037c 9B00     	 lsls r3,r3,#2
- 1007 037e 0B44     	 add r3,r3,r1
- 1008 0380 1033     	 adds r3,r3,#16
- 1009 0382 93ED007A 	 flds s14,[r3]
- 1010 0386 6549     	 ldr r1,.L116
- 1011 0388 7A68     	 ldr r2,[r7,#4]
- 1012 038a 1346     	 mov r3,r2
- 1013 038c DB00     	 lsls r3,r3,#3
- 1014 038e 1344     	 add r3,r3,r2
- 1015 0390 9B00     	 lsls r3,r3,#2
- 1016 0392 0B44     	 add r3,r3,r1
- 1017 0394 1033     	 adds r3,r3,#16
- 1018 0396 D3ED017A 	 flds s15,[r3,#4]
- 1019 039a 37EE277A 	 fadds s14,s14,s15
- 1020 039e 5F49     	 ldr r1,.L116
- 1021 03a0 7A68     	 ldr r2,[r7,#4]
- 1022 03a2 1346     	 mov r3,r2
- 1023 03a4 DB00     	 lsls r3,r3,#3
- 1024 03a6 1344     	 add r3,r3,r2
- 1025 03a8 9B00     	 lsls r3,r3,#2
- 1026 03aa 0B44     	 add r3,r3,r1
- 1027 03ac 1833     	 adds r3,r3,#24
- 1028 03ae D3ED007A 	 flds s15,[r3]
- 1029 03b2 77EE277A 	 fadds s15,s14,s15
- 1030 03b6 5A4B     	 ldr r3,.L116+4
- 1031 03b8 C3ED007A 	 fsts s15,[r3]
+ 1024              	 .loc 1 195 0
+ 1025 039e 6A49     	 ldr r1,.L116
+ 1026 03a0 7A68     	 ldr r2,[r7,#4]
+ 1027 03a2 1346     	 mov r3,r2
+ 1028 03a4 9B00     	 lsls r3,r3,#2
+ 1029 03a6 1344     	 add r3,r3,r2
+ 1030 03a8 DB00     	 lsls r3,r3,#3
+ 1031 03aa 0B44     	 add r3,r3,r1
+ 1032 03ac 1033     	 adds r3,r3,#16
+ 1033 03ae 93ED017A 	 flds s14,[r3,#4]
+ 1034 03b2 6549     	 ldr r1,.L116
+ 1035 03b4 7A68     	 ldr r2,[r7,#4]
+ 1036 03b6 1346     	 mov r3,r2
+ 1037 03b8 9B00     	 lsls r3,r3,#2
+ 1038 03ba 1344     	 add r3,r3,r2
+ 1039 03bc DB00     	 lsls r3,r3,#3
+ 1040 03be 0B44     	 add r3,r3,r1
+ 1041 03c0 1833     	 adds r3,r3,#24
+ 1042 03c2 D3ED007A 	 flds s15,[r3]
+ 1043 03c6 37EE277A 	 fadds s14,s14,s15
+ 1044 03ca 5F49     	 ldr r1,.L116
+ 1045 03cc 7A68     	 ldr r2,[r7,#4]
+ 1046 03ce 1346     	 mov r3,r2
+ 1047 03d0 9B00     	 lsls r3,r3,#2
+ 1048 03d2 1344     	 add r3,r3,r2
+ 1049 03d4 DB00     	 lsls r3,r3,#3
+ 1050 03d6 0B44     	 add r3,r3,r1
+ 1051 03d8 1833     	 adds r3,r3,#24
+ 1052 03da D3ED017A 	 flds s15,[r3,#4]
+ 1053 03de 77EE277A 	 fadds s15,s14,s15
+ 1054 03e2 5A4B     	 ldr r3,.L116+4
+ 1055 03e4 C3ED007A 	 fsts s15,[r3]
  197:../pi_regulator.c **** 		{
- 1032              	 .loc 1 197 0
- 1033 03bc 5749     	 ldr r1,.L116
- 1034 03be 7A68     	 ldr r2,[r7,#4]
- 1035 03c0 1346     	 mov r3,r2
- 1036 03c2 DB00     	 lsls r3,r3,#3
- 1037 03c4 1344     	 add r3,r3,r2
- 1038 03c6 9B00     	 lsls r3,r3,#2
- 1039 03c8 0B44     	 add r3,r3,r1
- 1040 03ca 1833     	 adds r3,r3,#24
- 1041 03cc 93ED017A 	 flds s14,[r3,#4]
- 1042 03d0 534B     	 ldr r3,.L116+4
- 1043 03d2 D3ED007A 	 flds s15,[r3]
- 1044 03d6 B4EEE77A 	 fcmpes s14,s15
- 1045 03da F1EE10FA 	 fmstat
- 1046 03de 0BD5     	 bpl .L111
+ 1056              	 .loc 1 197 0
+ 1057 03e8 5749     	 ldr r1,.L116
+ 1058 03ea 7A68     	 ldr r2,[r7,#4]
+ 1059 03ec 1346     	 mov r3,r2
+ 1060 03ee 9B00     	 lsls r3,r3,#2
+ 1061 03f0 1344     	 add r3,r3,r2
+ 1062 03f2 DB00     	 lsls r3,r3,#3
+ 1063 03f4 0B44     	 add r3,r3,r1
+ 1064 03f6 2033     	 adds r3,r3,#32
+ 1065 03f8 93ED007A 	 flds s14,[r3]
+ 1066 03fc 534B     	 ldr r3,.L116+4
+ 1067 03fe D3ED007A 	 flds s15,[r3]
+ 1068 0402 B4EEE77A 	 fcmpes s14,s15
+ 1069 0406 F1EE10FA 	 fmstat
+ 1070 040a 0BD5     	 bpl .L111
  199:../pi_regulator.c **** 		}
- 1047              	 .loc 1 199 0
- 1048 03e0 4E49     	 ldr r1,.L116
- 1049 03e2 7A68     	 ldr r2,[r7,#4]
- 1050 03e4 1346     	 mov r3,r2
- 1051 03e6 DB00     	 lsls r3,r3,#3
- 1052 03e8 1344     	 add r3,r3,r2
- 1053 03ea 9B00     	 lsls r3,r3,#2
- 1054 03ec 0B44     	 add r3,r3,r1
- 1055 03ee 1833     	 adds r3,r3,#24
- 1056 03f0 5B68     	 ldr r3,[r3,#4]
- 1057 03f2 4B4A     	 ldr r2,.L116+4
- 1058 03f4 1360     	 str r3,[r2]
+ 1071              	 .loc 1 199 0
+ 1072 040c 4E49     	 ldr r1,.L116
+ 1073 040e 7A68     	 ldr r2,[r7,#4]
+ 1074 0410 1346     	 mov r3,r2
+ 1075 0412 9B00     	 lsls r3,r3,#2
+ 1076 0414 1344     	 add r3,r3,r2
+ 1077 0416 DB00     	 lsls r3,r3,#3
+ 1078 0418 0B44     	 add r3,r3,r1
+ 1079 041a 2033     	 adds r3,r3,#32
+ 1080 041c 1B68     	 ldr r3,[r3]
+ 1081 041e 4B4A     	 ldr r2,.L116+4
+ 1082 0420 1360     	 str r3,[r2]
  205:../pi_regulator.c **** 
- 1059              	 .loc 1 205 0
- 1060 03f6 8CE0     	 b .L73
- 1061              	.L111:
+ 1083              	 .loc 1 205 0
+ 1084 0422 8CE0     	 b .L73
+ 1085              	.L111:
  201:../pi_regulator.c **** 		{
- 1062              	 .loc 1 201 0
- 1063 03f8 4849     	 ldr r1,.L116
- 1064 03fa 7A68     	 ldr r2,[r7,#4]
- 1065 03fc 1346     	 mov r3,r2
- 1066 03fe DB00     	 lsls r3,r3,#3
- 1067 0400 1344     	 add r3,r3,r2
- 1068 0402 9B00     	 lsls r3,r3,#2
- 1069 0404 0B44     	 add r3,r3,r1
- 1070 0406 1833     	 adds r3,r3,#24
- 1071 0408 D3ED017A 	 flds s15,[r3,#4]
- 1072 040c B1EE677A 	 fnegs s14,s15
- 1073 0410 434B     	 ldr r3,.L116+4
- 1074 0412 D3ED007A 	 flds s15,[r3]
- 1075 0416 B4EEE77A 	 fcmpes s14,s15
- 1076 041a F1EE10FA 	 fmstat
- 1077 041e 00DC     	 bgt .L105
+ 1086              	 .loc 1 201 0
+ 1087 0424 4849     	 ldr r1,.L116
+ 1088 0426 7A68     	 ldr r2,[r7,#4]
+ 1089 0428 1346     	 mov r3,r2
+ 1090 042a 9B00     	 lsls r3,r3,#2
+ 1091 042c 1344     	 add r3,r3,r2
+ 1092 042e DB00     	 lsls r3,r3,#3
+ 1093 0430 0B44     	 add r3,r3,r1
+ 1094 0432 2033     	 adds r3,r3,#32
+ 1095 0434 D3ED007A 	 flds s15,[r3]
+ 1096 0438 B1EE677A 	 fnegs s14,s15
+ 1097 043c 434B     	 ldr r3,.L116+4
+ 1098 043e D3ED007A 	 flds s15,[r3]
+ 1099 0442 B4EEE77A 	 fcmpes s14,s15
+ 1100 0446 F1EE10FA 	 fmstat
+ 1101 044a 00DC     	 bgt .L105
  205:../pi_regulator.c **** 
- 1078              	 .loc 1 205 0
- 1079 0420 77E0     	 b .L73
- 1080              	.L105:
+ 1102              	 .loc 1 205 0
+ 1103 044c 77E0     	 b .L73
+ 1104              	.L105:
  203:../pi_regulator.c **** 		}
- 1081              	 .loc 1 203 0
- 1082 0422 3E49     	 ldr r1,.L116
- 1083 0424 7A68     	 ldr r2,[r7,#4]
- 1084 0426 1346     	 mov r3,r2
- 1085 0428 DB00     	 lsls r3,r3,#3
- 1086 042a 1344     	 add r3,r3,r2
- 1087 042c 9B00     	 lsls r3,r3,#2
- 1088 042e 0B44     	 add r3,r3,r1
- 1089 0430 1833     	 adds r3,r3,#24
- 1090 0432 D3ED017A 	 flds s15,[r3,#4]
- 1091 0436 F1EE677A 	 fnegs s15,s15
- 1092 043a 394B     	 ldr r3,.L116+4
- 1093 043c C3ED007A 	 fsts s15,[r3]
+ 1105              	 .loc 1 203 0
+ 1106 044e 3E49     	 ldr r1,.L116
+ 1107 0450 7A68     	 ldr r2,[r7,#4]
+ 1108 0452 1346     	 mov r3,r2
+ 1109 0454 9B00     	 lsls r3,r3,#2
+ 1110 0456 1344     	 add r3,r3,r2
+ 1111 0458 DB00     	 lsls r3,r3,#3
+ 1112 045a 0B44     	 add r3,r3,r1
+ 1113 045c 2033     	 adds r3,r3,#32
+ 1114 045e D3ED007A 	 flds s15,[r3]
+ 1115 0462 F1EE677A 	 fnegs s15,s15
+ 1116 0466 394B     	 ldr r3,.L116+4
+ 1117 0468 C3ED007A 	 fsts s15,[r3]
  205:../pi_regulator.c **** 
- 1094              	 .loc 1 205 0
- 1095 0440 67E0     	 b .L73
- 1096              	.L88:
+ 1118              	 .loc 1 205 0
+ 1119 046c 67E0     	 b .L73
+ 1120              	.L88:
  208:../pi_regulator.c **** 
- 1097              	 .loc 1 208 0
- 1098 0442 3649     	 ldr r1,.L116
- 1099 0444 7A68     	 ldr r2,[r7,#4]
- 1100 0446 1346     	 mov r3,r2
- 1101 0448 DB00     	 lsls r3,r3,#3
- 1102 044a 1344     	 add r3,r3,r2
- 1103 044c 9B00     	 lsls r3,r3,#2
- 1104 044e 0B44     	 add r3,r3,r1
- 1105 0450 1033     	 adds r3,r3,#16
- 1106 0452 93ED007A 	 flds s14,[r3]
- 1107 0456 3149     	 ldr r1,.L116
- 1108 0458 7A68     	 ldr r2,[r7,#4]
- 1109 045a 1346     	 mov r3,r2
- 1110 045c DB00     	 lsls r3,r3,#3
- 1111 045e 1344     	 add r3,r3,r2
- 1112 0460 9B00     	 lsls r3,r3,#2
- 1113 0462 0B44     	 add r3,r3,r1
- 1114 0464 1033     	 adds r3,r3,#16
- 1115 0466 D3ED017A 	 flds s15,[r3,#4]
- 1116 046a 37EE277A 	 fadds s14,s14,s15
- 1117 046e 2B49     	 ldr r1,.L116
- 1118 0470 7A68     	 ldr r2,[r7,#4]
- 1119 0472 1346     	 mov r3,r2
- 1120 0474 DB00     	 lsls r3,r3,#3
- 1121 0476 1344     	 add r3,r3,r2
- 1122 0478 9B00     	 lsls r3,r3,#2
- 1123 047a 0B44     	 add r3,r3,r1
- 1124 047c 1833     	 adds r3,r3,#24
- 1125 047e D3ED007A 	 flds s15,[r3]
- 1126 0482 77EE277A 	 fadds s15,s14,s15
- 1127 0486 274B     	 ldr r3,.L116+8
- 1128 0488 C3ED007A 	 fsts s15,[r3]
+ 1121              	 .loc 1 208 0
+ 1122 046e 3649     	 ldr r1,.L116
+ 1123 0470 7A68     	 ldr r2,[r7,#4]
+ 1124 0472 1346     	 mov r3,r2
+ 1125 0474 9B00     	 lsls r3,r3,#2
+ 1126 0476 1344     	 add r3,r3,r2
+ 1127 0478 DB00     	 lsls r3,r3,#3
+ 1128 047a 0B44     	 add r3,r3,r1
+ 1129 047c 1033     	 adds r3,r3,#16
+ 1130 047e 93ED017A 	 flds s14,[r3,#4]
+ 1131 0482 3149     	 ldr r1,.L116
+ 1132 0484 7A68     	 ldr r2,[r7,#4]
+ 1133 0486 1346     	 mov r3,r2
+ 1134 0488 9B00     	 lsls r3,r3,#2
+ 1135 048a 1344     	 add r3,r3,r2
+ 1136 048c DB00     	 lsls r3,r3,#3
+ 1137 048e 0B44     	 add r3,r3,r1
+ 1138 0490 1833     	 adds r3,r3,#24
+ 1139 0492 D3ED007A 	 flds s15,[r3]
+ 1140 0496 37EE277A 	 fadds s14,s14,s15
+ 1141 049a 2B49     	 ldr r1,.L116
+ 1142 049c 7A68     	 ldr r2,[r7,#4]
+ 1143 049e 1346     	 mov r3,r2
+ 1144 04a0 9B00     	 lsls r3,r3,#2
+ 1145 04a2 1344     	 add r3,r3,r2
+ 1146 04a4 DB00     	 lsls r3,r3,#3
+ 1147 04a6 0B44     	 add r3,r3,r1
+ 1148 04a8 1833     	 adds r3,r3,#24
+ 1149 04aa D3ED017A 	 flds s15,[r3,#4]
+ 1150 04ae 77EE277A 	 fadds s15,s14,s15
+ 1151 04b2 274B     	 ldr r3,.L116+8
+ 1152 04b4 C3ED007A 	 fsts s15,[r3]
  210:../pi_regulator.c **** 		{
- 1129              	 .loc 1 210 0
- 1130 048c 2349     	 ldr r1,.L116
- 1131 048e 7A68     	 ldr r2,[r7,#4]
- 1132 0490 1346     	 mov r3,r2
- 1133 0492 DB00     	 lsls r3,r3,#3
- 1134 0494 1344     	 add r3,r3,r2
- 1135 0496 9B00     	 lsls r3,r3,#2
- 1136 0498 0B44     	 add r3,r3,r1
- 1137 049a 1833     	 adds r3,r3,#24
- 1138 049c 93ED017A 	 flds s14,[r3,#4]
- 1139 04a0 204B     	 ldr r3,.L116+8
- 1140 04a2 D3ED007A 	 flds s15,[r3]
- 1141 04a6 B4EEE77A 	 fcmpes s14,s15
- 1142 04aa F1EE10FA 	 fmstat
- 1143 04ae 0BD5     	 bpl .L112
+ 1153              	 .loc 1 210 0
+ 1154 04b8 2349     	 ldr r1,.L116
+ 1155 04ba 7A68     	 ldr r2,[r7,#4]
+ 1156 04bc 1346     	 mov r3,r2
+ 1157 04be 9B00     	 lsls r3,r3,#2
+ 1158 04c0 1344     	 add r3,r3,r2
+ 1159 04c2 DB00     	 lsls r3,r3,#3
+ 1160 04c4 0B44     	 add r3,r3,r1
+ 1161 04c6 2033     	 adds r3,r3,#32
+ 1162 04c8 93ED007A 	 flds s14,[r3]
+ 1163 04cc 204B     	 ldr r3,.L116+8
+ 1164 04ce D3ED007A 	 flds s15,[r3]
+ 1165 04d2 B4EEE77A 	 fcmpes s14,s15
+ 1166 04d6 F1EE10FA 	 fmstat
+ 1167 04da 0BD5     	 bpl .L112
  212:../pi_regulator.c **** 		}
- 1144              	 .loc 1 212 0
- 1145 04b0 1A49     	 ldr r1,.L116
- 1146 04b2 7A68     	 ldr r2,[r7,#4]
- 1147 04b4 1346     	 mov r3,r2
- 1148 04b6 DB00     	 lsls r3,r3,#3
- 1149 04b8 1344     	 add r3,r3,r2
- 1150 04ba 9B00     	 lsls r3,r3,#2
- 1151 04bc 0B44     	 add r3,r3,r1
- 1152 04be 1833     	 adds r3,r3,#24
- 1153 04c0 5B68     	 ldr r3,[r3,#4]
- 1154 04c2 184A     	 ldr r2,.L116+8
- 1155 04c4 1360     	 str r3,[r2]
+ 1168              	 .loc 1 212 0
+ 1169 04dc 1A49     	 ldr r1,.L116
+ 1170 04de 7A68     	 ldr r2,[r7,#4]
+ 1171 04e0 1346     	 mov r3,r2
+ 1172 04e2 9B00     	 lsls r3,r3,#2
+ 1173 04e4 1344     	 add r3,r3,r2
+ 1174 04e6 DB00     	 lsls r3,r3,#3
+ 1175 04e8 0B44     	 add r3,r3,r1
+ 1176 04ea 2033     	 adds r3,r3,#32
+ 1177 04ec 1B68     	 ldr r3,[r3]
+ 1178 04ee 184A     	 ldr r2,.L116+8
+ 1179 04f0 1360     	 str r3,[r2]
  218:../pi_regulator.c **** 
- 1156              	 .loc 1 218 0
- 1157 04c6 23E0     	 b .L113
- 1158              	.L112:
+ 1180              	 .loc 1 218 0
+ 1181 04f2 23E0     	 b .L113
+ 1182              	.L112:
  214:../pi_regulator.c **** 		{
- 1159              	 .loc 1 214 0
- 1160 04c8 1449     	 ldr r1,.L116
- 1161 04ca 7A68     	 ldr r2,[r7,#4]
- 1162 04cc 1346     	 mov r3,r2
- 1163 04ce DB00     	 lsls r3,r3,#3
- 1164 04d0 1344     	 add r3,r3,r2
- 1165 04d2 9B00     	 lsls r3,r3,#2
- 1166 04d4 0B44     	 add r3,r3,r1
- 1167 04d6 1833     	 adds r3,r3,#24
- 1168 04d8 D3ED017A 	 flds s15,[r3,#4]
- 1169 04dc B1EE677A 	 fnegs s14,s15
- 1170 04e0 104B     	 ldr r3,.L116+8
- 1171 04e2 D3ED007A 	 flds s15,[r3]
- 1172 04e6 B4EEE77A 	 fcmpes s14,s15
- 1173 04ea F1EE10FA 	 fmstat
- 1174 04ee 00DC     	 bgt .L107
+ 1183              	 .loc 1 214 0
+ 1184 04f4 1449     	 ldr r1,.L116
+ 1185 04f6 7A68     	 ldr r2,[r7,#4]
+ 1186 04f8 1346     	 mov r3,r2
+ 1187 04fa 9B00     	 lsls r3,r3,#2
+ 1188 04fc 1344     	 add r3,r3,r2
+ 1189 04fe DB00     	 lsls r3,r3,#3
+ 1190 0500 0B44     	 add r3,r3,r1
+ 1191 0502 2033     	 adds r3,r3,#32
+ 1192 0504 D3ED007A 	 flds s15,[r3]
+ 1193 0508 B1EE677A 	 fnegs s14,s15
+ 1194 050c 104B     	 ldr r3,.L116+8
+ 1195 050e D3ED007A 	 flds s15,[r3]
+ 1196 0512 B4EEE77A 	 fcmpes s14,s15
+ 1197 0516 F1EE10FA 	 fmstat
+ 1198 051a 00DC     	 bgt .L107
  218:../pi_regulator.c **** 
- 1175              	 .loc 1 218 0
- 1176 04f0 0EE0     	 b .L113
- 1177              	.L107:
+ 1199              	 .loc 1 218 0
+ 1200 051c 0EE0     	 b .L113
+ 1201              	.L107:
  216:../pi_regulator.c **** 		}
- 1178              	 .loc 1 216 0
- 1179 04f2 0A49     	 ldr r1,.L116
- 1180 04f4 7A68     	 ldr r2,[r7,#4]
- 1181 04f6 1346     	 mov r3,r2
- 1182 04f8 DB00     	 lsls r3,r3,#3
- 1183 04fa 1344     	 add r3,r3,r2
- 1184 04fc 9B00     	 lsls r3,r3,#2
- 1185 04fe 0B44     	 add r3,r3,r1
- 1186 0500 1833     	 adds r3,r3,#24
- 1187 0502 D3ED017A 	 flds s15,[r3,#4]
- 1188 0506 F1EE677A 	 fnegs s15,s15
- 1189 050a 064B     	 ldr r3,.L116+8
- 1190 050c C3ED007A 	 fsts s15,[r3]
- 1191              	.L113:
+ 1202              	 .loc 1 216 0
+ 1203 051e 0A49     	 ldr r1,.L116
+ 1204 0520 7A68     	 ldr r2,[r7,#4]
+ 1205 0522 1346     	 mov r3,r2
+ 1206 0524 9B00     	 lsls r3,r3,#2
+ 1207 0526 1344     	 add r3,r3,r2
+ 1208 0528 DB00     	 lsls r3,r3,#3
+ 1209 052a 0B44     	 add r3,r3,r1
+ 1210 052c 2033     	 adds r3,r3,#32
+ 1211 052e D3ED007A 	 flds s15,[r3]
+ 1212 0532 F1EE677A 	 fnegs s15,s15
+ 1213 0536 064B     	 ldr r3,.L116+8
+ 1214 0538 C3ED007A 	 fsts s15,[r3]
+ 1215              	.L113:
  218:../pi_regulator.c **** 
- 1192              	 .loc 1 218 0
- 1193 0510 00BF     	 nop
- 1194              	.L73:
+ 1216              	 .loc 1 218 0
+ 1217 053c 00BF     	 nop
+ 1218              	.L73:
  222:../pi_regulator.c **** 	}
  223:../pi_regulator.c **** }
- 1195              	 .loc 1 223 0
- 1196 0512 0C37     	 adds r7,r7,#12
- 1197              	.LCFI15:
- 1198              	 .cfi_def_cfa_offset 4
- 1199 0514 BD46     	 mov sp,r7
- 1200              	.LCFI16:
- 1201              	 .cfi_def_cfa_register 13
- 1202              	 
- 1203 0516 5DF8047B 	 ldr r7,[sp],#4
- 1204              	.LCFI17:
- 1205              	 .cfi_restore 7
- 1206              	 .cfi_def_cfa_offset 0
- 1207 051a 7047     	 bx lr
- 1208              	.L117:
- 1209              	 .align 2
- 1210              	.L116:
- 1211 051c 00000000 	 .word position
- 1212 0520 00000000 	 .word spd_ref
- 1213 0524 00000000 	 .word i_q_ref
- 1214              	 .cfi_endproc
- 1215              	.LFE199:
- 1217              	 .section .text.pi_init,"ax",%progbits
- 1218              	 .align 2
- 1219              	 .global pi_init
- 1220              	 .thumb
- 1221              	 .thumb_func
- 1223              	pi_init:
- 1224              	.LFB200:
+ 1219              	 .loc 1 223 0
+ 1220 053e 0C37     	 adds r7,r7,#12
+ 1221              	.LCFI15:
+ 1222              	 .cfi_def_cfa_offset 4
+ 1223 0540 BD46     	 mov sp,r7
+ 1224              	.LCFI16:
+ 1225              	 .cfi_def_cfa_register 13
+ 1226              	 
+ 1227 0542 5DF8047B 	 ldr r7,[sp],#4
+ 1228              	.LCFI17:
+ 1229              	 .cfi_restore 7
+ 1230              	 .cfi_def_cfa_offset 0
+ 1231 0546 7047     	 bx lr
+ 1232              	.L117:
+ 1233              	 .align 2
+ 1234              	.L116:
+ 1235 0548 00000000 	 .word position
+ 1236 054c 00000000 	 .word spd_ref
+ 1237 0550 00000000 	 .word i_q_ref
+ 1238              	 .cfi_endproc
+ 1239              	.LFE199:
+ 1241              	 .section .text.pi_init,"ax",%progbits
+ 1242              	 .align 2
+ 1243              	 .global pi_init
+ 1244              	 .thumb
+ 1245              	 .thumb_func
+ 1247              	pi_init:
+ 1248              	.LFB200:
  224:../pi_regulator.c **** /*
  225:../pi_regulator.c **** 	Refulator data initialization
- 226:../pi_regulator.c **** 	TODO: Stepper tunnig
+ 226:../pi_regulator.c **** 	TODO: Position to current
  227:../pi_regulator.c **** */
  228:../pi_regulator.c **** void pi_init(void)
  229:../pi_regulator.c **** {
- 1225              	 .loc 1 229 0
- 1226              	 .cfi_startproc
- 1227              	 
- 1228              	 
- 1229              	 
- 1230 0000 80B4     	 push {r7}
- 1231              	.LCFI18:
- 1232              	 .cfi_def_cfa_offset 4
- 1233              	 .cfi_offset 7,-4
- 1234 0002 00AF     	 add r7,sp,#0
- 1235              	.LCFI19:
- 1236              	 .cfi_def_cfa_register 7
+ 1249              	 .loc 1 229 0
+ 1250              	 .cfi_startproc
+ 1251              	 
+ 1252              	 
+ 1253              	 
+ 1254 0000 80B4     	 push {r7}
+ 1255              	.LCFI18:
+ 1256              	 .cfi_def_cfa_offset 4
+ 1257              	 .cfi_offset 7,-4
+ 1258 0002 00AF     	 add r7,sp,#0
+ 1259              	.LCFI19:
+ 1260              	 .cfi_def_cfa_register 7
  230:../pi_regulator.c **** 	current_q.kp = 1.5;
- 1237              	 .loc 1 230 0
- 1238 0004 3B4B     	 ldr r3,.L119
- 1239 0006 4FF07F52 	 mov r2,#1069547520
- 1240 000a 1A60     	 str r2,[r3]
+ 1261              	 .loc 1 230 0
+ 1262 0004 3C4B     	 ldr r3,.L119
+ 1263 0006 4FF07F52 	 mov r2,#1069547520
+ 1264 000a 1A60     	 str r2,[r3]
  231:../pi_regulator.c **** 	current_q.ki = 0.05;
- 1241              	 .loc 1 231 0
- 1242 000c 394B     	 ldr r3,.L119
- 1243 000e 3A4A     	 ldr r2,.L119+4
- 1244 0010 5A60     	 str r2,[r3,#4]
+ 1265              	 .loc 1 231 0
+ 1266 000c 3A4B     	 ldr r3,.L119
+ 1267 000e 3B4A     	 ldr r2,.L119+4
+ 1268 0010 5A60     	 str r2,[r3,#4]
  232:../pi_regulator.c **** 	current_q.kd = 0;
- 1245              	 .loc 1 232 0
- 1246 0012 384B     	 ldr r3,.L119
- 1247 0014 4FF00002 	 mov r2,#0
- 1248 0018 9A60     	 str r2,[r3,#8]
- 233:../pi_regulator.c **** 	current_q.sat_out = 15000;
- 1249              	 .loc 1 233 0
- 1250 001a 364B     	 ldr r3,.L119
- 1251 001c 374A     	 ldr r2,.L119+8
- 1252 001e DA61     	 str r2,[r3,#28]
+ 1269              	 .loc 1 232 0
+ 1270 0012 394B     	 ldr r3,.L119
+ 1271 0014 4FF00002 	 mov r2,#0
+ 1272 0018 9A60     	 str r2,[r3,#8]
+ 233:../pi_regulator.c **** 	current_q.sat_out = 20000;
+ 1273              	 .loc 1 233 0
+ 1274 001a 374B     	 ldr r3,.L119
+ 1275 001c 384A     	 ldr r2,.L119+8
+ 1276 001e 1A62     	 str r2,[r3,#32]
  234:../pi_regulator.c **** 	current_q.sat_i_part = current_q.sat_out / 10;
- 1253              	 .loc 1 234 0
- 1254 0020 344B     	 ldr r3,.L119
- 1255 0022 D3ED077A 	 flds s15,[r3,#28]
- 1256 0026 B2EE047A 	 fconsts s14,#36
- 1257 002a C7EE877A 	 fdivs s15,s15,s14
- 1258 002e 314B     	 ldr r3,.L119
- 1259 0030 C3ED087A 	 fsts s15,[r3,#32]
+ 1277              	 .loc 1 234 0
+ 1278 0020 354B     	 ldr r3,.L119
+ 1279 0022 D3ED087A 	 flds s15,[r3,#32]
+ 1280 0026 B2EE047A 	 fconsts s14,#36
+ 1281 002a C7EE877A 	 fdivs s15,s15,s14
+ 1282 002e 324B     	 ldr r3,.L119
+ 1283 0030 C3ED097A 	 fsts s15,[r3,#36]
  235:../pi_regulator.c **** 
  236:../pi_regulator.c **** 	current_d.kp = current_q.kp;
- 1260              	 .loc 1 236 0
- 1261 0034 2F4B     	 ldr r3,.L119
- 1262 0036 1B68     	 ldr r3,[r3]
- 1263 0038 314A     	 ldr r2,.L119+12
- 1264 003a 1360     	 str r3,[r2]
+ 1284              	 .loc 1 236 0
+ 1285 0034 304B     	 ldr r3,.L119
+ 1286 0036 1B68     	 ldr r3,[r3]
+ 1287 0038 324A     	 ldr r2,.L119+12
+ 1288 003a 1360     	 str r3,[r2]
  237:../pi_regulator.c **** 	current_d.ki = current_q.ki;
- 1265              	 .loc 1 237 0
- 1266 003c 2D4B     	 ldr r3,.L119
- 1267 003e 5B68     	 ldr r3,[r3,#4]
- 1268 0040 2F4A     	 ldr r2,.L119+12
- 1269 0042 5360     	 str r3,[r2,#4]
+ 1289              	 .loc 1 237 0
+ 1290 003c 2E4B     	 ldr r3,.L119
+ 1291 003e 5B68     	 ldr r3,[r3,#4]
+ 1292 0040 304A     	 ldr r2,.L119+12
+ 1293 0042 5360     	 str r3,[r2,#4]
  238:../pi_regulator.c **** 	current_d.kd = current_q.kd;
- 1270              	 .loc 1 238 0
- 1271 0044 2B4B     	 ldr r3,.L119
- 1272 0046 9B68     	 ldr r3,[r3,#8]
- 1273 0048 2D4A     	 ldr r2,.L119+12
- 1274 004a 9360     	 str r3,[r2,#8]
+ 1294              	 .loc 1 238 0
+ 1295 0044 2C4B     	 ldr r3,.L119
+ 1296 0046 9B68     	 ldr r3,[r3,#8]
+ 1297 0048 2E4A     	 ldr r2,.L119+12
+ 1298 004a 9360     	 str r3,[r2,#8]
  239:../pi_regulator.c **** 	current_d.sat_out = current_q.sat_out;
- 1275              	 .loc 1 239 0
- 1276 004c 294B     	 ldr r3,.L119
- 1277 004e DB69     	 ldr r3,[r3,#28]
- 1278 0050 2B4A     	 ldr r2,.L119+12
- 1279 0052 D361     	 str r3,[r2,#28]
+ 1299              	 .loc 1 239 0
+ 1300 004c 2A4B     	 ldr r3,.L119
+ 1301 004e 1B6A     	 ldr r3,[r3,#32]
+ 1302 0050 2C4A     	 ldr r2,.L119+12
+ 1303 0052 1362     	 str r3,[r2,#32]
  240:../pi_regulator.c **** 	current_d.sat_i_part = current_q.sat_i_part;
- 1280              	 .loc 1 240 0
- 1281 0054 274B     	 ldr r3,.L119
- 1282 0056 1B6A     	 ldr r3,[r3,#32]
- 1283 0058 294A     	 ldr r2,.L119+12
- 1284 005a 1362     	 str r3,[r2,#32]
+ 1304              	 .loc 1 240 0
+ 1305 0054 284B     	 ldr r3,.L119
+ 1306 0056 5B6A     	 ldr r3,[r3,#36]
+ 1307 0058 2A4A     	 ldr r2,.L119+12
+ 1308 005a 5362     	 str r3,[r2,#36]
  241:../pi_regulator.c **** 
  242:../pi_regulator.c **** 	speed.kp = 60;
- 1285              	 .loc 1 242 0
- 1286 005c 294B     	 ldr r3,.L119+16
- 1287 005e 2A4A     	 ldr r2,.L119+20
- 1288 0060 1A60     	 str r2,[r3]
+ 1309              	 .loc 1 242 0
+ 1310 005c 2A4B     	 ldr r3,.L119+16
+ 1311 005e 2B4A     	 ldr r2,.L119+20
+ 1312 0060 1A60     	 str r2,[r3]
  243:../pi_regulator.c **** 	speed.ki = 15;
- 1289              	 .loc 1 243 0
- 1290 0062 284B     	 ldr r3,.L119+16
- 1291 0064 294A     	 ldr r2,.L119+24
- 1292 0066 5A60     	 str r2,[r3,#4]
+ 1313              	 .loc 1 243 0
+ 1314 0062 294B     	 ldr r3,.L119+16
+ 1315 0064 2A4A     	 ldr r2,.L119+24
+ 1316 0066 5A60     	 str r2,[r3,#4]
  244:../pi_regulator.c **** 	speed.kd = 0;
- 1293              	 .loc 1 244 0
- 1294 0068 264B     	 ldr r3,.L119+16
- 1295 006a 4FF00002 	 mov r2,#0
- 1296 006e 9A60     	 str r2,[r3,#8]
- 245:../pi_regulator.c **** 	speed.sat_out = 15000;
- 1297              	 .loc 1 245 0
- 1298 0070 244B     	 ldr r3,.L119+16
- 1299 0072 224A     	 ldr r2,.L119+8
- 1300 0074 DA61     	 str r2,[r3,#28]
+ 1317              	 .loc 1 244 0
+ 1318 0068 274B     	 ldr r3,.L119+16
+ 1319 006a 4FF00002 	 mov r2,#0
+ 1320 006e 9A60     	 str r2,[r3,#8]
+ 245:../pi_regulator.c **** 	speed.sat_out = 20000;
+ 1321              	 .loc 1 245 0
+ 1322 0070 254B     	 ldr r3,.L119+16
+ 1323 0072 234A     	 ldr r2,.L119+8
+ 1324 0074 1A62     	 str r2,[r3,#32]
  246:../pi_regulator.c **** 	speed.sat_i_part = speed.sat_out / 10;
- 1301              	 .loc 1 246 0
- 1302 0076 234B     	 ldr r3,.L119+16
- 1303 0078 D3ED077A 	 flds s15,[r3,#28]
- 1304 007c B2EE047A 	 fconsts s14,#36
- 1305 0080 C7EE877A 	 fdivs s15,s15,s14
- 1306 0084 1F4B     	 ldr r3,.L119+16
- 1307 0086 C3ED087A 	 fsts s15,[r3,#32]
- 247:../pi_regulator.c **** 
- 248:../pi_regulator.c **** 	position[0].kp = 0.5;
- 1308              	 .loc 1 248 0
- 1309 008a 214B     	 ldr r3,.L119+28
- 1310 008c 4FF07C52 	 mov r2,#1056964608
- 1311 0090 1A60     	 str r2,[r3]
- 249:../pi_regulator.c **** 	position[0].ki = 0.01;
- 1312              	 .loc 1 249 0
- 1313 0092 1F4B     	 ldr r3,.L119+28
- 1314 0094 1F4A     	 ldr r2,.L119+32
- 1315 0096 5A60     	 str r2,[r3,#4]
- 250:../pi_regulator.c **** 	position[0].kd = 0;
- 1316              	 .loc 1 250 0
- 1317 0098 1D4B     	 ldr r3,.L119+28
- 1318 009a 4FF00002 	 mov r2,#0
- 1319 009e 9A60     	 str r2,[r3,#8]
- 251:../pi_regulator.c **** 	position[0].sat_out = 100;
- 1320              	 .loc 1 251 0
- 1321 00a0 1B4B     	 ldr r3,.L119+28
- 1322 00a2 1D4A     	 ldr r2,.L119+36
- 1323 00a4 DA61     	 str r2,[r3,#28]
- 252:../pi_regulator.c **** 	position[0].sat_i_part = position[0].sat_out / 10;
- 1324              	 .loc 1 252 0
- 1325 00a6 1A4B     	 ldr r3,.L119+28
- 1326 00a8 D3ED077A 	 flds s15,[r3,#28]
- 1327 00ac B2EE047A 	 fconsts s14,#36
- 1328 00b0 C7EE877A 	 fdivs s15,s15,s14
- 1329 00b4 164B     	 ldr r3,.L119+28
- 1330 00b6 C3ED087A 	 fsts s15,[r3,#32]
- 253:../pi_regulator.c **** 
- 254:../pi_regulator.c **** 	position[1].kp = 0;
- 1331              	 .loc 1 254 0
- 1332 00ba 154B     	 ldr r3,.L119+28
- 1333 00bc 4FF00002 	 mov r2,#0
- 1334 00c0 5A62     	 str r2,[r3,#36]
- 255:../pi_regulator.c **** 	position[1].ki = 0;
- 1335              	 .loc 1 255 0
- 1336 00c2 134B     	 ldr r3,.L119+28
- 1337 00c4 4FF00002 	 mov r2,#0
- 1338 00c8 9A62     	 str r2,[r3,#40]
- 256:../pi_regulator.c **** 	position[1].kd = 0;
- 1339              	 .loc 1 256 0
- 1340 00ca 114B     	 ldr r3,.L119+28
- 1341 00cc 4FF00002 	 mov r2,#0
- 1342 00d0 DA62     	 str r2,[r3,#44]
- 257:../pi_regulator.c **** 	position[1].sat_out = 5000;
- 1343              	 .loc 1 257 0
- 1344 00d2 0F4B     	 ldr r3,.L119+28
- 1345 00d4 114A     	 ldr r2,.L119+40
- 1346 00d6 1A64     	 str r2,[r3,#64]
- 258:../pi_regulator.c **** 	position[1].sat_i_part = position[1].sat_out / 10;
- 1347              	 .loc 1 258 0
- 1348 00d8 0D4B     	 ldr r3,.L119+28
- 1349 00da D3ED107A 	 flds s15,[r3,#64]
- 1350 00de B2EE047A 	 fconsts s14,#36
- 1351 00e2 C7EE877A 	 fdivs s15,s15,s14
- 1352 00e6 0A4B     	 ldr r3,.L119+28
- 1353 00e8 C3ED117A 	 fsts s15,[r3,#68]
- 259:../pi_regulator.c **** 
- 260:../pi_regulator.c **** }
- 1354              	 .loc 1 260 0
- 1355 00ec BD46     	 mov sp,r7
- 1356              	.LCFI20:
- 1357              	 .cfi_def_cfa_register 13
- 1358              	 
- 1359 00ee 5DF8047B 	 ldr r7,[sp],#4
- 1360              	.LCFI21:
- 1361              	 .cfi_restore 7
- 1362              	 .cfi_def_cfa_offset 0
- 1363 00f2 7047     	 bx lr
- 1364              	.L120:
- 1365              	 .align 2
- 1366              	.L119:
- 1367 00f4 00000000 	 .word current_q
- 1368 00f8 CDCC4C3D 	 .word 1028443341
- 1369 00fc 00606A46 	 .word 1181376512
- 1370 0100 00000000 	 .word current_d
- 1371 0104 00000000 	 .word speed
- 1372 0108 00007042 	 .word 1114636288
- 1373 010c 00007041 	 .word 1097859072
- 1374 0110 00000000 	 .word position
- 1375 0114 0AD7233C 	 .word 1008981770
- 1376 0118 0000C842 	 .word 1120403456
- 1377 011c 00409C45 	 .word 1167867904
- 1378              	 .cfi_endproc
- 1379              	.LFE200:
- 1381              	 .text
- 1382              	.Letext0:
- 1383              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 1384              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 1385              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
- 1386              	 .file 5 "../pi_regulator.h"
- 1387              	 .file 6 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
- 1388              	 .file 7 "../main.h"
- 1389              	 .file 8 "../motor_data_update.h"
- 1390              	 .file 9 "../transform.h"
- 1391              	 .file 10 "../state_machine.h"
+ 1325              	 .loc 1 246 0
+ 1326 0076 244B     	 ldr r3,.L119+16
+ 1327 0078 D3ED087A 	 flds s15,[r3,#32]
+ 1328 007c B2EE047A 	 fconsts s14,#36
+ 1329 0080 C7EE877A 	 fdivs s15,s15,s14
+ 1330 0084 204B     	 ldr r3,.L119+16
+ 1331 0086 C3ED097A 	 fsts s15,[r3,#36]
+ 247:../pi_regulator.c **** 	
+ 248:../pi_regulator.c **** 	//Position to speed
+ 249:../pi_regulator.c **** 	position[0].kp = 0.5;
+ 1332              	 .loc 1 249 0
+ 1333 008a 224B     	 ldr r3,.L119+28
+ 1334 008c 4FF07C52 	 mov r2,#1056964608
+ 1335 0090 1A60     	 str r2,[r3]
+ 250:../pi_regulator.c **** 	position[0].ki = 0.01;
+ 1336              	 .loc 1 250 0
+ 1337 0092 204B     	 ldr r3,.L119+28
+ 1338 0094 204A     	 ldr r2,.L119+32
+ 1339 0096 5A60     	 str r2,[r3,#4]
+ 251:../pi_regulator.c **** 	position[0].kd = 0;
+ 1340              	 .loc 1 251 0
+ 1341 0098 1E4B     	 ldr r3,.L119+28
+ 1342 009a 4FF00002 	 mov r2,#0
+ 1343 009e 9A60     	 str r2,[r3,#8]
+ 252:../pi_regulator.c **** 	position[0].sat_out = 200;
+ 1344              	 .loc 1 252 0
+ 1345 00a0 1C4B     	 ldr r3,.L119+28
+ 1346 00a2 1E4A     	 ldr r2,.L119+36
+ 1347 00a4 1A62     	 str r2,[r3,#32]
+ 253:../pi_regulator.c **** 	position[0].sat_i_part = position[0].sat_out / 10;
+ 1348              	 .loc 1 253 0
+ 1349 00a6 1B4B     	 ldr r3,.L119+28
+ 1350 00a8 D3ED087A 	 flds s15,[r3,#32]
+ 1351 00ac B2EE047A 	 fconsts s14,#36
+ 1352 00b0 C7EE877A 	 fdivs s15,s15,s14
+ 1353 00b4 174B     	 ldr r3,.L119+28
+ 1354 00b6 C3ED097A 	 fsts s15,[r3,#36]
+ 254:../pi_regulator.c **** 
+ 255:../pi_regulator.c **** 	//Position to current
+ 256:../pi_regulator.c **** 	position[1].kp = 10;
+ 1355              	 .loc 1 256 0
+ 1356 00ba 164B     	 ldr r3,.L119+28
+ 1357 00bc 184A     	 ldr r2,.L119+40
+ 1358 00be 9A62     	 str r2,[r3,#40]
+ 257:../pi_regulator.c **** 	position[1].ki = 0.05;
+ 1359              	 .loc 1 257 0
+ 1360 00c0 144B     	 ldr r3,.L119+28
+ 1361 00c2 0E4A     	 ldr r2,.L119+4
+ 1362 00c4 DA62     	 str r2,[r3,#44]
+ 258:../pi_regulator.c **** 	position[1].kd = 20;
+ 1363              	 .loc 1 258 0
+ 1364 00c6 134B     	 ldr r3,.L119+28
+ 1365 00c8 164A     	 ldr r2,.L119+44
+ 1366 00ca 1A63     	 str r2,[r3,#48]
+ 259:../pi_regulator.c **** 	position[1].sat_out = 20000;
+ 1367              	 .loc 1 259 0
+ 1368 00cc 114B     	 ldr r3,.L119+28
+ 1369 00ce 0C4A     	 ldr r2,.L119+8
+ 1370 00d0 9A64     	 str r2,[r3,#72]
+ 260:../pi_regulator.c **** 	position[1].sat_i_part = position[1].sat_out / 10;
+ 1371              	 .loc 1 260 0
+ 1372 00d2 104B     	 ldr r3,.L119+28
+ 1373 00d4 D3ED127A 	 flds s15,[r3,#72]
+ 1374 00d8 B2EE047A 	 fconsts s14,#36
+ 1375 00dc C7EE877A 	 fdivs s15,s15,s14
+ 1376 00e0 0C4B     	 ldr r3,.L119+28
+ 1377 00e2 C3ED137A 	 fsts s15,[r3,#76]
+ 261:../pi_regulator.c **** 	position[1].error_old = 0;
+ 1378              	 .loc 1 261 0
+ 1379 00e6 0B4B     	 ldr r3,.L119+28
+ 1380 00e8 4FF00002 	 mov r2,#0
+ 1381 00ec 9A63     	 str r2,[r3,#56]
+ 262:../pi_regulator.c **** 
+ 263:../pi_regulator.c **** }
+ 1382              	 .loc 1 263 0
+ 1383 00ee BD46     	 mov sp,r7
+ 1384              	.LCFI20:
+ 1385              	 .cfi_def_cfa_register 13
+ 1386              	 
+ 1387 00f0 5DF8047B 	 ldr r7,[sp],#4
+ 1388              	.LCFI21:
+ 1389              	 .cfi_restore 7
+ 1390              	 .cfi_def_cfa_offset 0
+ 1391 00f4 7047     	 bx lr
+ 1392              	.L120:
+ 1393 00f6 00BF     	 .align 2
+ 1394              	.L119:
+ 1395 00f8 00000000 	 .word current_q
+ 1396 00fc CDCC4C3D 	 .word 1028443341
+ 1397 0100 00409C46 	 .word 1184645120
+ 1398 0104 00000000 	 .word current_d
+ 1399 0108 00000000 	 .word speed
+ 1400 010c 00007042 	 .word 1114636288
+ 1401 0110 00007041 	 .word 1097859072
+ 1402 0114 00000000 	 .word position
+ 1403 0118 0AD7233C 	 .word 1008981770
+ 1404 011c 00004843 	 .word 1128792064
+ 1405 0120 00002041 	 .word 1092616192
+ 1406 0124 0000A041 	 .word 1101004800
+ 1407              	 .cfi_endproc
+ 1408              	.LFE200:
+ 1410              	 .text
+ 1411              	.Letext0:
+ 1412              	 .file 2 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1413              	 .file 3 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 1414              	 .file 4 "c:\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\math.h"
+ 1415              	 .file 5 "../pi_regulator.h"
+ 1416              	 .file 6 "C:/GitHub/Stepper_drive/Libraries/CMSIS/Include/core_cm4.h"
+ 1417              	 .file 7 "../main.h"
+ 1418              	 .file 8 "../motor_data_update.h"
+ 1419              	 .file 9 "../transform.h"
+ 1420              	 .file 10 "../state_machine.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 pi_regulator.c
                             *COM*:00000004 CCU8_CC8_CR1_CR1_Value
-                            *COM*:00000048 position
-                            *COM*:00000024 current_q
-                            *COM*:00000024 current_d
-                            *COM*:00000024 speed
-                            *COM*:00000004 err_old_pos
-    {standard input}:30     .bss.i_q_ref:00000000 i_q_ref
-    {standard input}:27     .bss.i_q_ref:00000000 $d
-    {standard input}:37     .bss.i_d_ref:00000000 i_d_ref
-    {standard input}:34     .bss.i_d_ref:00000000 $d
-    {standard input}:44     .bss.pos_ref:00000000 pos_ref
-    {standard input}:41     .bss.pos_ref:00000000 $d
-    {standard input}:51     .bss.spd_ref:00000000 spd_ref
-    {standard input}:48     .bss.spd_ref:00000000 $d
-    {standard input}:58     .bss.u_q_ref:00000000 u_q_ref
-    {standard input}:55     .bss.u_q_ref:00000000 $d
-    {standard input}:65     .bss.u_d_ref:00000000 u_d_ref
-    {standard input}:62     .bss.u_d_ref:00000000 $d
-    {standard input}:68     .text.pi_regulator_i_q:00000000 $t
-    {standard input}:73     .text.pi_regulator_i_q:00000000 pi_regulator_i_q
-    {standard input}:229    .text.pi_regulator_i_q:0000014c $d
-    {standard input}:237    .text.pi_regulator_i_d:00000000 $t
-    {standard input}:242    .text.pi_regulator_i_d:00000000 pi_regulator_i_d
-    {standard input}:397    .text.pi_regulator_i_d:0000014c $d
-    {standard input}:405    .text.pi_regulator_speed:00000000 $t
-    {standard input}:410    .text.pi_regulator_speed:00000000 pi_regulator_speed
-    {standard input}:567    .text.pi_regulator_speed:00000154 $d
-    {standard input}:575    .text.pid_regulator_pos:00000000 $t
-    {standard input}:580    .text.pid_regulator_pos:00000000 pid_regulator_pos
-    {standard input}:941    .text.pid_regulator_pos:000002f0 $d
-    {standard input}:948    .text.pid_regulator_pos:00000304 $t
-    {standard input}:1211   .text.pid_regulator_pos:0000051c $d
-    {standard input}:1218   .text.pi_init:00000000 $t
-    {standard input}:1223   .text.pi_init:00000000 pi_init
-    {standard input}:1367   .text.pi_init:000000f4 $d
+                            *COM*:00000050 position
+                            *COM*:00000028 current_q
+                            *COM*:00000028 current_d
+                            *COM*:00000028 speed
+    {standard input}:29     .bss.i_q_ref:00000000 i_q_ref
+    {standard input}:26     .bss.i_q_ref:00000000 $d
+    {standard input}:36     .bss.i_d_ref:00000000 i_d_ref
+    {standard input}:33     .bss.i_d_ref:00000000 $d
+    {standard input}:43     .bss.pos_ref:00000000 pos_ref
+    {standard input}:40     .bss.pos_ref:00000000 $d
+    {standard input}:50     .bss.spd_ref:00000000 spd_ref
+    {standard input}:47     .bss.spd_ref:00000000 $d
+    {standard input}:57     .bss.u_q_ref:00000000 u_q_ref
+    {standard input}:54     .bss.u_q_ref:00000000 $d
+    {standard input}:64     .bss.u_d_ref:00000000 u_d_ref
+    {standard input}:61     .bss.u_d_ref:00000000 $d
+    {standard input}:67     .text.pi_regulator_i_q:00000000 $t
+    {standard input}:72     .text.pi_regulator_i_q:00000000 pi_regulator_i_q
+    {standard input}:228    .text.pi_regulator_i_q:0000014c $d
+    {standard input}:236    .text.pi_regulator_i_d:00000000 $t
+    {standard input}:241    .text.pi_regulator_i_d:00000000 pi_regulator_i_d
+    {standard input}:396    .text.pi_regulator_i_d:0000014c $d
+    {standard input}:404    .text.pi_regulator_speed:00000000 $t
+    {standard input}:409    .text.pi_regulator_speed:00000000 pi_regulator_speed
+    {standard input}:566    .text.pi_regulator_speed:00000154 $d
+    {standard input}:574    .text.pid_regulator_pos:00000000 $t
+    {standard input}:579    .text.pid_regulator_pos:00000000 pid_regulator_pos
+    {standard input}:947    .text.pid_regulator_pos:000002fc $d
+    {standard input}:953    .text.pid_regulator_pos:0000030c $t
+    {standard input}:1235   .text.pid_regulator_pos:00000548 $d
+    {standard input}:1242   .text.pi_init:00000000 $t
+    {standard input}:1247   .text.pi_init:00000000 pi_init
+    {standard input}:1395   .text.pi_init:000000f8 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

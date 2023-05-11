@@ -20,13 +20,24 @@ float_t cos_theta_fast = 0;					 // cos(theta)
 uint16_t timer_value_fast = 0;				 // Stored value of CCU40 timer for encoder
 uint16_t timer_value_old_fast = 0;			 //*Last* read of timer value for speed computation
 int16_t speed_value_fast = 0;				 // Speed value based on 2 timer values
-int16_t encoder_resolution = 4000;			 // Resolution of encoder | 4*1000				TODO: Make a function to init this data
-int8_t pp = 25;								 // Number of electric poles : 100[steps]/4		TODO: Make a function to init this data
-int16_t electrical_resolution = 0;			 // Electrical resolution based on encoder resolution and number of electric poles | 2000/4 = 500	 TODO: Make a function to init this data
+int16_t encoder_resolution = 0;			 // Resolution of encoder | 4*resolution
+int8_t pp = 0;								 // Number of electric poles : Total_steps/mechanical_steps_electric_angle
+int16_t electrical_resolution = 0;			 // Electrical resolution based on encoder resolution and number of electric poles
 float_t u_a_ref, u_b_ref, u_c_ref;			 // abc voltage | -32768 -- 32,767
 float_t i_d, i_q;							 // dq voltage																   *
 float_t i_alpha, i_beta;					 // currents for dq computation
 float_t u_alpha, u_beta;					 // voltage for abc computation
+/*
+	Initialize motor data
+	enc_res = encoder resolution
+	motor_steps = number of steps
+*/
+void motor_data_init(int16_t enc_res, int8_t motor_steps)
+{
+	encoder_resolution = enc_res * 4;
+	pp = motor_steps / 4;
+	electrical_resolution = encoder_resolution / pp;
+}
 
 /*
  * Convert three-phase electrical signals from time-domain to dq0-reference frame
@@ -77,17 +88,16 @@ void dq_abc(void)
 	{
 		u_a_ref = MIN_UINT_16;
 	}
-
 }
 
 /*
  * Compute the speed based on the encoder increments, read from CCU40 Timer
  */
-void compute_fast_speed(void)			//SPEED = 1 for testing
+void compute_fast_speed(void) // SPEED = 1 for testing
 {
 	timer_value_fast = CCU40_CC40->TIMER;
 	speed_value_fast = timer_value_fast - timer_value_old_fast;
-//	speed_value_fast = 1;
+	//	speed_value_fast = 1;
 	timer_value_old_fast = timer_value_fast;
 }
 /*
@@ -103,7 +113,6 @@ void compute_fast_mechanical_position(void)
  */
 void compute_fast_electrical_position(void)
 {
-	electrical_resolution = encoder_resolution / pp;
 	electrical_position_modulo_fast = mechanical_position_fast % electrical_resolution;
 }
 

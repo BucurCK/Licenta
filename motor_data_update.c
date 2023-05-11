@@ -22,7 +22,7 @@ uint16_t timer_diff;
  * Reset: Theta | Position | Timers_old
  * Disable PWM output
  */
-void init_position(void) // TO DO:check if it still works
+void init_position(void) // 
 {
 	motion_on();		   // Enable PWM pins
 	pwm_update(0, 1000);   // Apply voltage on B Phase

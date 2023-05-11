@@ -33,6 +33,7 @@ extern status_ref_gen ref_gen_status;
 
 void reference_generator (void);
 void reference_generator_compute (void);
+void update_reference(float_t *ref_value);
 
 #define ROTATION_IU			(4000U)			//4 * 500 IU per rotation
 #define SECOND				(1000U)			//Slow loop = 1 ms

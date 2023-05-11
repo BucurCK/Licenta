@@ -9,6 +9,7 @@ extern void compute_fast_speed (void);
 extern void compute_fast_mechanical_position (void);
 extern void compute_fast_electrical_position (void);
 extern void compute_fast_field (void);
+extern void motor_data_init(int16_t enc_res, int8_t motor_steps);
 
 extern int32_t mechanical_position_fast;
 extern float_t u_a_ref,u_b_ref,u_c_ref;

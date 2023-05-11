@@ -65,7 +65,7 @@
   22:../motor_data_update.c ****  * Reset: Theta | Position | Timers_old
   23:../motor_data_update.c ****  * Disable PWM output
   24:../motor_data_update.c ****  */
-  25:../motor_data_update.c **** void init_position(void) // TO DO:check if it still works
+  25:../motor_data_update.c **** void init_position(void) // 
   26:../motor_data_update.c **** {
   51              	 .loc 1 26 0
   52              	 .cfi_startproc

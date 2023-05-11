@@ -24,6 +24,7 @@ typedef struct regulator
 	float_t ki;
 	float_t kd;
 	float_t error;
+	float_t error_old;
 	float_t p_part;
 	float_t i_part;
 	float_t d_part;
