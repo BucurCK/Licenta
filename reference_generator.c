@@ -53,12 +53,6 @@ void reference_generator_compute(void)
 		rise_time = time_rise_input_s * SECOND;
 		fall_time = time_fall_input_s * SECOND;
 
-//		high_level = 1 * ROTATION_IU;
-//		high_level_time = 0.1 * SECOND;
-//		low_level_time = 0.1 * SECOND;
-//		rise_time = 0.2 * SECOND;
-//		fall_time = 0.2 * SECOND;
-
 		break;
 	case (REF_SPD):
 		rise_time = time_rise_input_s * SECOND;
@@ -67,11 +61,6 @@ void reference_generator_compute(void)
 		high_level_time = time_high_input_s * SECOND;
 		low_level_time = time_low_input_s * SECOND;
 
-//		rise_time = 0.5 * SECOND;
-//		fall_time = 0.5 * SECOND;
-////		high_level = rpm_input / (MINUTE / ROTATION_IU);
-//		high_level_time = 0.5 * SECOND;
-//		low_level_time = 0.5 * SECOND;
 		break;
 	case (REF_I):
 		high_level = current_input;
@@ -80,11 +69,6 @@ void reference_generator_compute(void)
 		rise_time = time_rise_input_s * SECOND;
 		fall_time = time_fall_input_s * SECOND;
 
-//		high_level = 500;
-//		high_level_time = 0.5 * SECOND;
-//		low_level_time = 0.5 * SECOND;
-//		rise_time = 0.01 * SECOND;
-//		fall_time = 0.01 * SECOND;
 		break;
 	case (REF_U):
 		high_level = voltage_input;
@@ -93,17 +77,12 @@ void reference_generator_compute(void)
 		rise_time = time_rise_input_s * SECOND;
 		fall_time = time_fall_input_s * SECOND;
 
-//		high_level = 2000;
-//		high_level_time = 5 * SECOND;
-//		low_level_time = 0 * SECOND;
-//		rise_time = 0 * SECOND;
-//		fall_time = 0 * SECOND;
 		break;
 	default:
 		break;
 	}
 
-	//No rise time
+	// No rise time
 	if (0 == rise_time)
 	{
 		rise_increment = high_level;
@@ -113,7 +92,7 @@ void reference_generator_compute(void)
 		rise_increment = (float_t)high_level / rise_time;
 	}
 
-	//No fall time
+	// No fall time
 	if (0 == fall_time)
 	{
 		fall_decrement = high_level;
