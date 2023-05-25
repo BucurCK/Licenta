@@ -70,7 +70,7 @@ void encoder_init(void)
 	/*Quadrature Decoder Mode enabled*/
 	POSIF0->PCONF |= POSIF_PCONF_FSEL_QUAD_MSK;
 
-	/*Phase/Hal selector as INxB for the used pins*/
+	/*Phase/Hall selector as INxB for the used pins*/
 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL0_POS);
 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL1_POS);
 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL2_POS);

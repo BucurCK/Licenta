@@ -2156,6 +2156,7 @@ Discarded input sections
  .data          0x00000000        0x0 ./motor_data_update.o
  .bss           0x00000000        0x0 ./motor_data_update.o
  .comment       0x00000000       0x71 ./motor_data_update.o
+ COMMON         0x00000000        0x2 ./motor_data_update.o
  .text          0x00000000        0x0 ./pi_regulator.o
  .data          0x00000000        0x0 ./pi_regulator.o
  .bss           0x00000000        0x0 ./pi_regulator.o
@@ -2339,7 +2340,7 @@ END GROUP
                 0x00000800                stack_size = DEFINED (stack_size)?stack_size:0x800
                 0x00000040                no_init_size = 0x40
 
-.text           0x08000000     0x5828 load address 0x0c000000
+.text           0x08000000     0x57b4 load address 0x0c000000
                 0x08000000                sText = .
  *(.reset)
  .reset         0x08000000      0x29c ./Startup/startup_XMC4800.o
@@ -2539,138 +2540,138 @@ END GROUP
                 0x08001b0c       0x64 ./motor_data_update.o
                 0x08001b0c                init_position
  .text.compute_speed
-                0x08001b70       0xb4 ./motor_data_update.o
+                0x08001b70       0x40 ./motor_data_update.o
                 0x08001b70                compute_speed
  .text.pi_regulator_i_q
-                0x08001c24      0x15c ./pi_regulator.o
-                0x08001c24                pi_regulator_i_q
+                0x08001bb0      0x15c ./pi_regulator.o
+                0x08001bb0                pi_regulator_i_q
  .text.pi_regulator_i_d
-                0x08001d80      0x15c ./pi_regulator.o
-                0x08001d80                pi_regulator_i_d
+                0x08001d0c      0x15c ./pi_regulator.o
+                0x08001d0c                pi_regulator_i_d
  .text.pi_regulator_speed
-                0x08001edc      0x164 ./pi_regulator.o
-                0x08001edc                pi_regulator_speed
+                0x08001e68      0x164 ./pi_regulator.o
+                0x08001e68                pi_regulator_speed
  .text.pid_regulator_pos
-                0x08002040      0x554 ./pi_regulator.o
-                0x08002040                pid_regulator_pos
- .text.pi_init  0x08002594      0x128 ./pi_regulator.o
-                0x08002594                pi_init
+                0x08001fcc      0x554 ./pi_regulator.o
+                0x08001fcc                pid_regulator_pos
+ .text.pi_init  0x08002520      0x128 ./pi_regulator.o
+                0x08002520                pi_init
  .text.ProbeScope_Init
-                0x080026bc      0x160 ./probe_scope.o
-                0x080026bc                ProbeScope_Init
+                0x08002648      0x160 ./probe_scope.o
+                0x08002648                ProbeScope_Init
  .text.ProbeScope_Sampling
-                0x0800281c       0x44 ./probe_scope.o
-                0x0800281c                ProbeScope_Sampling
+                0x080027a8       0x44 ./probe_scope.o
+                0x080027a8                ProbeScope_Sampling
  .text.ProbeScope_ModeOff
-                0x08002860       0x28 ./probe_scope.o
+                0x080027ec       0x28 ./probe_scope.o
  .text.ProbeScope_ModeContinuous
-                0x08002888       0x7c ./probe_scope.o
+                0x08002814       0x7c ./probe_scope.o
  .text.ProbeScope_ModeTrig
-                0x08002904      0x190 ./probe_scope.o
+                0x08002890      0x190 ./probe_scope.o
  .text.ProbeScope_SampleChAll
-                0x08002a94       0x58 ./probe_scope.o
+                0x08002a20       0x58 ./probe_scope.o
  .text.ProbeScope_SampleCh
-                0x08002aec      0x1f8 ./probe_scope.o
+                0x08002a78      0x1f8 ./probe_scope.o
  .text.ProbeScope_SamplePosNext
-                0x08002ce4       0x38 ./probe_scope.o
+                0x08002c70       0x38 ./probe_scope.o
  .text.ProbeScope_IsTrig
-                0x08002d1c      0x6ac ./probe_scope.o
+                0x08002ca8      0x6ac ./probe_scope.o
  .text.reference_generator_compute
-                0x080033c8      0x324 ./reference_generator.o
-                0x080033c8                reference_generator_compute
+                0x08003354      0x324 ./reference_generator.o
+                0x08003354                reference_generator_compute
  .text.reference_generator
-                0x080036ec      0x180 ./reference_generator.o
-                0x080036ec                reference_generator
+                0x08003678      0x180 ./reference_generator.o
+                0x08003678                reference_generator
  .text.state_machine
-                0x0800386c      0x220 ./state_machine.o
-                0x0800386c                state_machine
+                0x080037f8      0x220 ./state_machine.o
+                0x080037f8                state_machine
  .text.drive_disabled
-                0x08003a8c       0x28 ./state_machine.o
-                0x08003a8c                drive_disabled
+                0x08003a18       0x28 ./state_machine.o
+                0x08003a18                drive_disabled
  .text.drive_on
-                0x08003ab4       0x3c ./state_machine.o
-                0x08003ab4                drive_on
+                0x08003a40       0x3c ./state_machine.o
+                0x08003a40                drive_on
  .text.operation_enabled
-                0x08003af0       0x18 ./state_machine.o
-                0x08003af0                operation_enabled
+                0x08003a7c       0x18 ./state_machine.o
+                0x08003a7c                operation_enabled
  .text.compute_motion
-                0x08003b08       0x14 ./state_machine.o
-                0x08003b08                compute_motion
- .text.delay_t  0x08003b1c       0x2c ./timer.o
-                0x08003b1c                delay_t
+                0x08003a94       0x14 ./state_machine.o
+                0x08003a94                compute_motion
+ .text.delay_t  0x08003aa8       0x2c ./timer.o
+                0x08003aa8                delay_t
  .text.motor_data_init
-                0x08003b48       0x5c ./transform.o
-                0x08003b48                motor_data_init
- .text.abc_dq   0x08003ba4       0xa8 ./transform.o
-                0x08003ba4                abc_dq
- .text.dq_abc   0x08003c4c      0x10c ./transform.o
-                0x08003c4c                dq_abc
+                0x08003ad4       0x5c ./transform.o
+                0x08003ad4                motor_data_init
+ .text.abc_dq   0x08003b30       0xa8 ./transform.o
+                0x08003b30                abc_dq
+ .text.dq_abc   0x08003bd8      0x10c ./transform.o
+                0x08003bd8                dq_abc
  .text.compute_fast_speed
-                0x08003d58       0x40 ./transform.o
-                0x08003d58                compute_fast_speed
+                0x08003ce4       0x40 ./transform.o
+                0x08003ce4                compute_fast_speed
  .text.compute_fast_mechanical_position
-                0x08003d98       0x24 ./transform.o
-                0x08003d98                compute_fast_mechanical_position
+                0x08003d24       0x24 ./transform.o
+                0x08003d24                compute_fast_mechanical_position
  .text.compute_fast_electrical_position
-                0x08003dbc       0x30 ./transform.o
-                0x08003dbc                compute_fast_electrical_position
+                0x08003d48       0x30 ./transform.o
+                0x08003d48                compute_fast_electrical_position
  .text.compute_fast_field
-                0x08003dec       0x70 ./transform.o
-                0x08003dec                compute_fast_field
- .text.sincosf  0x08003e5c       0x18 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-wf_sincos.o)
-                0x08003e5c                sincosf
- .text.cosf     0x08003e74       0x8c c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_cos.o)
-                0x08003e74                cosf
- .text.sinf     0x08003f00       0x9c c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_sin.o)
-                0x08003f00                sinf
+                0x08003d78       0x70 ./transform.o
+                0x08003d78                compute_fast_field
+ .text.sincosf  0x08003de8       0x18 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-wf_sincos.o)
+                0x08003de8                sincosf
+ .text.cosf     0x08003e00       0x8c c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_cos.o)
+                0x08003e00                cosf
+ .text.sinf     0x08003e8c       0x9c c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_sin.o)
+                0x08003e8c                sinf
  .text.__ieee754_rem_pio2f
-                0x08003f9c      0x298 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-ef_rem_pio2.o)
-                0x08003f9c                __ieee754_rem_pio2f
+                0x08003f28      0x298 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-ef_rem_pio2.o)
+                0x08003f28                __ieee754_rem_pio2f
  .text.__kernel_cosf
-                0x08004234      0x114 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-kf_cos.o)
-                0x08004234                __kernel_cosf
+                0x080041c0      0x114 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-kf_cos.o)
+                0x080041c0                __kernel_cosf
  .text.__kernel_rem_pio2f
-                0x08004348      0x628 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-kf_rem_pio2.o)
-                0x08004348                __kernel_rem_pio2f
+                0x080042d4      0x628 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-kf_rem_pio2.o)
+                0x080042d4                __kernel_rem_pio2f
  .text.__kernel_sinf
-                0x08004970       0x9c c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-kf_sin.o)
-                0x08004970                __kernel_sinf
- .text.fabsf    0x08004a0c        0x8 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_fabs.o)
-                0x08004a0c                fabsf
- .text.floorf   0x08004a14       0xb4 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_floor.o)
-                0x08004a14                floorf
- .text.scalbnf  0x08004ac8      0x100 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_scalbn.o)
-                0x08004ac8                scalbnf
+                0x080048fc       0x9c c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-kf_sin.o)
+                0x080048fc                __kernel_sinf
+ .text.fabsf    0x08004998        0x8 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_fabs.o)
+                0x08004998                fabsf
+ .text.floorf   0x080049a0       0xb4 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_floor.o)
+                0x080049a0                floorf
+ .text.scalbnf  0x08004a54      0x100 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_scalbn.o)
+                0x08004a54                scalbnf
  .text.copysignf
-                0x08004bc8        0xc c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_copysign.o)
-                0x08004bc8                copysignf
- .text          0x08004bd4      0x370 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_addsubdf3.o)
-                0x08004bd4                __aeabi_drsub
-                0x08004bdc                __aeabi_dsub
-                0x08004bdc                __subdf3
-                0x08004be0                __aeabi_dadd
-                0x08004be0                __adddf3
-                0x08004e58                __floatunsidf
-                0x08004e58                __aeabi_ui2d
-                0x08004e78                __floatsidf
-                0x08004e78                __aeabi_i2d
-                0x08004e9c                __aeabi_f2d
-                0x08004e9c                __extendsfdf2
-                0x08004ed8                __floatundidf
-                0x08004ed8                __aeabi_ul2d
-                0x08004ee8                __floatdidf
-                0x08004ee8                __aeabi_l2d
- .text          0x08004f44      0x424 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_muldivdf3.o)
-                0x08004f44                __aeabi_dmul
-                0x08004f44                __muldf3
-                0x08005198                __divdf3
-                0x08005198                __aeabi_ddiv
- .text          0x08005368       0xa0 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_truncdfsf2.o)
-                0x08005368                __truncdfsf2
-                0x08005368                __aeabi_d2f
+                0x08004b54        0xc c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-sf_copysign.o)
+                0x08004b54                copysignf
+ .text          0x08004b60      0x370 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_addsubdf3.o)
+                0x08004b60                __aeabi_drsub
+                0x08004b68                __aeabi_dsub
+                0x08004b68                __subdf3
+                0x08004b6c                __aeabi_dadd
+                0x08004b6c                __adddf3
+                0x08004de4                __floatunsidf
+                0x08004de4                __aeabi_ui2d
+                0x08004e04                __floatsidf
+                0x08004e04                __aeabi_i2d
+                0x08004e28                __aeabi_f2d
+                0x08004e28                __extendsfdf2
+                0x08004e64                __floatundidf
+                0x08004e64                __aeabi_ul2d
+                0x08004e74                __floatdidf
+                0x08004e74                __aeabi_l2d
+ .text          0x08004ed0      0x424 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_muldivdf3.o)
+                0x08004ed0                __aeabi_dmul
+                0x08004ed0                __muldf3
+                0x08005124                __divdf3
+                0x08005124                __aeabi_ddiv
+ .text          0x080052f4       0xa0 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_truncdfsf2.o)
+                0x080052f4                __truncdfsf2
+                0x080052f4                __aeabi_d2f
  .text.__libc_init_array
-                0x08005408       0x50 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg.a(lib_a-init.o)
-                0x08005408                __libc_init_array
+                0x08005394       0x50 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg.a(lib_a-init.o)
+                0x08005394                __libc_init_array
  *(.init)
  *(.fini)
  *crtbegin.o(.ctors)
@@ -2685,32 +2686,32 @@ END GROUP
  *(.dtors)
  *(.rodata .rodata.*)
  .rodata.npio2_hw
-                0x08005458       0x80 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-ef_rem_pio2.o)
+                0x080053e4       0x80 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-ef_rem_pio2.o)
  .rodata.two_over_pi
-                0x080054d8      0x318 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-ef_rem_pio2.o)
+                0x08005464      0x318 c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-ef_rem_pio2.o)
  .rodata.init_jk
-                0x080057f0        0xc c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-kf_rem_pio2.o)
- .rodata.PIo2   0x080057fc       0x2c c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-kf_rem_pio2.o)
+                0x0800577c        0xc c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-kf_rem_pio2.o)
+ .rodata.PIo2   0x08005788       0x2c c:/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libm.a(lib_a-kf_rem_pio2.o)
  *(.gnu.linkonce.r*)
  *(vtable)
-                0x08005828                . = ALIGN (0x4)
+                0x080057b4                . = ALIGN (0x4)
 
-.glue_7         0x08005828        0x0 load address 0x0c005828
+.glue_7         0x080057b4        0x0 load address 0x0c0057b4
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x08005828        0x0 load address 0x0c005828
+.glue_7t        0x080057b4        0x0 load address 0x0c0057b4
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x08005828        0x0 load address 0x0c005828
+.vfp11_veneer   0x080057b4        0x0 load address 0x0c0057b4
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x08005828        0x0 load address 0x0c005828
+.v4_bx          0x080057b4        0x0 load address 0x0c0057b4
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x08005828        0x0 load address 0x0c005828
+.iplt           0x080057b4        0x0 load address 0x0c0057b4
  .iplt          0x00000000        0x0 ./Startup/startup_XMC4800.o
 
-.rel.dyn        0x08005828        0x0 load address 0x0c005828
+.rel.dyn        0x080057b4        0x0 load address 0x0c0057b4
  .rel.iplt      0x00000000        0x0 ./Startup/startup_XMC4800.o
 
 .eh_frame_hdr
@@ -2721,13 +2722,13 @@ END GROUP
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x08005828                . = ALIGN (0x4)
-                0x08005828                __exidx_start = .
+                0x080057b4                . = ALIGN (0x4)
+                0x080057b4                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x08005828                __exidx_end = .
-                0x08005828                . = ALIGN (0x4)
+                0x080057b4                __exidx_end = .
+                0x080057b4                . = ALIGN (0x4)
 
 Stack           0x1ffe8000      0x800
                 0x1ffe8000                __stack_start = .
@@ -2736,16 +2737,16 @@ Stack           0x1ffe8000      0x800
                 0x1ffe8800                __stack_end = .
                 0x1ffe8800                __initial_sp = .
 
-.ram_code       0x1ffe8800        0x0 load address 0x0c005828
+.ram_code       0x1ffe8800        0x0 load address 0x0c0057b4
                 0x1ffe8800                . = ALIGN (0x4)
                 0x1ffe8800                __ram_code_start = .
  *(.ram_code)
                 0x1ffe8800                . = ALIGN (0x4)
                 0x1ffe8800                __ram_code_end = .
-                0x0c005828                __ram_code_load = LOADADDR (.ram_code)
+                0x0c0057b4                __ram_code_load = LOADADDR (.ram_code)
                 0x00000000                __ram_code_size = (__ram_code_end - __ram_code_start)
 
-.data           0x1ffe8800       0x20 load address 0x0c005828
+.data           0x1ffe8800       0x20 load address 0x0c0057b4
                 0x1ffe8800                . = ALIGN (0x4)
                 0x1ffe8800                __data_start = .
  *(.data)
@@ -2794,15 +2795,15 @@ Stack           0x1ffe8000      0x800
                 0x1ffe8820                PROVIDE (__fini_array_end, .)
                 0x1ffe8820                . = ALIGN (0x4)
                 0x1ffe8820                __data_end = .
-                0x0c005828                __data_load = LOADADDR (.data)
+                0x0c0057b4                __data_load = LOADADDR (.data)
                 0x00000020                __data_size = (__data_end - __data_start)
-                0x00005848                __text_size = (((__exidx_end - sText) + __data_size) + __ram_code_size)
-                0x08005848                eText = (sText + __text_size)
+                0x000057d4                __text_size = (((__exidx_end - sText) + __data_size) + __ram_code_size)
+                0x080057d4                eText = (sText + __text_size)
 
-.igot.plt       0x1ffe8820        0x0 load address 0x0c005848
+.igot.plt       0x1ffe8820        0x0 load address 0x0c0057d4
  .igot.plt      0x00000000        0x0 ./Startup/startup_XMC4800.o
 
-.bss            0x1ffe8820     0x7fd8 load address 0x0c005848
+.bss            0x1ffe8820     0x7fd8 load address 0x0c0057d4
                 0x1ffe8820                . = ALIGN (0x4)
                 0x1ffe8820                __bss_start = .
  *(.bss)
@@ -2826,14 +2827,15 @@ Stack           0x1ffe8000      0x800
                 0x1ffe8830        0x4 ./kernel_interrupt.o
                 0x1ffe8830                interrupt_counter_timer
  .bss.motor_spd
-                0x1ffe8834        0x4 ./motor_data_update.o
+                0x1ffe8834        0x2 ./motor_data_update.o
                 0x1ffe8834                motor_spd
  .bss.timer_value_slow
-                0x1ffe8838        0x2 ./motor_data_update.o
-                0x1ffe8838                timer_value_slow
+                0x1ffe8836        0x2 ./motor_data_update.o
+                0x1ffe8836                timer_value_slow
  .bss.timer_value_old_slow
-                0x1ffe883a        0x2 ./motor_data_update.o
-                0x1ffe883a                timer_value_old_slow
+                0x1ffe8838        0x2 ./motor_data_update.o
+                0x1ffe8838                timer_value_old_slow
+ *fill*         0x1ffe883a        0x2 
  .bss.i_q_ref   0x1ffe883c        0x4 ./pi_regulator.o
                 0x1ffe883c                i_q_ref
  .bss.i_d_ref   0x1ffe8840        0x4 ./pi_regulator.o
@@ -2994,8 +2996,7 @@ Stack           0x1ffe8000      0x800
                 0x1fff06c4                ib_a
                 0x1fff06c8                offset_ia
                 0x1fff06cc                ic
- COMMON         0x1fff06ce        0x2 ./motor_data_update.o
-                0x1fff06ce                timer_diff
+ *fill*         0x1fff06ce        0x2 
  COMMON         0x1fff06d0       0xc8 ./pi_regulator.o
                 0x1fff06d0                position
                 0x1fff0720                current_d
@@ -3123,7 +3124,7 @@ ETH_RAM         0x20000000        0x0
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_info     0x00000000     0x7251
+.debug_info     0x00000000     0x7267
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000       0x63 ./Startup/startup_XMC4800.o
  .debug_info    0x00000063      0x928 ./Startup/system_XMC4800.o
@@ -3135,12 +3136,12 @@ ETH_RAM         0x20000000        0x0
  .debug_info    0x00004725      0x20a ./kernel_interrupt.o
  .debug_info    0x0000492f      0x145 ./main.o
  .debug_info    0x00004a74      0x3cd ./motor_data_update.o
- .debug_info    0x00004e41      0x32a ./pi_regulator.o
- .debug_info    0x0000516b      0x5cb ./probe_scope.o
- .debug_info    0x00005736      0x384 ./reference_generator.o
- .debug_info    0x00005aba      0x250 ./state_machine.o
- .debug_info    0x00005d0a      0xf88 ./timer.o
- .debug_info    0x00006c92      0x5bf ./transform.o
+ .debug_info    0x00004e41      0x340 ./pi_regulator.o
+ .debug_info    0x00005181      0x5cb ./probe_scope.o
+ .debug_info    0x0000574c      0x384 ./reference_generator.o
+ .debug_info    0x00005ad0      0x250 ./state_machine.o
+ .debug_info    0x00005d20      0xf88 ./timer.o
+ .debug_info    0x00006ca8      0x5bf ./transform.o
 
 .debug_abbrev   0x00000000     0x1080
  *(.debug_abbrev)
@@ -3161,7 +3162,7 @@ ETH_RAM         0x20000000        0x0
  .debug_abbrev  0x00000dbc      0x185 ./timer.o
  .debug_abbrev  0x00000f41      0x13f ./transform.o
 
-.debug_line     0x00000000     0x20d5
+.debug_line     0x00000000     0x20d3
  *(.debug_line)
  .debug_line    0x00000000       0x87 ./Startup/startup_XMC4800.o
  .debug_line    0x00000087      0x2a5 ./Startup/system_XMC4800.o
@@ -3172,13 +3173,13 @@ ETH_RAM         0x20000000        0x0
  .debug_line    0x00000a84      0x245 ./driver_pwm.o
  .debug_line    0x00000cc9      0x1d0 ./kernel_interrupt.o
  .debug_line    0x00000e99      0x1c6 ./main.o
- .debug_line    0x0000105f      0x1d1 ./motor_data_update.o
- .debug_line    0x00001230      0x268 ./pi_regulator.o
- .debug_line    0x00001498      0x38b ./probe_scope.o
- .debug_line    0x00001823      0x1fc ./reference_generator.o
- .debug_line    0x00001a1f      0x208 ./state_machine.o
- .debug_line    0x00001c27      0x258 ./timer.o
- .debug_line    0x00001e7f      0x256 ./transform.o
+ .debug_line    0x0000105f      0x1cb ./motor_data_update.o
+ .debug_line    0x0000122a      0x268 ./pi_regulator.o
+ .debug_line    0x00001492      0x38b ./probe_scope.o
+ .debug_line    0x0000181d      0x200 ./reference_generator.o
+ .debug_line    0x00001a1d      0x208 ./state_machine.o
+ .debug_line    0x00001c25      0x258 ./timer.o
+ .debug_line    0x00001e7d      0x256 ./transform.o
 
 .debug_frame    0x00000000      0xd60
  *(.debug_frame)
@@ -3231,7 +3232,7 @@ ETH_RAM         0x20000000        0x0
  .debug_str     0x0000147d       0x9c ./motor_data_update.o
                                 0x326 (size before relaxing)
  .debug_str     0x00001519       0xe0 ./pi_regulator.o
-                                0x333 (size before relaxing)
+                                0x345 (size before relaxing)
  .debug_str     0x000015f9      0x467 ./probe_scope.o
                                 0x670 (size before relaxing)
  .debug_str     0x00001a60      0x186 ./reference_generator.o

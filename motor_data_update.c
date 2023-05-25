@@ -10,7 +10,7 @@
 #include "timer.h"
 #include "driver_adc.h"
 
-int32_t motor_spd = 0;
+int16_t motor_spd = 0;
 uint16_t timer_value_slow = 0;
 uint16_t timer_value_old_slow = 0;
 uint16_t timer_diff;
@@ -46,30 +46,32 @@ void compute_speed(void)
 	timer_value_slow = CCU40_CC40->TIMER;
 //	motor_spd = timer_value_old_slow - timer_value_slow;
 
-	if (timer_value_slow >= timer_value_old_slow)
-	{
-		timer_diff = timer_value_slow - timer_value_old_slow;
-		if (timer_diff > (UINT16_MAX / 2))
-		{
-			motor_spd = (int16_t)(-((UINT16_MAX - timer_diff) + 1));
-		}
-		else
-		{
-			motor_spd = (int16_t)timer_diff;
-		}
-	}
-	else
-	{
-		timer_diff = timer_value_old_slow - timer_value_slow;
-		if (timer_diff > (UINT16_MAX / 2))
-		{
-			motor_spd = (int16_t)((UINT16_MAX - timer_diff) + 1);
-		}
-		else
-		{
-			motor_spd = (int16_t)(-timer_diff);
-		}
-	}
+//	if (timer_value_slow >= timer_value_old_slow)
+//	{
+//		timer_diff = timer_value_slow - timer_value_old_slow;
+//		if (timer_diff > (UINT16_MAX / 2))
+//		{
+//			motor_spd = (int16_t)(-((UINT16_MAX - timer_diff) + 1));
+//		}
+//		else
+//		{
+//			motor_spd = (int16_t)timer_diff;
+//		}
+//	}
+//	else
+//	{
+//		timer_diff = timer_value_old_slow - timer_value_slow;
+//		if (timer_diff > (UINT16_MAX / 2))
+//		{
+//			motor_spd = (int16_t)((UINT16_MAX - timer_diff) + 1);
+//		}
+//		else
+//		{
+//			motor_spd = (int16_t)(-timer_diff);
+//		}
+//	}
+
+	motor_spd = timer_value_slow - timer_value_old_slow;
 
 	timer_value_old_slow = timer_value_slow;
 }

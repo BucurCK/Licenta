@@ -34,9 +34,9 @@ float_t u_alpha, u_beta;					 // voltage for abc computation
 */
 void motor_data_init(int16_t enc_res, int8_t motor_steps)
 {
-	encoder_resolution = enc_res * 4;
-	pp = motor_steps / 4;
-	electrical_resolution = encoder_resolution / pp;
+	encoder_resolution = enc_res * 4;					//4000
+	pp = motor_steps / 4;								//25
+	electrical_resolution = encoder_resolution / pp;	//160
 }
 
 /*

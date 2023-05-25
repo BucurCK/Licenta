@@ -90,7 +90,7 @@
   41:../driver_pwm.c **** 	//	CCU80->GIDLC |= CCU8_GIDLC_SPRB_MSK;
   42:../driver_pwm.c **** 
   43:../driver_pwm.c **** 	/*
-  44:../driver_pwm.c **** 	 * CCU81 Set Up
+  44:../driver_pwm.c **** 	 * CCU81 Set Up - for stepper - needs 4 clocks
   45:../driver_pwm.c **** 	 */
   46:../driver_pwm.c **** 	/*  Reset CCU81*/
   47:../driver_pwm.c **** 	SCU_RESET->PRSET0 |= SCU_RESET_PRSET0_CCU81RS_Msk;

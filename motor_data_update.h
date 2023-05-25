@@ -7,7 +7,7 @@ extern void init_position (void);
 extern void compute_speed (void);
 
 
-extern int32_t motor_spd;
+extern int16_t motor_spd;
 extern uint16_t timer_value_old_slow;
 
 #define MAX_UINT_16		(65535U)

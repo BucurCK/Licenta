@@ -144,7 +144,7 @@
  131 000a FB80     	 strh r3,[r7,#6]
  132 000c 1346     	 mov r3,r2
  133 000e 7B71     	 strb r3,[r7,#5]
-  37:../transform.c **** 	encoder_resolution = enc_res * 4;
+  37:../transform.c **** 	encoder_resolution = enc_res * 4;					//4000
  134              	 .loc 1 37 0
  135 0010 FB88     	 ldrh r3,[r7,#6]
  136 0012 9B00     	 lsls r3,r3,#2
@@ -152,7 +152,7 @@
  138 0016 9AB2     	 uxth r2,r3
  139 0018 0D4B     	 ldr r3,.L3
  140 001a 1A80     	 strh r2,[r3]
-  38:../transform.c **** 	pp = motor_steps / 4;
+  38:../transform.c **** 	pp = motor_steps / 4;								//25
  141              	 .loc 1 38 0
  142 001c 97F90530 	 ldrsb r3,[r7,#5]
  143 0020 002B     	 cmp r3,#0
@@ -163,7 +163,7 @@
  148 0028 DAB2     	 uxtb r2,r3
  149 002a 0A4B     	 ldr r3,.L3+4
  150 002c 1A70     	 strb r2,[r3]
-  39:../transform.c **** 	electrical_resolution = encoder_resolution / pp;
+  39:../transform.c **** 	electrical_resolution = encoder_resolution / pp;	//160
  151              	 .loc 1 39 0
  152 002e 084B     	 ldr r3,.L3
  153 0030 1B88     	 ldrh r3,[r3]

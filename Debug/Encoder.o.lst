@@ -2245,7 +2245,7 @@
  366 00ce 43F00103 	 orr r3,r3,#1
  367 00d2 1360     	 str r3,[r2]
   72:../Encoder.c  **** 
-  73:../Encoder.c  **** 	/*Phase/Hal selector as INxB for the used pins*/
+  73:../Encoder.c  **** 	/*Phase/Hall selector as INxB for the used pins*/
   74:../Encoder.c  **** 	POSIF0->PCONF |= (POSIF_IN_B_MSK << POSIF_PCONF_INSEL0_POS);
  368              	 .loc 2 74 0
  369 00d4 394A     	 ldr r2,.L16+20

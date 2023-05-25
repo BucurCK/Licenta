@@ -41,7 +41,7 @@ void pwm_init(void)
 	//	CCU80->GIDLC |= CCU8_GIDLC_SPRB_MSK;
 
 	/*
-	 * CCU81 Set Up
+	 * CCU81 Set Up - for stepper - needs 4 clocks
 	 */
 	/*  Reset CCU81*/
 	SCU_RESET->PRSET0 |= SCU_RESET_PRSET0_CCU81RS_Msk;
